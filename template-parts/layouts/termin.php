@@ -26,7 +26,28 @@ $embed_code = get_sub_field( 'embed_code' );
             <?php endif; ?>
             <?php if ( $embed_code ) : ?>
             <div class="termin-embed">
-                <?php echo wp_kses_post( $embed_code ); ?>
+                <?php
+                $allowed_embed = [
+                    'iframe' => [
+                        'src'             => true,
+                        'width'           => true,
+                        'height'          => true,
+                        'frameborder'     => true,
+                        'allowfullscreen' => true,
+                        'loading'         => true,
+                        'title'           => true,
+                        'style'           => true,
+                    ],
+                    'script' => [
+                        'src'   => true,
+                        'async' => true,
+                        'defer' => true,
+                        'type'  => true,
+                        'id'    => true,
+                    ],
+                ];
+                echo wp_kses( $embed_code, $allowed_embed );
+                ?>
             </div>
             <?php endif; ?>
         </div>

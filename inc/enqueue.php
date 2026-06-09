@@ -29,33 +29,31 @@ add_action( 'wp_enqueue_scripts', function () {
 		);
 	}
 
+	// 1. kidsclub CSS
 	wp_enqueue_style( 'kidsclub', $dir . '/assets/css/kidsclub.css', [], $ver );
 
-	wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub.js', ['swiper'], $ver, true );
-
-	// Swiper.js — requis pour le slider Kundenstimmen
+	// 2. Swiper CSS
 	wp_enqueue_style(
 		'swiper',
 		'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
 		[], '11.0.0'
 	);
+
+	// 3. Swiper JS
 	wp_enqueue_script(
 		'swiper',
 		'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
 		[], '11.0.0', true
 	);
 
-	// Alpine.js — requis pour les accordéons (eltern, faq)
+	// 4. kidsclub JS (depends on swiper)
+	wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub.js', ['swiper'], $ver, true );
+
+	// 5. Alpine.js — requis pour les accordéons (eltern, faq)
 	wp_enqueue_script(
 		'alpinejs',
 		'https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js',
 		[], '3.14.0', true
 	);
+	wp_script_add_data( 'alpinejs', 'defer', true );
 }, 20 );
-
-add_filter( 'script_loader_tag', function ( $tag, $handle ) {
-	if ( 'alpinejs' === $handle ) {
-		return str_replace( '<script ', '<script defer ', $tag );
-	}
-	return $tag;
-}, 10, 2 );

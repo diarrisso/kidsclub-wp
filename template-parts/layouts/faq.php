@@ -19,6 +19,7 @@ $items   = get_sub_field( 'items' );
                 <button class="accordion-trigger"
                         @click="open === <?php echo $i; ?> ? open = null : open = <?php echo $i; ?>"
                         :aria-expanded="open === <?php echo $i; ?>"
+                        aria-controls="faq-panel-<?php echo $i; ?>"
                         type="button">
                     <span><?php echo esc_html( $item['fq_question'] ); ?></span>
                     <svg class="accordion-chevron" :class="{ 'is-open': open === <?php echo $i; ?> }"
@@ -26,7 +27,10 @@ $items   = get_sub_field( 'items' );
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
                 </button>
-                <div class="accordion-panel" x-show="open === <?php echo $i; ?>" x-transition>
+                <div class="accordion-panel"
+                     id="faq-panel-<?php echo $i; ?>"
+                     x-show="open === <?php echo $i; ?>"
+                     x-transition>
                     <p><?php echo esc_html( $item['fq_answer'] ); ?></p>
                 </div>
             </div>

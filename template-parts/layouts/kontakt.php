@@ -16,7 +16,7 @@ $form_shortcode = get_sub_field( 'form_shortcode' );
         <?php if ( $text ) : ?><p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
         <?php if ( $form_shortcode ) : ?>
         <div class="kontakt-form">
-            <?php echo do_shortcode( sanitize_text_field( $form_shortcode ) ); ?>
+            <?php echo do_shortcode( wp_kses( $form_shortcode, [] ) ); ?>
         </div>
         <?php endif; ?>
     </div>
