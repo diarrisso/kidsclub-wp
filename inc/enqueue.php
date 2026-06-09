@@ -30,4 +30,23 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'kidsclub', $dir . '/assets/css/kidsclub.css', [], $ver );
 
 	wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub.js', [], $ver, true );
+
+	// Swiper.js — requis pour le slider Kundenstimmen
+	wp_enqueue_style(
+		'swiper',
+		'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+		[], '11.0.0'
+	);
+	wp_enqueue_script(
+		'swiper',
+		'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+		[], '11.0.0', true
+	);
+
+	// Alpine.js — requis pour les accordéons (eltern, faq)
+	wp_enqueue_script(
+		'alpinejs',
+		'https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js',
+		[], '3.14.0', true
+	);
 }, 20 );
