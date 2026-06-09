@@ -103,7 +103,9 @@ p{margin:0 0 1em}
 /* ---------- LAYOUT ---------- */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
 section{position:relative}
-.section{padding:clamp(60px,8vw,112px) 0}
+.section,
+.section-ablauf,.section-eltern,.section-faq,.section-kontakt,
+.section-praxis,.section-stimmen,.section-team,.section-termin{padding:clamp(60px,8vw,112px) 0}
 .section-head{max-width:760px;margin-bottom:clamp(34px,5vw,58px)}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:14px}
@@ -304,14 +306,23 @@ section{position:relative}
 .praxis-gallery__item:first-child{grid-column:span 2;grid-row:span 2}
 
 /* ---------- TEAM ---------- */
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.member{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.member:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.member image-slot{width:100%;height:280px}
-.member-body{padding:22px 22px 26px}
-.member h3{margin:0 0 3px;font-size:1.22rem}
-.member .role{color:var(--magenta);font-weight:800;font-size:.95rem;margin-bottom:10px}
-.member .fun{color:var(--ink-soft);font-size:.95rem;margin:0;font-weight:500}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.team-card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
+  transition:transform .32s var(--ease),box-shadow .32s var(--ease);border-top:4px solid transparent}
+.team-card:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:var(--shadow)}
+.team-card:nth-child(5n+1){border-top-color:var(--room-green)}
+.team-card:nth-child(5n+2){border-top-color:var(--room-yellow)}
+.team-card:nth-child(5n+3){border-top-color:var(--room-orange)}
+.team-card:nth-child(5n+4){border-top-color:var(--room-blue)}
+.team-card:nth-child(5n+5){border-top-color:var(--room-lila)}
+.team-card__img{width:100%;height:260px;overflow:hidden}
+.team-card__img img{width:100%;height:100%;object-fit:cover;object-position:top center;
+  transition:transform .4s var(--ease)}
+.team-card:hover .team-card__img img{transform:scale(1.07)}
+.team-card__body{padding:20px 22px 26px}
+.team-card__body h3{margin:0 0 3px;font-size:1.12rem}
+.team-card__role{color:var(--magenta);font-weight:800;font-size:.9rem;margin:0 0 10px}
+.team-card__body p{margin:0;color:var(--ink-soft);font-size:.92rem;font-weight:500;line-height:1.55}
 
 /* ---------- ELTERN ---------- */
 .eltern-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}

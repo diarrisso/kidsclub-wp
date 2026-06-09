@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'wp_enqueue_scripts', function () {
 
 	$dir = get_stylesheet_directory_uri();
-	$ver = '1.0.2'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+	$ver = '1.0.3'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 
 	/*
 	 * SCHRIFTEN — BEST PRACTICE (DSGVO):
