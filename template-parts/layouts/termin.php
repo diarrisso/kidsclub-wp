@@ -27,6 +27,8 @@ $embed_code = get_sub_field( 'embed_code' );
             <?php if ( $embed_code ) : ?>
             <div class="termin-embed">
                 <?php
+                // iframe-only allowlist — <script> intentionally excluded (XSS risk).
+                // Booking tools like Doctolib provide an <iframe> embed option.
                 $allowed_embed = [
                     'iframe' => [
                         'src'             => true,
@@ -37,13 +39,6 @@ $embed_code = get_sub_field( 'embed_code' );
                         'loading'         => true,
                         'title'           => true,
                         'style'           => true,
-                    ],
-                    'script' => [
-                        'src'   => true,
-                        'async' => true,
-                        'defer' => true,
-                        'type'  => true,
-                        'id'    => true,
                     ],
                 ];
                 echo wp_kses( $embed_code, $allowed_embed );
