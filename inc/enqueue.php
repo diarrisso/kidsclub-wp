@@ -21,15 +21,17 @@ add_action( 'wp_enqueue_scripts', function () {
 	 *
 	 * Nur für die Entwicklung / Abnahme (NICHT produktiv ohne Consent):
 	 */
-	wp_enqueue_style(
-		'kidsclub-fonts-dev',
-		'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap',
-		[], null
-	);
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		wp_enqueue_style(
+			'kidsclub-fonts-dev',
+			'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap',
+			[], null
+		);
+	}
 
 	wp_enqueue_style( 'kidsclub', $dir . '/assets/css/kidsclub.css', [], $ver );
 
-	wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub.js', [], $ver, true );
+	wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub.js', ['swiper'], $ver, true );
 
 	// Swiper.js — requis pour le slider Kundenstimmen
 	wp_enqueue_style(
@@ -50,3 +52,10 @@ add_action( 'wp_enqueue_scripts', function () {
 		[], '3.14.0', true
 	);
 }, 20 );
+
+add_filter( 'script_loader_tag', function ( $tag, $handle ) {
+	if ( 'alpinejs' === $handle ) {
+		return str_replace( '<script ', '<script defer ', $tag );
+	}
+	return $tag;
+}, 10, 2 );
