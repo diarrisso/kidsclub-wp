@@ -230,12 +230,11 @@ git add -A && git commit -m "feat: theme structure setup — style.css, function
 
 **Prérequis :** Avoir le fichier `.zip` ACF Pro disponible localement.
 
-- [ ] **Step 3.1 : Décompresser ACF Pro dans les plugins**
+- [ ] **Step 3.1 : Copier ACF Pro dans les plugins (dossier déjà décompressé)**
 
 ```bash
-# Remplace /chemin/vers/advanced-custom-fields-pro.zip par le chemin réel du zip
-unzip /chemin/vers/advanced-custom-fields-pro.zip \
-      -d /Users/mdiarrisso/PhpstormProjects/kidsclub-wp/wp-content/plugins/
+cp -r /Users/mdiarrisso/Downloads/advanced-custom-fields-pro \
+      /Users/mdiarrisso/PhpstormProjects/kidsclub-wp/wp-content/plugins/advanced-custom-fields-pro
 ```
 
 - [ ] **Step 3.2 : Activer ACF Pro via WP-CLI**
