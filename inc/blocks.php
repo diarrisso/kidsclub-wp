@@ -126,17 +126,204 @@ add_action( 'acf/init', function () {
 					],
 				],
 
-				/*
-				 * WEITERE LAYOUTS nach demselben Muster ergänzen:
-				 * 'layout_ablauf'  => Erster Besuch (Steps-Repeater)
-				 * 'layout_praxis'  => Galerie (ACF gallery)
-				 * 'layout_team'    => Behandler (Repeater: Foto, Name, Rolle, Text)
-				 * 'layout_eltern'  => Für Eltern (Repeater)
-				 * 'layout_stimmen' => Kundenstimmen (Repeater)
-				 * 'layout_faq'     => FAQ (Repeater: Frage, Antwort)
-				 * 'layout_termin'  => Termin (QR-Bild + Buchungs-Embed-Code)
-				 * 'layout_kontakt' => Kontakt (Formular-Shortcode, z. B. CF7)
-				 */
+				/* ---------- ABLAUF ---------- */
+				'layout_ablauf' => [
+					'key'        => 'layout_ablauf',
+					'name'       => 'ablauf',
+					'label'      => 'Erster Besuch (Ablauf)',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'abl_title',   'Überschrift', 'text' ),
+						kc_field( 'abl_text',    'Einleitung', 'textarea' ),
+						[
+							'key'          => 'field_kc_abl_items',
+							'label'        => 'Schritte',
+							'name'         => 'items',
+							'type'         => 'repeater',
+							'layout'       => 'block',
+							'button_label' => 'Schritt hinzufügen',
+							'sub_fields'   => [
+								kc_field( 'abl_nr',      'Nummer',       'text' ),
+								kc_field( 'abl_heading', 'Titel',        'text' ),
+								kc_field( 'abl_body',    'Beschreibung', 'textarea' ),
+							],
+						],
+					],
+				],
+
+				/* ---------- PRAXIS ---------- */
+				'layout_praxis' => [
+					'key'        => 'layout_praxis',
+					'name'       => 'praxis',
+					'label'      => 'Praxis-Galerie',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'prx_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'prx_title',   'Überschrift', 'text' ),
+						[
+							'key'          => 'field_kc_prx_gallery',
+							'label'        => 'Bilder',
+							'name'         => 'gallery',
+							'type'         => 'gallery',
+							'instructions' => 'Fotos der Praxis (WebP empfohlen)',
+							'min'          => 1,
+						],
+						[
+							'key'          => 'field_kc_prx_chips',
+							'label'        => 'Filter-Chips',
+							'name'         => 'chips',
+							'type'         => 'repeater',
+							'layout'       => 'table',
+							'button_label' => 'Chip hinzufügen',
+							'sub_fields'   => [
+								kc_field( 'prx_chip_label', 'Label', 'text' ),
+							],
+						],
+					],
+				],
+
+				/* ---------- TEAM ---------- */
+				'layout_team' => [
+					'key'        => 'layout_team',
+					'name'       => 'team',
+					'label'      => 'Team / Behandler',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'tm_title',   'Überschrift', 'text' ),
+						[
+							'key'          => 'field_kc_tm_members',
+							'label'        => 'Teammitglieder',
+							'name'         => 'members',
+							'type'         => 'repeater',
+							'layout'       => 'block',
+							'button_label' => 'Teammitglied hinzufügen',
+							'sub_fields'   => [
+								[ 'key' => 'field_kc_tm_photo', 'label' => 'Foto',  'name' => 'photo', 'type' => 'image' ],
+								kc_field( 'tm_name', 'Name', 'text' ),
+								kc_field( 'tm_role', 'Rolle', 'text' ),
+								kc_field( 'tm_bio',  'Kurztext', 'textarea' ),
+							],
+						],
+					],
+				],
+
+				/* ---------- ELTERN ---------- */
+				'layout_eltern' => [
+					'key'        => 'layout_eltern',
+					'name'       => 'eltern',
+					'label'      => 'Für Eltern',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'el_title',   'Überschrift', 'text' ),
+						kc_field( 'el_text',    'Einleitung', 'textarea' ),
+						[
+							'key'          => 'field_kc_el_items',
+							'label'        => 'FAQ-Punkte',
+							'name'         => 'items',
+							'type'         => 'repeater',
+							'layout'       => 'block',
+							'button_label' => 'Punkt hinzufügen',
+							'sub_fields'   => [
+								kc_field( 'el_icon',     'Icon-Slug', 'text' ),
+								kc_field( 'el_question', 'Frage', 'text' ),
+								kc_field( 'el_answer',   'Antwort', 'textarea' ),
+							],
+						],
+					],
+				],
+
+				/* ---------- STIMMEN ---------- */
+				'layout_stimmen' => [
+					'key'        => 'layout_stimmen',
+					'name'       => 'stimmen',
+					'label'      => 'Kundenstimmen',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'st_title',   'Überschrift', 'text' ),
+						[
+							'key'          => 'field_kc_st_items',
+							'label'        => 'Bewertungen',
+							'name'         => 'items',
+							'type'         => 'repeater',
+							'layout'       => 'block',
+							'button_label' => 'Bewertung hinzufügen',
+							'sub_fields'   => [
+								kc_field( 'st_quote', 'Zitat',  'textarea' ),
+								kc_field( 'st_name',  'Name',   'text' ),
+								kc_field( 'st_role',  'Rolle',  'text' ),
+							],
+						],
+					],
+				],
+
+				/* ---------- FAQ ---------- */
+				'layout_faq' => [
+					'key'        => 'layout_faq',
+					'name'       => 'faq',
+					'label'      => 'FAQ',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'fq_title',   'Überschrift', 'text' ),
+						[
+							'key'          => 'field_kc_fq_items',
+							'label'        => 'Fragen & Antworten',
+							'name'         => 'items',
+							'type'         => 'repeater',
+							'layout'       => 'block',
+							'button_label' => 'Frage hinzufügen',
+							'sub_fields'   => [
+								kc_field( 'fq_question', 'Frage',   'text' ),
+								kc_field( 'fq_answer',   'Antwort', 'textarea' ),
+							],
+						],
+					],
+				],
+
+				/* ---------- TERMIN ---------- */
+				'layout_termin' => [
+					'key'        => 'layout_termin',
+					'name'       => 'termin',
+					'label'      => 'Termin buchen',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
+						kc_field( 'tr_title',   'Überschrift', 'text' ),
+						kc_field( 'tr_text',    'Text', 'textarea' ),
+						[ 'key' => 'field_kc_tr_qr',    'label' => 'QR-Code Bild',        'name' => 'qr_image',   'type' => 'image' ],
+						[
+							'key'          => 'field_kc_tr_embed',
+							'label'        => 'Buchungs-Embed-Code',
+							'name'         => 'embed_code',
+							'type'         => 'textarea',
+							'instructions' => 'iframe oder Script-Tag des Buchungs-Tools (z. B. Doctolib).',
+						],
+					],
+				],
+
+				/* ---------- KONTAKT ---------- */
+				'layout_kontakt' => [
+					'key'        => 'layout_kontakt',
+					'name'       => 'kontakt',
+					'label'      => 'Kontakt',
+					'display'    => 'block',
+					'sub_fields' => [
+						kc_field( 'kt_eyebrow',   'Eyebrow', 'text' ),
+						kc_field( 'kt_title',     'Überschrift', 'text' ),
+						kc_field( 'kt_text',      'Text', 'textarea' ),
+						[
+							'key'          => 'field_kc_kt_shortcode',
+							'label'        => 'Formular-Shortcode',
+							'name'         => 'form_shortcode',
+							'type'         => 'text',
+							'instructions' => 'z. B. [contact-form-7 id="123" title="Kontakt"]',
+						],
+					],
+				],
 			],
 		] ],
 	] );

@@ -75,3 +75,15 @@
     track.innerHTML = unit.repeat(10);
   }
 })();
+
+// Kundenstimmen Swiper
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.querySelector('.stimmen-swiper')) {
+        new Swiper('.stimmen-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            pagination: { el: '.stimmen-swiper__pagination', clickable: true },
+            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+        });
+    }
+});
