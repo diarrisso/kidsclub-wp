@@ -77,9 +77,9 @@ add_action( 'acf/init', function () {
 					'label'      => 'Leistungsspektrum',
 					'display'    => 'block',
 					'sub_fields' => [
-						kc_field( 'eyebrow', 'Eyebrow', 'text' ),
-						kc_field( 'title', 'Überschrift', 'text' ),
-						kc_field( 'text', 'Einleitung', 'textarea' ),
+						[ 'key' => 'field_kc_ls_eyebrow', 'label' => 'Eyebrow',    'name' => 'eyebrow', 'type' => 'text' ],
+						[ 'key' => 'field_kc_ls_title',   'label' => 'Überschrift', 'name' => 'title',   'type' => 'text' ],
+						[ 'key' => 'field_kc_ls_text',    'label' => 'Einleitung',  'name' => 'text',    'type' => 'textarea' ],
 						[
 							'key'        => 'field_kc_leistungen_items',
 							'label'      => 'Leistungen',
@@ -103,9 +103,9 @@ add_action( 'acf/init', function () {
 					'label'      => '5 Zimmer',
 					'display'    => 'block',
 					'sub_fields' => [
-						kc_field( 'eyebrow', 'Eyebrow', 'text' ),
-						kc_field( 'title', 'Überschrift', 'text' ),
-						kc_field( 'text', 'Einleitung', 'textarea' ),
+						[ 'key' => 'field_kc_zm_eyebrow', 'label' => 'Eyebrow',    'name' => 'eyebrow', 'type' => 'text' ],
+						[ 'key' => 'field_kc_zm_title',   'label' => 'Überschrift', 'name' => 'title',   'type' => 'text' ],
+						[ 'key' => 'field_kc_zm_text',    'label' => 'Einleitung',  'name' => 'text',    'type' => 'textarea' ],
 						[
 							'key'        => 'field_kc_zimmer_rooms',
 							'label'      => 'Zimmer',
