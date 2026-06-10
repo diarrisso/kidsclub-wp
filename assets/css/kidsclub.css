@@ -617,3 +617,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Team — Gruppentitel (Funktion-Taxonomie) */
 .team-group__title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.25rem,2vw,1.6rem);color:var(--navy);margin:40px 0 18px}
 .team-group__title:first-of-type{margin-top:0}
+
+/* Fix: le height:100% du vendor .swiper-wrapper se resout contre un bloc
+   englobant errone -> slides geants vides. height:auto laisse le contenu
+   dicter la hauteur ; les cards restent egalisees par le flex stretch. */
+.stimmen-swiper .swiper-wrapper{height:auto}
