@@ -74,6 +74,31 @@
     var unit = '<span class="m">' + heart + tooth + star + arch + dot + '</span>';
     track.innerHTML = unit.repeat(10);
   }
+
+  // Hero cinematic video reveal
+  var heroSection = document.querySelector('.hero[data-media="video"]');
+  if (heroSection) {
+    var heroVideo = heroSection.querySelector('.hero-video');
+
+    function revealHero() {
+      heroSection.classList.add('hero--revealed');
+    }
+
+    // Mobile < 768px or reduced-motion: remove video element (stops network fetch), reveal immediately
+    if (window.innerWidth < 768 ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (heroVideo) heroVideo.remove();
+      revealHero();
+    } else if (!heroVideo) {
+      revealHero();
+    } else {
+      // 3s hard cap: text never hidden longer than this (covers autoplay-blocked + stall)
+      setTimeout(revealHero, 3000);
+      // Normal path: video ends → reveal (idempotent with timer)
+      heroVideo.addEventListener('ended', revealHero, { once: true });
+      heroVideo.addEventListener('error', revealHero, { once: true });
+    }
+  }
 })();
 
 // Kundenstimmen Swiper

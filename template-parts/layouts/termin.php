@@ -41,7 +41,13 @@ $embed_code = get_sub_field( 'embed_code' );
                         'style'           => true,
                     ],
                 ];
-                echo wp_kses( $embed_code, $allowed_embed );
+                $embed_html = wp_kses( $embed_code, $allowed_embed );
+
+                if ( kc_embed_hosts_allowed( $embed_html ) ) {
+                    echo $embed_html;
+                } elseif ( current_user_can( 'edit_pages' ) ) {
+                    echo '<p class="termin-embed__error">⚠️ Embed-Code abgelehnt: nur Doctolib-iframes (https://…doctolib.de/.fr) sind erlaubt. (Hinweis nur für Redakteure sichtbar.)</p>';
+                }
                 ?>
             </div>
             <?php endif; ?>

@@ -15,9 +15,10 @@ $brand = $logo
 	? '<img src="' . esc_url( $logo['url'] ) . '" alt="' . esc_attr( $logo['alt'] ?: 'Kids Club by zacp' ) . '" style="height:48px;width:auto">'
 	: $arch . '<span class="brand-name">Kids Club<small>by zacp</small></span>';
 
-$nav = get_field( 'header_nav', 'option' ) ?: [];
+$nav           = get_field( 'header_nav', 'option' ) ?: [];
+$section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?> data-bg="rosa" data-heads="rund" data-hearts="on" data-shapes="on">
+<html <?php language_attributes(); ?> data-bg="rosa" data-heads="rund" data-hearts="on" data-shapes="on" data-section-align="<?php echo esc_attr( $section_align ); ?>">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +26,8 @@ $nav = get_field( 'header_nav', 'option' ) ?: [];
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+
+<a class="skip-link" href="#top">Zum Inhalt springen</a>
 
 <header class="site-header" id="header">
 	<div class="container nav">

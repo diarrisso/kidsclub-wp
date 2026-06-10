@@ -1,0 +1,50 @@
+name: Deploy — Mittwald via rsync
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy theme to production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Load SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.MITTWALD_SSH_KEY }}
+
+      - name: Add server to known_hosts
+        env:
+          SSH_HOST: ${{ secrets.MITTWALD_SSH_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy theme via rsync
+        env:
+          SSH_HOST: ${{ secrets.MITTWALD_SSH_HOST }}
+          SSH_USER: ${{ secrets.MITTWALD_SSH_USER }}
+          THEME_PATH: ${{ secrets.MITTWALD_THEME_PATH }}
+        run: |
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='docs' \
+            --exclude='*.md' \
+            ./ "$SSH_USER@$SSH_HOST:$THEME_PATH/"
+
+      - name: Flush WordPress cache
+        env:
+          SSH_HOST: ${{ secrets.MITTWALD_SSH_HOST }}
+          SSH_USER: ${{ secrets.MITTWALD_SSH_USER }}
+          THEME_PATH: ${{ secrets.MITTWALD_THEME_PATH }}
+        run: |
+          WP_ROOT=$(dirname "$(dirname "$THEME_PATH")")
+          ssh "$SSH_USER@$SSH_HOST" \
+            "cd '$WP_ROOT' && wp cache flush --allow-root 2>/dev/null || true"

@@ -1,0 +1,51 @@
+name: CI — PHP Syntax Check
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [develop]
+
+jobs:
+  php-syntax:
+    name: PHP Syntax (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ["8.4"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: none
+          coverage: none
+
+      - name: Check PHP syntax (all *.php files)
+        run: |
+          echo "Checking PHP syntax..."
+          find . \
+            -not -path './.git/*' \
+            -name '*.php' \
+            -print0 \
+          | xargs -0 -n1 php -l \
+          | grep -v "^No syntax errors" || true
+
+          ERRORS=$(find . \
+            -not -path './.git/*' \
+            -name '*.php' \
+            -print0 \
+          | xargs -0 -n1 php -l 2>&1 \
+          | grep -v "^No syntax errors" \
+          | grep -c "Parse error\|Fatal error" || true)
+
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "❌ Found $ERRORS PHP syntax error(s)"
+            exit 1
+          fi
+          echo "✅ All PHP files are syntax-clean"

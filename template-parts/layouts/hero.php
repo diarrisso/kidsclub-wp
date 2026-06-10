@@ -2,29 +2,46 @@
 /**
  * Layout: Hero (Banner) mit animierten Kindern.
  * Felder: hero_eyebrow, hero_title, hero_highlight, hero_text,
- *         hero_bg (image), hero_anim (select), hero_show_kids (bool)
+ *         hero_bg (image / poster), hero_media_type (image|video),
+ *         hero_video (file), hero_anim (select), hero_show_kids (bool)
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$anim      = get_sub_field( 'hero_anim' ) ?: 'winken';
-$show_kids = get_sub_field( 'hero_show_kids' );
-$bg        = get_sub_field( 'hero_bg' );
-$bg_url    = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
-                 : esc_url( get_theme_file_uri( 'assets/img/hero-banner-bg.svg' ) );
+$anim       = get_sub_field( 'hero_anim' ) ?: 'winken';
+$show_kids  = get_sub_field( 'hero_show_kids' );
+$bg         = get_sub_field( 'hero_bg' );
+$media_type = get_sub_field( 'hero_media_type' ) ?: 'image';
+$hero_video = ( $media_type === 'video' ) ? get_sub_field( 'hero_video' ) : null;
+$video_url  = ( $hero_video && ! empty( $hero_video['url'] ) ) ? esc_url( $hero_video['url'] ) : '';
+
+$bg_url = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
+               : esc_url( get_theme_file_uri( 'assets/img/hero-banner-bg.svg' ) );
+
+$is_video = ( $media_type === 'video' && $video_url );
 ?>
-<section class="hero hero-banner" data-anim="<?php echo esc_attr( $anim ); ?>">
+<section class="hero hero-banner"
+         data-anim="<?php echo esc_attr( $anim ); ?>"
+         <?php if ( $is_video ) : ?>data-media="video"<?php endif; ?>>
 
 	<div class="hero-bg" role="img"
 	     aria-label="<?php echo esc_attr( $bg['alt'] ?? 'Kids Club' ); ?>"
-	     style="position:absolute;inset:0;background:url('<?php echo $bg_url; ?>') center/cover no-repeat;"></div>
+	     style="background:url('<?php echo $bg_url; ?>') center/cover no-repeat;">
+		<?php if ( $is_video ) : ?>
+		<video class="hero-video" autoplay muted playsinline preload="none"
+		       poster="<?php echo esc_attr( $bg_url ); ?>"
+		       aria-hidden="true">
+			<source src="<?php echo $video_url; ?>" type="video/mp4">
+		</video>
+		<?php endif; ?>
+	</div>
 
-	<?php if ( $show_kids ) get_template_part( 'template-parts/partials/kids-svg' ); ?>
+	<?php if ( $show_kids && ! $is_video ) get_template_part( 'template-parts/partials/kids-svg' ); ?>
 
 	<div class="hero-marquee" aria-hidden="true"><div class="marquee-track"></div></div>
 
 	<div class="hero-scrim"></div>
 
-	<div class="container hero-banner-inner reveal">
+	<div class="container hero-banner-inner<?php if ( ! $is_video ) echo ' reveal'; ?>">
 		<?php if ( $eb = get_sub_field( 'hero_eyebrow' ) ) : ?>
 			<span class="eyebrow"><?php echo esc_html( $eb ); ?></span>
 		<?php endif; ?>
