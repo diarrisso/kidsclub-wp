@@ -412,7 +412,7 @@ add_action("acf/init", function () {
                                 "name" => "embed_code",
                                 "type" => "textarea",
                                 "instructions" =>
-                                    "iframe oder Script-Tag des Buchungs-Tools (z. B. Doctolib).",
+                                    "Nur Doctolib-iframe (https://…doctolib.de oder .fr). Script-Tags und andere Domains werden aus Sicherheitsgründen blockiert.",
                             ],
                         ],
                     ],
