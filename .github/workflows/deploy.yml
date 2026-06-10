@@ -1,4 +1,7 @@
-name: Deploy — Mittwald via rsync
+name: Deploy — Mittwald via tar+scp
+
+# Mittwald n'a PAS rsync sur le serveur (verifie 2026-06-10).
+# Meme approche que deploy-scp.sh : archive tar locale → scp → extraction distante.
 
 on:
   push:
@@ -25,19 +28,29 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
 
-      - name: Deploy theme via rsync
+      - name: Deploy theme via tar+scp
         env:
           SSH_HOST: ${{ secrets.MITTWALD_SSH_HOST }}
           SSH_USER: ${{ secrets.MITTWALD_SSH_USER }}
           THEME_PATH: ${{ secrets.MITTWALD_THEME_PATH }}
         run: |
-          rsync -avz --delete \
+          ARCHIVE="/tmp/theme-deploy.tar.gz"
+          tar -czf "$ARCHIVE" \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='node_modules' \
             --exclude='docs' \
             --exclude='*.md' \
-            ./ "$SSH_USER@$SSH_HOST:$THEME_PATH/"
+            --exclude='.DS_Store' \
+            .
+          scp "$ARCHIVE" "$SSH_USER@$SSH_HOST:/tmp/theme-deploy.tar.gz"
+          ssh "$SSH_USER@$SSH_HOST" "
+            mkdir -p '$THEME_PATH' &&
+            tar -xzf /tmp/theme-deploy.tar.gz -C '$THEME_PATH' &&
+            rm /tmp/theme-deploy.tar.gz &&
+            find '$THEME_PATH' -type d -exec chmod 755 {} \; &&
+            find '$THEME_PATH' -type f -exec chmod 644 {} \;
+          "
 
       - name: Flush WordPress cache
         env:
@@ -47,4 +60,4 @@ jobs:
         run: |
           WP_ROOT=$(dirname "$(dirname "$THEME_PATH")")
           ssh "$SSH_USER@$SSH_HOST" \
-            "cd '$WP_ROOT' && wp cache flush --allow-root 2>/dev/null || true"
+            "cd '$WP_ROOT' && wp cache flush 2>/dev/null || true"
