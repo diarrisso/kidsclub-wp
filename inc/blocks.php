@@ -260,59 +260,10 @@ add_action(
 									kc_field( 'prx_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'prx_title', 'Überschrift', 'text' ),
 									[
-										'key'          => 'field_kc_prx_cats',
-										'label'        => 'Kategorien (Filter-Chips)',
-										'name'         => 'prx_cats',
-										'type'         => 'repeater',
-										'layout'       => 'table',
-										'button_label' => 'Kategorie hinzufügen',
-										'instructions' =>
-											'Definiert die Filter-Chips. Nach dem Hinzufügen einer neuen Kategorie SPEICHERN — erst dann ist sie bei den Fotos auswählbar.',
-										'sub_fields'   => [
-											[
-												'key'   => 'field_kc_prx_cat_label',
-												'label' => 'Name',
-												'name'  => 'label',
-												'type'  => 'text',
-											],
-										],
-									],
-									[
-										'key'          => 'field_kc_prx_photos',
-										'label'        => 'Fotos',
-										'name'         => 'prx_photos',
-										'type'         => 'repeater',
-										'layout'       => 'table',
-										'button_label' => 'Foto hinzufügen',
-										'instructions' =>
-											'Jedes Foto einer Kategorie zuordnen (WebP empfohlen). Das erste Foto wird in der Ansicht "Alle" groß dargestellt.',
-										'sub_fields'   => [
-											[
-												'key'   => 'field_kc_prx_photo_img',
-												'label' => 'Bild',
-												'name'  => 'img',
-												'type'  => 'image',
-												'return_format' => 'array',
-												'preview_size' => 'thumbnail',
-											],
-											[
-												'key'     => 'field_kc_prx_photo_cat',
-												'label'   => 'Kategorie',
-												'name'    => 'cat',
-												'type'    => 'select',
-												'choices' => [],
-												'allow_null' => 1,
-												'instructions' =>
-													'Auswahl = gespeicherte Kategorien.',
-											],
-										],
-									],
-									/* Legacy — wird nach der Migration entfernt */
-									[
-										'key'   => 'field_kc_prx_gallery',
-										'label' => 'Bilder (veraltet — bitte "Fotos" oben nutzen)',
-										'name'  => 'gallery',
-										'type'  => 'gallery',
+										'key'     => 'field_kc_prx_hinweis',
+										'label'   => 'Fotos & Kategorien',
+										'type'    => 'message',
+										'message' => 'Die Fotos werden im Menü <strong>Praxis-Galerie</strong> gepflegt (Foto = Beitragsbild, Filter-Chips = Bereiche, Reihenfolge = Attribut Reihenfolge).',
 									],
 								],
 							],
@@ -495,58 +446,3 @@ function kc_field( $name, $label, $type ) {
 		'type'  => $type,
 	];
 }
-
-/**
- * Foto-Kategorie-Select dynamisch aus den gespeicherten Kategorien
- * (prx_cats) befüllen. Rohe Postmeta-Lektüre — kein get_field(),
- * sonst Rekursion über acf/load_field.
- */
-add_filter(
-	'acf/load_field/key=field_kc_prx_photo_cat',
-	function ( $field ) {
-		$post_id = 0;
-		if ( is_admin() ) {
-			// Lecture seule de l'ID du post édité pour remplir les choices — pas de traitement de formulaire.
-			// phpcs:disable WordPress.Security.NonceVerification
-			if ( isset( $_GET['post'] ) ) {
-				$post_id = (int) $_GET['post'];
-			} elseif ( isset( $_POST['post_ID'] ) ) {
-				$post_id = (int) $_POST['post_ID'];
-			}
-			// phpcs:enable WordPress.Security.NonceVerification
-		} else {
-			$post_id = get_the_ID() ?: 0;
-		}
-		if ( ! $post_id ) {
-			return $field;
-		}
-
-		$sections = get_post_meta( $post_id, 'sections', true );
-		if ( ! is_array( $sections ) ) {
-			return $field;
-		}
-
-		$choices = [];
-		foreach ( $sections as $i => $layout ) {
-			if ( 'praxis' !== $layout ) {
-				continue;
-			}
-			$count = (int) get_post_meta( $post_id, "sections_{$i}_prx_cats", true );
-			for ( $j = 0; $j < $count; $j++ ) {
-				$label = get_post_meta(
-					$post_id,
-					"sections_{$i}_prx_cats_{$j}_label",
-					true,
-				);
-				if ( $label ) {
-					$choices[ sanitize_title( $label ) ] = $label;
-				}
-			}
-		}
-
-		if ( $choices ) {
-			$field['choices'] = $choices;
-		}
-		return $field;
-	}
-);
