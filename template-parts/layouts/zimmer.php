@@ -15,13 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 			</div>
 
 			<div class="rooms-grid">
-				<?php while ( have_rows( 'rooms' ) ) : the_row();
+				<?php $rn = 0; while ( have_rows( 'rooms' ) ) : the_row();
+					$rn++;
 					$c = get_sub_field( 'color' ); // g | y | o | b | l
 				?>
 					<div class="room <?php echo esc_attr( $c ); ?>">
+						<span class="room-nr"><?php echo sprintf( '%02d', $rn ); ?></span>
 						<span class="rh"><?php echo kc_icon( 'room_' . $c ); ?></span>
 						<b><?php echo esc_html( get_sub_field( 'name' ) ); ?></b>
-						<span><?php echo esc_html( get_sub_field( 'theme' ) ); ?></span>
+						<span class="room-motto"><?php echo esc_html( get_sub_field( 'theme' ) ); ?></span>
 					</div>
 				<?php endwhile; ?>
 			</div>

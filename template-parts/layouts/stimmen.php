@@ -19,7 +19,7 @@ $items   = get_sub_field( 'items' );
                 <div class="swiper-slide stimmen-card" role="group"
                      aria-label="Bewertung <?php echo absint( $i + 1 ); ?> von <?php echo absint( count( $items ) ); ?>">
                     <blockquote class="stimmen-quote">
-                        <p>&ldquo;<?php echo esc_html( $item['st_quote'] ); ?>&rdquo;</p>
+                        <p><?php echo esc_html( $item['st_quote'] ); ?></p>
                         <footer class="stimmen-author">
                             <strong><?php echo esc_html( $item['st_name'] ); ?></strong>
                             <?php if ( $item['st_role'] ) : ?>

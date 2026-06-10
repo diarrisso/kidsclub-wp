@@ -72,6 +72,13 @@ add_action( 'acf/init', function () {
 			  ] ],
 			[ 'key'=>'f_copy','label'=>'Copyright-Zeile','name'=>'footer_copyright','type'=>'text',
 			  'default_value'=>'Kids Club by zacp · Alle Rechte vorbehalten.' ],
+
+			/* ===== DESIGN ===== */
+			[ 'key'=>'tab_design','label'=>'Design','type'=>'tab' ],
+			[ 'key'=>'f_section_align','label'=>'Ausrichtung der Abschnitte','name'=>'section_alignment','type'=>'select',
+			  'instructions'=>'Zentriert: Titel, Eyebrow und Lead-Text werden mittig ausgerichtet. Links: alles linksbündig.',
+			  'choices'=>[ 'left'=>'Links (Standard)','center'=>'Zentriert' ],
+			  'default_value'=>'left','return_format'=>'value' ],
 		],
 	] );
 } );
