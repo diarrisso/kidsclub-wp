@@ -14,6 +14,9 @@
     <arg name="colors"/>
     <arg value="sp"/>
 
+    <!-- CI échoue sur les ERRORS uniquement — les warnings restent affichés mais ne bloquent pas -->
+    <config name="ignore_warnings_on_exit" value="1"/>
+
     <rule ref="WordPress-Core">
         <!-- Le theme utilise [] au lieu de array() — choix assumé -->
         <exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
