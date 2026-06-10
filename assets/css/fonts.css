@@ -1,0 +1,21 @@
+/* Kids Club — selbst gehostete Schriften (DSGVO: keine IP an Google).
+   Quelle: gwfh.mranftl.com — woff2 only (97%+ Browser-Support).
+   font-display:swap = Text sofort sichtbar mit Fallback, kein FOIT. */
+
+/* Fredoka — Display/Headings */
+@font-face{font-family:'Fredoka';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/fredoka-v17-latin-regular.woff2') format('woff2')}
+@font-face{font-family:'Fredoka';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/fredoka-v17-latin-500.woff2') format('woff2')}
+@font-face{font-family:'Fredoka';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/fredoka-v17-latin-600.woff2') format('woff2')}
+@font-face{font-family:'Fredoka';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/fredoka-v17-latin-700.woff2') format('woff2')}
+
+/* Caveat — Marker/Eyebrow */
+@font-face{font-family:'Caveat';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/caveat-v23-latin-500.woff2') format('woff2')}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/caveat-v23-latin-600.woff2') format('woff2')}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/caveat-v23-latin-700.woff2') format('woff2')}
+
+/* Nunito — Body */
+@font-face{font-family:'Nunito';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/nunito-v32-latin-500.woff2') format('woff2')}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/nunito-v32-latin-600.woff2') format('woff2')}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/nunito-v32-latin-700.woff2') format('woff2')}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/nunito-v32-latin-800.woff2') format('woff2')}
+@font-face{font-family:'Nunito';font-style:normal;font-weight:900;font-display:swap;src:url('../fonts/nunito-v32-latin-900.woff2') format('woff2')}

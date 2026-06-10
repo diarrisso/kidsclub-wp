@@ -22,6 +22,8 @@ $members = get_sub_field( 'members' );
                 <div class="team-card__img">
                     <img src="<?php echo esc_url( $photo['sizes']['medium'] ?? $photo['url'] ); ?>"
                          alt="<?php echo esc_attr( $photo['alt'] ?: $member['tm_name'] ); ?>"
+                         width="<?php echo absint( $photo['sizes']['medium-width'] ?? $photo['width'] ); ?>"
+                         height="<?php echo absint( $photo['sizes']['medium-height'] ?? $photo['height'] ); ?>"
                          loading="lazy">
                 </div>
                 <?php endif; ?>

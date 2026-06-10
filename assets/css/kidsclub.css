@@ -124,6 +124,11 @@ section{position:relative}
 .kontakt-inner.kontakt-inner--form-only{grid-template-columns:1fr}
 .kontakt-inner.kontakt-inner--form-only .kontakt-form-wrap{max-width:640px}
 
+/* ---------- SKIP-LINK (a11y) ---------- */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:10000;background:var(--navy);color:#fff;
+  padding:12px 22px;border-radius:0 0 12px 0;font-weight:700;text-decoration:none}
+.skip-link:focus{left:0}
+
 /* ---------- BUTTONS ---------- */
 .btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:600;font-size:1.02rem;
   padding:15px 28px;border-radius:var(--pill);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s;white-space:nowrap}

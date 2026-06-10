@@ -27,6 +27,8 @@ $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<a class="skip-link" href="#top">Zum Inhalt springen</a>
+
 <header class="site-header" id="header">
 	<div class="container nav">
 		<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Kids Club by zacp Startseite"><?php echo $brand; ?></a>

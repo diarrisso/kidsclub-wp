@@ -11,9 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'wp_head', function () {
 	if ( ! is_page_template( 'page-landing.php' ) ) return;
 
+	/* Bild fürs Rich Result: OG-Bild aus den SEO-Optionen, sonst Logo */
+	$img     = function_exists( 'get_field' ) ? ( get_field( 'seo_og_image', 'option' ) ?: get_field( 'header_logo', 'option' ) ) : null;
+	$img_url = ( $img && ! empty( $img['url'] ) ) ? $img['url'] : '';
+
+	/* sameAs aus den Social-Profilen im Footer */
+	$same_as = [];
+	if ( function_exists( 'get_field' ) && ( $social = get_field( 'footer_social', 'option' ) ) ) {
+		foreach ( $social as $s ) {
+			if ( ! empty( $s['url'] ) ) $same_as[] = $s['url'];
+		}
+	}
+
 	$data = [
 		'@context'    => 'https://schema.org',
 		'@type'       => 'Dentist',
+		'@id'         => home_url( '/#praxis' ),
 		'name'        => 'Kids Club by zacp',
 		'description' => 'Kinderzahnarztpraxis in Osnabrück – entspannt zum Zahnarzt vom ersten Zähnchen an.',
 		'url'         => home_url( '/' ),
@@ -27,6 +40,14 @@ add_action( 'wp_head', function () {
 			'addressLocality' => 'Osnabrück',
 			'addressCountry'  => 'DE',
 		],
+		/* Geo = starkes Local-SEO-Signal. Koordinaten Am Kirchenkamp 3 — bei Go-Live
+		   mit Google Maps verifizieren (Rechtsklick auf Pin → Koordinaten kopieren). */
+		'geo' => [
+			'@type'     => 'GeoCoordinates',
+			'latitude'  => 52.2865,
+			'longitude' => 8.0277,
+		],
+		'hasMap' => 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( 'Kids Club by zacp, Am Kirchenkamp 3, 49078 Osnabrück' ),
 		'openingHoursSpecification' => [
 			[ '@type' => 'OpeningHoursSpecification',
 			  'dayOfWeek' => [ 'Monday','Tuesday','Wednesday','Thursday' ],
@@ -35,6 +56,9 @@ add_action( 'wp_head', function () {
 			  'dayOfWeek' => 'Friday', 'opens' => '08:00', 'closes' => '13:00' ],
 		],
 	];
+
+	if ( $img_url )  $data['image']  = $img_url;
+	if ( $same_as )  $data['sameAs'] = $same_as;
 
 	echo "\n<script type=\"application/ld+json\">"
 	   . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
