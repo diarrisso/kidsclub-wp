@@ -19,7 +19,7 @@
             "@stan"
         ],
         "lint": "find . -name '*.php' -not -path './vendor/*' -exec php -l {} \\; | grep -v 'No syntax errors' || true",
-        "stan": "phpstan analyse --memory-limit=512M",
+        "stan": "phpstan analyse --memory-limit=1G",
         "cs": "phpcs",
         "format": "phpcbf || true"
     },
