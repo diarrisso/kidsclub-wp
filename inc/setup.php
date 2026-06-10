@@ -20,7 +20,10 @@ add_filter( 'document_title_parts', function ( $parts ) {
 	if ( is_page_template( 'page-landing.php' ) || is_front_page() ) {
 		$custom = function_exists( 'get_field' ) ? get_field( 'seo_title', 'option' ) : '';
 		$parts['title'] = $custom ?: 'Kinderzahnarzt Osnabrück';
-		// 'site' bleibt: WP hängt den Blognamen an (Separator via document_title_separator)
+		// Front-Page nutzt 'tagline' statt 'site' → Marke explizit anhängen
+		if ( array_key_exists( 'tagline', $parts ) ) {
+			$parts['tagline'] = 'Kids Club by zacp';
+		}
 	}
 	return $parts;
 } );
