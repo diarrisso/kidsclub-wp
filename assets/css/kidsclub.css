@@ -601,3 +601,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .mobile-menu .close{width:48px;height:48px;border-radius:13px;background:var(--surface);box-shadow:var(--shadow-sm);display:grid;place-items:center;color:var(--navy)}
 .mobile-menu a{font-family:var(--font-display);font-weight:600;font-size:1.5rem;padding:14px 0;border-bottom:2px dashed var(--line);color:var(--navy)}
 .mobile-menu .btn{margin-top:26px;justify-content:center}
+
+/* Team — Gruppentitel (Funktion-Taxonomie) */
+.team-group__title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.25rem,2vw,1.6rem);color:var(--navy);margin:40px 0 18px}
+.team-group__title:first-of-type{margin-top:0}
