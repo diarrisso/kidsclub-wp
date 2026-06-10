@@ -14,14 +14,14 @@ $eyebrow = get_sub_field( 'tm_eyebrow' );
 $title   = get_sub_field( 'tm_title' );
 
 if ( ! function_exists( 'kc_team_card' ) ) :
-/**
- * Render one team member card (CPT post).
- *
- * @param WP_Post $member Team post.
- */
-function kc_team_card( $member ) {
-	$photo_id = get_post_thumbnail_id( $member );
-	?>
+	/**
+	 * Render one team member card (CPT post).
+	 *
+	 * @param WP_Post $member Team post.
+	 */
+	function kc_team_card( $member ) {
+		$photo_id = get_post_thumbnail_id( $member );
+		?>
 	<article class="team-card">
 		<?php if ( $photo_id ) : ?>
 		<div class="team-card__img">
@@ -30,7 +30,10 @@ function kc_team_card( $member ) {
 				$photo_id,
 				'medium',
 				false,
-				[ 'loading' => 'lazy', 'alt' => get_the_title( $member ) ]
+				[
+					'loading' => 'lazy',
+					'alt'     => get_the_title( $member ),
+				]
 			);
 			?>
 		</div>
@@ -45,8 +48,8 @@ function kc_team_card( $member ) {
 				<p><?php echo esc_html( $bio ); ?></p><?php endif; ?>
 		</div>
 	</article>
-	<?php
-}
+		<?php
+	}
 endif;
 
 $team_posts = get_posts(
