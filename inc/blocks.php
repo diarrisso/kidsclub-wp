@@ -62,6 +62,35 @@ add_action("acf/init", function () {
                                 "image",
                             ),
                             [
+                                "key" => "field_kc_hero_media_type",
+                                "label" => "Medientyp",
+                                "name" => "hero_media_type",
+                                "type" => "select",
+                                "default_value" => "image",
+                                "choices" => [
+                                    "image" => "Bild (Standard)",
+                                    "video" => "Video (cinématique — Willkommen-Reveal)",
+                                ],
+                            ],
+                            [
+                                "key" => "field_kc_hero_video",
+                                "label" => "Video-Datei (.mp4)",
+                                "name" => "hero_video",
+                                "type" => "file",
+                                "return_format" => "array",
+                                "mime_types" => "mp4",
+                                "instructions" => "Kurzes Intro-Video (≤ 15 Sek., max. 20 MB). Wird vor dem Willkommen-Text abgespielt.",
+                                "conditional_logic" => [
+                                    [
+                                        [
+                                            "field" => "field_kc_hero_media_type",
+                                            "operator" => "==",
+                                            "value" => "video",
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            [
                                 "key" => "field_kc_hero_anim",
                                 "label" => "Kinder-Animation",
                                 "name" => "hero_anim",

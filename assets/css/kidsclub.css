@@ -207,6 +207,38 @@ section{position:relative}
 [data-anim="laufband"] .hero-kids{display:none}
 [data-anim="laufband"] .hero-marquee{display:block}
 
+/* ── Hero cinematic video ──────────────────────────────────────────── */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+
+/* Pre-reveal: text starts hidden (video mode only) */
+.hero[data-media="video"] .hero-banner-inner .eyebrow,
+.hero[data-media="video"] .hero-banner-inner .display,
+.hero[data-media="video"] .hero-banner-inner .lead{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.hero[data-media="video"] .hero-banner-inner .eyebrow{transition-delay:0s}
+.hero[data-media="video"] .hero-banner-inner .display{transition-delay:.2s}
+.hero[data-media="video"] .hero-banner-inner .lead   {transition-delay:.45s}
+
+/* Revealed: video ended → JS adds .hero--revealed */
+.hero--revealed .hero-banner-inner .eyebrow,
+.hero--revealed .hero-banner-inner .display,
+.hero--revealed .hero-banner-inner .lead{opacity:1;transform:none}
+
+/* Mobile: hide video, show poster + text immediately */
+@media(max-width:767px){
+  .hero[data-media="video"] .hero-video{display:none}
+  .hero[data-media="video"] .hero-banner-inner .eyebrow,
+  .hero[data-media="video"] .hero-banner-inner .display,
+  .hero[data-media="video"] .hero-banner-inner .lead{opacity:1;transform:none;transition:none}
+}
+
+/* prefers-reduced-motion: skip video + animation */
+@media(prefers-reduced-motion:reduce){
+  .hero-video{display:none}
+  .hero[data-media="video"] .hero-banner-inner .eyebrow,
+  .hero[data-media="video"] .hero-banner-inner .display,
+  .hero[data-media="video"] .hero-banner-inner .lead{opacity:1;transform:none;transition:none}
+}
+
 @media (prefers-reduced-motion:no-preference){
   [data-anim="winken"] .kidA{animation:kidBob 3.4s ease-in-out infinite}
   [data-anim="winken"] .kidB{animation:kidBob 3.4s ease-in-out infinite -1.1s}
