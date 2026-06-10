@@ -362,13 +362,25 @@ section{position:relative}
 .chip{display:inline-flex;align-items:center;gap:9px;background:var(--surface);border-radius:var(--pill);padding:11px 20px;font-weight:700;font-size:.98rem;color:var(--navy);box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
 .chip:hover{transform:translateY(-3px);box-shadow:var(--shadow);background:var(--magenta);color:#fff}
 .chip .heart-ic{width:15px;height:15px}
+button.chip{border:0;font-family:inherit}
+.chip--active{background:var(--magenta);color:#fff;box-shadow:var(--shadow-mag)}
+.chip--active:hover{transform:none}
 
 .praxis-gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:230px;gap:18px}
 .praxis-gallery__item{margin:0;overflow:hidden;border-radius:22px;border:5px solid #fff;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .praxis-gallery__item:hover{transform:translateY(-5px) scale(1.01);box-shadow:var(--shadow)}
 .praxis-gallery__item img{width:100%;height:100%;object-fit:cover;display:block}
-/* erstes Bild größer (Hero-Kachel) */
-.praxis-gallery__item:first-child{grid-column:span 2;grid-row:span 2}
+/* erstes Bild größer (Hero-Kachel) — nur in der Ansicht "Alle" */
+.praxis-gallery:not(.praxis-gallery--flat) .praxis-gallery__item:first-child{grid-column:span 2;grid-row:span 2}
+
+/* Filter-Animation (Alpine x-transition) */
+.pg-enter{transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.pg-leave{transition:opacity .15s ease,transform .15s ease}
+.pg-enter-start{opacity:0;transform:scale(.92)}
+.pg-enter-end{opacity:1;transform:scale(1)}
+@media(prefers-reduced-motion:reduce){
+  .pg-enter,.pg-leave{transition:none}
+}
 
 /* ---------- TEAM ---------- */
 .section-team h2.section-title{margin-bottom:38px}
