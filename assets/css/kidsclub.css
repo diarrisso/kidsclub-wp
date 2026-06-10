@@ -124,6 +124,19 @@ section{position:relative}
 .kontakt-inner.kontakt-inner--form-only{grid-template-columns:1fr}
 .kontakt-inner.kontakt-inner--form-only .kontakt-form-wrap{max-width:640px}
 
+/* ---------- LEGAL PAGES (Impressum, Datenschutz) ---------- */
+.legal-page__wrap{padding:clamp(48px,7vw,90px) 0;background:var(--bg)}
+.legal-page .container{max-width:820px}
+.legal-page__back{display:inline-block;margin-bottom:26px;font-weight:700;color:var(--magenta);text-decoration:none}
+.legal-page__back:hover{text-decoration:underline}
+.legal-page__title{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:34px}
+.legal-page__content h2{font-size:1.45rem;margin:38px 0 12px}
+.legal-page__content h3{font-size:1.15rem;margin:26px 0 8px}
+.legal-page__content p,.legal-page__content li{color:var(--ink-soft);font-size:1.02rem;line-height:1.7;font-weight:500}
+.legal-page__content ul{padding-left:22px;margin:0 0 1em}
+.legal-page__content a{color:var(--magenta);text-decoration:underline;text-underline-offset:2px}
+.legal-page__content strong{color:var(--navy)}
+
 /* ---------- SKIP-LINK (a11y) ---------- */
 .skip-link{position:absolute;left:-9999px;top:0;z-index:10000;background:var(--navy);color:#fff;
   padding:12px 22px;border-radius:0 0 12px 0;font-weight:700;text-decoration:none}

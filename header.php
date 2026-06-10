@@ -19,6 +19,17 @@ $brand = $logo
 
 $nav           = get_field( 'header_nav', 'option' ) ?: [];
 $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
+
+/**
+ * Anker-Links (#termin …) funktionieren nur auf der Startseite.
+ * Auf Unterseiten (Impressum, Datenschutz) → home_url voranstellen.
+ */
+function kc_nav_url( $link ) {
+	if ( is_string( $link ) && 0 === strpos( $link, '#' ) && ! is_front_page() ) {
+		return home_url( '/' ) . $link;
+	}
+	return $link;
+}
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> data-bg="rosa" data-heads="rund" data-hearts="on" data-shapes="on" data-section-align="<?php echo esc_attr( $section_align ); ?>">
 <head>
@@ -37,12 +48,12 @@ $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
 
 		<nav class="nav-links" aria-label="Hauptnavigation">
 			<?php foreach ( $nav as $item ) : ?>
-				<a href="<?php echo esc_url( $item['link'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+				<a href="<?php echo esc_url( kc_nav_url( $item['link'] ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
 			<?php endforeach; ?>
 		</nav>
 
 		<div class="nav-cta">
-			<a class="btn btn-primary" href="<?php echo esc_url( $cta_link ); ?>"><?php echo esc_html( $cta_label ); ?></a>
+			<a class="btn btn-primary" href="<?php echo esc_url( kc_nav_url( $cta_link ) ); ?>"><?php echo esc_html( $cta_label ); ?></a>
 			<button class="burger" id="burger" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
 		</div>
 	</div>
@@ -54,7 +65,7 @@ $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
 		<button class="close" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
 	</div>
 	<?php foreach ( $nav as $item ) : ?>
-		<a href="<?php echo esc_url( $item['link'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+		<a href="<?php echo esc_url( kc_nav_url( $item['link'] ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
 	<?php endforeach; ?>
-	<a class="btn btn-primary" href="<?php echo esc_url( $cta_link ); ?>"><?php echo esc_html( $cta_label ); ?></a>
+	<a class="btn btn-primary" href="<?php echo esc_url( kc_nav_url( $cta_link ) ); ?>"><?php echo esc_html( $cta_label ); ?></a>
 </div>
