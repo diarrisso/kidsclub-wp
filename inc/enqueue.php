@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'wp_enqueue_scripts', function () {
 
 	$dir = get_stylesheet_directory_uri();
-	$ver = '1.4.0'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+	$ver = '1.4.1'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 
 	// 0. Schriften — SELBST GEHOSTET (DSGVO: keine IP an Google)
 	wp_enqueue_style( 'kidsclub-fonts', $dir . '/assets/css/fonts.css', [], $ver );

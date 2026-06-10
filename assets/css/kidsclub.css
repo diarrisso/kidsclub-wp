@@ -442,7 +442,9 @@ section{position:relative}
 .ablauf-step .step-body p{margin:0;color:var(--ink-soft);font-size:1rem;font-weight:500}
 
 /* ---------- INTERAKTION: Cursor & Hover ---------- */
-.svc,.member,.praxis-gallery__item{cursor:pointer}
+.svc,.member,.praxis-gallery__item,
+.room,.team-card,.stimmen-card,.ablauf-step,.eltern-item,.accordion-item,
+.kontakt-form-wrap,.termin-qr{cursor:pointer}
 a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .btn{transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
 .btn:hover{transform:translateY(-2px)}
