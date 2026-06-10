@@ -468,7 +468,10 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .wpcf7 input:not([type="submit"]):focus,
 .wpcf7 textarea:focus{outline:none;border-color:var(--magenta);background:var(--surface)}
 .wpcf7 textarea{min-height:80px;resize:vertical}
-.wpcf7 input[type="checkbox"]{width:18px;height:18px;accent-color:var(--magenta);margin-top:3px}
+.wpcf7 input[type="checkbox"]{width:18px;height:18px;accent-color:var(--magenta);flex:none;margin-top:3px}
+/* CF7 acceptance / checkbox label — align checkbox + text horizontalement */
+.wpcf7-acceptance label,.wpcf7-list-item label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.9rem;color:var(--ink-soft);font-weight:500;line-height:1.55}
+.wpcf7-acceptance label input[type="checkbox"],.wpcf7-list-item label input[type="checkbox"]{flex:none;margin-top:3px}
 .wpcf7-not-valid-tip{color:#c0392b;font-size:.85rem;font-weight:700;margin-top:5px;display:block}
 .wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:none}
 .wpcf7-mail-sent-ok{background:rgba(26,122,74,.1);color:#1a7a4a}
