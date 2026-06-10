@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset name="KidsClub">
+    <description>Kids Club theme — WordPress Coding Standards (pragmatique)</description>
+
+    <file>functions.php</file>
+    <file>header.php</file>
+    <file>footer.php</file>
+    <file>inc</file>
+    <file>template-parts</file>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>assets/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <rule ref="WordPress-Core">
+        <!-- Le theme utilise [] au lieu de array() — choix assumé -->
+        <exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+        <!-- Noms de fichiers kebab-case OK pour template-parts -->
+        <exclude name="WordPress.Files.FileName"/>
+        <!-- Commentaires inline sans point final tolérés -->
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <!-- Short ternary ?: utilisé partout pour les fallbacks ACF — PHP 7.4+, assumé -->
+        <exclude name="Universal.Operators.DisallowShortTernary"/>
+        <!-- Pas de Yoda conditions imposées -->
+        <exclude name="WordPress.PHP.YodaConditions"/>
+        <!-- Pattern if ( $x = get_sub_field(...) ) assumé dans les templates -->
+        <exclude name="Squiz.PHP.DisallowMultipleAssignments"/>
+    </rule>
+
+    <!-- Sécurité : échappement output + nonces (le plus important) -->
+    <rule ref="WordPress.Security"/>
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <!-- kc_icon() retourne des SVG hardcodés (inc/icons.php, map statique) — safe by design -->
+            <property name="customEscapingFunctions" type="array">
+                <element value="kc_icon"/>
+                <element value="wp_kses"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

@@ -3,7 +3,9 @@
  * wp_head-Cleanup: entfernt unnötige Tags (Performance + keine Versions-Divulgation).
  * In functions.php:  require get_theme_file_path('inc/cleanup.php');
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /* Emoji-Script (~10 KB inline) — Landing-Page nutzt keine Emojis */
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -24,9 +26,12 @@ remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
 add_filter( 'xmlrpc_enabled', '__return_false' );
 
 /* REST-API User-Endpoint für anonyme Besucher sperren (User-Enumeration) */
-add_filter( 'rest_endpoints', function ( $endpoints ) {
-	if ( ! is_user_logged_in() ) {
-		unset( $endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+add_filter(
+	'rest_endpoints',
+	function ( $endpoints ) {
+		if ( ! is_user_logged_in() ) {
+			unset( $endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+		}
+		return $endpoints;
 	}
-	return $endpoints;
-} );
+);
