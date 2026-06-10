@@ -122,7 +122,7 @@ section{position:relative}
 
 /* ---------- KONTAKT form-only ---------- */
 .kontakt-inner.kontakt-inner--form-only{grid-template-columns:1fr}
-.kontakt-inner.kontakt-inner--form-only .kontakt-form-wrap{max-width:100%}
+.kontakt-inner.kontakt-inner--form-only .kontakt-form-wrap{max-width:640px}
 
 /* ---------- BUTTONS ---------- */
 .btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:600;font-size:1.02rem;
@@ -450,10 +450,10 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-info-list li svg{flex:none;width:22px;height:22px;color:var(--magenta);margin-top:3px}
 .kontakt-info-list a{color:rgba(255,255,255,.88);text-decoration:none}
 .kontakt-info-list a:hover{color:#fff}
-.kontakt-form-wrap{background:var(--surface);border-radius:var(--r-lg);padding:clamp(28px,4vw,44px);box-shadow:var(--shadow-sm);max-width:760px;margin:0 auto}
+.kontakt-form-wrap{background:var(--surface);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);box-shadow:var(--shadow-sm);max-width:640px;margin:0 auto}
 .kontakt-form__footer{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.field{margin-bottom:16px;display:flex;flex-direction:column;gap:4px}
+.field{margin-bottom:12px;display:flex;flex-direction:column;gap:4px}
 .field label{font-weight:800;font-size:.92rem;color:var(--navy)}
 .field input,.field textarea{width:100%;border:2px solid var(--line);border-radius:13px;padding:13px 15px;font:inherit;font-size:1rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--magenta);background:var(--surface)}
@@ -464,10 +464,10 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* CF7 overrides — make CF7 inputs match theme .field styles */
 .wpcf7-form-control-wrap{display:block;margin:0;padding:0}
 .wpcf7 input:not([type="submit"]),
-.wpcf7 textarea{width:100%;border:2px solid var(--line);border-radius:13px;padding:13px 15px;font:inherit;font-size:1rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
+.wpcf7 textarea{width:100%;border:2px solid var(--line);border-radius:13px;padding:11px 14px;font:inherit;font-size:1rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
 .wpcf7 input:not([type="submit"]):focus,
 .wpcf7 textarea:focus{outline:none;border-color:var(--magenta);background:var(--surface)}
-.wpcf7 textarea{min-height:96px;resize:vertical}
+.wpcf7 textarea{min-height:80px;resize:vertical}
 .wpcf7 input[type="checkbox"]{width:18px;height:18px;accent-color:var(--magenta);margin-top:3px}
 .wpcf7-not-valid-tip{color:#c0392b;font-size:.85rem;font-weight:700;margin-top:5px;display:block}
 .wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:none}
