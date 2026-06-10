@@ -32,7 +32,11 @@ $embed_code = get_sub_field( 'embed_code' );
 				<p class="termin-qr__label">QR-Code scannen</p>
 			</div>
 			<?php endif; ?>
-			<?php if ( $embed_code ) : ?>
+			<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>
+			<div class="termin-embed">
+				<?php echo do_shortcode( '[masinga_booking]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML genere par le plugin masinga-booking, API-URL echappee via esc_url(). ?>
+			</div>
+			<?php elseif ( $embed_code ) : ?>
 			<div class="termin-embed">
 				<?php
 				// iframe-only allowlist — <script> intentionally excluded (XSS risk).
