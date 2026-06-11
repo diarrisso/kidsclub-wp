@@ -108,6 +108,10 @@ section{position:relative}
 .section-ablauf,.section-eltern,.section-faq,.section-kontakt,
 .section-praxis,.section-stimmen,.section-team,.section-termin{padding:clamp(60px,8vw,112px) 0}
 .section-head{max-width:760px;margin-bottom:clamp(34px,5vw,58px)}
+.termin-cta{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:48px;padding:32px 0}
+.termin-qr{text-align:center}
+.termin-qr img{display:block;border-radius:12px;box-shadow:var(--shadow-sm)}
+.termin-qr__label{font-size:.82rem;color:var(--ink-soft);font-weight:600;margin-top:8px}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:14px}
 .section-head p{margin-top:14px}
@@ -155,6 +159,8 @@ section{position:relative}
 .btn-light{background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px)}
 .btn-light:hover{background:rgba(255,255,255,.3)}
 .btn-lg{padding:18px 36px;font-size:1.12rem}
+.btn-sm{padding:7px 16px;font-size:.82rem}
+.btn-sm svg{width:14px;height:14px}
 
 /* ---------- ARCH MARK / DOODLES ---------- */
 .arch{display:block}
@@ -514,47 +520,62 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-info-list li svg{flex:none;width:22px;height:22px;color:var(--magenta);margin-top:3px}
 .kontakt-info-list a{color:rgba(255,255,255,.88);text-decoration:none}
 .kontakt-info-list a:hover{color:#fff}
-.kontakt-form-wrap{background:var(--surface);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);box-shadow:var(--shadow-sm);max-width:640px;margin:0 auto}
+.kontakt-form-wrap{background:var(--surface);border-radius:var(--r-lg);padding:20px 24px;box-shadow:var(--shadow-sm);max-width:560px;margin:0 auto}
 .kontakt-form__footer{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.field{margin-bottom:12px;display:flex;flex-direction:column;gap:4px}
-.field label{font-weight:800;font-size:.92rem;color:var(--navy)}
-.field input,.field textarea{width:100%;border:2px solid var(--line);border-radius:13px;padding:13px 15px;font:inherit;font-size:1rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{margin-bottom:8px;display:flex;flex-direction:column;gap:3px}
+.field label{font-weight:700;font-size:.78rem;color:var(--navy);text-transform:uppercase;letter-spacing:.04em}
+.field input,.field textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:8px 11px;font:inherit;font-size:.88rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--magenta);background:var(--surface)}
-.field textarea{min-height:130px;resize:vertical}
+.field textarea{min-height:72px;resize:vertical}
 .field-checkbox{display:flex;gap:12px;align-items:flex-start;margin-bottom:20px;font-size:.9rem;color:var(--ink-soft);font-weight:500;line-height:1.55;cursor:pointer}
 .field-checkbox input[type="checkbox"]{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--magenta)}
 .field-checkbox a{color:var(--magenta);text-decoration:underline;text-underline-offset:2px}
 /* CF7 overrides — make CF7 inputs match theme .field styles */
 .wpcf7-form-control-wrap{display:block;margin:0;padding:0}
 .wpcf7 input:not([type="submit"]),
-.wpcf7 textarea{width:100%;border:2px solid var(--line);border-radius:13px;padding:11px 14px;font:inherit;font-size:1rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
+.wpcf7 textarea{width:100%;border:2px solid var(--line);border-radius:10px;padding:8px 11px;font:inherit;font-size:.88rem;font-weight:500;background:var(--bg);transition:border-color .2s,background .2s;color:var(--navy)}
 .wpcf7 input:not([type="submit"]):focus,
 .wpcf7 textarea:focus{outline:none;border-color:var(--magenta);background:var(--surface)}
-.wpcf7 textarea{min-height:80px;resize:vertical}
+.wpcf7 textarea{min-height:72px;resize:vertical}
 .wpcf7 input[type="checkbox"]{width:18px;height:18px;accent-color:var(--magenta);flex:none;margin-top:3px}
 /* CF7 acceptance / checkbox label — align checkbox + text horizontalement */
 .wpcf7-acceptance label,.wpcf7-list-item label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.8rem;color:var(--ink-soft);font-weight:500;line-height:1.5}
 .wpcf7-acceptance label input[type="checkbox"],.wpcf7-list-item label input[type="checkbox"]{flex:none;margin-top:2px;width:16px;height:16px}
 /* Submit-Button im Kontaktformular kompakter als die Hero-CTAs */
-.wpcf7 input[type="submit"]{font-size:.92rem;padding:11px 22px}
+.wpcf7 input[type="submit"]{font-size:.82rem;padding:8px 18px}
 .wpcf7-not-valid-tip{color:#c0392b;font-size:.85rem;font-weight:700;margin-top:5px;display:block}
 .wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:none}
 .wpcf7-mail-sent-ok{background:rgba(26,122,74,.1);color:#1a7a4a}
 .wpcf7-validation-errors,.wpcf7-spam-blocked{background:rgba(192,57,43,.08);color:#c0392b}
 
 /* ---------- FOOTER ---------- */
-.site-footer{background:var(--navy);color:rgba(255,255,255,.74);padding:clamp(54px,6vw,80px) 0 30px}
-.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.14)}
-.footer-about .arch{width:64px;margin-bottom:14px}
-.footer-about .fname{font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:#fff}
-.footer-about .fname small{display:block;font-size:.8rem;color:rgba(255,255,255,.6);font-weight:600}
-.footer-col h4{color:#fff;font-size:1.05rem;margin-bottom:14px}
-.footer-col a{display:block;padding:6px 0;color:rgba(255,255,255,.74);font-weight:600}
+.site-footer{background:var(--navy);color:rgba(255,255,255,.74);padding:0 0 20px}
+.footer-accent{height:5px;background:linear-gradient(90deg,var(--magenta),#FF6BB3 60%,var(--magenta))}
+.footer-inner{padding:28px 0 0}
+.footer-top{display:grid;grid-template-columns:1.3fr 1fr 1.4fr 0.9fr;gap:32px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
+.footer-brand .arch{width:44px;margin-bottom:8px}
+.footer-brand .fname{font-family:var(--font-display);font-weight:700;font-size:1rem;color:#fff}
+.footer-brand .fname small{display:block;font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600}
+.footer-brand p{margin:8px 0 12px;font-size:.8rem;max-width:220px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.6)}
+.footer-col h5{color:#fff;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 10px}
+.footer-col a{display:block;padding:3px 0;font-size:.84rem;font-weight:600;color:rgba(255,255,255,.65)}
 .footer-col a:hover{color:var(--magenta)}
-.footer-about p{margin:14px 0 0;font-size:.98rem;max-width:300px;font-weight:500}
-.footer-bottom{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding-top:26px;font-size:.9rem;font-weight:600}
-.footer-bottom a{color:rgba(255,255,255,.74)}
+.footer-contact-line{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;margin-bottom:8px;line-height:1.4}
+.footer-contact-icon{width:16px;height:16px;flex-shrink:0;margin-top:2px;opacity:.7;color:rgba(255,255,255,.8)}
+.footer-qr{text-align:center}
+.footer-qr h5{color:#fff;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 10px}
+.footer-qr-box{background:#fff;border-radius:10px;padding:8px;display:inline-block;margin-bottom:8px}
+.footer-qr-box img{display:block;width:90px;height:90px}
+.footer-qr-label{font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600;line-height:1.4;margin:0 0 8px}
+.footer-qr-btn{display:inline-block;background:var(--magenta);color:#fff;font-family:var(--font-display);font-weight:700;font-size:.78rem;padding:6px 14px;border-radius:var(--pill);text-decoration:none;transition:transform .2s var(--ease);cursor:pointer;border:none}
+.footer-qr-btn:hover{transform:translateY(-2px);color:#fff}
+.footer-social{display:flex;gap:8px;margin-top:0}
+.footer-social a{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:background .2s,transform .2s}
+.footer-social a:hover{background:var(--magenta);transform:translateY(-2px)}
+.footer-social svg{width:16px;height:16px;color:#fff}
+.footer-bottom{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding-top:16px;font-size:.8rem;font-weight:600}
+.footer-bottom a{color:rgba(255,255,255,.65)}
 .footer-bottom a:hover{color:#fff}
 .socials{display:flex;gap:10px}
 .socials a{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.1);display:grid;place-items:center}
@@ -567,6 +588,14 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .deco-heart{animation:bob 5s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.deco-heart{animation:none}}
+
+/* ---------- BOOKING MODAL ---------- */
+.booking-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;transition:opacity .25s var(--ease)}
+.booking-modal[hidden]{display:none}
+.booking-modal__backdrop{position:absolute;inset:0;background:rgba(38,37,127,.55);backdrop-filter:blur(3px);cursor:pointer}
+.booking-modal__card{position:relative;background:transparent;width:min(600px,94vw);max-height:90vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.booking-modal__card::-webkit-scrollbar{display:none}
+.booking-modal__body{padding:0}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1024px){
@@ -583,6 +612,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .fact:nth-child(2){border-right:0}
 }
 @media (max-width:760px){
+  .termin-cta{flex-direction:column;gap:24px}
   .nav-links,.nav-phone{display:none}
   .burger{display:grid}
   body{font-size:17px}
@@ -598,7 +628,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 1;grid-row:span 1}
   .g1{grid-column:span 2}
   .form-row{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:20px}
+  .footer-qr{grid-column:span 2;display:flex;align-items:center;gap:16px;text-align:left}
+  .footer-qr h5{margin-bottom:4px}
   .facts{grid-template-columns:1fr;gap:0}
   .fact{border-right:0;border-bottom:2px dashed var(--line)}
   .fact:last-child{border-bottom:0}
