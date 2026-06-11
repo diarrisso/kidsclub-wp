@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $about  = get_field( 'footer_about', 'option' );
 $cols   = get_field( 'footer_cols', 'option' ) ?: [];
-$addr   = get_field( 'footer_address', 'option' ) ?: 'Am Kirchenkamp 3, 49078 Osnabrück';
-$phone  = get_field( 'footer_phone', 'option' ) ?: '+49 (0) 541 471 40';
-$hours  = get_field( 'footer_hours', 'option' ) ?: "Mo.\u{2013}Do. 08\u{2013}13 & 14\u{2013}18 Uhr\nFr. 08\u{2013}13 Uhr";
+$addr   = get_field( 'footer_address', 'option' );
+$phone  = get_field( 'footer_phone', 'option' );
+$hours  = get_field( 'footer_hours', 'option' );
 $social = get_field( 'footer_social', 'option' ) ?: [];
 $legal  = get_field( 'footer_legal', 'option' ) ?: [];
 $copy   = get_field( 'footer_copyright', 'option' ) ?: 'Kids Club by zacp · Alle Rechte vorbehalten.';
