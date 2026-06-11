@@ -593,10 +593,10 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .booking-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;transition:opacity .25s var(--ease)}
 .booking-modal[hidden]{display:none}
 .booking-modal__backdrop{position:absolute;inset:0;background:rgba(38,37,127,.55);backdrop-filter:blur(3px);cursor:pointer}
-.booking-modal__card{position:relative;background:#fff;border-radius:20px;width:min(600px,94vw);max-height:90vh;overflow-y:auto;padding:28px;box-shadow:0 24px 64px rgba(0,0,0,.2)}
-.booking-modal__close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:grid;place-items:center;font-size:1rem;color:var(--navy);transition:background .2s,transform .2s}
-.booking-modal__close:hover{background:var(--magenta);color:#fff;transform:rotate(90deg)}
-.booking-modal__body{padding-top:8px}
+.booking-modal__card{position:relative;background:transparent;width:min(600px,94vw);max-height:90vh;overflow-y:auto}
+.booking-modal__close{position:absolute;top:-14px;right:-14px;z-index:10;width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;font-size:1rem;transition:background .2s,transform .2s}
+.booking-modal__close:hover{background:var(--magenta);transform:rotate(90deg)}
+.booking-modal__body{padding:0}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1024px){
