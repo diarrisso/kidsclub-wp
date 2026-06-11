@@ -1,14 +1,22 @@
 <?php
 /**
  * footer.php — Compact 4-col footer with accent bar + booking QR.
+ * All content managed in Theme-Einstellungen (inc/options.php).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$about  = get_field( 'footer_about', 'option' );
+$cols   = get_field( 'footer_cols', 'option' ) ?: [];
+$addr   = get_field( 'footer_address', 'option' ) ?: 'Am Kirchenkamp 3, 49078 Osnabrück';
+$phone  = get_field( 'footer_phone', 'option' ) ?: '+49 (0) 541 471 40';
+$hours  = get_field( 'footer_hours', 'option' ) ?: "Mo.\u{2013}Do. 08\u{2013}13 & 14\u{2013}18 Uhr\nFr. 08\u{2013}13 Uhr";
 $social = get_field( 'footer_social', 'option' ) ?: [];
 $legal  = get_field( 'footer_legal', 'option' ) ?: [];
 $copy   = get_field( 'footer_copyright', 'option' ) ?: 'Kids Club by zacp · Alle Rechte vorbehalten.';
+
+$nav_col = ! empty( $cols ) ? $cols[0] : null;
 
 $soc_icons = [
 	'instagram' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
@@ -16,7 +24,8 @@ $soc_icons = [
 	'tiktok'    => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4c.3 2.2 1.8 3.9 4 4.2v2.9c-1.5.1-2.9-.4-4-1.2v5.6c0 3.1-2.5 5.5-5.6 5.3-2.7-.2-4.8-2.5-4.8-5.2 0-3 2.6-5.4 5.6-5.2v3c-.4-.1-.8-.2-1.2-.1-1.2.1-2 1.1-1.9 2.3.1 1.1 1 1.9 2.1 1.9 1.3 0 2.2-1 2.2-2.3V4Z"/></svg>',
 ];
 
-$qr_img = get_theme_file_uri( 'assets/img/booking-qr.svg' );
+$qr_img       = get_theme_file_uri( 'assets/img/booking-qr.svg' );
+$phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 ?>
 <footer class="site-footer">
 	<div class="footer-accent"></div>
@@ -28,7 +37,9 @@ $qr_img = get_theme_file_uri( 'assets/img/booking-qr.svg' );
 			<div class="footer-brand">
 				<svg class="arch" viewBox="0 0 120 132" fill="none" aria-hidden="true" width="44" height="48"><path class="a-navy" style="stroke:#fff" d="M16 17 Q60 9 106 16"/><path class="a-pink" d="M19 27 Q60 20 101 26"/><path class="a-navy" style="stroke:#fff" d="M24 122 L24 62 Q24 30 60 30 Q96 30 96 62 L96 122"/><path class="a-pink" d="M40 122 L40 64 Q40 46 60 46 Q80 46 80 64 L80 122"/><path class="h-fill" d="M60 100 C49 88 43 82 43 73 C43 66 48 62 53.5 62 C57 62 59 64.5 60 67 C61 64.5 63 62 66.5 62 C72 62 77 66 77 73 C77 82 71 88 60 100 Z"/></svg>
 				<div class="fname">Kids Club<small>by zacp</small></div>
-				<p>Kinder- und Jugendzahnheilkunde im Herzen von Osnabrück.</p>
+				<?php if ( $about ) : ?>
+					<p><?php echo esc_html( $about ); ?></p>
+				<?php endif; ?>
 				<?php if ( $social ) : ?>
 				<div class="footer-social">
 					<?php
@@ -41,32 +52,39 @@ $qr_img = get_theme_file_uri( 'assets/img/booking-qr.svg' );
 				<?php endif; ?>
 			</div>
 
-			<!-- Col 2: Navigation -->
+			<!-- Col 2: Navigation (footer_cols[0] from Theme-Einstellungen) -->
+			<?php if ( $nav_col ) : ?>
 			<div class="footer-col">
-				<h5>Navigation</h5>
-				<a href="<?php echo esc_url( home_url( '/#leistungen' ) ); ?>">Leistungen</a>
-				<a href="<?php echo esc_url( home_url( '/#praxis' ) ); ?>">Unsere Praxis</a>
-				<a href="<?php echo esc_url( home_url( '/#team' ) ); ?>">Team</a>
-				<a href="<?php echo esc_url( home_url( '/#eltern' ) ); ?>">Für Eltern</a>
-				<a href="<?php echo esc_url( home_url( '/#faq' ) ); ?>">FAQ</a>
-				<a href="<?php echo esc_url( home_url( '/#kontakt' ) ); ?>">Kontakt</a>
+				<h5><?php echo esc_html( $nav_col['heading'] ); ?></h5>
+				<?php
+				foreach ( $nav_col['links'] as $l ) :
+					?>
+					<a href="<?php echo esc_url( $l['url'] ); ?>"><?php echo esc_html( $l['label'] ); ?></a>
+				<?php endforeach; ?>
 			</div>
+			<?php endif; ?>
 
-			<!-- Col 3: Kontakt -->
+			<!-- Col 3: Kontakt (footer_address / footer_phone / footer_hours) -->
 			<div class="footer-col">
 				<h5>Kontakt</h5>
+				<?php if ( $addr ) : ?>
 				<div class="footer-contact-line">
 					<span class="footer-contact-icon" aria-hidden="true">📍</span>
-					<span>Am Kirchenkamp 3<br>49078 Osnabrück</span>
+					<span><?php echo nl2br( esc_html( $addr ) ); ?></span>
 				</div>
+				<?php endif; ?>
+				<?php if ( $phone ) : ?>
 				<div class="footer-contact-line">
 					<span class="footer-contact-icon" aria-hidden="true">📞</span>
-					<a href="tel:+4954147140">+49 (0) 541 471 40</a>
+					<a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a>
 				</div>
+				<?php endif; ?>
+				<?php if ( $hours ) : ?>
 				<div class="footer-contact-line">
 					<span class="footer-contact-icon" aria-hidden="true">🕐</span>
-					<span>Mo.–Do. 08–13 &amp; 14–18 Uhr<br>Fr. 08–13 Uhr</span>
+					<span><?php echo nl2br( esc_html( $hours ) ); ?></span>
 				</div>
+				<?php endif; ?>
 			</div>
 
 			<!-- Col 4: QR Termin -->

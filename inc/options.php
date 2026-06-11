@@ -210,6 +210,31 @@ add_action(
 						'type'          => 'text',
 						'default_value' => 'Kids Club by zacp · Alle Rechte vorbehalten.',
 					],
+					[
+						'key'          => 'f_kontakt_addr',
+						'label'        => 'Adresse',
+						'name'         => 'footer_address',
+						'type'         => 'text',
+						'placeholder'  => 'Am Kirchenkamp 3, 49078 Osnabrück',
+						'instructions' => 'Erscheint im Footer-Kontakt-Block.',
+					],
+					[
+						'key'          => 'f_kontakt_phone',
+						'label'        => 'Telefon',
+						'name'         => 'footer_phone',
+						'type'         => 'text',
+						'placeholder'  => '+49 (0) 541 471 40',
+						'instructions' => 'Wird als tel:-Link verwendet.',
+					],
+					[
+						'key'          => 'f_kontakt_hours',
+						'label'        => 'Öffnungszeiten',
+						'name'         => 'footer_hours',
+						'type'         => 'textarea',
+						'rows'         => 2,
+						'placeholder'  => "Mo.\u{2013}Do. 08\u{2013}13 & 14\u{2013}18 Uhr\nFr. 08\u{2013}13 Uhr",
+						'instructions' => 'Zeilenumbrüche werden im Footer übernommen.',
+					],
 
 					/* ===== DESIGN ===== */
 					[
