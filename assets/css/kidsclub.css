@@ -108,6 +108,10 @@ section{position:relative}
 .section-ablauf,.section-eltern,.section-faq,.section-kontakt,
 .section-praxis,.section-stimmen,.section-team,.section-termin{padding:clamp(60px,8vw,112px) 0}
 .section-head{max-width:760px;margin-bottom:clamp(34px,5vw,58px)}
+.termin-cta{display:flex;flex-direction:column;align-items:center;gap:24px;padding:32px 0}
+.termin-qr{text-align:center}
+.termin-qr img{display:block;border-radius:12px;box-shadow:var(--shadow-sm)}
+.termin-qr__label{font-size:.82rem;color:var(--ink-soft);font-weight:600;margin-top:8px}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:14px}
 .section-head p{margin-top:14px}
