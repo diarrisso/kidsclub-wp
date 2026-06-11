@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function setPageInert(inert) {
-    ['#header', 'main', '.mobile-menu'].forEach(function (sel) {
+    ['#header', 'main', '.mobile-menu', '.site-footer'].forEach(function (sel) {
       var el = document.querySelector(sel);
       if (el) el.inert = inert;
     });
