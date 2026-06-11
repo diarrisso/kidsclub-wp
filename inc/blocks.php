@@ -1,4 +1,4 @@
-1<?php
+<?php
 /**
  * Kids Club by zacp — ACF Flexible Content Feld
  *
