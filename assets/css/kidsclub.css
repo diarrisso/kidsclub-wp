@@ -593,7 +593,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .booking-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;transition:opacity .25s var(--ease)}
 .booking-modal[hidden]{display:none}
 .booking-modal__backdrop{position:absolute;inset:0;background:rgba(38,37,127,.55);backdrop-filter:blur(3px);cursor:pointer}
-.booking-modal__card{position:relative;background:transparent;width:min(600px,94vw);max-height:90vh;overflow-y:auto}
+.booking-modal__card{position:relative;background:transparent;width:min(600px,94vw);max-height:90vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.booking-modal__card::-webkit-scrollbar{display:none}
 .booking-modal__body{padding:0}
 
 /* ---------- RESPONSIVE ---------- */
