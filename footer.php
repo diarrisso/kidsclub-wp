@@ -69,19 +69,19 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 				<h5>Kontakt</h5>
 				<?php if ( $addr ) : ?>
 				<div class="footer-contact-line">
-					<span class="footer-contact-icon" aria-hidden="true">📍</span>
+					<svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
 					<span><?php echo nl2br( esc_html( $addr ) ); ?></span>
 				</div>
 				<?php endif; ?>
 				<?php if ( $phone ) : ?>
 				<div class="footer-contact-line">
-					<span class="footer-contact-icon" aria-hidden="true">📞</span>
+					<svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
 					<a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a>
 				</div>
 				<?php endif; ?>
 				<?php if ( $hours ) : ?>
 				<div class="footer-contact-line">
-					<span class="footer-contact-icon" aria-hidden="true">🕐</span>
+					<svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 					<span><?php echo nl2br( esc_html( $hours ) ); ?></span>
 				</div>
 				<?php endif; ?>
