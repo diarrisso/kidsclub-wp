@@ -112,3 +112,72 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// Booking Modal
+(function () {
+  var modal   = document.getElementById('bookingModal');
+  var lastFocus;
+
+  if (!modal) return;
+
+  function getFocusable() {
+    return Array.prototype.slice.call(
+      modal.querySelectorAll('a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])')
+    );
+  }
+
+  function setPageInert(inert) {
+    ['#header', 'main', '.mobile-menu'].forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (el) el.inert = inert;
+    });
+  }
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    setPageInert(true);
+    var first = getFocusable()[0];
+    if (first) first.focus();
+  }
+
+  function closeModal() {
+    modal.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+    setPageInert(false);
+    if (lastFocus) lastFocus.focus();
+  }
+
+  // Open triggers (navbar btn, hero btn, footer QR btn)
+  document.querySelectorAll('[data-booking-open]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  // Close on ✕ button
+  var closeBtn = document.getElementById('bookingClose');
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  // Close on backdrop click
+  var backdrop = document.getElementById('bookingBackdrop');
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
+  });
+
+  // Focus trap: keep Tab inside modal
+  modal.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var focusable = getFocusable();
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+    }
+  });
+}());

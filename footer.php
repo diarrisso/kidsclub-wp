@@ -113,6 +113,17 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 	</div>
 </footer>
 
+<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>
+<div id="bookingModal" class="booking-modal" role="dialog" aria-modal="true" aria-label="Online Termin buchen" hidden>
+	<div class="booking-modal__backdrop" id="bookingBackdrop"></div>
+	<div class="booking-modal__card">
+		<button type="button" class="booking-modal__close" id="bookingClose" aria-label="Schließen">&#x2715;</button>
+		<div class="booking-modal__body">
+			<?php echo do_shortcode( '[masinga_booking]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML généré par masinga-booking, API-URL échappée via esc_url() ?>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
 <?php wp_footer(); ?>
 </body>
 </html>
