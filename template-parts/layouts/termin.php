@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $eyebrow    = get_sub_field( 'tr_eyebrow' );
 $title      = get_sub_field( 'tr_title' );
 $text       = get_sub_field( 'tr_text' );
-$qr         = get_sub_field( 'qr_image' );
 $embed_code = get_sub_field( 'embed_code' );
 ?>
 <section class="section-termin reveal" id="termin">

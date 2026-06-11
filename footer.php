@@ -96,7 +96,9 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 						width="90" height="90" loading="lazy">
 				</div>
 				<p class="footer-qr-label">Scanne &amp; buche direkt<br>vom Handy</p>
+				<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>
 				<button type="button" class="footer-qr-btn" data-booking-open aria-haspopup="dialog">Termin buchen →</button>
+			<?php endif; ?>
 			</div>
 
 		</div>
