@@ -10,6 +10,11 @@ $eyebrow    = get_sub_field( 'tr_eyebrow' );
 $title      = get_sub_field( 'tr_title' );
 $text       = get_sub_field( 'tr_text' );
 $embed_code = get_sub_field( 'embed_code' );
+
+/* QR-Code: hochgeladenes Bild (Feld „QR-Code Bild") oder gebündeltes SVG als Fallback. */
+$qr     = get_sub_field( 'qr_image' );
+$qr_url = ( is_array( $qr ) && ! empty( $qr['url'] ) ) ? $qr['url'] : get_theme_file_uri( 'assets/img/booking-qr.svg' );
+$qr_alt = ( is_array( $qr ) && ! empty( $qr['alt'] ) ) ? $qr['alt'] : 'QR-Code für Online-Terminbuchung';
 ?>
 <section class="section-termin reveal" id="termin">
 	<div class="container">
@@ -26,8 +31,8 @@ $embed_code = get_sub_field( 'embed_code' );
 			<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>
 			<div class="termin-cta">
 				<div class="termin-qr">
-					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/booking-qr.svg' ) ); ?>"
-						alt="QR-Code für Online-Terminbuchung"
+					<img src="<?php echo esc_url( $qr_url ); ?>"
+						alt="<?php echo esc_attr( $qr_alt ); ?>"
 						width="160" height="160" loading="lazy">
 					<p class="termin-qr__label">QR-Code scannen &amp; buchen</p>
 				</div>

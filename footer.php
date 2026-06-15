@@ -24,7 +24,6 @@ $soc_icons = [
 	'tiktok'    => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4c.3 2.2 1.8 3.9 4 4.2v2.9c-1.5.1-2.9-.4-4-1.2v5.6c0 3.1-2.5 5.5-5.6 5.3-2.7-.2-4.8-2.5-4.8-5.2 0-3 2.6-5.4 5.6-5.2v3c-.4-.1-.8-.2-1.2-.1-1.2.1-2 1.1-1.9 2.3.1 1.1 1 1.9 2.1 1.9 1.3 0 2.2-1 2.2-2.3V4Z"/></svg>',
 ];
 
-$qr_img       = get_theme_file_uri( 'assets/img/booking-qr.svg' );
 $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 ?>
 <footer class="site-footer">
