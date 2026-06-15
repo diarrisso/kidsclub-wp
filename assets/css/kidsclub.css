@@ -878,3 +878,31 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .site-header{background:#fff}
   .site-header.scrolled{background:#fff}
 }
+
+/* ============================================================
+   PDF ALIGNMENT — Targeted fixes (Leistungen, Praxis, Team)
+   ============================================================ */
+
+/* Leistungen cards — layout PDF exact :
+   titre haut-gauche (uppercase magenta/navy selon couleur),
+   symbole grand haut-droite séparé du texte, body dessous */
+.svc{padding:32px 32px 36px;min-height:220px}
+.svc h3{font-size:clamp(1.05rem,2vw,1.25rem);margin-bottom:16px;max-width:calc(100% - 100px);line-height:1.15}
+.svc p{font-size:1rem;line-height:1.65;margin-top:0;max-width:calc(100% - 20px)}
+.svc-symbol{width:88px;height:auto;top:24px;right:24px;padding-bottom:0}
+/* couleurs texte par carte (bleu/vert = navy, jaune/rose = magenta) */
+.svc--yellow h3,.svc--yellow p,.svc--pink h3,.svc--pink p{color:var(--magenta)}
+.svc--blue h3,.svc--blue p,.svc--green h3,.svc--green p{color:var(--navy)}
+
+/* Die Praxis carousel — edge-to-edge + peek demi-slides gauche/droite */
+.section-zimmer{overflow:hidden}
+.zimmer-swiper{padding:0 0 52px;margin:0 -20px}
+.zimmer-swiper .swiper-slide{width:42%}
+.zimmer-swiper .room{min-height:420px;border-radius:22px}
+@media(max-width:768px){
+  .zimmer-swiper{margin:0 -16px}
+  .zimmer-swiper .swiper-slide{width:70%}
+}
+
+/* Team cards — radius 10px comme demandé */
+.team-card,.team-card__img{border-radius:10px!important}

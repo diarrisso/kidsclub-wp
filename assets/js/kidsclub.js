@@ -127,11 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.zimmer-swiper')) {
         new Swiper('.zimmer-swiper', {
-            slidesPerView: 1.15,
-            spaceBetween: 20,
+            slidesPerView: 2,
+            spaceBetween: 16,
             navigation: { prevEl: '.zimmer-swiper__prev', nextEl: '.zimmer-swiper__next' },
             pagination: { el: '.zimmer-swiper__pagination', clickable: true },
-            breakpoints: { 600: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+            breakpoints: { 1024: { slidesPerView: 2, spaceBetween: 20 } },
             a11y: { enabled: true },
         });
     }
