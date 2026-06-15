@@ -967,3 +967,12 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 @media(max-width:600px){
   .svc-symbol{width:50px;height:auto;top:24px;right:24px;padding-bottom:0}
 }
+
+/* Ablauf: fond coloré visible sur le panel ouvert
+   overflow:hidden clippait le contenu Alpine → on le retire */
+.ablauf-item{overflow:visible!important}
+/* border-radius sur trigger (haut) et panel (bas) pour garder les coins */
+.ablauf-trigger{border-radius:10px 10px 0 0}
+.ablauf-panel{border-radius:0 0 10px 10px;background:inherit}
+/* Wrapper global pour que le fond coloré reste visible */
+.ablauf-accordion .ablauf-item{border-radius:10px}
