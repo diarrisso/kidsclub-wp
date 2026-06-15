@@ -35,7 +35,7 @@ $items   = get_sub_field( 'items' );
 				</div>
 				<?php endforeach; ?>
 			</div>
-			<div class="swiper-pagination stimmen-swiper__pagination" aria-hidden="true"></div>
+			<?php get_template_part( 'template-parts/components/swiper-pagination', null, [ 'prefix' => 'stimmen-swiper' ] ); ?>
 		</div>
 		<?php endif; ?>
 	</div>
