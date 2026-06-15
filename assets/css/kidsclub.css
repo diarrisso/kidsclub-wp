@@ -962,3 +962,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 @media(max-width:599px){
   .zimmer-swiper .swiper-slide{width:100%!important}
 }
+
+/* Leistungen symbols kleiner auf Mobile */
+@media(max-width:600px){
+  .svc-symbol{width:50px;height:auto;top:24px;right:24px;padding-bottom:0}
+}
