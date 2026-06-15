@@ -749,3 +749,6 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* Spray-Video spielt → Hero-Text sanft ausblenden (sauberer Video-Hintergrund) */
 .hero-banner.hero--playing .hero-banner-inner{opacity:0;transition:opacity .9s ease;pointer-events:none}
+
+/* Hero-Video läuft → Schleier/Spray entfernen, damit das Video voll sichtbar ist */
+.hero-banner.hero--playing .hero-scrim{opacity:0;transition:opacity .9s ease}

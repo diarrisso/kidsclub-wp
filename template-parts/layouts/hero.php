@@ -16,9 +16,9 @@ $media_type = get_sub_field( 'hero_media_type' ) ?: 'image';
 $acf_video  = get_sub_field( 'hero_video' );
 $acf_url    = ( is_array( $acf_video ) && ! empty( $acf_video['url'] ) ) ? esc_url( $acf_video['url'] ) : '';
 
-/* Spray-Video als Standard-Hintergrund (Loop), sofern kein eigenes Video gesetzt ist. */
-$default_path  = get_theme_file_path( 'assets/video/spray-quer.mp4' );
-$default_video = esc_url( get_theme_file_uri( 'assets/video/spray-quer.mp4' ) . '?v=' . ( file_exists( $default_path ) ? filemtime( $default_path ) : '1' ) );
+/* Hero-Video (Standard-Loop), sofern kein eigenes Video im Backend gesetzt ist. */
+$default_path  = get_theme_file_path( 'assets/video/hero-01.mp4' );
+$default_video = esc_url( get_theme_file_uri( 'assets/video/hero-01.mp4' ) . '?v=' . ( file_exists( $default_path ) ? filemtime( $default_path ) : '1' ) );
 $video_url     = $acf_url ?: $default_video;
 
 /* "Cinématique" (Titel erst nach Video-Ende einblenden) nur, wenn explizit im Backend gewählt. */
