@@ -189,21 +189,16 @@ section{position:relative}
 .burger svg{width:24px;height:24px}
 
 /* ---------- HERO ---------- */
-.hero{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(48px,7vw,88px);overflow:hidden;background:
-  radial-gradient(120% 90% at 80% 0%, var(--bg-band), transparent 62%)}
+.hero{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(48px,7vw,88px);overflow:hidden;background:#fff}
 
 /* ---------- HERO BANNER ---------- */
-.hero-banner{position:relative;min-height:clamp(560px,74vh,752px);display:flex;align-items:center;overflow:hidden;padding:0;background:none}
+.hero-banner{position:relative;min-height:clamp(520px,70vh,720px);display:grid;place-items:center;text-align:center;overflow:hidden;padding:0;background:#fff}
 .hero-bg{position:absolute!important;inset:0;width:100%!important;height:100%!important;border:0;border-radius:0;box-shadow:none;z-index:0}
-.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,
-  var(--bg-band) 0%,
-  color-mix(in oklab,var(--bg-band) 94%, transparent) 30%,
-  color-mix(in oklab,var(--bg-band) 42%, transparent) 54%,
-  transparent 72%)}
-.hero-banner-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw)}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:rgba(255,255,255,.30)}
+.hero-banner-inner{position:relative;z-index:3;width:100%;max-width:var(--maxw);margin-inline:auto;text-align:center}
 .hero-banner-inner .hero-logo{width:min(248px,58%)}
-.hero-banner-inner h1{margin:8px 0 0;max-width:14ch}
-.hero-banner-inner .lead{margin:20px 0 30px;max-width:46ch}
+.hero-banner-inner h1{margin:8px 0 0;max-width:none;margin-inline:auto}
+.hero-banner-inner .lead{margin:20px 0 30px;max-width:48ch;margin-inline:auto}
 .hero-banner .hero-trust{border-top-color:rgba(38,37,127,.2);max-width:560px}
 .hero-logo{mix-blend-mode:multiply}
 
@@ -611,10 +606,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .burger{display:grid}
   body{font-size:17px}
   .hero-banner{min-height:auto;padding:34px 0 clamp(220px,58vw,340px)}
-  .hero-scrim{background:linear-gradient(180deg,
-    var(--bg-band) 0%,
-    color-mix(in oklab,var(--bg-band) 80%, transparent) 46%,
-    transparent 100%)}
+  .hero-scrim{background:rgba(255,255,255,.30)}
   .hero-banner-inner h1,.hero-banner-inner .lead{max-width:none}
   .services-grid,.team-grid{grid-template-columns:1fr}
   .rooms-grid{grid-template-columns:repeat(2,1fr)}
