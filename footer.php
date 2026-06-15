@@ -71,6 +71,9 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 				<?php endif; ?>
 				<div class="footer-contact-line"><span class="fc-key">E</span><a href="mailto:info@zacp.de">info@zacp.de</a></div>
 				<div class="footer-contact-line"><a class="footer-newsletter" href="#kontakt">Newsletter</a></div>
+				<?php foreach ( $legal as $l ) : ?>
+				<div class="footer-contact-line"><a href="<?php echo esc_url( $l['url'] ); ?>"><?php echo esc_html( $l['label'] ); ?></a></div>
+				<?php endforeach; ?>
 			</div>
 
 			<!-- Col 4: Logo (desktop only) -->

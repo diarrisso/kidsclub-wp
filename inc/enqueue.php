@@ -12,7 +12,7 @@ add_action(
 	function () {
 
 		$dir = get_stylesheet_directory_uri();
-		$ver = '2.0.4'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+		$ver = '2.0.5'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 
 		// 0. Schriften — SELBST GEHOSTET (DSGVO: keine IP an Google)
 		wp_enqueue_style( 'kidsclub-fonts', $dir . '/assets/css/fonts.css', [], $ver );
