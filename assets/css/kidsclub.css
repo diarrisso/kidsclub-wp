@@ -948,15 +948,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-bottom__legal a{color:rgba(255,255,255,.65);font-size:.8rem;font-weight:600}
 .footer-bottom__legal a:hover{color:#fff}
 
-/* Logo auf Mobile oben in Col 1 anzeigen (desktop: Col 4) */
-@media(max-width:560px){
-  .footer-brand::before{
-    content:"";display:block;
-    background:url('assets/img/logo-hoch.svg') left top/auto 50px no-repeat;
-    height:54px;margin-bottom:12px
-  }
-  .footer-logo-col{display:none}
-}
+
 
 /* Praxis Swiper responsive: mobile 1 slide, tablet+ 2 slides */
 @media(max-width:599px){
@@ -976,3 +968,22 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .ablauf-panel{border-radius:0 0 10px 10px;background:inherit}
 /* Wrapper global pour que le fond coloré reste visible */
 .ablauf-accordion .ablauf-item{border-radius:10px}
+
+/* Footer responsive — correction complète */
+/* Desktop: logo mobile caché, col4 visible */
+.footer-mobile-logo{display:none}
+
+/* Tablet ≤820px: 2 colonnes, pas de col4 */
+@media(max-width:820px){
+  .footer-top{grid-template-columns:1fr 1fr!important;gap:28px!important}
+  .footer-logo-col{display:none}
+  .footer-mobile-logo{display:none}
+}
+
+/* Mobile ≤560px: 1 colonne, logo mobile en tête de Col1 */
+@media(max-width:560px){
+  .footer-top{grid-template-columns:1fr!important;gap:20px!important}
+  .footer-logo-col{display:none!important}
+  .footer-mobile-logo{display:block;margin-bottom:14px;height:44px;width:auto}
+  .footer-brand p{max-width:100%}
+}

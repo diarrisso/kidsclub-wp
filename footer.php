@@ -34,6 +34,9 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 
 			<!-- Col 1: About + Social -->
 			<div class="footer-brand">
+				<!-- Logo sichtbar nur auf Mobile (Col 4 verbirgt sich) -->
+				<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) ); ?>"
+					alt="Kids Club by zacp" class="footer-mobile-logo" width="140" height="52" loading="lazy">
 				<?php if ( $about ) : ?>
 					<p><?php echo esc_html( $about ); ?></p>
 				<?php endif; ?>
