@@ -374,11 +374,11 @@ button.chip{border:0;font-family:inherit}
 }
 
 /* ---------- TEAM ---------- */
-.section-team h2.section-title{margin-bottom:38px}
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.section-team h2.section-title{margin-bottom:38px;text-align:center}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:var(--maxw);margin-inline:auto}
 .team-card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
   transition:transform .32s var(--ease),box-shadow .32s var(--ease);border-top:4px solid transparent}
-.team-card:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:var(--shadow)}
+.team-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
 .team-card:nth-child(5n+1){border-top-color:var(--room-green)}
 .team-card:nth-child(5n+2){border-top-color:var(--room-yellow)}
 .team-card:nth-child(5n+3){border-top-color:var(--room-orange)}
@@ -629,7 +629,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .mobile-menu .btn{margin-top:26px;justify-content:center}
 
 /* Team — Gruppentitel (Funktion-Taxonomie) */
-.team-group__title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.25rem,2vw,1.6rem);color:var(--navy);margin:40px 0 18px}
+.team-group__title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.25rem,2vw,1.6rem);color:var(--navy);margin:40px 0 18px;text-align:center}
 .team-group__title:first-of-type{margin-top:0}
 
 /* Fix: le height:100% du vendor .swiper-wrapper se resout contre un bloc
