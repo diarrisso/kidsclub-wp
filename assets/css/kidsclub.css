@@ -733,3 +733,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .block-sep{border:0;border-top:1px solid var(--line);margin:0}
 /* Eyebrows zentrieren wie die Titel */
 .section-head .eyebrow,[data-section-align="center"] .container>.eyebrow{display:flex;justify-content:center;text-align:center}
+
+/* Praxis-Slides als graue Foto-Platzhalter wie im PDF */
+.zimmer-swiper .room{background:#c2c2c2;border-radius:18px;min-height:420px;box-shadow:none;padding:0;overflow:hidden;position:relative;align-items:stretch;justify-content:flex-end}
+.zimmer-swiper .room .room-nr,.zimmer-swiper .room .rh,.zimmer-swiper .room .room-motto{display:none}
+.zimmer-swiper .room b{position:absolute;left:0;right:0;bottom:0;z-index:2;background:linear-gradient(transparent,rgba(255,255,255,.92));color:var(--navy);padding:34px 16px 14px;font-size:1rem;text-align:left}
+.zimmer-swiper .room:hover{transform:none;box-shadow:none}
