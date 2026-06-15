@@ -205,3 +205,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 }());
+
+/* === QR-AUTO-OPEN: open booking modal when arrived via ?termin=1 (QR code) === */
+(function () {
+  function openFromQuery() {
+    if (new URLSearchParams(location.search).get('termin') === '1') {
+      var btn = document.querySelector('[data-booking-open]');
+      if (btn) btn.click();
+    }
+  }
+  if (document.readyState !== 'loading') openFromQuery();
+  else document.addEventListener('DOMContentLoaded', openFromQuery);
+}());

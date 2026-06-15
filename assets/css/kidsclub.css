@@ -752,3 +752,129 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* Hero-Video läuft → Schleier/Spray entfernen, damit das Video voll sichtbar ist */
 .hero-banner.hero--playing .hero-scrim{opacity:0;transition:opacity .9s ease}
+
+/* =========================================================
+   POLISH PASS — pixel-fidèle au PDF Homepage ZACP
+   ========================================================= */
+
+/* --- 1. HEADER : transparent par défaut, blanc au scroll ─── */
+/* Surcharge la règle initiale (ligne 171) grâce à la cascade (position plus basse) */
+.site-header{
+  background:transparent !important;
+  border-bottom-color:transparent !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important
+}
+.site-header.scrolled{
+  background:#fff !important;
+  border-color:var(--line) !important;
+  box-shadow:var(--shadow-sm) !important;
+  backdrop-filter:blur(12px) !important;
+  -webkit-backdrop-filter:blur(12px) !important
+}
+/* Nav links : font-weight 500, pas d'uppercase */
+.nav-links a{font-weight:500;text-transform:none}
+/* Bouton CTA : pill blanc avec border magenta (outline) */
+.nav-cta .btn-primary{background:#fff;color:var(--magenta);border:2px solid var(--magenta);box-shadow:none;font-weight:600}
+.nav-cta .btn-primary:hover{background:var(--magenta);color:#fff;transform:translateY(-1px);box-shadow:none}
+/* Logo visible sur fond transparent (header) */
+.site-header:not(.scrolled) .brand-logo{filter:none}
+
+/* --- 2. HERO : grand titre centré ──────────────────────── */
+.hero-banner{min-height:clamp(580px,78vh,820px)}
+.hero-banner-inner .display{
+  font-size:clamp(3.2rem,7vw,5.6rem);
+  text-shadow:0 2px 22px rgba(255,255,255,.55)
+}
+
+/* --- 3. WILLKOMMEN : texte plus grand et espacé ─────────── */
+.intro-welcome__inner{font-size:clamp(1.15rem,1.6vw,1.38rem);font-weight:500}
+/* Séparateur fin élégant */
+.intro-welcome{padding-bottom:0}
+.intro-welcome__sep{
+  display:block;width:56px;height:3px;
+  border-radius:3px;background:var(--magenta);
+  margin:clamp(28px,4vw,44px) auto 0;opacity:.35
+}
+
+/* --- 4. LEISTUNGEN : cartes — couleurs texte correctes ──── */
+/* Jaune + Rose → magenta ; Bleu + Vert → navy (déjà partiel, renforcer) */
+.svc--yellow h3,.svc--pink h3{color:var(--magenta)}
+.svc--blue h3,.svc--green h3{color:var(--navy)}
+.svc--yellow p,.svc--pink p{color:var(--magenta)}
+.svc--blue p,.svc--green p{color:var(--navy);opacity:.85}
+/* Symbole haut-droite, title+texte à gauche bien espacés */
+.svc{padding:32px 28px 28px}
+.svc h3{font-size:clamp(1.05rem,1.8vw,1.3rem);margin-bottom:.45em;max-width:calc(100% - 92px)}
+.svc p{font-size:1rem;line-height:1.65;max-width:calc(100% - 20px)}
+.svc-symbol{top:24px;right:22px;width:80px;opacity:.92}
+
+/* --- 5. ZIMMER carousel : slides plus hauts, nav sur l'image ─ */
+.zimmer-swiper .room{min-height:480px;border-radius:20px}
+/* Swiper wrapper: assez de padding-bottom pour que les dots soient sous les slides */
+.zimmer-swiper{padding-bottom:44px !important;overflow:hidden}
+/* Pagination dots : positionnée sous les slides grâce au padding-bottom */
+.zimmer-swiper .swiper-pagination{bottom:6px !important;position:absolute;text-align:center;width:100%}
+.zimmer-swiper .swiper-pagination-bullet{
+  background:var(--navy);opacity:.3;
+  width:8px;height:8px;
+  display:inline-block;border-radius:50%;margin:0 4px
+}
+.zimmer-swiper .swiper-pagination-bullet-active{background:var(--magenta);opacity:1}
+/* Nav : positionnée au centre vertical des slides (calc de la hauteur slide sans padding) */
+.zimmer-swiper .swiper-nav--prev{left:18px}
+.zimmer-swiper .swiper-nav--next{right:18px}
+/* Légende slide (room name) : gradient sombre → blanc sur fond gris */
+.zimmer-swiper .room b{
+  padding:42px 18px 16px;
+  font-size:1.05rem;
+  background:linear-gradient(transparent,rgba(0,0,0,.46));
+  color:#fff
+}
+
+/* --- 6. TEAM : overlay plus discret, photos rectangulaires ── */
+.team-card__img{height:320px}
+.team-card__body{
+  padding:44px 18px 16px;
+  background:linear-gradient(to top,rgba(255,255,255,.98) 42%,rgba(255,255,255,.72) 68%,transparent)
+}
+.team-card__body h3{font-size:1rem;font-weight:700;color:var(--navy);text-transform:none}
+
+/* --- 7. ABLAUF : chiffre fantôme plus grand, bandes plus rondes ─ */
+.ablauf-item{border-radius:20px;margin-bottom:0}
+.ablauf-num{
+  font-size:clamp(3rem,6vw,4rem);
+  color:rgba(255,255,255,.60);
+  min-width:1.5em;
+  line-height:1
+}
+.ablauf-q{font-size:clamp(1.05rem,2vw,1.2rem);font-weight:600;color:var(--navy)}
+.ablauf-trigger{padding:24px 28px;gap:20px;align-items:center}
+/* Chevron visible navy */
+.ablauf-trigger .accordion-chevron{color:var(--navy);opacity:.65;width:24px;height:24px}
+.ablauf-panel{padding:0 28px 26px 28px;color:var(--navy);opacity:.85}
+
+/* --- 8. FOOTER : accent band magenta, couleurs blanches ─────── */
+.site-footer{padding-bottom:24px}
+.footer-accent{height:4px;background:linear-gradient(90deg,var(--magenta) 0%,#FF7ABE 55%,var(--magenta) 100%)}
+.footer-inner{padding-top:36px}
+/* Textes footer plus lisibles */
+.footer-col a{color:rgba(255,255,255,.72);font-size:.88rem}
+.footer-brand p{font-size:.86rem;color:rgba(255,255,255,.65);max-width:230px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:18px;margin-top:4px}
+
+/* --- 9. SECTION WILLKOMMEN : séparateur visible ────────────── */
+.block-sep{border-top:1px solid rgba(16,46,121,.10);margin:0}
+
+/* --- 10. REVEAL : les cartes Leistungen sont visibles sans JS ─ */
+.services-grid .svc.reveal:not(.in){opacity:1;transform:none}
+
+/* --- 11. Section-lead centré par défaut (Leistungen, Praxis) ── */
+.intro-welcome__inner strong{font-weight:700;color:var(--magenta)}
+
+/* Responsive: header transparent sur mobile aussi */
+@media(max-width:760px){
+  .site-header{background:#fff}
+  .site-header.scrolled{background:#fff}
+}
