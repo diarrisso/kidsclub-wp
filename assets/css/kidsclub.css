@@ -922,3 +922,6 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .team-card{box-shadow:none!important}
 .team-card__body{background:#fff;background:rgba(255,255,255,.96);padding:12px 16px 14px}
 .team-card__body h3{font-size:1rem;font-weight:700;color:var(--navy);text-transform:none}
+
+/* Team-Karten Namensband — Hintergrundfarbe der Sektion statt Weiß */
+.team-card__body{background:var(--band)!important}
