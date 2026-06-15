@@ -16,7 +16,7 @@ $rooms_total = is_array( $rooms_rows ) ? count( $rooms_rows ) : 0;
 <section class="section section-zimmer" id="zimmer">
 	<div class="container">
 		<div class="section-head center" style="margin-bottom:30px">
-			<span class="eyebrow"><?php echo kc_icon( 'heart' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
+			<span class="eyebrow"><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
 			<h2 class="section-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 			<?php
 			$t = get_sub_field( 'text' );

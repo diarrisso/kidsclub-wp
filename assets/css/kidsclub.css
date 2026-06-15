@@ -906,3 +906,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* Team cards — radius 10px comme demandé */
 .team-card,.team-card__img{border-radius:10px!important}
+
+/* Homogénéité des cartes — border-radius: 10px partout */
+.svc,.team-card,.team-card__img,
+.ablauf-item,.zimmer-swiper .room,
+.praxis-gallery__item{border-radius:10px!important}

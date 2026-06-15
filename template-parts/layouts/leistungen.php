@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="section" id="leistungen">
 	<div class="container">
 		<div class="section-head center reveal">
-			<span class="eyebrow"><?php echo kc_icon( 'heart' ); ?><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
+			<span class="eyebrow"><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
 			<h2 class="section-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 			<?php
 			if ( $t = get_sub_field( 'text' ) ) :
