@@ -55,6 +55,7 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 			<!-- Col 2: Navigation -->
 			<?php if ( $nav_col ) : ?>
 			<div class="footer-col">
+				<h5><?php echo esc_html( $nav_col['heading'] ?: 'Links' ); ?></h5>
 				<?php
 				foreach ( $nav_col['links'] ?: [] as $l ) :
 					?>
