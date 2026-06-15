@@ -11,11 +11,11 @@ $logo      = get_field( 'header_logo', 'option' );
 $cta_label = get_field( 'header_cta_label', 'option' ) ?: 'Online Termin buchen';
 $cta_link  = get_field( 'header_cta_link', 'option' ) ?: '#termin';
 
-/* Brand-Markup (Logo-Bild ODER gezeichnetes Bogen-Logo) */
-$arch  = '<svg class="arch" viewBox="0 0 120 132" fill="none" aria-hidden="true"><path class="a-navy" d="M16 17 Q60 9 106 16"/><path class="a-pink" d="M19 27 Q60 20 101 26"/><path class="a-navy" d="M24 122 L24 62 Q24 30 60 30 Q96 30 96 62 L96 122"/><path class="a-pink" d="M40 122 L40 64 Q40 46 60 46 Q80 46 80 64 L80 122"/><path class="h-fill" d="M60 100 C49 88 43 82 43 73 C43 66 48 62 53.5 62 C57 62 59 64.5 60 67 C61 64.5 63 62 66.5 62 C72 62 77 66 77 73 C77 82 71 88 60 100 Z"/></svg>';
-$brand = $logo
+/* Brand-Markup (Logo-Bild via ACF ODER Datei-Logo als Fallback) */
+$default_logo = '<img class="brand-logo" src="' . esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) ) . '" alt="Kids Club by zacp" width="150" height="56">';
+$brand        = $logo
 	? '<img src="' . esc_url( $logo['url'] ) . '" alt="' . esc_attr( $logo['alt'] ?: 'Kids Club by zacp' ) . '" style="height:48px;width:auto">'
-	: $arch . '<span class="brand-name">Kids Club<small>by zacp</small></span>';
+	: $default_logo;
 
 $nav           = get_field( 'header_nav', 'option' ) ?: [];
 $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
