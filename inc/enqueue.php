@@ -12,7 +12,7 @@ add_action(
 	function () {
 
 		$dir = get_stylesheet_directory_uri();
-		$ver = '1.5.0'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+		$ver = '1.6.0'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 
 		// 0. Schriften — SELBST GEHOSTET (DSGVO: keine IP an Google)
 		wp_enqueue_style( 'kidsclub-fonts', $dir . '/assets/css/fonts.css', [], $ver );
@@ -41,7 +41,7 @@ add_action(
 	'wp_head',
 	function () {
 		$dir = get_stylesheet_directory_uri();
-		echo '<link rel="preload" href="' . esc_url( $dir . '/assets/fonts/fredoka-v17-latin-700.woff2' ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+		echo '<link rel="preload" href="' . esc_url( $dir . '/assets/fonts/jost/Jost-Bold.woff2' ) . '" as="font" type="font/woff2" crossorigin>' . "\n";
 	},
 	2
 );
