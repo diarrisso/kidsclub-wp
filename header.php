@@ -64,7 +64,7 @@ function kc_nav_url( $link ) {
 
 <div class="mobile-menu" id="mobileMenu">
 	<div class="mm-top">
-		<span class="brand-name">Kids Club<small>by zacp</small></span>
+		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) ); ?>" alt="Kids Club by zacp" class="mm-logo" width="130" height="48">
 		<button class="close" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
 	</div>
 	<?php foreach ( $nav as $item ) : ?>

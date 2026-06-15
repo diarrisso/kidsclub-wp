@@ -911,3 +911,6 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .svc,.team-card,.team-card__img,
 .ablauf-item,.zimmer-swiper .room,
 .praxis-gallery__item{border-radius:10px!important}
+
+/* Logo im Mobile-Menü */
+.mm-logo{height:44px;width:auto;display:block}
