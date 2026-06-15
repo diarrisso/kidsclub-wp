@@ -65,6 +65,7 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 
 			<!-- Col 3: Kontakt (T / E / Newsletter) -->
 			<div class="footer-col footer-contact">
+				<h5>Kontakt</h5>
 				<?php if ( $phone ) : ?>
 				<div class="footer-contact-line"><span class="fc-key">T</span><a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a></div>
 				<?php endif; ?>

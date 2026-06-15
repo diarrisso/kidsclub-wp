@@ -29,8 +29,8 @@ if ( have_rows( 'sections' ) ) :
 			echo '</div>';
 		}
 
-		// Trenner nach jedem Block (außer Hero) — wie im PDF.
-		if ( 'hero' !== $layout ) {
+		// Trenner nach jedem Block (außer Hero + letztem Block vor Footer) — wie im PDF.
+		if ( 'hero' !== $layout && have_rows( 'sections' ) ) {
 			echo '<div class="container"><hr class="block-sep"></div>';
 		}
 
