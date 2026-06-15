@@ -99,6 +99,16 @@
       heroVideo.addEventListener('error', revealHero, { once: true });
     }
   }
+
+  // Spray-Hintergrund (Loop, kein „cinematic"): Hero-Text ausblenden, sobald das Video spielt.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.hero-banner:not([data-media="video"]) .hero-video').forEach(function (v) {
+      var hero = v.closest('.hero-banner');
+      var hideText = function () { if (hero) { hero.classList.add('hero--playing'); } };
+      if (!v.paused && v.currentTime > 0) { hideText(); }
+      v.addEventListener('playing', hideText);
+    });
+  }
 })();
 
 // Kundenstimmen Swiper

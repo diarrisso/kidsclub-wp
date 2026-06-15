@@ -38,7 +38,8 @@ function kc_symbol( $slug, $alt = '' ) {
 	if ( ! in_array( $slug, $allowed, true ) ) {
 		return '';
 	}
-	$num = substr( $slug, -1 );
-	$url = get_theme_file_uri( "assets/img/symbols/Symbol{$num}.svg" );
+	$num  = substr( $slug, -1 );
+	$path = get_theme_file_path( "assets/img/symbols/Symbol{$num}.svg" );
+	$url  = get_theme_file_uri( "assets/img/symbols/Symbol{$num}.svg" ) . '?v=' . ( file_exists( $path ) ? filemtime( $path ) : '1' );
 	return '<img class="svc-symbol" src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '" loading="lazy" width="96" height="80">';
 }
