@@ -914,3 +914,6 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* Logo im Mobile-Menü */
 .mm-logo{height:44px;width:auto;display:block}
+
+/* Nav CTA — bouton plus petit, sans icône */
+.nav-cta .btn-primary{padding:6px 18px;font-size:.82rem;font-weight:600}
