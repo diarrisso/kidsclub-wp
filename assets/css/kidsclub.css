@@ -646,3 +646,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    englobant errone -> slides geants vides. height:auto laisse le contenu
    dicter la hauteur ; les cards restent egalisees par le flex stretch. */
 .stimmen-swiper .swiper-wrapper{height:auto}
+
+/* Optionales Sektions-Hintergrundbild (ACF, pro Sektion). */
+.kc-section-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+/* Wenn ein Bild gesetzt ist, eigenen Vollflaechen-Hintergrund der Sektion durchscheinen lassen */
+.kc-section-bg > section{background-color:transparent}

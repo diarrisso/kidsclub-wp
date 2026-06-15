@@ -13,7 +13,21 @@ if ( have_rows( 'sections' ) ) :
 
 		$layout = get_row_layout(); // z. B. "hero", "leistungen", "zimmer"
 
+		$kc_bg     = get_sub_field( 'background_image' );
+		$kc_has_bg = is_array( $kc_bg ) && ! empty( $kc_bg['url'] );
+
+		if ( $kc_has_bg ) {
+			printf(
+				'<div class="kc-section-bg" style="background-image:url(%s)">',
+				esc_url( $kc_bg['url'] )
+			);
+		}
+
 		get_template_part( 'template-parts/layouts/' . $layout );
+
+		if ( $kc_has_bg ) {
+			echo '</div>';
+		}
 
 	endwhile;
 endif;

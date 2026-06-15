@@ -51,6 +51,7 @@ add_action(
 								'label'      => 'Hero (Banner)',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'hero' ),
 									kc_field( 'hero_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'hero_title', 'Überschrift', 'text' ),
 									kc_field(
@@ -129,6 +130,7 @@ add_action(
 								'label'      => 'Leistungsspektrum',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'leistungen' ),
 									[
 										'key'   => 'field_kc_ls_eyebrow',
 										'label' => 'Eyebrow',
@@ -196,6 +198,7 @@ add_action(
 								'label'      => '5 Zimmer',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'zimmer' ),
 									[
 										'key'   => 'field_kc_zm_eyebrow',
 										'label' => 'Eyebrow',
@@ -249,6 +252,7 @@ add_action(
 								'label'      => 'Erster Besuch (Ablauf)',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'ablauf' ),
 									kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
 									kc_field( 'abl_text', 'Einleitung', 'textarea' ),
@@ -279,6 +283,7 @@ add_action(
 								'label'      => 'Praxis-Galerie',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'praxis' ),
 									kc_field( 'prx_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'prx_title', 'Überschrift', 'text' ),
 									[
@@ -297,6 +302,7 @@ add_action(
 								'label'      => 'Team / Behandler',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
 									[
@@ -328,6 +334,7 @@ add_action(
 								'label'      => 'Für Eltern',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'eltern' ),
 									kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'el_title', 'Überschrift', 'text' ),
 									kc_field( 'el_text', 'Einleitung', 'textarea' ),
@@ -358,6 +365,7 @@ add_action(
 								'label'      => 'Kundenstimmen',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'stimmen' ),
 									kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'st_title', 'Überschrift', 'text' ),
 									[
@@ -383,6 +391,7 @@ add_action(
 								'label'      => 'FAQ',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'faq' ),
 									kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'fq_title', 'Überschrift', 'text' ),
 									[
@@ -411,6 +420,7 @@ add_action(
 								'label'      => 'Termin buchen',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'termin' ),
 									kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tr_title', 'Überschrift', 'text' ),
 									kc_field( 'tr_text', 'Text', 'textarea' ),
@@ -438,6 +448,7 @@ add_action(
 								'label'      => 'Kontakt',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'kontakt' ),
 									kc_field( 'kt_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'kt_title', 'Überschrift', 'text' ),
 									kc_field( 'kt_text', 'Text', 'textarea' ),
@@ -466,5 +477,18 @@ function kc_field( $name, $label, $type ) {
 		'label' => $label,
 		'name'  => $name,
 		'type'  => $type,
+	];
+}
+
+/** Optionales Hintergrundbild pro Sektion. Eindeutiger Key je Layout. */
+function kc_bg_field( $layout ) {
+	return [
+		'key'           => 'field_kc_bg_' . $layout,
+		'label'         => 'Hintergrundbild (optional)',
+		'name'          => 'background_image',
+		'type'          => 'image',
+		'return_format' => 'array',
+		'preview_size'  => 'medium',
+		'instructions'  => 'Optional. Leer lassen = aktuelle Hintergrundfarbe.',
 	];
 }
