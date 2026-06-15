@@ -14,22 +14,28 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ---------- TOKENS ---------- */
 :root{
-  --font-display:'Fredoka', system-ui, sans-serif;
-  --font-marker:'Caveat', cursive;
-  --font-body:'Nunito', system-ui, sans-serif;
+  --font-display:'Jost', system-ui, sans-serif;
+  --font-body:'Jost', system-ui, sans-serif;
 
   /* brand */
-  --magenta:#EC0A8C;
-  --magenta-deep:#C40C78;
-  --navy:#26257F;
-  --ink:#211F66;
-  --ink-soft:#5A5996;
+  --magenta:#EA4589;
+  --magenta-deep:#D52E72;
+  --navy:#102E79;
+  --ink:#102E79;
+  --ink-soft:#4A568C;
 
   /* surfaces */
-  --bg:#FCE3E9;        /* soft pink page */
+  --bg:#FFFFFF;
+  --band:#EFF2F0;
   --bg-band:#FBB9C4;   /* stronger pink band (flyer) */
   --surface:#FFFFFF;
   --line:rgba(38,37,127,.14);
+
+  /* Leistungen card colors */
+  --card-yellow:#F3E3A6;
+  --card-blue:#BBCCDA;
+  --card-green:#C0CBC3;
+  --card-pink:#F9E9E2;
 
   /* 5 Zimmer-Farben (Kundenangabe) */
   --room-green:#BDCCC2;
@@ -55,48 +61,34 @@ ul{margin:0;padding:0;list-style:none}
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 
-/* heading font alt */
-:root[data-heads="marker"] h1,
-:root[data-heads="marker"] h2,
-:root[data-heads="marker"] h3,
-:root[data-heads="marker"] .display{font-family:var(--font-marker);font-weight:700;letter-spacing:0}
-:root[data-heads="marker"] .display{font-size:clamp(3.4rem,8vw,6rem);line-height:.92}
-:root[data-heads="marker"] h2.section-title{font-size:clamp(2.8rem,5vw,4.4rem);line-height:.95}
-
 body{
   font-family:var(--font-body);
   color:var(--ink);
   background:var(--bg);
-  line-height:1.62;
+  line-height:1.6;
   font-size:18px;
-  font-weight:500;
+  font-weight:400;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 
-/* Grain overlay — fixed, non-interactive, subtle noise like premium editorial sites */
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  pointer-events:none;
-  opacity:.045;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  background-size:180px 180px;
-}
-:root[data-bg="weiss"] body{--bg:#FFFFFF}
-:root[data-bg="hell"] body{--bg:#FFF4F7}
-
 /* ---------- TYPE ---------- */
-h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.05;margin:0;letter-spacing:-.01em;color:var(--navy)}
-.display{font-size:clamp(2.6rem,6vw,4.5rem);font-weight:700;line-height:1.0}
-h2.section-title{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.05;margin-bottom:16px}
-h3{font-size:1.4rem;font-weight:600}
+h1,h2,h3,.display,.section-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  color:var(--magenta);
+  letter-spacing:.01em;
+  line-height:1.05;
+  margin:0;
+}
+h4{font-family:var(--font-display);font-weight:600;line-height:1.1;margin:0;color:var(--navy)}
+.display{font-size:clamp(2.6rem,6vw,4.6rem)}
+.section-title{font-size:clamp(2rem,4vw,3.2rem)}
 p{margin:0 0 1em}
 .lead{font-size:clamp(1.1rem,1.55vw,1.32rem);color:var(--ink-soft);line-height:1.55;font-weight:500}
 .section-lead{font-size:clamp(1.05rem,1.5vw,1.22rem);color:var(--ink-soft);line-height:1.6;font-weight:500;margin:0 0 clamp(28px,4vw,44px)}
-.eyebrow{font-family:var(--font-marker);font-weight:700;font-size:1.55rem;line-height:1;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;transform:rotate(-2deg);margin-bottom:10px}
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:10px}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
 .hl{color:var(--magenta)}
@@ -319,7 +311,7 @@ section{position:relative}
 .facts{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:8px;display:grid;grid-template-columns:repeat(4,1fr)}
 .fact{padding:24px 22px;text-align:center;border-right:2px dashed var(--line)}
 .fact:last-child{border-right:0}
-.fact .num{font-family:var(--font-marker);font-weight:700;font-size:2.9rem;line-height:1;color:var(--magenta)}
+.fact .num{font-family:var(--font-display);font-weight:700;font-size:2.9rem;line-height:1;color:var(--magenta)}
 .fact .lbl{margin-top:4px;color:var(--ink-soft);font-weight:700;font-size:.95rem}
 
 /* ---------- SERVICES ---------- */
@@ -347,14 +339,14 @@ section{position:relative}
 .room .rh svg{width:52px;height:52px;color:var(--navy);opacity:.75}
 .room-nr{position:absolute;top:14px;left:16px;font-family:var(--font-display);font-size:.75rem;font-weight:900;color:var(--navy);opacity:.35;letter-spacing:.04em}
 .room b{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--navy)}
-.room .room-motto{font-family:var(--font-marker);font-size:1rem;color:var(--navy);opacity:.6;margin:0}
+.room .room-motto{font-family:var(--font-display);font-size:1rem;color:var(--navy);opacity:.6;margin:0}
 .room.g{background:var(--room-green)}.room.y{background:var(--room-yellow)}.room.o{background:var(--room-orange)}.room.b{background:var(--room-blue)}.room.l{background:var(--room-lila)}
 
 /* ---------- STEPS ---------- */
 .steps-wrap{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:clamp(34px,4vw,56px);position:relative;overflow:hidden}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;position:relative}
 .step{position:relative}
-.step .n{width:56px;height:56px;border-radius:50%;color:#fff;font-family:var(--font-marker);font-weight:700;font-size:1.9rem;display:grid;place-items:center;margin-bottom:18px}
+.step .n{width:56px;height:56px;border-radius:50%;color:#fff;font-family:var(--font-display);font-weight:700;font-size:1.9rem;display:grid;place-items:center;margin-bottom:18px}
 .step:nth-child(1) .n{background:var(--magenta);box-shadow:var(--shadow-mag)}
 .step:nth-child(2) .n{background:var(--navy)}
 .step:nth-child(3) .n{background:var(--magenta);box-shadow:var(--shadow-mag)}
@@ -426,7 +418,7 @@ button.chip{border:0;font-family:inherit}
 .stimmen-swiper{padding-bottom:48px !important}
 .stimmen-swiper .swiper-slide{height:auto}
 .stimmen-card{background:var(--surface);border-radius:var(--r-lg);padding:32px 28px;box-shadow:var(--shadow-sm);height:100%;display:flex;flex-direction:column;position:relative}
-.stimmen-card::before{content:'\201C';font-family:var(--font-marker);font-size:5rem;color:var(--magenta);line-height:.6;opacity:.35;position:absolute;top:20px;left:24px}
+.stimmen-card::before{content:'\201C';font-family:var(--font-display);font-size:5rem;color:var(--magenta);line-height:.6;opacity:.35;position:absolute;top:20px;left:24px}
 .stimmen-quote{margin:0;display:flex;flex-direction:column;flex:1;padding-top:28px}
 .stimmen-quote p{font-size:1rem;line-height:1.7;color:var(--navy);font-weight:600;flex:1;margin:0 0 20px}
 .stimmen-author{margin-top:auto;display:flex;align-items:center;gap:12px}
