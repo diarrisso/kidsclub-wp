@@ -72,9 +72,10 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 				<div class="footer-contact-line"><a class="footer-newsletter" href="#kontakt">Newsletter</a></div>
 			</div>
 
-			<!-- Col 4: Logo -->
+			<!-- Col 4: Logo (desktop only) -->
 			<div class="footer-logo-col">
-				<svg class="arch" viewBox="0 0 120 132" fill="none" aria-hidden="true" width="64" height="70"><path class="a-navy" style="stroke:#fff" d="M16 17 Q60 9 106 16"/><path class="a-pink" d="M19 27 Q60 20 101 26"/><path class="a-navy" style="stroke:#fff" d="M24 122 L24 62 Q24 30 60 30 Q96 30 96 62 L96 122"/><path class="a-pink" d="M40 122 L40 64 Q40 46 60 46 Q80 46 80 64 L80 122"/><path class="h-fill" d="M60 100 C49 88 43 82 43 73 C43 66 48 62 53.5 62 C57 62 59 64.5 60 67 C61 64.5 63 62 66.5 62 C72 62 77 66 77 73 C77 82 71 88 60 100 Z"/></svg>
+				<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-hoch.svg' ) ); ?>"
+					alt="Kids Club by zacp" width="80" height="90" loading="lazy">
 			</div>
 
 		</div>
