@@ -739,3 +739,10 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .zimmer-swiper .room .room-nr,.zimmer-swiper .room .rh,.zimmer-swiper .room .room-motto{display:none}
 .zimmer-swiper .room b{position:absolute;left:0;right:0;bottom:0;z-index:2;background:linear-gradient(transparent,rgba(255,255,255,.92));color:var(--navy);padding:34px 16px 14px;font-size:1rem;text-align:left}
 .zimmer-swiper .room:hover{transform:none;box-shadow:none}
+
+/* Praxis-Pfeile wie PDF: große weiße Chevrons ohne Kreis, an den Rändern */
+.zimmer-swiper .swiper-nav{background:transparent;box-shadow:none;width:48px;height:48px;color:#fff;filter:drop-shadow(0 1px 5px rgba(0,0,0,.35))}
+.zimmer-swiper .swiper-nav:hover{color:#fff;background:transparent}
+.zimmer-swiper .swiper-nav svg{width:40px;height:40px;stroke-width:2.5}
+.zimmer-swiper .swiper-nav--prev{left:16px}
+.zimmer-swiper .swiper-nav--next{right:16px}
