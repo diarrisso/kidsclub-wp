@@ -77,8 +77,8 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 		</div>
 
 		<div class="footer-bottom">
-			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) . ' ' . $copy ); ?></span>
-			<div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+			<div class="footer-bottom__copy">&copy; <?php echo esc_html( gmdate( 'Y' ) . ' ' . $copy ); ?></div>
+			<div class="footer-bottom__legal">
 				<?php foreach ( $legal as $l ) : ?>
 					<a href="<?php echo esc_url( $l['url'] ); ?>"><?php echo esc_html( $l['label'] ); ?></a>
 				<?php endforeach; ?>

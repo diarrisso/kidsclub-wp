@@ -940,3 +940,20 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
   .footer-bottom div{display:flex;flex-wrap:wrap;gap:12px}
 }
+
+/* Footer-Bottom: Copyright zuerst, dann Rechtslinks darunter */
+.footer-bottom{flex-direction:column;align-items:flex-start;gap:6px}
+.footer-bottom__copy{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.65)}
+.footer-bottom__legal{display:flex;flex-wrap:wrap;gap:14px}
+.footer-bottom__legal a{color:rgba(255,255,255,.65);font-size:.8rem;font-weight:600}
+.footer-bottom__legal a:hover{color:#fff}
+
+/* Logo auf Mobile oben in Col 1 anzeigen (desktop: Col 4) */
+@media(max-width:560px){
+  .footer-brand::before{
+    content:"";display:block;
+    background:url('assets/img/logo-hoch.svg') left top/auto 50px no-repeat;
+    height:54px;margin-bottom:12px
+  }
+  .footer-logo-col{display:none}
+}
