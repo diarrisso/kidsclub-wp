@@ -13,18 +13,24 @@ $anim       = get_sub_field( 'hero_anim' ) ?: 'winken';
 $show_kids  = get_sub_field( 'hero_show_kids' );
 $bg         = get_sub_field( 'hero_bg' );
 $media_type = get_sub_field( 'hero_media_type' ) ?: 'image';
-$hero_video = ( $media_type === 'video' ) ? get_sub_field( 'hero_video' ) : null;
-$video_url  = ( $hero_video && ! empty( $hero_video['url'] ) ) ? esc_url( $hero_video['url'] ) : '';
+$acf_video  = get_sub_field( 'hero_video' );
+$acf_url    = ( is_array( $acf_video ) && ! empty( $acf_video['url'] ) ) ? esc_url( $acf_video['url'] ) : '';
+
+/* Spray-Video als Standard-Hintergrund (Loop), sofern kein eigenes Video gesetzt ist. */
+$default_video = esc_url( get_theme_file_uri( 'assets/video/spray-quer.mp4' ) );
+$video_url     = $acf_url ?: $default_video;
+
+/* "Cinématique" (Titel erst nach Video-Ende einblenden) nur, wenn explizit im Backend gewählt. */
+$cinematic = ( 'video' === $media_type && $acf_url );
+$is_video  = true; // Hero zeigt immer das (Spray-)Video als Hintergrund.
 
 $bg_url = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
-				: esc_url( get_theme_file_uri( 'assets/img/hero-banner-bg.svg' ) );
-
-$is_video = ( $media_type === 'video' && $video_url );
+				: esc_url( get_theme_file_uri( 'assets/img/hero-spray-poster.jpg' ) );
 ?>
 <section class="hero hero-banner"
 		data-anim="<?php echo esc_attr( $anim ); ?>"
 		<?php
-		if ( $is_video ) :
+		if ( $cinematic ) :
 			?>
 				data-media="video"<?php endif; ?>>
 
@@ -32,7 +38,7 @@ $is_video = ( $media_type === 'video' && $video_url );
 		aria-label="<?php echo esc_attr( $bg['alt'] ?? 'Kids Club' ); ?>"
 		style="background:url('<?php echo esc_url( $bg_url ); ?>') center/cover no-repeat;">
 		<?php if ( $is_video ) : ?>
-		<video class="hero-video" autoplay muted playsinline preload="none"
+		<video class="hero-video" autoplay muted playsinline preload="auto" <?php echo $cinematic ? '' : 'loop'; ?>
 				poster="<?php echo esc_attr( $bg_url ); ?>"
 				aria-hidden="true">
 			<source src="<?php echo esc_url( $video_url ); ?>" type="video/mp4">

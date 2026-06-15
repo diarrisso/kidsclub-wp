@@ -33,10 +33,8 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 
 		<div class="footer-top">
 
-			<!-- Col 1: Brand -->
+			<!-- Col 1: About + Social -->
 			<div class="footer-brand">
-				<svg class="arch" viewBox="0 0 120 132" fill="none" aria-hidden="true" width="44" height="48"><path class="a-navy" style="stroke:#fff" d="M16 17 Q60 9 106 16"/><path class="a-pink" d="M19 27 Q60 20 101 26"/><path class="a-navy" style="stroke:#fff" d="M24 122 L24 62 Q24 30 60 30 Q96 30 96 62 L96 122"/><path class="a-pink" d="M40 122 L40 64 Q40 46 60 46 Q80 46 80 64 L80 122"/><path class="h-fill" d="M60 100 C49 88 43 82 43 73 C43 66 48 62 53.5 62 C57 62 59 64.5 60 67 C61 64.5 63 62 66.5 62 C72 62 77 66 77 73 C77 82 71 88 60 100 Z"/></svg>
-				<div class="fname">Kids Club<small>by zacp</small></div>
 				<?php if ( $about ) : ?>
 					<p><?php echo esc_html( $about ); ?></p>
 				<?php endif; ?>
@@ -52,10 +50,9 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 				<?php endif; ?>
 			</div>
 
-			<!-- Col 2: Navigation (footer_cols[0] from Theme-Einstellungen) -->
+			<!-- Col 2: Navigation -->
 			<?php if ( $nav_col ) : ?>
 			<div class="footer-col">
-				<h5><?php echo esc_html( $nav_col['heading'] ); ?></h5>
 				<?php
 				foreach ( $nav_col['links'] ?: [] as $l ) :
 					?>
@@ -64,41 +61,18 @@ $phone_digits = preg_replace( '/[^+\d]/', '', $phone );
 			</div>
 			<?php endif; ?>
 
-			<!-- Col 3: Kontakt (footer_address / footer_phone / footer_hours) -->
-			<div class="footer-col">
-				<h5>Kontakt</h5>
-				<?php if ( $addr ) : ?>
-				<div class="footer-contact-line">
-					<svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-					<span><?php echo nl2br( esc_html( $addr ) ); ?></span>
-				</div>
-				<?php endif; ?>
+			<!-- Col 3: Kontakt (T / E / Newsletter) -->
+			<div class="footer-col footer-contact">
 				<?php if ( $phone ) : ?>
-				<div class="footer-contact-line">
-					<svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-					<a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a>
-				</div>
+				<div class="footer-contact-line"><span class="fc-key">T</span><a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a></div>
 				<?php endif; ?>
-				<?php if ( $hours ) : ?>
-				<div class="footer-contact-line">
-					<svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-					<span><?php echo nl2br( esc_html( $hours ) ); ?></span>
-				</div>
-				<?php endif; ?>
+				<div class="footer-contact-line"><span class="fc-key">E</span><a href="mailto:info@zacp.de">info@zacp.de</a></div>
+				<div class="footer-contact-line"><a class="footer-newsletter" href="#kontakt">Newsletter</a></div>
 			</div>
 
-			<!-- Col 4: QR Termin -->
-			<div class="footer-qr">
-				<h5>Online Termin</h5>
-				<div class="footer-qr-box">
-					<img src="<?php echo esc_url( $qr_img ); ?>"
-						alt="QR-Code für Online-Terminbuchung bei Kids Club"
-						width="90" height="90" loading="lazy">
-				</div>
-				<p class="footer-qr-label">Scanne &amp; buche direkt<br>vom Handy</p>
-				<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>
-				<button type="button" class="footer-qr-btn" data-booking-open aria-haspopup="dialog">Termin buchen →</button>
-			<?php endif; ?>
+			<!-- Col 4: Logo -->
+			<div class="footer-logo-col">
+				<svg class="arch" viewBox="0 0 120 132" fill="none" aria-hidden="true" width="64" height="70"><path class="a-navy" style="stroke:#fff" d="M16 17 Q60 9 106 16"/><path class="a-pink" d="M19 27 Q60 20 101 26"/><path class="a-navy" style="stroke:#fff" d="M24 122 L24 62 Q24 30 60 30 Q96 30 96 62 L96 122"/><path class="a-pink" d="M40 122 L40 64 Q40 46 60 46 Q80 46 80 64 L80 122"/><path class="h-fill" d="M60 100 C49 88 43 82 43 73 C43 66 48 62 53.5 62 C57 62 59 64.5 60 67 C61 64.5 63 62 66.5 62 C72 62 77 66 77 73 C77 82 71 88 60 100 Z"/></svg>
 			</div>
 
 		</div>
