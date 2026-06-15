@@ -28,3 +28,17 @@ function kc_icon( $slug ) {
 	];
 	return $map[ $slug ] ?? '';
 }
+
+/**
+ * Symbol-Illustration (Leistungs-Karten). Aufruf: kc_symbol('symbol1')
+ * Gibt ein <img> auf die SVG-Datei zurück (Voll-Farbe, 691×573).
+ */
+function kc_symbol( $slug, $alt = '' ) {
+	$allowed = [ 'symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5' ];
+	if ( ! in_array( $slug, $allowed, true ) ) {
+		return '';
+	}
+	$num = substr( $slug, -1 );
+	$url = get_theme_file_uri( "assets/img/symbols/Symbol{$num}.svg" );
+	return '<img class="svc-symbol" src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '" loading="lazy" width="96" height="80">';
+}
