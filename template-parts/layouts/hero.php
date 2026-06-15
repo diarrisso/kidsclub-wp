@@ -1,16 +1,16 @@
 <?php
 /**
- * Layout: Hero (Banner) mit animierten Kindern.
+ * Layout: Hero (Banner) mit Spray-Video-Hintergrund.
  * Felder: hero_eyebrow, hero_title, hero_highlight, hero_text,
- *         hero_bg (image / poster), hero_media_type (image|video),
- *         hero_video (file), hero_anim (select), hero_show_kids (bool)
+ *         hero_bg (image / poster), hero_media_type (image|video), hero_video (file).
+ * Standard: gebündeltes Spray-Video (Loop). „Cinématique" (Text nach Video-Ende) nur,
+ * wenn hero_media_type=video + eigenes hero_video gesetzt sind.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 $anim       = get_sub_field( 'hero_anim' ) ?: 'winken';
-$show_kids  = get_sub_field( 'hero_show_kids' );
 $bg         = get_sub_field( 'hero_bg' );
 $media_type = get_sub_field( 'hero_media_type' ) ?: 'image';
 $acf_video  = get_sub_field( 'hero_video' );
@@ -23,7 +23,6 @@ $video_url     = $acf_url ?: $default_video;
 
 /* "Cinématique" (Titel erst nach Video-Ende einblenden) nur, wenn explizit im Backend gewählt. */
 $cinematic = ( 'video' === $media_type && $acf_url );
-$is_video  = true; // Hero zeigt immer das (Spray-)Video als Hintergrund.
 
 $bg_url = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
 				: esc_url( get_theme_file_uri( 'assets/img/hero-spray-poster.jpg' ) );
@@ -38,30 +37,16 @@ $bg_url = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
 	<div class="hero-bg" role="img"
 		aria-label="<?php echo esc_attr( $bg['alt'] ?? 'Kids Club' ); ?>"
 		style="background:url('<?php echo esc_url( $bg_url ); ?>') center/cover no-repeat;">
-		<?php if ( $is_video ) : ?>
 		<video class="hero-video" autoplay muted playsinline preload="auto" <?php echo $cinematic ? '' : 'loop'; ?>
 				poster="<?php echo esc_attr( $bg_url ); ?>"
 				aria-hidden="true">
 			<source src="<?php echo esc_url( $video_url ); ?>" type="video/mp4">
 		</video>
-		<?php endif; ?>
 	</div>
-
-	<?php
-	if ( $show_kids && ! $is_video ) {
-		get_template_part( 'template-parts/partials/kids-svg' );}
-	?>
-
-	<div class="hero-marquee" aria-hidden="true"><div class="marquee-track"></div></div>
 
 	<div class="hero-scrim"></div>
 
-	<div class="container hero-banner-inner
-	<?php
-	if ( ! $is_video ) {
-		echo ' reveal';}
-	?>
-	">
+	<div class="container hero-banner-inner">
 		<?php if ( $eb = get_sub_field( 'hero_eyebrow' ) ) : ?>
 			<span class="eyebrow"><?php echo esc_html( $eb ); ?></span>
 		<?php endif; ?>
