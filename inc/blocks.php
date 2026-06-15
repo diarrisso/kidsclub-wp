@@ -123,6 +123,27 @@ add_action(
 								],
 							],
 
+							/* ---------- WILLKOMMEN (Intro) ---------- */
+							'layout_willkommen' => [
+								'key'        => 'layout_willkommen',
+								'name'       => 'willkommen',
+								'label'      => 'Willkommen (Intro)',
+								'display'    => 'block',
+								'sub_fields' => [
+									kc_bg_field( 'willkommen' ),
+									[
+										'key'          => 'field_kc_wk_text',
+										'label'        => 'Text',
+										'name'         => 'text',
+										'type'         => 'wysiwyg',
+										'media_upload' => 0,
+										'tabs'         => 'visual',
+										'toolbar'      => 'basic',
+										'instructions' => 'Zentrierter Intro-Absatz. „Herzlich Willkommen!“ fett für die Magenta-Hervorhebung.',
+									],
+								],
+							],
+
 							/* ---------- LEISTUNGEN ---------- */
 							'layout_leistungen' => [
 								'key'        => 'layout_leistungen',
