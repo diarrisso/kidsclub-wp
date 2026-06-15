@@ -957,3 +957,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   }
   .footer-logo-col{display:none}
 }
+
+/* Praxis Swiper responsive: mobile 1 slide, tablet+ 2 slides */
+@media(max-width:599px){
+  .zimmer-swiper .swiper-slide{width:100%!important}
+}
