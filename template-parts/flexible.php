@@ -8,8 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( have_rows( 'sections' ) ) :
+
+	// Gesamtzahl der Sections vorab ermitteln. NIEMALS have_rows( 'sections' )
+	// innerhalb dieser Schleife erneut aufrufen — das setzt ACFs internen
+	// Row-Pointer zurück und erzeugt eine Endlosschleife (Memory Exhaustion).
+	$kc_sections   = get_field( 'sections' );
+	$kc_total      = is_array( $kc_sections ) ? count( $kc_sections ) : 0;
+	$kc_section_no = 0;
+
 	while ( have_rows( 'sections' ) ) :
 		the_row();
+		++$kc_section_no;
 
 		$layout = get_row_layout(); // z. B. "hero", "leistungen", "zimmer"
 
@@ -30,7 +39,7 @@ if ( have_rows( 'sections' ) ) :
 		}
 
 		// Trenner nach jedem Block (außer Hero + letztem Block vor Footer) — wie im PDF.
-		if ( 'hero' !== $layout && have_rows( 'sections' ) ) {
+		if ( 'hero' !== $layout && $kc_section_no < $kc_total ) {
 			echo '<div class="container"><hr class="block-sep"></div>';
 		}
 
