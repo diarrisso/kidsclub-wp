@@ -39,7 +39,7 @@ if ( ! function_exists( 'kc_team_card' ) ) :
 		</div>
 		<?php endif; ?>
 		<div class="team-card__body">
-			<h3><?php echo esc_html( get_the_title( $member ) ); ?></h3>
+			<h3><?php echo kc_team_name_html( get_the_title( $member ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Tokens in kc_team_name_html() einzeln escaped ?></h3>
 			<p class="team-card__role"><?php echo esc_html( get_field( 'tm_role', $member ) ); ?></p>
 			<?php
 			$bio = get_field( 'tm_bio', $member );
@@ -124,7 +124,7 @@ $team_posts = get_posts(
 					</div>
 					<?php endif; ?>
 					<div class="team-card__body">
-						<h3><?php echo esc_html( $member['tm_name'] ); ?></h3>
+						<h3><?php echo kc_team_name_html( $member['tm_name'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Tokens in kc_team_name_html() einzeln escaped ?></h3>
 						<p class="team-card__role"><?php echo esc_html( $member['tm_role'] ); ?></p>
 						<?php
 						if ( $member['tm_bio'] ) :

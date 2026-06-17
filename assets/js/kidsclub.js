@@ -100,15 +100,8 @@
     }
   }
 
-  // Spray-Hintergrund (Loop, kein „cinematic"): Hero-Text ausblenden, sobald das Video spielt.
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.hero-banner:not([data-media="video"]) .hero-video').forEach(function (v) {
-      var hero = v.closest('.hero-banner');
-      var hideText = function () { if (hero) { hero.classList.add('hero--playing'); } };
-      if (!v.paused && v.currentTime > 0) { hideText(); }
-      v.addEventListener('playing', hideText);
-    });
-  }
+  // Spray-Hintergrund (Loop): Hero-Text bleibt dauerhaft über dem Video sichtbar
+  // (kein Ausblenden mehr beim Abspielen).
 })();
 
 // Kundenstimmen Swiper
@@ -127,14 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.zimmer-swiper')) {
         new Swiper('.zimmer-swiper', {
-            slidesPerView: 1,
-            spaceBetween: 14,
+            // 'auto' lässt die CSS-Breite der Slides (.swiper-slide width) greifen
+            // → 2 volle Slides + Peek der nächsten Slide rechts (full-bleed).
+            slidesPerView: 'auto',
+            spaceBetween: 24,
             navigation: { prevEl: '.zimmer-swiper__prev', nextEl: '.zimmer-swiper__next' },
             pagination: { el: '.zimmer-swiper__pagination', clickable: true },
-            breakpoints: {
-                600: { slidesPerView: 2, spaceBetween: 16 },
-                1024: { slidesPerView: 2, spaceBetween: 20 },
-            },
             a11y: { enabled: true },
         });
     }
