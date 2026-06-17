@@ -558,7 +558,11 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Submit-Button im Kontaktformular kompakter als die Hero-CTAs */
 .wpcf7 input[type="submit"]{font-size:.82rem;padding:8px 18px}
 .wpcf7-not-valid-tip{color:#c0392b;font-size:.85rem;font-weight:700;margin-top:5px;display:block}
-.wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:none}
+/* Höhere Spezifität als CF7 (.wpcf7 form .wpcf7-response-output) → Rahmen komplett entfernen,
+   auch im Erfolgs-/Fehlerzustand (form.sent / form.failed setzen sonst border-color). */
+.wpcf7 form .wpcf7-response-output,
+.wpcf7 form.sent .wpcf7-response-output,
+.wpcf7 form.failed .wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:0}
 .wpcf7-mail-sent-ok{background:rgba(26,122,74,.1);color:#1a7a4a}
 .wpcf7-validation-errors,.wpcf7-spam-blocked{background:rgba(192,57,43,.08);color:#c0392b}
 
@@ -577,7 +581,11 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card .wpcf7 input::placeholder,
 .kontakt-card .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
 /* Footer: Einwilligung links, Submit rechts */
-.kontakt-card .kontakt-form__footer{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:8px;flex-wrap:wrap}
+/* CF7 umschließt den Footer-Inhalt in einem <p> (autop) → Flex auf das <p> legen,
+   damit Einwilligung (links) und Submit (rechts) auf EINER Zeile stehen. */
+.kontakt-card .kontakt-form__footer{margin-top:8px}
+.kontakt-card .kontakt-form__footer p{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:0}
+.kontakt-card .kontakt-form__footer br{display:none}
 .kontakt-card .kontakt-form__consent,
 .kontakt-card .wpcf7-acceptance label{color:var(--navy);font-size:.92rem}
 .kontakt-card .wpcf7-acceptance a{color:var(--navy);text-decoration:underline}
