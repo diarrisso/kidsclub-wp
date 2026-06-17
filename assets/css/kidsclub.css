@@ -594,9 +594,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card .wpcf7-acceptance input[type="checkbox"]{-webkit-appearance:none;appearance:none;width:28px!important;height:28px!important;padding:0!important;flex:none;margin:0;background:#fff;border:0;border-radius:6px;cursor:pointer;box-sizing:border-box}
 .kontakt-card .wpcf7-acceptance input[type="checkbox"]:checked{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E3A8E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 13l4 4L19 7'/></svg>") center/64% no-repeat}
 /* Submit „Ab die Post" — navy, größer, kleine Radius */
-/* Submit als einheitliche Outline-Pille (magenta Rand + Text) */
-.kontakt-card .wpcf7 input[type="submit"]{background:#fff;color:var(--magenta);border:2px solid var(--magenta);border-radius:999px;font-size:1rem;padding:14px 34px;font-weight:600;width:auto}
-.kontakt-card .wpcf7 input[type="submit"]:hover{background:var(--magenta);color:#fff}
+/* Ausnahme: Formular-Submit bleibt mit blauem Vollflächen-Hintergrund (kein Outline) */
+.kontakt-card .wpcf7 input[type="submit"]{background:#0E3A8E;color:#fff;border:0;border-radius:8px;font-size:1rem;padding:15px 32px;font-weight:600;width:auto}
+.kontakt-card .wpcf7 input[type="submit"]:hover{background:#0A2E73;color:#fff}
 @media(max-width:600px){.kontakt-card .form-row{grid-template-columns:1fr}}
 
 /* ---------- FOOTER ---------- */
@@ -737,8 +737,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    ========================================================= */
 
 /* Header-CTA: Outline-Pill wie im PDF (weiß, magenta Rand + Text) */
-.nav-cta .btn-primary{background:#fff;color:var(--magenta);border:1.6px solid var(--magenta);box-shadow:none}
-.nav-cta .btn-primary:hover{background:var(--magenta);color:#fff;transform:translateY(-1px);box-shadow:none}
+/* (.nav-cta .btn-primary Outline = vom Basis-.btn-primary geerbt, kein Duplikat) */
 
 /* Spray-Dekor hinter der Praxis-Sektion (weiß, dezent) wie im PDF */
 .section-zimmer{position:relative}
@@ -826,8 +825,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Nav links : font-weight 500, pas d'uppercase */
 .nav-links a{font-weight:500;text-transform:none}
 /* Bouton CTA : pill blanc avec border magenta (outline) */
-.nav-cta .btn-primary{background:#fff;color:var(--magenta);border:2px solid var(--magenta);box-shadow:none;font-weight:600}
-.nav-cta .btn-primary:hover{background:var(--magenta);color:#fff;transform:translateY(-1px);box-shadow:none}
+/* (.nav-cta .btn-primary Outline = vom Basis-.btn-primary geerbt, kein Duplikat) */
 /* Logo visible sur fond transparent (header) */
 .site-header:not(.scrolled) .brand-logo{filter:none}
 
@@ -973,8 +971,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Logo im Mobile-Menü */
 .mm-logo{height:44px;width:auto;display:block}
 
-/* Nav CTA — bouton plus petit, sans icône */
-.nav-cta .btn-primary{padding:6px 18px;font-size:.82rem;font-weight:600}
+/* Nav CTA — gleiche Outline-Pille wie Footer/Termin (erbt .btn-primary), Header-Größe */
+.nav-cta .btn-primary{padding:12px 34px;font-size:1rem;font-weight:600}
 
 /* Team-Karten — kein Shadow, weißes Band (opak) unten wie im PDF */
 .team-card{box-shadow:none!important}
