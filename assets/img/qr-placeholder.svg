@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="QR-Code Platzhalter">
+  <rect width="100" height="100" rx="4" fill="#ffffff"/>
+  <g fill="#102E79">
+    <!-- Finder pattern: top-left -->
+    <path d="M8 8h22v22H8z M12 12v14h14V12z M15 15h8v8h-8z"/>
+    <!-- Finder pattern: top-right -->
+    <path d="M70 8h22v22H70z M74 12v14h14V12z M77 15h8v8h-8z"/>
+    <!-- Finder pattern: bottom-left -->
+    <path d="M8 70h22v22H8z M12 74v14h14V74z M15 77h8v8h-8z"/>
+    <!-- Timing + data modules (decorative placeholder) -->
+    <rect x="36" y="8" width="5" height="5"/><rect x="47" y="8" width="5" height="5"/><rect x="58" y="8" width="5" height="5"/>
+    <rect x="8" y="36" width="5" height="5"/><rect x="8" y="47" width="5" height="5"/><rect x="8" y="58" width="5" height="5"/>
+    <rect x="36" y="14" width="5" height="5"/><rect x="52" y="14" width="5" height="5"/>
+    <rect x="42" y="20" width="5" height="5"/><rect x="58" y="20" width="5" height="5"/><rect x="64" y="20" width="5" height="5"/>
+    <rect x="36" y="26" width="5" height="5"/><rect x="47" y="26" width="5" height="5"/><rect x="70" y="36" width="5" height="5"/>
+    <rect x="82" y="36" width="5" height="5"/><rect x="76" y="42" width="5" height="5"/><rect x="88" y="42" width="5" height="5"/>
+    <rect x="36" y="36" width="5" height="5"/><rect x="42" y="42" width="5" height="5"/><rect x="54" y="42" width="5" height="5"/>
+    <rect x="36" y="48" width="5" height="5"/><rect x="48" y="48" width="5" height="5"/><rect x="60" y="48" width="5" height="5"/><rect x="72" y="48" width="5" height="5"/><rect x="84" y="48" width="5" height="5"/>
+    <rect x="42" y="54" width="5" height="5"/><rect x="66" y="54" width="5" height="5"/><rect x="78" y="54" width="5" height="5"/>
+    <rect x="36" y="60" width="5" height="5"/><rect x="54" y="60" width="5" height="5"/><rect x="72" y="60" width="5" height="5"/><rect x="90" y="60" width="5" height="5"/>
+    <rect x="36" y="70" width="5" height="5"/><rect x="48" y="70" width="5" height="5"/><rect x="60" y="70" width="5" height="5"/><rect x="78" y="70" width="5" height="5"/>
+    <rect x="42" y="76" width="5" height="5"/><rect x="54" y="76" width="5" height="5"/><rect x="84" y="76" width="5" height="5"/><rect x="90" y="76" width="5" height="5"/>
+    <rect x="36" y="84" width="5" height="5"/><rect x="48" y="84" width="5" height="5"/><rect x="66" y="84" width="5" height="5"/><rect x="78" y="84" width="5" height="5"/><rect x="90" y="84" width="5" height="5"/>
+    <rect x="42" y="90" width="5" height="5"/><rect x="60" y="90" width="5" height="5"/><rect x="72" y="90" width="5" height="5"/>
+  </g>
+</svg>
