@@ -37,7 +37,7 @@ $bg_url = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
 	<div class="hero-bg" role="img"
 		aria-label="<?php echo esc_attr( $bg['alt'] ?? 'Kids Club' ); ?>"
 		style="background:url('<?php echo esc_url( $bg_url ); ?>') center/cover no-repeat;">
-		<video class="hero-video" autoplay muted playsinline preload="auto" <?php echo $cinematic ? '' : 'loop'; ?>
+		<video class="hero-video" autoplay muted playsinline preload="metadata" <?php echo $cinematic ? '' : 'loop'; ?>
 				poster="<?php echo esc_attr( $bg_url ); ?>"
 				aria-hidden="true">
 			<source src="<?php echo esc_url( $video_url ); ?>" type="video/mp4">
