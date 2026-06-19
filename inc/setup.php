@@ -42,3 +42,16 @@ add_filter(
 		return '|';
 	}
 );
+
+add_filter(
+	'body_class',
+	function ( $classes ) {
+		if ( function_exists( 'get_field' ) ) {
+			$variant = get_field( 'animation_variant', 'option' ) ?: 'floating';
+			if ( 'none' !== $variant ) {
+				$classes[] = 'anim-' . sanitize_html_class( $variant );
+			}
+		}
+		return $classes;
+	}
+);

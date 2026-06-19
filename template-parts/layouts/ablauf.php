@@ -21,7 +21,7 @@ $items   = get_sub_field( 'items' );
 			<p class="section-lead"><?php echo esc_html( $text ); ?></p>
 		<?php endif; ?>
 		<?php if ( $items ) : ?>
-		<div class="accordion ablauf-accordion" x-data="{ open: 0 }">
+		<div class="accordion ablauf-accordion" x-data="{ open: 0 }" x-cloak>
 			<?php foreach ( $items as $i => $step ) : ?>
 			<div class="ablauf-item">
 				<button class="ablauf-trigger"
@@ -31,10 +31,11 @@ $items   = get_sub_field( 'items' );
 						type="button">
 					<span class="ablauf-num" aria-hidden="true"><?php echo esc_html( $step['abl_nr'] ?: (string) ( $i + 1 ) ); ?></span>
 					<span class="ablauf-q"><?php echo esc_html( $step['abl_heading'] ); ?></span>
-					<svg class="accordion-chevron" :class="{ 'is-open': open === <?php echo absint( $i ); ?> }"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-						<path d="M6 9l6 6 6-6"/>
-					</svg>
+					<span class="accordion-icon" aria-hidden="true"
+						:class="open === <?php echo absint( $i ); ?> ? 'is-open' : ''">
+						<span class="icon-plus"><?php echo kc_svg( 'accordion-open' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<span class="icon-minus"><?php echo kc_svg( 'accordion-close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					</span>
 				</button>
 				<div class="ablauf-panel"
 					id="ablauf-panel-<?php echo absint( $i ); ?>"

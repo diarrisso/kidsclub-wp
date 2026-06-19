@@ -1,21 +1,17 @@
 <?php
 /**
- * Layout: 5 Zimmer — Swiper Karussell (DIE PRAXIS).
- * Felder: eyebrow, title, text, rooms[] (name, theme, color)
- * Reusable components: swiper-nav + swiper-pagination (prefix: zimmer-swiper)
- * Slider läuft full-bleed (außerhalb des .container), 2 volle Slides + Peek.
+ * Layout: 5 Behandlungszimmer — Swiper-Karussell
+ * Felder: eyebrow, title, text, rooms[] (name, color)
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Pre-count slides for aria-label "Folie X von Y".
-$rooms_rows  = get_sub_field( 'rooms' );
-$rooms_total = is_array( $rooms_rows ) ? count( $rooms_rows ) : 0;
+$rooms_rows = get_sub_field( 'rooms' );
 ?>
-
 <section class="section section-zimmer" id="zimmer">
 	<div class="container">
+
 		<div class="section-head center" style="margin-bottom:30px">
 			<span class="eyebrow"><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
 			<h2 class="section-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
@@ -26,26 +22,43 @@ $rooms_total = is_array( $rooms_rows ) ? count( $rooms_rows ) : 0;
 				<p class="lead"><?php echo esc_html( $t ); ?></p>
 			<?php endif; ?>
 		</div>
-	</div><!-- /.container : Slider läuft full-bleed außerhalb des Containers -->
 
-	<div class="swiper zimmer-swiper" aria-roledescription="Karussell" aria-label="<?php echo esc_attr( get_sub_field( 'title' ) ?: 'Zimmer' ); ?>">
-		<div class="swiper-wrapper" aria-live="polite">
-			<?php
-			$rn = 0;
-			while ( have_rows( 'rooms' ) ) :
-				the_row();
-				++$rn;
-				$c = get_sub_field( 'color' ); // g | y | o | b | l
-				?>
-				<div class="swiper-slide room <?php echo esc_attr( $c ); ?>" role="group" aria-label="<?php echo esc_attr( sprintf( 'Folie %d von %d', $rn, $rooms_total ) ); ?>">
-					<span class="room-nr"><?php echo esc_html( sprintf( '%02d', $rn ) ); ?></span>
-					<span class="rh"><?php echo kc_icon( 'room_' . $c ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></span>
-					<b><?php echo esc_html( get_sub_field( 'name' ) ); ?></b>
-					<span class="room-motto"><?php echo esc_html( get_sub_field( 'theme' ) ); ?></span>
+		<?php if ( $rooms_rows ) : ?>
+		<div class="zimmer-swiper-wrap">
+
+			<button class="zimmer-swiper__prev swiper-nav-btn" aria-label="Vorherige">
+				<?php echo kc_svg( 'slide-prev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</button>
+			<button class="zimmer-swiper__next swiper-nav-btn" aria-label="Nächste">
+				<?php echo kc_svg( 'slide-next' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</button>
+
+			<div class="zimmer-swiper swiper"
+				aria-roledescription="Karussell"
+				aria-label="Behandlungszimmer">
+				<div class="swiper-wrapper">
+					<?php
+					$rn = 0;
+					while ( have_rows( 'rooms' ) ) :
+						the_row();
+						++$rn;
+						$c = get_sub_field( 'color' ); // g | y | o | b | l
+						?>
+						<div class="swiper-slide" role="group" aria-roledescription="Folie" aria-label="Zimmer <?php echo esc_attr( (string) $rn ); ?>">
+							<div class="room <?php echo esc_attr( $c ); ?>">
+								<span class="room-nr"><?php echo esc_html( sprintf( '%02d', $rn ) ); ?></span>
+								<span class="rh"><?php echo kc_icon( 'room_' . $c ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+								<b><?php echo esc_html( get_sub_field( 'name' ) ); ?></b>
+							</div>
+						</div>
+					<?php endwhile; ?>
 				</div>
-			<?php endwhile; ?>
+			</div>
+
+			<div class="zimmer-swiper__pagination"></div>
+
 		</div>
-		<?php get_template_part( 'template-parts/components/swiper-pagination', null, array( 'prefix' => 'zimmer-swiper' ) ); ?>
-		<?php get_template_part( 'template-parts/components/swiper-nav', null, array( 'prefix' => 'zimmer-swiper' ) ); ?>
+		<?php endif; ?>
+
 	</div>
 </section>

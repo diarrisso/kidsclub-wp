@@ -28,7 +28,6 @@ $logo_path = get_theme_file_path( 'assets/img/logo-quer-white.svg' );
 $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' );
 ?>
 <footer class="site-footer">
-	<div class="footer-accent"></div>
 	<div class="container footer-inner">
 
 		<div class="footer-top">
@@ -41,29 +40,44 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 
 			<!-- Col 2: Adresse -->
 			<div class="footer-col footer-address">
+				<p class="footer-col-title">Kontakt</p>
+				<img class="footer-mobile-logo"
+					src="<?php echo esc_url( $logo_url ); ?>"
+					alt="Kids Club by zacp" width="140" height="40">
 				<?php if ( $addr ) : ?>
 					<address><?php echo nl2br( esc_html( $addr ) ); ?></address>
 				<?php endif; ?>
 				<?php if ( $phone ) : ?>
-					<div class="footer-contact-line"><span class="fc-key">T</span><a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a></div>
+					<div class="footer-contact-line">
+						<span class="fc-key"><?php echo kc_svg( 'phone', 'Telefon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<a href="tel:<?php echo esc_attr( $phone_digits ); ?>"><?php echo esc_html( $phone ); ?></a>
+					</div>
 				<?php endif; ?>
-				<div class="footer-contact-line"><span class="fc-key">E</span><a href="mailto:info@zacp.de">info@zacp.de</a></div>
+				<div class="footer-contact-line">
+					<span class="fc-key"><?php echo kc_svg( 'email', 'E-Mail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					<a href="mailto:info@zacp.de">info@zacp.de</a>
+				</div>
 			</div>
 
 			<!-- Col 3: Öffnungszeiten -->
 			<div class="footer-col footer-hours">
+				<p class="footer-col-title">Öffnungszeiten</p>
 				<?php if ( $hours ) : ?>
 					<p><?php echo nl2br( esc_html( $hours ) ); ?></p>
 				<?php endif; ?>
 			</div>
 
-			<!-- Col 4: Termin bequem per Smartphone buchen (QR + Button) -->
+			<!-- Col 4: Online Termin QR + Text -->
 			<div class="footer-col footer-booking">
+				<p class="footer-col-title">Online Termin</p>
 				<div class="footer-booking__head">
 					<p class="footer-booking__text">Bequem mit dem Smartphone den Termin buchen.</p>
 					<img class="footer-qr" src="<?php echo esc_url( $qr_url ); ?>" alt="QR-Code für die Online-Terminbuchung" width="92" height="92">
 				</div>
-				<button type="button" class="btn btn-primary footer-booking__btn" data-booking-open aria-haspopup="dialog">Buchen</button>
+				<button type="button" class="btn btn-primary footer-booking__btn" data-booking-open aria-haspopup="dialog">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+					Buchen
+				</button>
 			</div>
 
 		</div>
@@ -96,6 +110,9 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 <div id="bookingModal" class="booking-modal" role="dialog" aria-modal="true" aria-label="Online Termin buchen" hidden>
 	<div class="booking-modal__backdrop" id="bookingBackdrop"></div>
 	<div class="booking-modal__card">
+		<button class="booking-modal__close" id="bookingClose" aria-label="Schließen">
+			<?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</button>
 		<div class="booking-modal__body">
 			<?php echo do_shortcode( '[masinga_booking]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML généré par masinga-booking, API-URL échappée via esc_url() ?>
 		</div>

@@ -18,7 +18,7 @@ $items   = get_sub_field( 'items' );
 			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
 		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
 		<?php if ( $items ) : ?>
-		<div class="accordion faq-accordion" x-data="{ open: null }">
+		<div class="accordion faq-accordion" x-data="{ open: null }" x-cloak>
 			<?php foreach ( $items as $i => $item ) : ?>
 			<div class="accordion-item">
 				<button class="accordion-trigger"
@@ -27,10 +27,11 @@ $items   = get_sub_field( 'items' );
 						aria-controls="faq-panel-<?php echo absint( $i ); ?>"
 						type="button">
 					<span><?php echo esc_html( $item['fq_question'] ); ?></span>
-					<svg class="accordion-chevron" :class="{ 'is-open': open === <?php echo absint( $i ); ?> }"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-						<path d="M6 9l6 6 6-6"/>
-					</svg>
+					<span class="accordion-icon" aria-hidden="true"
+						:class="open === <?php echo absint( $i ); ?> ? 'is-open' : ''">
+						<span class="icon-plus"><?php echo kc_svg( 'accordion-open' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<span class="icon-minus"><?php echo kc_svg( 'accordion-close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+					</span>
 				</button>
 				<div class="accordion-panel"
 					id="faq-panel-<?php echo absint( $i ); ?>"

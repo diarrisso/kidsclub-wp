@@ -35,6 +35,8 @@ function kc_nav_url( $link ) {
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://kidsclub.masingatech.com">
+	<link rel="dns-prefetch" href="https://kidsclub.masingatech.com">
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -53,10 +55,11 @@ function kc_nav_url( $link ) {
 		</nav>
 
 		<div class="nav-cta">
-			<button type="button" class="btn btn-primary btn-sm" data-booking-open aria-haspopup="dialog">
+			<button type="button" class="btn btn-primary btn-sm" data-booking-open aria-haspopup="dialog" style="display:inline-flex;align-items:center;gap:6px">
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 				<?php echo esc_html( $cta_label ); ?>
 			</button>
-			<button class="burger" id="burger" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+			<button class="burger" id="burger" aria-label="Menü öffnen"><?php echo kc_svg( 'menu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 		</div>
 	</div>
 </header>
@@ -64,10 +67,12 @@ function kc_nav_url( $link ) {
 <div class="mobile-menu" id="mobileMenu">
 	<div class="mm-top">
 		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) ); ?>" alt="Kids Club by zacp" class="mm-logo" width="130" height="48">
-		<button class="close" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+		<button class="close" id="menuClose" aria-label="Menü schließen"><?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 	</div>
-	<?php foreach ( $nav as $item ) : ?>
-		<a href="<?php echo esc_url( kc_nav_url( $item['link'] ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
-	<?php endforeach; ?>
-	<a class="btn btn-primary" href="<?php echo esc_url( kc_nav_url( $cta_link ) ); ?>"><?php echo esc_html( $cta_label ); ?></a>
+	<nav class="mm-nav">
+		<?php foreach ( $nav as $item ) : ?>
+			<a href="<?php echo esc_url( kc_nav_url( $item['link'] ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+		<?php endforeach; ?>
+		<a class="btn btn-primary" href="<?php echo esc_url( kc_nav_url( $cta_link ) ); ?>"><?php echo esc_html( $cta_label ); ?></a>
+	</nav>
 </div>

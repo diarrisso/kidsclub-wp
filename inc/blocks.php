@@ -72,9 +72,9 @@ add_action(
 										'type'          => 'select',
 										'default_value' => 'image',
 										'choices'       => [
-											'image' => 'Bild (Standard)',
-											'video' =>
-												'Video (cinématique — Willkommen-Reveal)',
+											'image'        => 'Bild (Standard)',
+											'video'        => 'Video (cinématique — Willkommen-Reveal)',
+											'video_slider' => 'Video-Slider (mehrere Videos, Autoplay-Sequenz)',
 										],
 									],
 									[
@@ -89,11 +89,47 @@ add_action(
 										'conditional_logic' => [
 											[
 												[
-													'field'    =>
-														'field_kc_hero_media_type',
+													'field'    => 'field_kc_hero_media_type',
 													'operator' => '==',
 													'value'    => 'video',
 												],
+											],
+										],
+									],
+									[
+										'key'          => 'field_kc_hero_video_slides',
+										'label'        => 'Video-Slides',
+										'name'         => 'hero_video_slides',
+										'type'         => 'repeater',
+										'instructions' => '2–5 Videos hinzufügen. Jedes Video spielt automatisch ab und wechselt zum nächsten.',
+										'min'          => 2,
+										'max'          => 5,
+										'button_label' => 'Video hinzufügen',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_hero_media_type',
+													'operator' => '==',
+													'value'    => 'video_slider',
+												],
+											],
+										],
+										'sub_fields'   => [
+											[
+												'key'   => 'field_kc_hero_slide_video',
+												'label' => 'Video (.mp4)',
+												'name'  => 'slide_video',
+												'type'  => 'file',
+												'return_format' => 'array',
+												'mime_types' => 'mp4',
+											],
+											[
+												'key'   => 'field_kc_hero_slide_poster',
+												'label' => 'Poster-Bild (optional)',
+												'name'  => 'slide_poster',
+												'type'  => 'image',
+												'return_format' => 'array',
+												'instructions' => 'Wird angezeigt bevor das Video lädt und auf Mobilgeräten.',
 											],
 										],
 									],
@@ -139,7 +175,8 @@ add_action(
 										'media_upload' => 0,
 										'tabs'         => 'visual',
 										'toolbar'      => 'basic',
-										'instructions' => 'Zentrierter Intro-Absatz. „Herzlich Willkommen!“ fett für die Magenta-Hervorhebung.',
+										'instructions' =>
+											'Zentrierter Intro-Absatz. „Herzlich Willkommen!“ fett für die Magenta-Hervorhebung.',
 									],
 								],
 							],
@@ -206,7 +243,11 @@ add_action(
 												'default_value' => 'symbol1',
 											],
 											kc_field( 'heading', 'Titel', 'text' ),
-											kc_field( 'body', 'Beschreibung', 'textarea' ),
+											kc_field(
+												'body',
+												'Beschreibung',
+												'textarea',
+											),
 										],
 									],
 								],
@@ -297,6 +338,20 @@ add_action(
 								],
 							],
 
+							/* ---------- GALERIE ---------- */
+							'layout_galerie'    => [
+								'key'        => 'layout_galerie',
+								'name'       => 'galerie',
+								'label'      => 'Galerie',
+								'display'    => 'block',
+								'sub_fields' => [
+									kc_bg_field( 'galerie' ),
+									kc_field( 'gl_eyebrow', 'Eyebrow', 'text' ),
+									kc_field( 'gl_title', 'Titel', 'text' ),
+									kc_field( 'gl_text', 'Einleitung', 'textarea' ),
+								],
+							],
+
 							/* ---------- PRAXIS ---------- */
 							'layout_praxis'     => [
 								'key'        => 'layout_praxis',
@@ -311,7 +366,8 @@ add_action(
 										'key'     => 'field_kc_prx_hinweis',
 										'label'   => 'Fotos & Kategorien',
 										'type'    => 'message',
-										'message' => 'Die Fotos werden im Menü <strong>Praxis-Galerie</strong> gepflegt (Foto = Beitragsbild, Filter-Chips = Bereiche, Reihenfolge = Attribut Reihenfolge).',
+										'message' =>
+											'Die Fotos werden im Menü <strong>Praxis-Galerie</strong> gepflegt (Foto = Beitragsbild, Filter-Chips = Bereiche, Reihenfolge = Attribut Reihenfolge).',
 									],
 								],
 							],
