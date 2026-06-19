@@ -117,7 +117,7 @@ p{margin:0 0 1em}
 
 /* ---------- LAYOUT ---------- */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
-section{position:relative}
+section{position:relative;z-index:2}
 .section,
 .section-ablauf,.section-eltern,.section-faq,.section-kontakt,
 .section-praxis,.section-stimmen,.section-team,.section-termin{padding:clamp(60px,8vw,112px) 0}
@@ -369,7 +369,8 @@ section{position:relative}
 /* Zimmer: Desktop = Grid (alle 5 sichtbar), Mobile = Swiper-Karussell */
 .zimmer-swiper-wrap{position:relative}
 .zimmer-swiper{overflow:visible!important;padding-bottom:40px}
-.zimmer-swiper .swiper-slide{height:auto}
+.zimmer-swiper .swiper-slide{height:auto;transition:opacity .3s}
+.zimmer-swiper .swiper-slide:not(.swiper-slide-active){opacity:.45}
 .zimmer-swiper .room{height:100%;min-height:230px}
 /* Desktop ≥640px: statisches 5er-Grid, kein Slider. !important = Sicherheitsnetz,
    falls Swiper am Breakpoint noch aktiv ist (flex/transform würden sonst gewinnen). */
@@ -770,7 +771,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .nav-links,.nav-phone{display:none}
   .burger{display:grid}
   body{font-size:17px}
-  .hero-banner{min-height:auto;padding:34px 0 clamp(220px,58vw,340px)}
+  .hero-banner{min-height:clamp(480px,60vh,560px);padding:0 0 clamp(200px,50vw,280px);display:flex;align-items:center;justify-content:center}
   .hero-scrim{background:rgba(255,255,255,.30)}
   .hero-banner-inner h1,.hero-banner-inner .lead{max-width:none}
   .services-grid,.team-grid{grid-template-columns:1fr}
@@ -1050,9 +1051,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    symbole grand haut-droite séparé du texte, body dessous */
 .svc{padding:32px 32px 36px;min-height:220px}
 /* Design Karten-Titel — EINZIGE Quelle: size 38 / spacing 0 / line 43 (≈1.13) / Jost Halbfett(600) / uppercase */
-.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:calc(100% - 100px);line-height:1.13;font-weight:600;letter-spacing:0}
+.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:100%;line-height:1.13;font-weight:600;letter-spacing:0}
 /* Design Karten-Text — EINZIGE Quelle: size 22 / spacing 0 / line 30 (≈1.36) / Jost Regular */
-.svc p{margin:0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:calc(100% - 96px);letter-spacing:0;font-weight:400}
+.svc p{margin:0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:100%;letter-spacing:0;font-weight:400}
 .svc-symbol{width:88px;height:auto;top:24px;right:24px;padding-bottom:0}
 /* couleurs texte par carte (bleu/vert = navy, jaune/rose = magenta) */
 .svc--yellow h3,.svc--yellow p,.svc--pink h3,.svc--pink p{color:var(--magenta)}
@@ -1196,7 +1197,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Variant 1 : Schwebende Symbole */
 .kc-floater{position:fixed;pointer-events:none;z-index:1;will-change:transform}
 /* Contenu de section devant les floaters décoratifs (z-index > 1) */
-.ablauf-item,.faq-item,.stimmen-card,.room,.kontakt-form-wrap,.kontakt-info{position:relative;z-index:2}
+.ablauf-item,.faq-item,.stimmen-card,.room,.kontakt-form-wrap,.kontakt-info{position:relative}
 .kc-floater svg{width:100%;height:100%;display:block}
 @keyframes kc-float{
   0%,100%{transform:translateY(0) rotate(0deg) scale(1)}
