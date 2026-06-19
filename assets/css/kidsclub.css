@@ -14,22 +14,28 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ---------- TOKENS ---------- */
 :root{
-  --font-display:'Fredoka', system-ui, sans-serif;
-  --font-marker:'Caveat', cursive;
-  --font-body:'Nunito', system-ui, sans-serif;
+  --font-display:'Jost', system-ui, sans-serif;
+  --font-body:'Jost', system-ui, sans-serif;
 
   /* brand */
-  --magenta:#EC0A8C;
-  --magenta-deep:#C40C78;
-  --navy:#26257F;
-  --ink:#211F66;
-  --ink-soft:#5A5996;
+  --magenta:#EA4589;
+  --magenta-deep:#D52E72;
+  --navy:#102E79;
+  --ink:#102E79;
+  --ink-soft:#4A568C;
 
   /* surfaces */
-  --bg:#FCE3E9;        /* soft pink page */
+  --bg:#FFFFFF;
+  --band:#EFF2F0;
   --bg-band:#FBB9C4;   /* stronger pink band (flyer) */
   --surface:#FFFFFF;
   --line:rgba(38,37,127,.14);
+
+  /* Leistungen card colors */
+  --card-yellow:#F3E3A6;
+  --card-blue:#BBCCDA;
+  --card-green:#C0CBC3;
+  --card-pink:#F9E9E2;
 
   /* 5 Zimmer-Farben (Kundenangabe) */
   --room-green:#BDCCC2;
@@ -37,6 +43,22 @@ ul{margin:0;padding:0;list-style:none}
   --room-orange:#FCE8E1;
   --room-blue:#98ACBA;
   --room-lila:#CCC8CE;
+
+  /* ---- Projekt-Palette: 13 Farben (Kundenangabe 17.06.2026, Hex = Quelle der Wahrheit).
+     Namen nach der tatsächlich gerenderten Farbe des Hex (Labels im Export waren verschoben). */
+  --pal-anthracite:#383846;
+  --pal-greige:#CCCAC3;
+  --pal-offwhite:#F0F0F0;
+  --pal-teal:#538B8C;
+  --pal-slate:#45576D;
+  --pal-mist:#D8DDDD;
+  --pal-dustyblue:#719CAD;
+  --pal-slate-dark:#555966;
+  --pal-cream:#FAECBF;
+  --pal-peach:#FDF0EB;
+  --pal-sage:#D4DED7;
+  --pal-lilac:#DEDBDF;
+  --pal-bluegrey:#BCC9D2;
 
   --logo-navy:var(--navy);
   --logo-pink:var(--magenta);
@@ -55,48 +77,40 @@ ul{margin:0;padding:0;list-style:none}
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 
-/* heading font alt */
-:root[data-heads="marker"] h1,
-:root[data-heads="marker"] h2,
-:root[data-heads="marker"] h3,
-:root[data-heads="marker"] .display{font-family:var(--font-marker);font-weight:700;letter-spacing:0}
-:root[data-heads="marker"] .display{font-size:clamp(3.4rem,8vw,6rem);line-height:.92}
-:root[data-heads="marker"] h2.section-title{font-size:clamp(2.8rem,5vw,4.4rem);line-height:.95}
-
 body{
   font-family:var(--font-body);
   color:var(--ink);
   background:var(--bg);
-  line-height:1.62;
+  line-height:1.6;
   font-size:18px;
-  font-weight:500;
+  font-weight:400;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 
-/* Grain overlay — fixed, non-interactive, subtle noise like premium editorial sites */
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  pointer-events:none;
-  opacity:.045;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  background-size:180px 180px;
-}
-:root[data-bg="weiss"] body{--bg:#FFFFFF}
-:root[data-bg="hell"] body{--bg:#FFF4F7}
-
 /* ---------- TYPE ---------- */
-h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.05;margin:0;letter-spacing:-.01em;color:var(--navy)}
-.display{font-size:clamp(2.6rem,6vw,4.5rem);font-weight:700;line-height:1.0}
-h2.section-title{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.05;margin-bottom:16px}
-h3{font-size:1.4rem;font-weight:600}
+h1,h2,h3,.display,.section-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  color:var(--magenta);
+  letter-spacing:.01em;
+  line-height:1.05;
+  margin:0;
+}
+h4{font-family:var(--font-display);font-weight:600;line-height:1.1;margin:0;color:var(--navy)}
+.display{font-size:clamp(2.2rem,4.5vw,3.8rem)}
+/* Design Titres section: taille réduite pour éviter les blocs trop volumineux sur grands écrans */
+.section-title{font-size:clamp(1.9rem,3.5vw,3.125rem);font-weight:800;line-height:1;letter-spacing:.057em}
 p{margin:0 0 1em}
 .lead{font-size:clamp(1.1rem,1.55vw,1.32rem);color:var(--ink-soft);line-height:1.55;font-weight:500}
-.section-lead{font-size:clamp(1.05rem,1.5vw,1.22rem);color:var(--ink-soft);line-height:1.6;font-weight:500;margin:0 0 clamp(28px,4vw,44px)}
-.eyebrow{font-family:var(--font-marker);font-weight:700;font-size:1.55rem;line-height:1;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;transform:rotate(-2deg);margin-bottom:10px}
+/* Design Block-Beschreibung (alle Sektionen wie Leistungen): size 30 / spacing 0.3 / line 43 (≈1.43) / Jost Regular.
+   Gilt für .section-head .lead (Leistungen, Die Praxis) + .section-lead (Ablauf, Eltern, Termin, Kontakt).
+   Hero-Lead bleibt unberührt (liegt in .hero-banner-inner, nicht in .section-head). */
+.section-head .lead,
+.section-lead{font-size:clamp(1.05rem,1.5vw,1.45rem);font-weight:400;line-height:1.43;letter-spacing:.01em}
+.section-lead{font-size:clamp(1rem,1.3vw,1.15rem);color:var(--ink-soft);line-height:1.6;font-weight:500;margin:0 0 clamp(28px,4vw,44px)}
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:10px}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
 .hl{color:var(--magenta)}
@@ -108,10 +122,18 @@ section{position:relative}
 .section-ablauf,.section-eltern,.section-faq,.section-kontakt,
 .section-praxis,.section-stimmen,.section-team,.section-termin{padding:clamp(60px,8vw,112px) 0}
 .section-head{max-width:760px;margin-bottom:clamp(34px,5vw,58px)}
+/* Perf: ignorer le rendu des sections hors viewport (gain LCP/INP sur les sections below-fold) */
+.section-ablauf,.section-eltern,.section-faq,.section-galerie,
+.section-praxis,.section-stimmen,.section-team,.section-termin{
+  content-visibility:auto;
+  contain-intrinsic-size:0 600px
+}
 .termin-cta{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:48px;padding:32px 0}
-.termin-qr{text-align:center}
-.termin-qr img{display:block;border-radius:12px;box-shadow:var(--shadow-sm)}
-.termin-qr__label{font-size:.82rem;color:var(--ink-soft);font-weight:600;margin-top:8px}
+/* Design Termin-Block: mehr Abstand Titel→Beschreibung→Button; größerer, breiterer Button */
+.section-termin .section-lead{margin-top:clamp(22px,3vw,34px)}
+.section-termin .termin-cta{padding:clamp(28px,4vw,44px) 0 0}
+.section-termin .btn-primary{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+.section-termin .btn-primary:hover{background:var(--navy);border-color:var(--navy);color:#fff}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:14px}
 .section-head p{margin-top:14px}
@@ -150,15 +172,17 @@ section{position:relative}
 .btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:600;font-size:1.02rem;
   padding:15px 28px;border-radius:var(--pill);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s;white-space:nowrap}
 .btn svg{width:20px;height:20px}
-.btn-primary{background:var(--magenta);color:#fff;box-shadow:var(--shadow-mag)}
-.btn-primary:hover{transform:translateY(-2px) rotate(-1deg);box-shadow:0 26px 52px -18px color-mix(in oklab,var(--magenta) 66%, transparent)}
+/* Einheitlicher Button-Stil im ganzen Projekt: Outline-Pille (magenta Rand + Text). */
+.btn-primary{background:#fff;color:var(--magenta);border:2px solid var(--magenta);box-shadow:none}
+.btn-primary:hover{background:var(--magenta);color:#fff;transform:translateY(-2px);box-shadow:none}
 .btn-navy{background:var(--navy);color:#fff;box-shadow:var(--shadow)}
 .btn-navy:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 .btn-ghost{background:var(--surface);color:var(--navy);box-shadow:var(--shadow-sm)}
 .btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .btn-light{background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px)}
 .btn-light:hover{background:rgba(255,255,255,.3)}
-.btn-lg{padding:18px 36px;font-size:1.12rem}
+.btn-lg{padding:4px 45px;font-size:1.12rem}
+.btn-lg svg,.btn-sm svg{vertical-align:middle;flex-shrink:0}
 .btn-sm{padding:7px 16px;font-size:.82rem}
 .btn-sm svg{width:14px;height:14px}
 
@@ -176,9 +200,9 @@ section{position:relative}
 .section .container{position:relative;z-index:1}
 
 /* ---------- HEADER ---------- */
-.site-header{position:sticky;top:0;z-index:60;background:color-mix(in oklab,var(--bg) 78%, white);
+.site-header{position:sticky;top:0;z-index:60;background:#fff;
   backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s,box-shadow .3s}
-.site-header.scrolled{border-color:var(--line);box-shadow:var(--shadow-sm);background:color-mix(in oklab,var(--bg) 64%, white)}
+.site-header.scrolled{border-color:var(--line);box-shadow:var(--shadow-sm);background:#fff}
 .nav{display:flex;align-items:center;gap:28px;height:86px}
 .brand{display:flex;align-items:center;gap:13px;margin-right:auto}
 .brand .arch{width:48px;height:auto;flex:none}
@@ -187,29 +211,35 @@ section{position:relative}
 .nav-links{display:flex;align-items:center;gap:25px}
 .nav-links a{font-weight:700;font-size:1rem;color:var(--navy);position:relative;padding:6px 0}
 .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:3px;border-radius:3px;background:var(--magenta);transition:right .25s var(--ease)}
-.nav-links a:hover::after{right:0}
+.nav-links a:hover::after,.nav-links a[aria-current="page"]::after{right:0}
+.nav-links a[aria-current="page"]{color:var(--magenta)}
+.brand-logo{height:48px;width:auto}
 .nav-cta{display:flex;align-items:center;gap:14px}
 .nav-phone{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy)}
 .nav-phone svg{width:18px;height:18px;color:var(--magenta)}
-.burger{display:none;width:48px;height:48px;border-radius:13px;background:var(--surface);box-shadow:var(--shadow-sm);place-items:center;color:var(--navy)}
-.burger svg{width:24px;height:24px}
+.burger{display:none;width:44px;height:44px;border-radius:0;background:none;box-shadow:none;place-items:center;color:var(--navy)}
+.burger svg{width:22px;height:auto}
 
 /* ---------- HERO ---------- */
-.hero{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(48px,7vw,88px);overflow:hidden;background:
-  radial-gradient(120% 90% at 80% 0%, var(--bg-band), transparent 62%)}
+.hero{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(48px,7vw,88px);overflow:hidden;background:#fff}
 
 /* ---------- HERO BANNER ---------- */
-.hero-banner{position:relative;min-height:clamp(560px,74vh,752px);display:flex;align-items:center;overflow:hidden;padding:0;background:none}
+.hero-banner{position:relative;min-height:clamp(520px,70vh,720px);display:grid;place-items:center;text-align:center;overflow:hidden;padding:0;background:#fff}
 .hero-bg{position:absolute!important;inset:0;width:100%!important;height:100%!important;border:0;border-radius:0;box-shadow:none;z-index:0}
-.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,
-  var(--bg-band) 0%,
-  color-mix(in oklab,var(--bg-band) 94%, transparent) 30%,
-  color-mix(in oklab,var(--bg-band) 42%, transparent) 54%,
-  transparent 72%)}
-.hero-banner-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw)}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:rgba(255,255,255,.30)}
+/* Video Slider */
+.hero-video-swiper{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-video-swiper .swiper-slide{position:relative;height:100%}
+.hero-video-swiper .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-video-swiper__progress{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px}
+.hero-video-swiper__progress .bar{width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden}
+.hero-video-swiper__progress .bar.active{background:rgba(255,255,255,.35)}
+.hero-video-swiper__progress .bar.active::after{content:'';display:block;height:100%;background:#fff;border-radius:2px;animation:vbar var(--vbar-duration,6s) linear forwards}
+@keyframes vbar{from{width:0}to{width:100%}}
+.hero-banner-inner{position:relative;z-index:3;width:100%;max-width:var(--maxw);margin-inline:auto;text-align:center}
 .hero-banner-inner .hero-logo{width:min(248px,58%)}
-.hero-banner-inner h1{margin:8px 0 0;max-width:14ch}
-.hero-banner-inner .lead{margin:20px 0 30px;max-width:46ch}
+.hero-banner-inner h1{margin:8px 0 0;max-width:none;margin-inline:auto}
+.hero-banner-inner .lead{margin:20px 0 30px;max-width:48ch;margin-inline:auto}
 .hero-banner .hero-trust{border-top-color:rgba(38,37,127,.2);max-width:560px}
 .hero-logo{mix-blend-mode:multiply}
 
@@ -248,7 +278,7 @@ section{position:relative}
 .hero--revealed .hero-banner-inner .lead{opacity:1;transform:none}
 
 /* Mobile: hide video, show poster + text immediately */
-@media(max-width:767px){
+@media(max-width:768px){
   .hero[data-media="video"] .hero-video{display:none}
   .hero[data-media="video"] .hero-banner-inner .eyebrow,
   .hero[data-media="video"] .hero-banner-inner .display,
@@ -319,42 +349,69 @@ section{position:relative}
 .facts{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:8px;display:grid;grid-template-columns:repeat(4,1fr)}
 .fact{padding:24px 22px;text-align:center;border-right:2px dashed var(--line)}
 .fact:last-child{border-right:0}
-.fact .num{font-family:var(--font-marker);font-weight:700;font-size:2.9rem;line-height:1;color:var(--magenta)}
+.fact .num{font-family:var(--font-display);font-weight:700;font-size:2.9rem;line-height:1;color:var(--magenta)}
 .fact .lbl{margin-top:4px;color:var(--ink-soft);font-weight:700;font-size:.95rem}
 
 /* ---------- SERVICES ---------- */
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.svc{background:var(--surface);border-radius:var(--r-lg);padding:30px 28px 28px;box-shadow:var(--shadow-sm);
-  position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.svc:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:var(--shadow)}
-.svc .ic{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;margin-bottom:20px;color:var(--navy)}
-.svc:nth-child(5n+1) .ic{background:var(--room-green)}
-.svc:nth-child(5n+2) .ic{background:var(--room-yellow)}
-.svc:nth-child(5n+3) .ic{background:var(--room-orange)}
-.svc:nth-child(5n+4) .ic{background:var(--room-blue)}
-.svc:nth-child(5n+5) .ic{background:var(--room-lila)}
-.svc .ic svg{width:31px;height:31px}
-.svc h3{margin-bottom:9px}
-.svc p{margin:0;color:var(--ink-soft);font-size:1rem;font-weight:500}
-.svc .corner{position:absolute;right:-26px;top:-26px;width:80px;height:80px;border-radius:50%;background:var(--bg);opacity:.7}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:var(--maxw);margin-inline:auto}
+.svc{border-radius:var(--r-lg);padding:36px 32px;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.svc-symbol{position:absolute;top:26px;right:26px;width:74px;height:auto;padding-bottom:18px;box-sizing:content-box}
+/* .svc h3 / .svc p : siehe konsolidierte Regel im Design-Block weiter unten (keine Duplikate) */
+.svc--yellow{background:var(--card-yellow)}
+.svc--blue{background:var(--card-blue)}
+.svc--green{background:var(--card-green)}
+.svc--pink{background:var(--card-pink)}
 
 /* ---------- 5 ZIMMER ---------- */
-.rooms{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:clamp(28px,4vw,48px)}
+.rooms{padding:0}
 .rooms-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:6px}
+/* Zimmer: Desktop = Grid (alle 5 sichtbar), Mobile = Swiper-Karussell */
+.zimmer-swiper-wrap{position:relative}
+.zimmer-swiper{overflow:visible!important;padding-bottom:40px}
+.zimmer-swiper .swiper-slide{height:auto}
+.zimmer-swiper .room{height:100%;min-height:230px}
+/* Desktop ≥640px: statisches 5er-Grid, kein Slider. !important = Sicherheitsnetz,
+   falls Swiper am Breakpoint noch aktiv ist (flex/transform würden sonst gewinnen). */
+@media(min-width:640px){
+	.zimmer-swiper{overflow:visible!important}
+	.zimmer-swiper .swiper-wrapper{display:grid!important;grid-template-columns:repeat(2,1fr);gap:18px;transform:none!important}
+	.zimmer-swiper .swiper-slide{width:auto!important;margin:0!important}
+}
+@media(min-width:1024px){
+	.zimmer-swiper .swiper-wrapper{grid-template-columns:repeat(5,1fr)!important}
+}
+/* Mobile <640px: aktives Karussell → off-screen Slides clippen (sonst horizontaler
+   Overflow / kaputtes Responsive). padding-bottom hält den Card-Schatten sichtbar. */
+@media(max-width:639px){
+	.zimmer-swiper-wrap{padding:0 44px}
+	.zimmer-swiper{overflow:hidden!important;padding-bottom:30px}
+}
+.swiper-nav-btn{position:absolute;top:50%;transform:translateY(-60%);z-index:2;width:40px;height:40px;border-radius:50%;background:var(--bg);border:0;box-shadow:var(--shadow);display:grid;place-items:center;cursor:pointer;color:var(--navy);transition:background .2s,transform .2s}
+.swiper-nav-btn:hover{background:var(--magenta);color:#fff;transform:translateY(-60%) scale(1.08)}
+.swiper-nav-btn svg{height:22px;width:auto}
+.zimmer-swiper__prev{left:0}
+.zimmer-swiper__next{right:0}
+.zimmer-swiper__pagination{text-align:center;margin-top:8px}
+.zimmer-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
+.zimmer-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
+/* Desktop: keine Slider-Steuerung (Grid zeigt alle 5) — nach den Button-Regeln, damit es greift */
+@media(min-width:640px){
+	.zimmer-swiper__prev,.zimmer-swiper__next,.zimmer-swiper__pagination{display:none!important}
+}
 .room{border-radius:var(--r);padding:26px 20px 24px;text-align:center;position:relative;overflow:hidden;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
 .room:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
 .room .rh{position:absolute;top:28px;left:0;right:0;display:flex;justify-content:center}
 .room .rh svg{width:52px;height:52px;color:var(--navy);opacity:.75}
 .room-nr{position:absolute;top:14px;left:16px;font-family:var(--font-display);font-size:.75rem;font-weight:900;color:var(--navy);opacity:.35;letter-spacing:.04em}
 .room b{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--navy)}
-.room .room-motto{font-family:var(--font-marker);font-size:1rem;color:var(--navy);opacity:.6;margin:0}
 .room.g{background:var(--room-green)}.room.y{background:var(--room-yellow)}.room.o{background:var(--room-orange)}.room.b{background:var(--room-blue)}.room.l{background:var(--room-lila)}
 
 /* ---------- STEPS ---------- */
 .steps-wrap{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:clamp(34px,4vw,56px);position:relative;overflow:hidden}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;position:relative}
 .step{position:relative}
-.step .n{width:56px;height:56px;border-radius:50%;color:#fff;font-family:var(--font-marker);font-weight:700;font-size:1.9rem;display:grid;place-items:center;margin-bottom:18px}
+.step .n{width:56px;height:56px;border-radius:50%;color:#fff;font-family:var(--font-display);font-weight:700;font-size:1.9rem;display:grid;place-items:center;margin-bottom:18px}
 .step:nth-child(1) .n{background:var(--magenta);box-shadow:var(--shadow-mag)}
 .step:nth-child(2) .n{background:var(--navy)}
 .step:nth-child(3) .n{background:var(--magenta);box-shadow:var(--shadow-mag)}
@@ -388,23 +445,53 @@ button.chip{border:0;font-family:inherit}
   .pg-enter,.pg-leave{transition:none}
 }
 
+/* ---------- SECTION GALERIE ---------- */
+.section-galerie{padding:clamp(60px,8vw,112px) 0}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gal-grid--4{grid-template-columns:repeat(4,1fr)}
+.gal-item{border-radius:var(--r-lg);overflow:hidden;cursor:pointer;aspect-ratio:4/3}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s var(--ease)}
+.gal-item:hover img{transform:scale(1.04)}
+.gal-item:focus{outline:3px solid var(--magenta);outline-offset:3px}
+/* Lightbox */
+.gal-lightbox{position:fixed;inset:0;z-index:400;background:rgba(16,46,121,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center}
+[x-cloak]{display:none!important}
+.gal-lightbox img{max-width:94vw;max-height:92vh;border-radius:12px;object-fit:contain}
+.gal-lightbox__close{position:absolute;top:16px;right:20px;font-size:2rem;color:#fff;background:none;border:none;cursor:pointer;line-height:1}
+.gal-lightbox__close:hover{color:var(--magenta)}
+.gal-lightbox__close:focus{outline:3px solid var(--magenta);outline-offset:4px}
+/* Responsive */
+@media(max-width:768px){
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-grid--4{grid-template-columns:repeat(2,1fr)}
+}
+@media(prefers-reduced-motion:reduce){
+  .gal-item img{transition:none}
+}
+
 /* ---------- TEAM ---------- */
-.section-team h2.section-title{margin-bottom:38px}
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.section-team h2.section-title{margin-bottom:38px;text-align:center}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:var(--maxw);margin-inline:auto}
 .team-card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
   transition:transform .32s var(--ease),box-shadow .32s var(--ease);border-top:4px solid transparent}
-.team-card:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:var(--shadow)}
+.team-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
 .team-card:nth-child(5n+1){border-top-color:var(--room-green)}
 .team-card:nth-child(5n+2){border-top-color:var(--room-yellow)}
 .team-card:nth-child(5n+3){border-top-color:var(--room-orange)}
 .team-card:nth-child(5n+4){border-top-color:var(--room-blue)}
 .team-card:nth-child(5n+5){border-top-color:var(--room-lila)}
+.tm-first{transition:color .3s ease}
+.team-card:nth-child(5n+1):hover .tm-first{color:#5A8B6E}
+.team-card:nth-child(5n+2):hover .tm-first{color:#B89020}
+.team-card:nth-child(5n+3):hover .tm-first{color:#C8704A}
+.team-card:nth-child(5n+4):hover .tm-first{color:#3A6878}
+.team-card:nth-child(5n+5):hover .tm-first{color:#786880}
 .team-card__img{width:100%;height:260px;overflow:hidden}
 .team-card__img img{width:100%;height:100%;object-fit:cover;object-position:top center;
   transition:transform .4s var(--ease)}
 .team-card:hover .team-card__img img{transform:scale(1.07)}
 .team-card__body{padding:24px 22px 28px}
-.team-card__body h3{margin:0 0 6px;font-size:1.12rem}
+/* .team-card__body h3 : siehe konsolidierte Design-Regel weiter unten (keine Duplikate) */
 .team-card__role{color:var(--magenta);font-weight:800;font-size:.9rem;margin:0 0 12px}
 .team-card__body p{margin:0;color:var(--ink-soft);font-size:.92rem;font-weight:500;line-height:1.55}
 
@@ -422,17 +509,24 @@ button.chip{border:0;font-family:inherit}
 .eltern-item p{margin:0;color:var(--ink-soft);font-size:1rem;font-weight:500}
 
 /* ---------- TESTIMONIALS (Swiper) ---------- */
+.section-stimmen{background:var(--band)}
 .section-stimmen h2.section-title{margin-bottom:38px}
-.stimmen-swiper{padding-bottom:48px !important}
+.section-faq{background:var(--band)}
+.section-galerie{background:var(--band)}
+.stimmen-swiper-wrap{padding-bottom:40px}
+.stimmen-swiper{overflow:hidden}
 .stimmen-swiper .swiper-slide{height:auto}
-.stimmen-card{background:var(--surface);border-radius:var(--r-lg);padding:32px 28px;box-shadow:var(--shadow-sm);height:100%;display:flex;flex-direction:column;position:relative}
-.stimmen-card::before{content:'\201C';font-family:var(--font-marker);font-size:5rem;color:var(--magenta);line-height:.6;opacity:.35;position:absolute;top:20px;left:24px}
+.stimmen-swiper .stimmen-card{height:100%}
+.stimmen-swiper__pagination{text-align:center;margin-top:28px}
+.stimmen-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
+.stimmen-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
+.stimmen-card{background:var(--surface);border-radius:var(--r-lg);padding:32px 28px;box-shadow:var(--shadow-sm);border:1.5px solid rgba(234,69,137,.12);display:flex;flex-direction:column;position:relative}
+.stimmen-card::before{content:'\201C';font-family:var(--font-display);font-size:5rem;color:var(--magenta);line-height:.6;opacity:.35;position:absolute;top:20px;left:24px}
 .stimmen-quote{margin:0;display:flex;flex-direction:column;flex:1;padding-top:28px}
-.stimmen-quote p{font-size:1rem;line-height:1.7;color:var(--navy);font-weight:600;flex:1;margin:0 0 20px}
+.stimmen-quote p{font-size:1rem;line-height:1.7;color:var(--navy);font-weight:500;flex:1;margin:0 0 20px}
 .stimmen-author{margin-top:auto;display:flex;align-items:center;gap:12px}
-.stimmen-author strong{font-weight:800;font-size:.95rem;color:var(--navy);display:block}
+.stimmen-author strong{font-weight:800;font-size:.95rem;color:var(--navy)}
 .stimmen-author span{font-size:.85rem;color:var(--ink-soft);font-weight:600}
-.stimmen-swiper__pagination{position:static !important;margin-top:24px}
 
 /* ---------- FAQ ---------- */
 .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,60px);align-items:start}
@@ -454,27 +548,38 @@ button.chip{border:0;font-family:inherit}
 .accordion-item:has(.accordion-trigger[aria-expanded="true"]){border-color:color-mix(in oklab,var(--magenta) 42%,transparent);box-shadow:var(--shadow)}
 .accordion-trigger{width:100%;display:flex;align-items:center;gap:15px;padding:20px 24px;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--navy);transition:background .2s var(--ease)}
 .accordion-trigger:hover{background:color-mix(in oklab,var(--bg) 55%,transparent)}
-.accordion-trigger > span{flex:1}
+.accordion-trigger > span:not(.accordion-icon){flex:1}
 /* führendes Icon (kc_icon) – ohne eigene Klasse */
 .accordion-trigger > svg:not(.accordion-chevron){width:26px;height:26px;flex:none;color:var(--magenta)}
-/* Chevron rechts – Größe begrenzen! */
-.accordion-chevron{width:22px;height:22px;flex:none;margin-left:auto;color:var(--magenta);transition:transform .3s var(--ease)}
-.accordion-chevron.is-open{transform:rotate(180deg)}
+/* Accordion open/close icons (OE-SVG, zwei Zustände) */
+.accordion-icon{position:relative;flex:none;margin-left:auto;width:22px;height:22px;color:var(--navy)}
+.accordion-icon .icon-plus,.accordion-icon .icon-minus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .22s ease,transform .22s ease}
+.accordion-icon svg{width:100%;height:100%}
+.accordion-icon .icon-plus{opacity:1;transform:rotate(0deg) scale(1)}
+.accordion-icon .icon-minus{opacity:0;transform:rotate(-90deg) scale(.7)}
+.accordion-icon.is-open .icon-plus{opacity:0;transform:rotate(90deg) scale(.7)}
+.accordion-icon.is-open .icon-minus{opacity:1;transform:rotate(0deg) scale(1)}
 .accordion-panel{padding:0 24px 22px;color:var(--ink-soft);font-size:1.02rem;font-weight:500}
 .accordion-panel p{margin:0}
 
-/* ---------- ABLAUF (nummerierte Schritte) ---------- */
-.ablauf-steps{list-style:none;margin:34px auto 0;padding:0;display:grid;gap:18px;max-width:820px}
-.ablauf-step{display:flex;gap:20px;align-items:flex-start;background:var(--surface);border-radius:var(--r);padding:22px 26px;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.ablauf-step:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.ablauf-step .step-nr{font-family:var(--font-display);font-weight:700;font-size:1.35rem;color:#fff;background:var(--magenta);width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex:none;box-shadow:var(--shadow-mag)}
-.ablauf-step:nth-child(even) .step-nr{background:var(--navy);box-shadow:none}
-.ablauf-step .step-body h3{margin:0 0 6px}
-.ablauf-step .step-body p{margin:0;color:var(--ink-soft);font-size:1rem;font-weight:500}
+/* ---------- ABLAUF Akkordeon (Der erste Besuch) ---------- */
+.ablauf-accordion{max-width:820px;gap:2rem}
+/* Mit Abstand zwischen den Items → jede Karte vollständig abgerundet (keine Fusion) */
+.ablauf-accordion .ablauf-item{border-radius:10px}
+.ablauf-item{border-radius:var(--r-lg);overflow:hidden}
+/* Header-Bänder (Design): 1 gelb, 2 salbeigrün, 3 pfirsich — zyklisch */
+.ablauf-item:nth-child(3n+1){background:var(--room-yellow)}
+.ablauf-item:nth-child(3n+2){background:var(--room-green)}
+.ablauf-item:nth-child(3n+3){background:var(--room-orange)}
+.ablauf-trigger{width:100%;display:flex;align-items:center;gap:16px;padding:18px 22px;background:none;border:0;cursor:pointer;text-align:left}
+.ablauf-num{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5vw,3rem);line-height:1;color:rgba(255,255,255,.75);flex:none}
+.ablauf-q{flex:1;color:var(--navy);font-family:var(--font-display);font-weight:600;font-size:clamp(1.05rem,2vw,1.25rem)}
+/* .ablauf-panel padding/color : konsolidiert weiter unten (keine Duplikate) */
+.ablauf-panel p{margin:0;line-height:1.65}
 
 /* ---------- INTERAKTION: Cursor & Hover ---------- */
 .svc,.member,.praxis-gallery__item,
-.room,.team-card,.stimmen-card,.ablauf-step,.eltern-item,.accordion-item,
+.room,.team-card,.stimmen-card,.ablauf-item,.eltern-item,.accordion-item,
 .kontakt-form-wrap,.termin-qr{cursor:pointer}
 a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .btn{transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
@@ -490,7 +595,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   radial-gradient(120% 140% at 85% 8%, color-mix(in oklab,var(--magenta) 32%, transparent), transparent 58%),
   var(--navy);border-radius:var(--r-lg);color:#fff;padding:clamp(40px,6vw,76px);box-shadow:var(--shadow-lg)}
 .booking-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,60px);align-items:center;position:relative;z-index:2}
-.booking h2{color:#fff;font-size:clamp(2rem,3.4vw,3rem)}
+.booking h2{color:#fff;font-size:clamp(1.75rem,2.8vw,2.4rem)}
 .booking p{color:rgba(255,255,255,.9)}
 .booking .eyebrow{color:#fff}
 .booking .hero-cta{margin-top:26px}
@@ -545,20 +650,63 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Submit-Button im Kontaktformular kompakter als die Hero-CTAs */
 .wpcf7 input[type="submit"]{font-size:.82rem;padding:8px 18px}
 .wpcf7-not-valid-tip{color:#c0392b;font-size:.85rem;font-weight:700;margin-top:5px;display:block}
-.wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:none}
+/* Höhere Spezifität als CF7 (.wpcf7 form .wpcf7-response-output) → Rahmen komplett entfernen,
+   auch im Erfolgs-/Fehlerzustand (form.sent / form.failed setzen sonst border-color). */
+.wpcf7 form .wpcf7-response-output,
+.wpcf7 form.sent .wpcf7-response-output,
+.wpcf7 form.failed .wpcf7-response-output{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-weight:700;font-size:.95rem;border:0}
 .wpcf7-mail-sent-ok{background:rgba(26,122,74,.1);color:#1a7a4a}
 .wpcf7-validation-errors,.wpcf7-spam-blocked{background:rgba(192,57,43,.08);color:#c0392b}
 
+/* ===== Design Kontakt-Block: blau-graue Karte, weißer Titel, weiße Felder, navy Submit ===== */
+.kontakt-card{background:var(--room-blue);border-radius:24px;padding:clamp(36px,3vw,64px) clamp(22px,3vw,72px);max-width:1080px;margin-inline:auto;text-align:center}
+.section-kontakt .section-title{color:#fff}
+.section-kontakt .section-lead{color:#0E3A8E;margin-top:clamp(14px,2vw,20px)}
+/* Formular füllt die Karte (kein innerer weißer Kasten) */
+.kontakt-card .kontakt-inner--form-only .kontakt-form-wrap{max-width:none;width:100%;background:none;box-shadow:none;padding:0;margin:clamp(28px,4vw,44px) auto 0;text-align:left}
+.kontakt-card .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.kontakt-card .field{margin-bottom:20px}
+/* Weiße, größere Felder ohne Rahmen (Placeholder statt Label) */
+.kontakt-card .wpcf7 input:not([type="submit"]),
+.kontakt-card .wpcf7 textarea{background:#fff;border:0;border-radius:12px;padding:18px 22px;font-size:1rem;color:var(--navy)}
+.kontakt-card .wpcf7 textarea{min-height:190px}
+.kontakt-card .wpcf7 input::placeholder,
+.kontakt-card .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
+/* Footer: Einwilligung links, Submit rechts */
+/* CF7 umschließt den Footer-Inhalt in einem <p> (autop). Einwilligung (links) und
+   Submit (rechts) auf EINER Zeile, vertikal zentriert. Der CF7-Spinner sitzt nach dem
+   Button → absolut positioniert, damit der Button bündig am rechten Rand bleibt. */
+.kontakt-card .kontakt-form__footer{display:block;margin-top:8px}
+.kontakt-card .kontakt-form__footer p{position:relative;display:flex;align-items:center;justify-content:flex-end;width:100%;margin:0}
+.kontakt-card .kontakt-form__footer br{display:none}
+.kontakt-card .kontakt-form__consent{display:flex;align-items:center;gap:12px;margin-right:auto}
+.kontakt-card .kontakt-form__footer .wpcf7-spinner{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0}
+.kontakt-card .kontakt-form__consent,
+.kontakt-card .wpcf7-acceptance label{color:#0E3A8E;font-size:.92rem;align-items:center}
+.kontakt-card .wpcf7-acceptance a{color:#0E3A8E;text-decoration:underline}
+/* Checkbox als weißes, abgerundetes Quadrat mit blauem Haken (wie Design) */
+.kontakt-card .wpcf7-acceptance input[type="checkbox"]{-webkit-appearance:none;appearance:none;width:28px!important;height:28px!important;padding:0!important;flex:none;margin:0;background:#fff;border:0;border-radius:6px;cursor:pointer;box-sizing:border-box}
+.kontakt-card .wpcf7-acceptance input[type="checkbox"]:checked{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E3A8E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 13l4 4L19 7'/></svg>") center/64% no-repeat}
+.kontakt-card .wpcf7 input[type="submit"]{background:var(--navy);color:#fff;border:0;border-radius:var(--pill);font-size:1rem;padding:15px 32px;font-weight:600;width:auto;flex:none;cursor:pointer;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
+.kontakt-card .wpcf7 input[type="submit"]:hover{background:#1a4fa8;transform:translateY(-3px);box-shadow:0 8px 24px rgba(16,46,121,.35)}
+@media(max-width:600px){.kontakt-card .form-row{grid-template-columns:1fr}}
+@media(max-width:480px){
+  .kontakt-card{padding:24px 18px;border-radius:16px}
+  .kontakt-card .wpcf7 input:not([type="submit"]),
+  .kontakt-card .wpcf7 textarea{padding:11px 14px;font-size:.92rem}
+  .kontakt-card .wpcf7 textarea{min-height:100px}
+  .kontakt-card .wpcf7 input[type="submit"]{padding:12px 24px}
+}
+
 /* ---------- FOOTER ---------- */
 .site-footer{background:var(--navy);color:rgba(255,255,255,.74);padding:0 0 20px}
-.footer-accent{height:5px;background:linear-gradient(90deg,var(--magenta),#FF6BB3 60%,var(--magenta))}
 .footer-inner{padding:28px 0 0}
 .footer-top{display:grid;grid-template-columns:1.3fr 1fr 1.4fr 0.9fr;gap:32px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
 .footer-brand .arch{width:44px;margin-bottom:8px}
 .footer-brand .fname{font-family:var(--font-display);font-weight:700;font-size:1rem;color:#fff}
 .footer-brand .fname small{display:block;font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600}
 .footer-brand p{margin:8px 0 12px;font-size:.8rem;max-width:220px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.6)}
-.footer-col h5{color:#fff;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 10px}
+.footer-col h5,.footer-col-title{color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 12px}
 .footer-col a{display:block;padding:3px 0;font-size:.84rem;font-weight:600;color:rgba(255,255,255,.65)}
 .footer-col a:hover{color:var(--magenta)}
 .footer-contact-line{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;margin-bottom:8px;line-height:1.4}
@@ -588,19 +736,25 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .deco-heart{animation:bob 5s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.deco-heart{animation:none}}
+@media (prefers-reduced-motion:reduce){.ablauf-panel{transition:none !important}}
 
 /* ---------- BOOKING MODAL ---------- */
 .booking-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;transition:opacity .25s var(--ease)}
 .booking-modal[hidden]{display:none}
 .booking-modal__backdrop{position:absolute;inset:0;background:rgba(38,37,127,.55);backdrop-filter:blur(3px);cursor:pointer}
 .booking-modal__card{position:relative;background:transparent;width:min(600px,94vw);max-height:90vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.booking-modal__close{position:absolute;top:12px;right:12px;z-index:10;width:36px;height:36px;border:none;border-radius:50%;background:var(--magenta);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s}
+.booking-modal__close:hover{background:var(--navy);transform:scale(1.1)}
+.booking-modal__close svg{width:18px;height:18px}
 .booking-modal__card::-webkit-scrollbar{display:none}
 .booking-modal__body{padding:0}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1024px){
   .hero-grid{grid-template-columns:1fr;gap:42px}
-  .hero-media{max-width:520px}
+  .hero-copy{text-align:center}
+  .hero-cta,.hero-trust{justify-content:center}
+  .hero-media{max-width:520px;margin-inline:auto}
   .services-grid{grid-template-columns:repeat(2,1fr)}
   .team-grid{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:28px}
@@ -611,46 +765,457 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .facts{grid-template-columns:repeat(2,1fr)}
   .fact:nth-child(2){border-right:0}
 }
-@media (max-width:760px){
+@media (max-width:768px){
   .termin-cta{flex-direction:column;gap:24px}
   .nav-links,.nav-phone{display:none}
   .burger{display:grid}
   body{font-size:17px}
   .hero-banner{min-height:auto;padding:34px 0 clamp(220px,58vw,340px)}
-  .hero-scrim{background:linear-gradient(180deg,
-    var(--bg-band) 0%,
-    color-mix(in oklab,var(--bg-band) 80%, transparent) 46%,
-    transparent 100%)}
+  .hero-scrim{background:rgba(255,255,255,.30)}
   .hero-banner-inner h1,.hero-banner-inner .lead{max-width:none}
   .services-grid,.team-grid{grid-template-columns:1fr}
   .rooms-grid{grid-template-columns:repeat(2,1fr)}
+  .stimmen-swiper-wrap{padding-bottom:28px}
   .praxis-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}
   .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 1;grid-row:span 1}
   .g1{grid-column:span 2}
   .form-row{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr 1fr;gap:20px}
-  .footer-qr{grid-column:span 2;display:flex;align-items:center;gap:16px;text-align:left}
-  .footer-qr h5{margin-bottom:4px}
   .facts{grid-template-columns:1fr;gap:0}
   .fact{border-right:0;border-bottom:2px dashed var(--line)}
   .fact:last-child{border-bottom:0}
   .hero-media .badge-card{transform:scale(.86)}
   .badge-rdv{left:-8px}.badge-age{right:-6px}
+  .faq-grid{grid-template-columns:1fr}
+  .kontakt-inner{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .section,
+  .section-ablauf,.section-eltern,.section-faq,.section-kontakt,
+  .section-praxis,.section-stimmen,.section-team,.section-termin,
+  .section-galerie{padding:44px 0}
+  .services-grid{grid-template-columns:1fr}
+  .svc{padding:24px 22px;min-height:auto}
+  .svc-symbol{width:60px}
+  .steps{grid-template-columns:1fr;gap:20px}
+  .steps-wrap{padding:24px 20px}
+  .stimmen-card{padding:24px 20px}
+  .badge-rdv,.badge-age{display:none}
+  .ablauf-trigger{padding:16px 20px;gap:14px}
+  .ablauf-num{font-size:2rem;min-width:1.4em}
+  .faq-item summary{padding:16px 18px;font-size:1rem}
+  .faq-body{padding:0 18px 18px}
+  .rooms-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .room{min-height:180px;padding:20px 16px}
+  .praxis-grid{grid-template-columns:1fr;grid-auto-rows:200px}
+  .g1{grid-column:span 1}
+  .kontakt-form-wrap{padding:16px 18px}
+  .booking{padding:32px 24px}
 }
 
 /* mobile menu */
-.mobile-menu{position:fixed;inset:0;z-index:200;background:var(--bg);transform:translateX(100%);transition:transform .35s var(--ease);padding:24px;display:flex;flex-direction:column}
-.mobile-menu.open{transform:none}
-.mobile-menu .mm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+/* ── Mobile menu overlay ── */
+.mobile-menu{position:fixed;inset:0;z-index:200;background:var(--bg);padding:24px;display:flex;flex-direction:column;clip-path:circle(0% at calc(100% - 32px) 40px);transition:clip-path .65s cubic-bezier(.76,0,.24,1);pointer-events:none}
+.mobile-menu.open{clip-path:circle(150% at calc(100% - 32px) 40px);pointer-events:auto}
+/* mm-top: apparaît rapidement après le début de la révélation */
+.mobile-menu .mm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;opacity:0;transition:opacity .3s ease .35s}
+.mobile-menu.open .mm-top{opacity:1}
 .mobile-menu .close{width:48px;height:48px;border-radius:13px;background:var(--surface);box-shadow:var(--shadow-sm);display:grid;place-items:center;color:var(--navy)}
-.mobile-menu a{font-family:var(--font-display);font-weight:600;font-size:1.5rem;padding:14px 0;border-bottom:2px dashed var(--line);color:var(--navy)}
-.mobile-menu .btn{margin-top:26px;justify-content:center}
+/* mm-nav: centré verticalement + horizontalement */
+.mm-nav{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+/* Liens : masqués par défaut, transition rapide à la fermeture */
+.mobile-menu .mm-nav a:not(.btn){font-family:var(--font-display);font-weight:700;font-size:1.7rem;padding:12px 0;color:var(--navy);text-align:center;opacity:0;transform:translateY(20px);transition:opacity .2s ease,transform .2s ease,color .2s}
+.mobile-menu .mm-nav a:not(.btn):hover{color:var(--magenta)}
+.mobile-menu .mm-nav .btn{margin-top:28px;justify-content:center;opacity:0;transform:translateY(20px);transition:opacity .2s ease,transform .2s ease;border:0;background:var(--magenta);color:#fff}
+/* Ouverture : stagger avec 1 s de délai initial */
+.mobile-menu.open .mm-nav>*:nth-child(1){opacity:1;transform:none;transition:opacity .45s ease 1s,transform .45s ease 1s}
+.mobile-menu.open .mm-nav>*:nth-child(2){opacity:1;transform:none;transition:opacity .45s ease 1.1s,transform .45s ease 1.1s}
+.mobile-menu.open .mm-nav>*:nth-child(3){opacity:1;transform:none;transition:opacity .45s ease 1.2s,transform .45s ease 1.2s}
+.mobile-menu.open .mm-nav>*:nth-child(4){opacity:1;transform:none;transition:opacity .45s ease 1.3s,transform .45s ease 1.3s}
+.mobile-menu.open .mm-nav>*:nth-child(5){opacity:1;transform:none;transition:opacity .45s ease 1.4s,transform .45s ease 1.4s}
+.mobile-menu.open .mm-nav>*:nth-child(6){opacity:1;transform:none;transition:opacity .45s ease 1.5s,transform .45s ease 1.5s}
+.mobile-menu.open .mm-nav>*:nth-child(7){opacity:1;transform:none;transition:opacity .45s ease 1.6s,transform .45s ease 1.6s}
+.mobile-menu.open .mm-nav>*:nth-child(8){opacity:1;transform:none;transition:opacity .45s ease 1.7s,transform .45s ease 1.7s}
+.mobile-menu.open .mm-nav>*:nth-child(9){opacity:1;transform:none;transition:opacity .45s ease 1.8s,transform .45s ease 1.8s}
+.mobile-menu.open .mm-nav>*:nth-child(n+10){opacity:1;transform:none;transition:opacity .45s ease 1.9s,transform .45s ease 1.9s}
+/* Reduced-motion : simple fade, pas de clip-path ni stagger */
+@media(prefers-reduced-motion:reduce){
+  .mobile-menu{clip-path:none;opacity:0;transition:opacity .2s ease}
+  .mobile-menu.open{opacity:1}
+  .mobile-menu .mm-top,.mobile-menu .mm-nav>*{opacity:1!important;transform:none!important;transition:none!important}
+}
 
 /* Team — Gruppentitel (Funktion-Taxonomie) */
-.team-group__title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.25rem,2vw,1.6rem);color:var(--navy);margin:40px 0 18px}
+.team-group__title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.25rem,2vw,1.6rem);color:var(--navy);margin:40px 0 18px;text-align:center}
 .team-group__title:first-of-type{margin-top:0}
 
 /* Fix: le height:100% du vendor .swiper-wrapper se resout contre un bloc
    englobant errone -> slides geants vides. height:auto laisse le contenu
    dicter la hauteur ; les cards restent egalisees par le flex stretch. */
-.stimmen-swiper .swiper-wrapper{height:auto}
+
+/* Optionales Sektions-Hintergrundbild (ACF, pro Sektion). */
+.kc-section-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
+/* Wenn ein Bild gesetzt ist, eigenen Vollflaechen-Hintergrund der Sektion durchscheinen lassen */
+.kc-section-bg > section{background-color:transparent}
+
+/* ---------- WILLKOMMEN (Intro) ---------- */
+.intro-welcome{padding:clamp(48px,7vw,84px) 0;background:#fff}
+.intro-welcome__inner{max-width:820px;margin-inline:auto;text-align:center;color:var(--magenta);font-size:1.15rem;line-height:1.7}
+.intro-welcome__inner p{margin:0 0 1em}
+.intro-welcome__inner strong{color:var(--magenta);font-weight:700}
+
+/* ---------- SWIPER NAV (reusable) ---------- */
+.swiper-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:48px;height:48px;border-radius:50%;background:#fff;color:var(--navy);box-shadow:var(--shadow-sm);display:grid;place-items:center;cursor:pointer}
+.swiper-nav svg{width:22px;height:22px}
+.swiper-nav:hover{color:var(--magenta)}
+
+/* ---------- ZIMMER Karussell ---------- */
+.section-zimmer{background:var(--band);padding:clamp(56px,8vw,96px) 0}
+.section-zimmer .section-title{text-align:center;color:var(--magenta)}
+.swiper-nav.swiper-button-disabled{opacity:.4;cursor:default}
+
+/* =========================================================
+   PDF-ALIGNMENT (Homepage Demo) — Button outline, Team overlay + Spray-Hintergründe
+   ========================================================= */
+
+/* Header-CTA: Outline-Pill wie im PDF (weiß, magenta Rand + Text) */
+/* (.nav-cta .btn-primary Outline = vom Basis-.btn-primary geerbt, kein Duplikat) */
+
+/* Spray-Dekor hinter der Praxis-Sektion (weiß, dezent) wie im PDF */
+.section-zimmer{position:relative}
+.section-zimmer::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url('../img/spray2.svg') center top/115% auto no-repeat;opacity:.06}
+.section-zimmer .container{position:relative;z-index:1}
+/* Team: clean, kein Hintergrund-Dekor */
+.section-team{background:#fff}
+
+/* Team-Karten: Name als Overlay auf dem Foto (wie PDF), kein farbiger Rand */
+.team-card{position:relative;border-top:0}
+.team-card:nth-child(n){border-top-color:transparent}
+.team-card__img{height:300px}
+.team-card__body{position:absolute;left:0;right:0;bottom:0;z-index:2;text-align:left;
+  padding:34px 18px 14px;background:linear-gradient(to top,rgba(255,255,255,.96),rgba(255,255,255,.72) 55%,transparent)}
+.team-card__role,.team-card__body p{display:none}
+
+/* Leistungen: Spray-Hintergrund + Textfarben je Kartenfarbe (PDF) */
+#leistungen{position:relative}
+#leistungen::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url('../img/spray2.svg') center top/115% auto no-repeat;opacity:.07}
+#leistungen .container{position:relative;z-index:1}
+.svc--blue h3,.svc--green h3,.svc--blue p,.svc--green p{color:var(--navy)}
+.svc--yellow h3,.svc--pink h3,.svc--yellow p,.svc--pink p{color:var(--magenta)}
+
+/* Hero: Overlay stark reduzieren, damit das Spray-Video sichtbar ist */
+.hero-banner .hero-scrim{background:rgba(255,255,255,.10)}
+/* Nur 4 Leistungs-Karten wie im PDF */
+.services-grid .svc:nth-child(n+5){display:none}
+
+/* Ablauf: nur 3 Bänder wie im PDF */
+.ablauf-accordion .ablauf-item:nth-child(n+4){display:none}
+
+/* Alle Block-Titel zentriert (wie Leistungen) */
+.section-title,.section-lead{text-align:center}
+.section-lead{margin-inline:auto;max-width:760px}
+/* Footer: 4 Spalten, Logo rechts, Kontakt T/E/Newsletter */
+.footer-logo-col{display:flex;justify-content:flex-end;align-items:flex-start}
+.footer-logo-col .arch{width:64px;height:auto}
+.footer-contact .footer-contact-line{display:flex;gap:10px;align-items:baseline;margin-bottom:8px;font-size:.9rem}
+.fc-key{color:rgba(255,255,255,.7);display:inline-flex;align-items:center;min-width:16px}
+.fc-key svg{width:16px;height:auto}
+.footer-newsletter{text-decoration:underline;text-underline-offset:3px}
+
+/* Block-Trenner (dünne Linie nach jedem Block, wie PDF) */
+.block-sep{border:0;border-top:1px solid var(--line);margin:0}
+/* Eyebrows zentrieren nur wenn .center explizit gesetzt */
+.section-head.center .eyebrow,[data-section-align="center"] .container>.eyebrow{display:flex;justify-content:center;text-align:center}
+
+
+/* Hero-Text bleibt dauerhaft über dem Spray-Video sichtbar; Scrim sorgt für Lesbarkeit. */
+
+/* =========================================================
+   POLISH PASS — pixel-fidèle au PDF Homepage ZACP
+   ========================================================= */
+
+/* --- 1. HEADER : transparent par défaut, blanc au scroll ─── */
+/* Surcharge la règle initiale (ligne 171) grâce à la cascade (position plus basse) */
+.site-header{
+  background:transparent !important;
+  border-bottom-color:transparent !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important
+}
+.site-header.scrolled{
+  background:#fff !important;
+  border-color:var(--line) !important;
+  box-shadow:var(--shadow-sm) !important;
+  backdrop-filter:blur(12px) !important;
+  -webkit-backdrop-filter:blur(12px) !important
+}
+/* Nav links : font-weight 500, pas d'uppercase */
+.nav-links a{font-weight:500;text-transform:none}
+/* Bouton CTA : pill blanc avec border magenta (outline) */
+/* (.nav-cta .btn-primary Outline = vom Basis-.btn-primary geerbt, kein Duplikat) */
+/* Logo visible sur fond transparent (header) */
+.site-header:not(.scrolled) .brand-logo{filter:none}
+
+/* --- 2. HERO : grand titre centré ──────────────────────── */
+.hero-banner{min-height:clamp(580px,78vh,820px)}
+.hero-banner-inner .display{
+  /* Design Hero: size 100 / spacing 6 / line 100 / Jost ExtraBold / uppercase */
+  font-size:clamp(2.8rem,7vw,6.25rem);
+  line-height:1;
+  letter-spacing:.06em;
+  font-weight:800;
+  text-shadow:0 2px 22px rgba(255,255,255,.55)
+}
+
+/* --- 3. WILLKOMMEN : 1rem min sur mobile, 2.75rem max sur desktop ─ */
+.intro-welcome__inner{font-size:clamp(1rem,1.8vw,1.55rem);font-weight:400;line-height:1.6;letter-spacing:0}
+/* Séparateur fin élégant */
+.intro-welcome{padding-bottom:0}
+.intro-welcome__sep{
+  display:block;width:56px;height:3px;
+  border-radius:3px;background:var(--magenta);
+  margin:clamp(28px,4vw,44px) auto 0;opacity:.35
+}
+
+/* --- 4. LEISTUNGEN : cartes — couleurs texte correctes ──── */
+/* Jaune + Rose → magenta ; Bleu + Vert → navy (déjà partiel, renforcer) */
+.svc--yellow h3,.svc--pink h3{color:var(--magenta)}
+.svc--blue h3,.svc--green h3{color:var(--navy)}
+.svc--yellow p,.svc--pink p{color:var(--magenta)}
+.svc--blue p,.svc--green p{color:var(--navy);opacity:.85}
+/* Symbole haut-droite, title+texte à gauche bien espacés */
+.svc{padding:32px 28px 28px}
+.svc-symbol{top:24px;right:22px;width:80px;opacity:.92}
+
+/* Légende zimmer (room name) — kein dunkler Verlauf, Text in Navy */
+.room b{
+  padding:12px 18px 16px;
+  font-size:1.05rem;
+  color:var(--navy)
+}
+
+/* --- 6. TEAM : overlay plus discret, photos rectangulaires ── */
+.team-card__img{height:320px}
+.team-card__body{
+  padding:44px 18px 16px;
+  background:linear-gradient(to top,rgba(255,255,255,.98) 42%,rgba(255,255,255,.72) 68%,transparent)
+}
+
+/* --- 7. ABLAUF : chiffre fantôme plus grand, bandes plus rondes ─ */
+.ablauf-item{border-radius:20px;margin-bottom:0}
+.ablauf-num{
+  font-size:clamp(3rem,6vw,4rem);
+  color:rgba(255,255,255,.60);
+  line-height:1
+}
+.ablauf-q{font-size:clamp(1.05rem,2vw,1.2rem);font-weight:600;color:var(--navy)}
+.ablauf-trigger{padding:24px 28px;gap:20px;align-items:center}
+/* Chevron visible navy */
+.ablauf-trigger .accordion-icon{color:var(--navy);opacity:.65}
+/* Antwort-Panel: padding-top für Abstand zwischen Header-Band und Text (wie Design) */
+.ablauf-panel{padding:26px 28px 28px;color:var(--navy);opacity:.85}
+
+/* --- 8. FOOTER : accent band magenta, couleurs blanches ─────── */
+.site-footer{padding-bottom:24px}
+.footer-inner{padding-top:36px}
+/* Textes footer plus lisibles */
+.footer-col a{color:rgba(255,255,255,.72);font-size:.88rem}
+.footer-brand p{font-size:.86rem;color:rgba(255,255,255,.65);max-width:230px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:18px;margin-top:4px}
+
+/* --- 9. SECTION WILLKOMMEN : séparateur visible ────────────── */
+.block-sep{border-top:1px solid rgba(16,46,121,.10);margin:0}
+
+/* --- 10. REVEAL : les cartes Leistungen sont visibles sans JS ─ */
+.services-grid .svc.reveal:not(.in){opacity:1;transform:none}
+
+/* --- 11. Section-lead centré par défaut (Leistungen, Praxis) ── */
+.intro-welcome__inner strong{font-weight:600;color:var(--magenta)}
+
+/* Responsive: header transparent sur mobile aussi */
+@media(max-width:768px){
+  .site-header{background:#fff}
+  .site-header.scrolled{background:#fff}
+}
+
+/* ============================================================
+   PDF ALIGNMENT — Targeted fixes (Leistungen, Praxis, Team)
+   ============================================================ */
+
+/* Leistungen cards — layout PDF exact :
+   titre haut-gauche (uppercase magenta/navy selon couleur),
+   symbole grand haut-droite séparé du texte, body dessous */
+.svc{padding:32px 32px 36px;min-height:220px}
+/* Design Karten-Titel — EINZIGE Quelle: size 38 / spacing 0 / line 43 (≈1.13) / Jost Halbfett(600) / uppercase */
+.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:calc(100% - 100px);line-height:1.13;font-weight:600;letter-spacing:0}
+/* Design Karten-Text — EINZIGE Quelle: size 22 / spacing 0 / line 30 (≈1.36) / Jost Regular */
+.svc p{margin:0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:calc(100% - 96px);letter-spacing:0;font-weight:400}
+.svc-symbol{width:88px;height:auto;top:24px;right:24px;padding-bottom:0}
+/* couleurs texte par carte (bleu/vert = navy, jaune/rose = magenta) */
+.svc--yellow h3,.svc--yellow p,.svc--pink h3,.svc--pink p{color:var(--magenta)}
+.svc--blue h3,.svc--blue p,.svc--green h3,.svc--green p{color:var(--navy)}
+
+
+/* Team cards — radius 10px comme demandé */
+.team-card,.team-card__img{border-radius:10px!important}
+
+/* Homogénéité des cartes — border-radius: 10px partout */
+.svc,.team-card,.team-card__img,
+.ablauf-item,.room,
+.praxis-gallery__item{border-radius:10px!important}
+
+/* Logo im Mobile-Menü */
+.mm-logo{height:44px;width:auto;display:block}
+
+/* Nav CTA — gleiche Outline-Pille wie Footer/Termin (erbt .btn-primary), Header-Größe */
+.nav-cta .btn-primary{padding:4px 20px;font-size:1rem;font-weight:600}
+
+/* Team-Karten — kein Shadow, weißes Band (opak) unten wie im PDF */
+.team-card{box-shadow:none!important}
+.team-card__body{background:#fff;background:rgba(255,255,255,.96);padding:12px 16px 14px}
+/* Design Team-Name: size 22 / spacing 0 / line 30 (≈1.36) / Jost Regular; Vorname halbfett(600) */
+.team-card__body h3{font-size:clamp(1rem,1.3vw,1.15rem);font-weight:400;line-height:1.36;letter-spacing:0;color:var(--navy);text-transform:none}
+.team-card__body h3 .tm-first{font-weight:600}
+
+/* Team-Karten Namensband — Hintergrundfarbe der Sektion statt Weiß */
+.team-card__body{background:var(--band)!important}
+
+/* ---- FOOTER RESPONSIVE ---- */
+/* Tablet (≤820px) : 2 colonnes */
+@media(max-width:820px){
+  .footer-logo-col{grid-column:span 2;display:flex;justify-content:flex-start;padding-top:4px}
+}
+/* Mobile (≤560px) : 1 colonne empilée */
+@media(max-width:560px){
+  .footer-logo-col{display:none}
+  .footer-brand p{max-width:100%}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+  .footer-bottom div{display:flex;flex-wrap:wrap;gap:12px}
+}
+
+/* Footer-Bottom: Copyright zuerst, dann Rechtslinks darunter */
+.footer-bottom{flex-direction:column;align-items:flex-start;gap:6px}
+.footer-bottom__copy{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.65)}
+.footer-bottom__legal{display:flex;flex-wrap:wrap;gap:14px}
+.footer-bottom__legal a{color:rgba(255,255,255,.65);font-size:.8rem;font-weight:600}
+.footer-bottom__legal a:hover{color:#fff}
+
+
+
+
+/* Leistungen symbols kleiner auf Mobile */
+@media(max-width:600px){
+  .svc-symbol{width:50px;height:auto;top:24px;right:24px;padding-bottom:0}
+}
+
+/* Ablauf: fond coloré visible sur le panel ouvert
+   overflow:hidden clippait le contenu Alpine → on le retire */
+.ablauf-item{overflow:visible!important}
+/* border-radius sur trigger (haut) et panel (bas) pour garder les coins */
+.ablauf-trigger{border-radius:10px 10px 0 0}
+.ablauf-panel{border-radius:0 0 10px 10px}
+/* Wrapper global pour que le fond coloré reste visible */
+.ablauf-accordion .ablauf-item{border-radius:10px}
+/* Design: Header = kräftige Farbe, geöffnetes Panel = helle Tönung derselben Farbe (13er-Palette) */
+.ablauf-item:nth-child(3n+1) .ablauf-panel{background:var(--pal-cream)}
+.ablauf-item:nth-child(3n+2) .ablauf-panel{background:var(--pal-sage)}
+.ablauf-item:nth-child(3n+3) .ablauf-panel{background:var(--pal-peach)}
+
+/* Footer responsive — correction complète */
+/* Desktop: logo mobile caché, col4 visible */
+.footer-mobile-logo{display:none}
+
+/* Tablet ≤820px: 2 colonnes, logo mobile visible dans la colonne adresse */
+@media(max-width:820px){
+  .footer-logo-col{display:none}
+  .footer-mobile-logo{display:block;margin-bottom:16px;height:40px;width:auto}
+}
+
+/* Mobile ≤560px: 1 colonne */
+@media(max-width:560px){
+  .footer-logo-col{display:none!important}
+  .footer-mobile-logo{display:block;margin-bottom:14px;height:36px;width:auto}
+  .footer-brand p{max-width:100%}
+}
+
+/* Footer desktop — colonne About plus large + logo hoch */
+.footer-logo-col img{height:80px;width:auto}
+
+/* Footer responsive — padding interne manquant */
+.footer-inner{padding:40px clamp(20px,4vw,40px) 0}
+@media(max-width:820px){.footer-inner{padding:32px clamp(16px,4vw,28px) 0}}
+@media(max-width:560px){.footer-inner{padding:28px 20px 0}}
+
+/* =========================================================
+   FOOTER — Design (definitive, einzige Quelle für das Redesign):
+   Logo · Adresse · Öffnungszeiten · Buchung (QR + Button) + Bottom-Leiste.
+   ========================================================= */
+.footer-top{display:grid;grid-template-columns:0.8fr 1.2fr 1.2fr 1.3fr;gap:40px;align-items:start;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.14)}
+@media(min-width:821px){.site-footer .footer-logo-col{display:flex;justify-content:flex-start;align-items:flex-start}}
+.footer-logo-col .footer-logo{width:clamp(130px,11vw,170px);height:auto}
+/* Adresse + Öffnungszeiten: heller Lauftext */
+.footer-address address,
+.footer-hours p{font-style:normal;color:#fff;font-size:.95rem;line-height:1.9;margin:0}
+.footer-address .footer-contact-line{display:flex;gap:8px;align-items:baseline;font-size:.95rem;color:#fff;line-height:1.9;margin:0}
+.footer-address .footer-contact-line a{color:#fff}
+.footer-address .fc-key{color:#fff;min-width:16px}
+/* Buchungsspalte: Text + QR nebeneinander */
+.footer-booking{display:flex;flex-direction:column;gap:0}
+.footer-booking__head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.footer-booking__text{color:rgba(255,255,255,.85);font-size:.95rem;line-height:1.55;margin:0;max-width:180px}
+.footer-qr{display:block;width:92px;height:92px;border-radius:6px;background:#fff;padding:6px;box-sizing:border-box;flex:none}
+/* Outline-Pille (erbt .btn-primary) — kompakt, linksbündig */
+.footer-booking__btn{align-self:flex-start;margin-top:16px;padding:9px 22px;font-size:.92rem;background:var(--magenta);color:#fff;border-color:var(--magenta)}
+.footer-booking__btn:hover{background:#fff;color:var(--magenta);transform:translateY(-2px)}
+/* Bottom-Leiste: Social links · Recht mittig · Copyright rechts (eine Zeile) */
+.site-footer .footer-bottom{display:flex!important;flex-direction:row!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;border-top:0}
+.footer-bottom__social{display:flex;gap:12px}
+.footer-bottom__social a{width:34px;height:34px;border-radius:999px;background:var(--magenta);display:grid;place-items:center;transition:transform .2s}
+.footer-bottom__social a:hover{transform:translateY(-2px)}
+.footer-bottom__social svg{width:20px;height:20px;color:#fff}
+.footer-bottom__legal{display:flex;gap:20px}
+.footer-bottom__legal a{color:rgba(255,255,255,.82);font-size:.92rem;font-weight:400}
+.footer-bottom__legal a:hover{color:#fff}
+.footer-bottom__copy{color:rgba(255,255,255,.82);font-size:.92rem;font-weight:400}
+@media(max-width:820px){
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:560px){
+  .footer-top{grid-template-columns:1fr;gap:22px}
+  .site-footer .footer-bottom{flex-direction:column!important;align-items:flex-start;gap:14px}
+}
+
+/* ═══════════════════════════════════════════════════
+   Décorative Animationen — 3 Varianten
+   Aktivierung via body.anim-floating / anim-sparkle / anim-confetti
+   ═══════════════════════════════════════════════════ */
+
+/* Variant 1 : Schwebende Symbole */
+.kc-floater{position:fixed;pointer-events:none;z-index:50;will-change:transform}
+.kc-floater svg{width:100%;height:100%;display:block}
+@keyframes kc-float{
+  0%,100%{transform:translateY(0) rotate(0deg) scale(1)}
+  30%{transform:translateY(-30px) rotate(10deg) scale(1.08)}
+  70%{transform:translateY(18px) rotate(-7deg) scale(.93)}
+}
+
+/* Variant 2 : Cursor-Funken */
+.kc-sparkle{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;animation:kc-sparkle-out .65s ease forwards}
+@keyframes kc-sparkle-out{
+  0%{opacity:1;transform:scale(1) translateY(0)}
+  100%{opacity:0;transform:scale(.1) translateY(-32px)}
+}
+
+/* Variant 3 : Confetti */
+.kc-confetti-piece{position:fixed;top:-12px;pointer-events:none;z-index:9998;animation:kc-confetti-fall var(--fall-dur,2.5s) ease-in forwards}
+@keyframes kc-confetti-fall{
+  0%{transform:rotate(0deg);opacity:1}
+  100%{transform:translateY(108vh) rotate(var(--rot,360deg));opacity:0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .kc-floater,.kc-sparkle,.kc-confetti-piece{display:none!important}
+}

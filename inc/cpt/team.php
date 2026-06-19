@@ -13,6 +13,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Team-Namen mit fett gesetztem Vornamen ausgeben (Design: „Dr. **Martina** Mustermann").
+ *
+ * Akademische Titel-Token (enden auf „.", z. B. Dr., Prof., med., dent.) werden
+ * übersprungen; das erste echte Namens-Token (= Vorname) wird in <strong> gesetzt,
+ * Rest bleibt regular. Jedes Token wird einzeln escaped → sichere Ausgabe.
+ *
+ * @param string $name Vollständiger Anzeigename.
+ * @return string Sicheres HTML.
+ */
+function kc_team_name_html( $name ) {
+	$name = trim( (string) $name );
+	if ( '' === $name ) {
+		return '';
+	}
+	$tokens          = preg_split( '/\s+/', $name );
+	$first_name_done = false;
+	$out             = array();
+	foreach ( $tokens as $tok ) {
+		// Titel-Token = endet auf „." (Dr., Prof., med., dent.) ODER enthält keinen
+		// Kleinbuchstaben (Abkürzungen wie ZÄ, ZA). Der Vorname ist das erste „echte" Wort.
+		$is_title = ( '.' === substr( $tok, -1 ) ) || ! preg_match( '/\p{Ll}/u', $tok );
+		if ( ! $first_name_done && ! $is_title ) {
+			$out[]           = '<strong class="tm-first">' . esc_html( $tok ) . '</strong>';
+			$first_name_done = true;
+		} else {
+			$out[] = esc_html( $tok );
+		}
+	}
+	return implode( ' ', $out );
+}
+
+/**
  * Register Team Post Type.
  */
 function kc_register_team_post_type() {

@@ -1,60 +1,81 @@
 <?php
 /**
- * Layout: Hero (Banner) mit animierten Kindern.
+ * Layout: Hero (Banner) mit Spray-Video-Hintergrund.
  * Felder: hero_eyebrow, hero_title, hero_highlight, hero_text,
- *         hero_bg (image / poster), hero_media_type (image|video),
- *         hero_video (file), hero_anim (select), hero_show_kids (bool)
+ *         hero_bg (image / poster), hero_media_type (image|video|video_slider),
+ *         hero_video (file), hero_video_slides (repeater: slide_video, slide_poster).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$anim       = get_sub_field( 'hero_anim' ) ?: 'winken';
-$show_kids  = get_sub_field( 'hero_show_kids' );
-$bg         = get_sub_field( 'hero_bg' );
-$media_type = get_sub_field( 'hero_media_type' ) ?: 'image';
-$hero_video = ( $media_type === 'video' ) ? get_sub_field( 'hero_video' ) : null;
-$video_url  = ( $hero_video && ! empty( $hero_video['url'] ) ) ? esc_url( $hero_video['url'] ) : '';
+$anim         = get_sub_field( 'hero_anim' ) ?: 'winken';
+$bg           = get_sub_field( 'hero_bg' );
+$media_type   = get_sub_field( 'hero_media_type' ) ?: 'image';
+$acf_video    = get_sub_field( 'hero_video' );
+$acf_url      = ( is_array( $acf_video ) && ! empty( $acf_video['url'] ) ) ? esc_url( $acf_video['url'] ) : '';
+$video_slides = get_sub_field( 'hero_video_slides' ) ?: [];
+
+$default_path  = get_theme_file_path( 'assets/video/spray-quer.mp4' );
+$default_video = esc_url( get_theme_file_uri( 'assets/video/spray-quer.mp4' ) . '?v=' . ( file_exists( $default_path ) ? filemtime( $default_path ) : '1' ) );
+$video_url     = $acf_url ?: $default_video;
+
+$cinematic = ( 'video' === $media_type && $acf_url );
+$is_slider = ( 'video_slider' === $media_type && count( $video_slides ) >= 2 );
 
 $bg_url = $bg ? esc_url( $bg['sizes']['large'] ?? $bg['url'] )
-				: esc_url( get_theme_file_uri( 'assets/img/hero-banner-bg.svg' ) );
-
-$is_video = ( $media_type === 'video' && $video_url );
+				: esc_url( get_theme_file_uri( 'assets/img/hero-spray-poster.jpg' ) );
+?>
+<?php
+$hero_media = $cinematic ? 'video' : ( $is_slider ? 'video_slider' : '' );
 ?>
 <section class="hero hero-banner"
 		data-anim="<?php echo esc_attr( $anim ); ?>"
-		<?php
-		if ( $is_video ) :
-			?>
-				data-media="video"<?php endif; ?>>
+		<?php if ( $hero_media ) : ?>data-media="<?php echo esc_attr( $hero_media ); ?>"<?php endif; ?>>
 
+
+<?php if ( $is_slider ) : ?>
+	<!-- Video Slider -->
+	<div class="hero-video-swiper swiper" aria-hidden="true">
+		<div class="swiper-wrapper">
+			<?php
+			foreach ( $video_slides as $slide ) :
+				$sv = $slide['slide_video'];
+				$sp = $slide['slide_poster'];
+				if ( ! is_array( $sv ) || empty( $sv['url'] ) ) {
+					continue;
+				}
+				$slide_url  = esc_url( $sv['url'] );
+				$poster_url = $sp ? esc_url( $sp['sizes']['large'] ?? $sp['url'] ) : $bg_url;
+				?>
+			<div class="swiper-slide">
+				<video class="hero-video"
+					muted playsinline preload="metadata"
+					poster="<?php echo esc_attr( $poster_url ); ?>">
+					<source src="<?php echo esc_url( $slide_url ); ?>" type="video/mp4">
+				</video>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="hero-video-swiper__progress" aria-hidden="true"></div>
+	</div>
+
+<?php else : ?>
+	<!-- Single Video / Image -->
 	<div class="hero-bg" role="img"
 		aria-label="<?php echo esc_attr( $bg['alt'] ?? 'Kids Club' ); ?>"
 		style="background:url('<?php echo esc_url( $bg_url ); ?>') center/cover no-repeat;">
-		<?php if ( $is_video ) : ?>
-		<video class="hero-video" autoplay muted playsinline preload="none"
+		<video class="hero-video" autoplay muted playsinline preload="metadata" <?php echo $cinematic ? '' : 'loop'; ?>
 				poster="<?php echo esc_attr( $bg_url ); ?>"
 				aria-hidden="true">
 			<source src="<?php echo esc_url( $video_url ); ?>" type="video/mp4">
 		</video>
-		<?php endif; ?>
 	</div>
-
-	<?php
-	if ( $show_kids && ! $is_video ) {
-		get_template_part( 'template-parts/partials/kids-svg' );}
-	?>
-
-	<div class="hero-marquee" aria-hidden="true"><div class="marquee-track"></div></div>
+<?php endif; ?>
 
 	<div class="hero-scrim"></div>
 
-	<div class="container hero-banner-inner
-	<?php
-	if ( ! $is_video ) {
-		echo ' reveal';}
-	?>
-	">
+	<div class="container hero-banner-inner">
 		<?php if ( $eb = get_sub_field( 'hero_eyebrow' ) ) : ?>
 			<span class="eyebrow"><?php echo esc_html( $eb ); ?></span>
 		<?php endif; ?>

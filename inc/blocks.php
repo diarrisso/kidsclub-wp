@@ -51,6 +51,7 @@ add_action(
 								'label'      => 'Hero (Banner)',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'hero' ),
 									kc_field( 'hero_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'hero_title', 'Überschrift', 'text' ),
 									kc_field(
@@ -71,9 +72,9 @@ add_action(
 										'type'          => 'select',
 										'default_value' => 'image',
 										'choices'       => [
-											'image' => 'Bild (Standard)',
-											'video' =>
-												'Video (cinématique — Willkommen-Reveal)',
+											'image'        => 'Bild (Standard)',
+											'video'        => 'Video (cinématique — Willkommen-Reveal)',
+											'video_slider' => 'Video-Slider (mehrere Videos, Autoplay-Sequenz)',
 										],
 									],
 									[
@@ -88,11 +89,47 @@ add_action(
 										'conditional_logic' => [
 											[
 												[
-													'field'    =>
-														'field_kc_hero_media_type',
+													'field'    => 'field_kc_hero_media_type',
 													'operator' => '==',
 													'value'    => 'video',
 												],
+											],
+										],
+									],
+									[
+										'key'          => 'field_kc_hero_video_slides',
+										'label'        => 'Video-Slides',
+										'name'         => 'hero_video_slides',
+										'type'         => 'repeater',
+										'instructions' => '2–5 Videos hinzufügen. Jedes Video spielt automatisch ab und wechselt zum nächsten.',
+										'min'          => 2,
+										'max'          => 5,
+										'button_label' => 'Video hinzufügen',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_hero_media_type',
+													'operator' => '==',
+													'value'    => 'video_slider',
+												],
+											],
+										],
+										'sub_fields'   => [
+											[
+												'key'   => 'field_kc_hero_slide_video',
+												'label' => 'Video (.mp4)',
+												'name'  => 'slide_video',
+												'type'  => 'file',
+												'return_format' => 'array',
+												'mime_types' => 'mp4',
+											],
+											[
+												'key'   => 'field_kc_hero_slide_poster',
+												'label' => 'Poster-Bild (optional)',
+												'name'  => 'slide_poster',
+												'type'  => 'image',
+												'return_format' => 'array',
+												'instructions' => 'Wird angezeigt bevor das Video lädt und auf Mobilgeräten.',
 											],
 										],
 									],
@@ -122,6 +159,28 @@ add_action(
 								],
 							],
 
+							/* ---------- WILLKOMMEN (Intro) ---------- */
+							'layout_willkommen' => [
+								'key'        => 'layout_willkommen',
+								'name'       => 'willkommen',
+								'label'      => 'Willkommen (Intro)',
+								'display'    => 'block',
+								'sub_fields' => [
+									kc_bg_field( 'willkommen' ),
+									[
+										'key'          => 'field_kc_wk_text',
+										'label'        => 'Text',
+										'name'         => 'text',
+										'type'         => 'wysiwyg',
+										'media_upload' => 0,
+										'tabs'         => 'visual',
+										'toolbar'      => 'basic',
+										'instructions' =>
+											'Zentrierter Intro-Absatz. „Herzlich Willkommen!“ fett für die Magenta-Hervorhebung.',
+									],
+								],
+							],
+
 							/* ---------- LEISTUNGEN ---------- */
 							'layout_leistungen' => [
 								'key'        => 'layout_leistungen',
@@ -129,6 +188,7 @@ add_action(
 								'label'      => 'Leistungsspektrum',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'leistungen' ),
 									[
 										'key'   => 'field_kc_ls_eyebrow',
 										'label' => 'Eyebrow',
@@ -155,7 +215,33 @@ add_action(
 										'layout'       => 'block',
 										'button_label' => 'Leistung hinzufügen',
 										'sub_fields'   => [
-											kc_field( 'icon', 'Icon (SVG-Slug)', 'text' ),
+											[
+												'key'     => 'field_kc_ls_card_color',
+												'label'   => 'Kartenfarbe',
+												'name'    => 'card_color',
+												'type'    => 'select',
+												'choices' => [
+													'yellow' => 'Gelb (Putzschule)',
+													'blue' => 'Blau (Prophylaxe)',
+													'green' => 'Grün (Behandlung)',
+													'pink' => 'Rosa (Angst)',
+												],
+												'default_value' => 'yellow',
+											],
+											[
+												'key'     => 'field_kc_ls_symbol',
+												'label'   => 'Symbol',
+												'name'    => 'symbol',
+												'type'    => 'select',
+												'choices' => [
+													'symbol1' => 'Symbol 1',
+													'symbol2' => 'Symbol 2',
+													'symbol3' => 'Symbol 3',
+													'symbol4' => 'Symbol 4',
+													'symbol5' => 'Symbol 5',
+												],
+												'default_value' => 'symbol1',
+											],
 											kc_field( 'heading', 'Titel', 'text' ),
 											kc_field(
 												'body',
@@ -174,6 +260,7 @@ add_action(
 								'label'      => '5 Zimmer',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'zimmer' ),
 									[
 										'key'   => 'field_kc_zm_eyebrow',
 										'label' => 'Eyebrow',
@@ -227,6 +314,7 @@ add_action(
 								'label'      => 'Erster Besuch (Ablauf)',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'ablauf' ),
 									kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
 									kc_field( 'abl_text', 'Einleitung', 'textarea' ),
@@ -250,6 +338,20 @@ add_action(
 								],
 							],
 
+							/* ---------- GALERIE ---------- */
+							'layout_galerie'    => [
+								'key'        => 'layout_galerie',
+								'name'       => 'galerie',
+								'label'      => 'Galerie',
+								'display'    => 'block',
+								'sub_fields' => [
+									kc_bg_field( 'galerie' ),
+									kc_field( 'gl_eyebrow', 'Eyebrow', 'text' ),
+									kc_field( 'gl_title', 'Titel', 'text' ),
+									kc_field( 'gl_text', 'Einleitung', 'textarea' ),
+								],
+							],
+
 							/* ---------- PRAXIS ---------- */
 							'layout_praxis'     => [
 								'key'        => 'layout_praxis',
@@ -257,13 +359,15 @@ add_action(
 								'label'      => 'Praxis-Galerie',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'praxis' ),
 									kc_field( 'prx_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'prx_title', 'Überschrift', 'text' ),
 									[
 										'key'     => 'field_kc_prx_hinweis',
 										'label'   => 'Fotos & Kategorien',
 										'type'    => 'message',
-										'message' => 'Die Fotos werden im Menü <strong>Praxis-Galerie</strong> gepflegt (Foto = Beitragsbild, Filter-Chips = Bereiche, Reihenfolge = Attribut Reihenfolge).',
+										'message' =>
+											'Die Fotos werden im Menü <strong>Praxis-Galerie</strong> gepflegt (Foto = Beitragsbild, Filter-Chips = Bereiche, Reihenfolge = Attribut Reihenfolge).',
 									],
 								],
 							],
@@ -275,6 +379,7 @@ add_action(
 								'label'      => 'Team / Behandler',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
 									[
@@ -306,6 +411,7 @@ add_action(
 								'label'      => 'Für Eltern',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'eltern' ),
 									kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'el_title', 'Überschrift', 'text' ),
 									kc_field( 'el_text', 'Einleitung', 'textarea' ),
@@ -336,6 +442,7 @@ add_action(
 								'label'      => 'Kundenstimmen',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'stimmen' ),
 									kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'st_title', 'Überschrift', 'text' ),
 									[
@@ -361,6 +468,7 @@ add_action(
 								'label'      => 'FAQ',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'faq' ),
 									kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'fq_title', 'Überschrift', 'text' ),
 									[
@@ -389,6 +497,7 @@ add_action(
 								'label'      => 'Termin buchen',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'termin' ),
 									kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tr_title', 'Überschrift', 'text' ),
 									kc_field( 'tr_text', 'Text', 'textarea' ),
@@ -416,6 +525,7 @@ add_action(
 								'label'      => 'Kontakt',
 								'display'    => 'block',
 								'sub_fields' => [
+									kc_bg_field( 'kontakt' ),
 									kc_field( 'kt_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'kt_title', 'Überschrift', 'text' ),
 									kc_field( 'kt_text', 'Text', 'textarea' ),
@@ -444,5 +554,18 @@ function kc_field( $name, $label, $type ) {
 		'label' => $label,
 		'name'  => $name,
 		'type'  => $type,
+	];
+}
+
+/** Optionales Hintergrundbild pro Sektion. Eindeutiger Key je Layout. */
+function kc_bg_field( $layout ) {
+	return [
+		'key'           => 'field_kc_bg_' . $layout,
+		'label'         => 'Hintergrundbild (optional)',
+		'name'          => 'background_image',
+		'type'          => 'image',
+		'return_format' => 'array',
+		'preview_size'  => 'medium',
+		'instructions'  => 'Optional. Leer lassen = aktuelle Hintergrundfarbe.',
 	];
 }

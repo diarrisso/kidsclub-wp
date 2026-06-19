@@ -256,6 +256,22 @@ add_action(
 						'return_format' => 'value',
 					],
 
+					[
+						'key'           => 'f_anim_variant',
+						'label'         => 'Animation-Variante',
+						'name'          => 'animation_variant',
+						'type'          => 'select',
+						'instructions'  => 'Dekorative Animation für die Seite. Standard: schwebende Symbole.',
+						'choices'       => [
+							'floating' => '🦷 Schwebende Symbole (Standard)',
+							'sparkle'  => '✨ Cursor-Funken',
+							'confetti' => '🎊 Confetti beim Scrollen',
+							'none'     => 'Keine',
+						],
+						'default_value' => 'floating',
+						'return_format' => 'value',
+					],
+
 					/* ===== SEO ===== */
 					[
 						'key'   => 'tab_seo',

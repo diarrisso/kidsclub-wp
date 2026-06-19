@@ -14,25 +14,27 @@ $form_shortcode = get_sub_field( 'form_shortcode' );
 ?>
 <section class="section-kontakt reveal" id="kontakt">
 	<div class="container">
-		<?php
-		if ( $eyebrow ) :
-			?>
-			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
-		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
-		<?php
-		if ( $text ) :
-			?>
-			<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
+		<div class="kontakt-card">
+			<?php
+			if ( $eyebrow ) :
+				?>
+				<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
+			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+			<?php
+			if ( $text ) :
+				?>
+				<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
 
-		<div class="kontakt-inner kontakt-inner--form-only">
+			<div class="kontakt-inner kontakt-inner--form-only">
 
-			<!-- CF7 Form -->
-			<?php if ( $form_shortcode ) : ?>
-			<div class="kontakt-form-wrap">
-				<?php echo do_shortcode( sanitize_text_field( $form_shortcode ) ); ?>
+				<!-- CF7 Form -->
+				<?php if ( $form_shortcode ) : ?>
+				<div class="kontakt-form-wrap">
+					<?php echo do_shortcode( sanitize_text_field( $form_shortcode ) ); ?>
+				</div>
+				<?php endif; ?>
+
 			</div>
-			<?php endif; ?>
-
 		</div>
 	</div>
 </section>

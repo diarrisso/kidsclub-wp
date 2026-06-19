@@ -1,6 +1,7 @@
 <?php
 /**
- * Layout: Kundenstimmen — Swiper.js slider (initialized in kidsclub.js)
+ * Layout: Kundenstimmen — grille 3 cartes statiques
+ * Felder: st_eyebrow, st_title, items[](st_quote, st_name, st_role)
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,30 +13,35 @@ $items   = get_sub_field( 'items' );
 ?>
 <section class="section-stimmen reveal" id="stimmen">
 	<div class="container">
-		<?php
-		if ( $eyebrow ) :
-			?>
-			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
+		<?php if ( $eyebrow ) : ?>
+			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+		<?php endif; ?>
 		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+
 		<?php if ( $items ) : ?>
-		<div class="swiper stimmen-swiper" aria-roledescription="Karussell">
-			<div class="swiper-wrapper" aria-live="polite">
-				<?php foreach ( $items as $i => $item ) : ?>
-				<div class="swiper-slide stimmen-card" role="group"
-					aria-label="Bewertung <?php echo absint( $i + 1 ); ?> von <?php echo absint( count( $items ) ); ?>">
-					<blockquote class="stimmen-quote">
-						<p><?php echo esc_html( $item['st_quote'] ); ?></p>
-						<footer class="stimmen-author">
-							<strong><?php echo esc_html( $item['st_name'] ); ?></strong>
-							<?php if ( $item['st_role'] ) : ?>
-								<span><?php echo esc_html( $item['st_role'] ); ?></span>
-							<?php endif; ?>
-						</footer>
-					</blockquote>
+		<div class="stimmen-swiper-wrap">
+			<div class="stimmen-swiper swiper"
+				aria-roledescription="Karussell"
+				aria-label="Kundenstimmen">
+				<div class="swiper-wrapper">
+					<?php foreach ( $items as $item ) : ?>
+					<div class="swiper-slide">
+						<div class="stimmen-card">
+							<blockquote class="stimmen-quote">
+								<p><?php echo esc_html( $item['st_quote'] ); ?></p>
+								<footer class="stimmen-author">
+									<strong><?php echo esc_html( $item['st_name'] ); ?></strong>
+									<?php if ( ! empty( $item['st_role'] ) ) : ?>
+										<span><?php echo esc_html( $item['st_role'] ); ?></span>
+									<?php endif; ?>
+								</footer>
+							</blockquote>
+						</div>
+					</div>
+					<?php endforeach; ?>
 				</div>
-				<?php endforeach; ?>
 			</div>
-			<div class="swiper-pagination stimmen-swiper__pagination" aria-hidden="true"></div>
+			<div class="stimmen-swiper__pagination"></div>
 		</div>
 		<?php endif; ?>
 	</div>

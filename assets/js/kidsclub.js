@@ -99,18 +99,139 @@
       heroVideo.addEventListener('error', revealHero, { once: true });
     }
   }
+
+  // Hero Video Slider (data-media="video_slider")
+  var heroSliderSection = document.querySelector('.hero[data-media="video_slider"]');
+  if (heroSliderSection) {
+    var swiperEl = heroSliderSection.querySelector('.hero-video-swiper');
+    var sliderVideos = swiperEl ? Array.prototype.slice.call(swiperEl.querySelectorAll('video')) : [];
+    var progressEl = swiperEl ? swiperEl.querySelector('.hero-video-swiper__progress') : null;
+
+    // Mobile / reduced-motion: supprime les vidéos, garde le poster du premier slide
+    if (window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+      sliderVideos.forEach(function(v) { v.remove(); });
+    } else if (sliderVideos.length >= 2 && typeof Swiper !== 'undefined') {
+
+      // Construire les barres de progression
+      if (progressEl) {
+        sliderVideos.forEach(function() {
+          var bar = document.createElement('span');
+          bar.className = 'bar';
+          progressEl.appendChild(bar);
+        });
+      }
+      var bars = progressEl ? Array.prototype.slice.call(progressEl.querySelectorAll('.bar')) : [];
+
+      var heroSlider = new Swiper('.hero-video-swiper', {
+        loop: false,
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        allowTouchMove: false,
+        speed: 700,
+      });
+
+      function playSlide(idx) {
+        // Reset all bars
+        bars.forEach(function(b) {
+          b.classList.remove('active');
+          b.style.removeProperty('--vbar-duration');
+        });
+
+        var video = sliderVideos[idx];
+        if (!video) return;
+
+        video.currentTime = 0;
+        var playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function() {});
+        }
+
+        // Activate progress bar with video duration as animation timing
+        if (bars[idx]) {
+          var dur = video.duration || 6;
+          bars[idx].style.setProperty('--vbar-duration', dur + 's');
+          bars[idx].classList.add('active');
+        }
+      }
+
+      function advanceSlider() {
+        var next = heroSlider.activeIndex + 1;
+        if (next >= sliderVideos.length) {
+          heroSlider.slideTo(0, 700);
+          setTimeout(function() { playSlide(0); }, 750);
+        } else {
+          heroSlider.slideNext(700);
+          setTimeout(function() { playSlide(next); }, 750);
+        }
+      }
+
+      sliderVideos.forEach(function(video) {
+        video.addEventListener('ended', advanceSlider);
+      });
+
+      // Start first slide
+      playSlide(0);
+      heroSliderSection.classList.add('hero--revealed');
+    }
+  }
+
+  // Spray-Hintergrund (Loop): Hero-Text bleibt dauerhaft über dem Video sichtbar
+  // (kein Ausblenden mehr beim Abspielen).
 })();
 
 // Kundenstimmen Swiper
 document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.stimmen-swiper')) {
         new Swiper('.stimmen-swiper', {
-            slidesPerView: 1,
-            spaceBetween: 24,
+            slidesPerView: 1.1,
+            spaceBetween: 20,
+            loop: false,
             pagination: { el: '.stimmen-swiper__pagination', clickable: true },
-            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+            breakpoints: {
+                640: { slidesPerView: 2, spaceBetween: 24 },
+                1024: { slidesPerView: 3, spaceBetween: 24 },
+            },
+            a11y: { enabled: true },
         });
     }
+});
+
+// Zimmer: Desktop = statisches Grid (alle 5 sichtbar), Mobile = Swiper-Karussell.
+// Swiper wird NUR unter 640px initialisiert; auf Desktop bleibt das Markup ein
+// neutrales Grid (CSS). Auf Resize wird sauber initialisiert/zerstört.
+document.addEventListener('DOMContentLoaded', function () {
+    var sel = '.zimmer-swiper';
+    if (!document.querySelector(sel)) {
+        return;
+    }
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var mq = window.matchMedia('(max-width:639px)');
+    var instance = null;
+
+    function syncSwiper() {
+        if (mq.matches && !instance) {
+            instance = new Swiper(sel, {
+                slidesPerView: 1.3,
+                spaceBetween: 14,
+                loop: true,
+                autoplay: reduceMotion
+                    ? false
+                    : { delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true },
+                breakpoints: {
+                    480: { slidesPerView: 2, spaceBetween: 16 },
+                },
+                navigation: { prevEl: '.zimmer-swiper__prev', nextEl: '.zimmer-swiper__next' },
+                pagination: { el: '.zimmer-swiper__pagination', clickable: true },
+                a11y: { enabled: true },
+            });
+        } else if (!mq.matches && instance) {
+            instance.destroy(true, true); // cleanStyles → Grid (CSS) übernimmt wieder
+            instance = null;
+        }
+    }
+
+    syncSwiper();
+    mq.addEventListener('change', syncSwiper);
 });
 
 // Booking Modal
@@ -180,4 +301,128 @@ document.addEventListener('DOMContentLoaded', function () {
       if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
     }
   });
+}());
+
+/* === Dékorative Animationen (3 Varianten) === */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  var body = document.body;
+
+  /* ── Variant 1 : Schwebende Brand-Symbole (anim-floating) ── */
+  if (body.classList.contains('anim-floating')) {
+    var svgs = [
+      '<svg viewBox="0 0 24 24" fill="#EC0A8C"><path d="M12 21C7 17 4 13.5 4 9.8 4 7 6 5 8.6 5c1.6 0 3 .8 3.4 2 .4-1.2 1.8-2 3.4-2C18 5 20 7 20 9.8c0 3.7-3 7.2-8 11.2Z"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="#26257F" stroke-width="1.6"><path d="M12 3c-4 0-6 2.6-6 6.5 0 4 1.6 8 3.4 9 1.2.6 1.4-3.2 2.6-3.2s1.4 3.8 2.6 3.2c1.8-1 3.4-5 3.4-9C18 5.6 16 3 12 3Z"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="#F7E29D" stroke="#D4A832" stroke-width="0.8"><path fill="#C8962A" stroke="none" d="M12 9C11.4 10.5 11.4 12.5 12 15C12.6 12.5 12.6 10.5 12 9Z"/><path fill="none" stroke="#C8962A" stroke-width="0.7" stroke-linecap="round" d="M12 9C11 7 9 6 8.5 5M12 9C13 7 15 6 15.5 5"/><path d="M12 10C9 8 4.5 8.5 4 11C3.5 13.5 8 14 12 12Z"/><path d="M12 10C15 8 19.5 8.5 20 11C20.5 13.5 16 14 12 12Z"/><path d="M12 12.5C8 11 4 13 5 16C6 18.5 10 17.5 12 14.5Z"/><path d="M12 12.5C16 11 20 13 19 16C18 18.5 14 17.5 12 14.5Z"/></svg>',
+    ];
+    var positions = [
+      [8,12],[18,45],[5,70],[88,8],[92,55],[75,30],[30,88],[60,15],[45,65],[80,78]
+    ];
+    var range = document.createRange();
+    positions.forEach(function(pos, i) {
+      var el = document.createElement('div');
+      el.className = 'kc-floater';
+      el.appendChild(range.createContextualFragment(svgs[i % svgs.length]));
+      var size = 36 + (i % 3) * 14;
+      var dur  = 6 + (i % 5) * 1.8;
+      var delay = (i % 4) * 0.8;
+      var opacity = 0.55 + (i % 4) * 0.08;
+      el.style.cssText = [
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'left:' + pos[0] + '%',
+        'top:' + pos[1] + '%',
+        'opacity:' + opacity,
+        'animation:kc-float ' + dur + 's ' + delay + 's ease-in-out infinite',
+      ].join(';');
+      body.appendChild(el);
+    });
+  }
+
+  /* ── Variant 2 : Cursor-Funken (anim-sparkle) ── */
+  if (body.classList.contains('anim-sparkle')) {
+    var sColors = ['#EC0A8C','#26257F','#F7E29D','#98ACBA','#BDCCC2','#FCE8E1'];
+    var lastSparkle = 0;
+    function spawnSparkle(x, y) {
+      var now = Date.now();
+      if (now - lastSparkle < 55) return;
+      lastSparkle = now;
+      var el = document.createElement('div');
+      el.className = 'kc-sparkle';
+      var size = 6 + Math.floor(now % 7);
+      el.style.cssText = [
+        'left:' + (x + (size % 3) * 4 - 6) + 'px',
+        'top:' + (y + (size % 5) * 3 - 7) + 'px',
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'background:' + sColors[size % sColors.length],
+      ].join(';');
+      body.appendChild(el);
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 680);
+    }
+    document.addEventListener('mousemove', function (e) {
+      spawnSparkle(e.clientX, e.clientY);
+    }, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+      if (e.touches[0]) spawnSparkle(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+  }
+
+  /* ── Variant 3 : Confetti beim Scrollen (anim-confetti) ── */
+  if (body.classList.contains('anim-confetti')) {
+    var cColors = ['#EC0A8C','#26257F','#F7E29D','#98ACBA','#BDCCC2','#FCE8E1'];
+    var fired = [];
+    function burst() {
+      for (var j = 0; j < 28; j++) {
+        (function (idx) {
+          setTimeout(function () {
+            var p = document.createElement('div');
+            p.className = 'kc-confetti-piece';
+            var size = 5 + (idx % 6);
+            var fallDur = 1.6 + (idx % 8) * 0.25;
+            var rot = (idx % 2 === 0 ? 1 : -1) * (180 + idx * 19);
+            p.style.cssText = [
+              'left:' + ((idx * 3.7) % 100) + 'vw',
+              'width:' + size + 'px',
+              'height:' + size + 'px',
+              'background:' + cColors[idx % cColors.length],
+              'border-radius:' + (idx % 3 === 0 ? '50%' : '2px'),
+              '--fall-dur:' + fallDur + 's',
+              '--rot:' + rot + 'deg',
+            ].join(';');
+            body.appendChild(p);
+            setTimeout(function () {
+              if (p.parentNode) p.parentNode.removeChild(p);
+            }, 4500);
+          }, idx * 65);
+        })(j);
+      }
+    }
+    if ('IntersectionObserver' in window) {
+      var cObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && fired.indexOf(en.target) === -1) {
+            fired.push(en.target);
+            burst();
+          }
+        });
+      }, { threshold: 0.3 });
+      document.querySelectorAll('[class*="section-"]').forEach(function (s) {
+        cObs.observe(s);
+      });
+    }
+  }
+}());
+
+/* === QR-AUTO-OPEN: open booking modal when arrived via ?termin=1 (QR code) === */
+(function () {
+  function openFromQuery() {
+    if (new URLSearchParams(location.search).get('termin') === '1') {
+      var btn = document.querySelector('[data-booking-open]');
+      if (btn) btn.click();
+    }
+  }
+  if (document.readyState !== 'loading') openFromQuery();
+  else document.addEventListener('DOMContentLoaded', openFromQuery);
 }());

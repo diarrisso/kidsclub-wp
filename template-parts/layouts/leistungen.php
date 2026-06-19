@@ -1,10 +1,10 @@
 <?php
 /**
  * Layout: Leistungsspektrum.
- * Felder: eyebrow, title, text, items[] (icon, heading, body)
+ * Felder: eyebrow, title, text, items[] (card_color, symbol, heading, body)
  *
- * "icon" ist ein Slug, der auf kc_icon() (siehe inc/icons.php) gemappt wird —
- * so bleiben SVGs zentral und aus dem Editor wählbar, statt SVG-Code im Feld.
+ * "card_color" steuert die Pastell-Hintergrundfarbe der Karte (yellow|blue|green|pink).
+ * "symbol" wählt die Symbol-Illustration via kc_symbol() (symbol1..symbol5).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="section" id="leistungen">
 	<div class="container">
 		<div class="section-head center reveal">
-			<span class="eyebrow"><?php echo kc_icon( 'heart' ); ?><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
+			<span class="eyebrow"><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
 			<h2 class="section-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 			<?php
 			if ( $t = get_sub_field( 'text' ) ) :
@@ -26,9 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			while ( have_rows( 'items' ) ) :
 				the_row();
 				?>
-				<article class="svc reveal">
-					<span class="corner"></span>
-					<span class="ic"><?php echo kc_icon( get_sub_field( 'icon' ) ); ?></span>
+				<article class="svc svc--<?php echo esc_attr( get_sub_field( 'card_color' ) ?: 'yellow' ); ?> reveal">
+					<?php echo wp_kses_post( kc_symbol( get_sub_field( 'symbol' ) ?: 'symbol1' ) ); ?>
 					<h3><?php echo esc_html( get_sub_field( 'heading' ) ); ?></h3>
 					<p><?php echo esc_html( get_sub_field( 'body' ) ); ?></p>
 				</article>
