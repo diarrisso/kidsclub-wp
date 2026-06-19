@@ -130,8 +130,18 @@ add_action(
 	var btnInstall = document.getElementById('kc-install-btn');
 	var btnClose   = document.getElementById('kc-install-close');
 
+	// Vérifier le dismissal AVANT d'enregistrer le listener principal
+	var isDismissed = false;
+	try {
+		var dismissed = localStorage.getItem('kc_pwa_dismissed');
+		if (dismissed && (Date.now() - Number(dismissed)) < 7 * 24 * 60 * 60 * 1000) {
+			isDismissed = true;
+		}
+	} catch (e) {}
+
 	window.addEventListener('beforeinstallprompt', function (e) {
 		e.preventDefault();
+		if (isDismissed) return;
 		deferredPrompt = e;
 		if (banner) {
 			// Afficher après 3 s pour ne pas interrompre le chargement
@@ -159,14 +169,6 @@ add_action(
 			} catch (e) {}
 		});
 	}
-
-	// Masquer si déjà rejeté il y a moins de 7 jours
-	try {
-		var dismissed = localStorage.getItem('kc_pwa_dismissed');
-		if (dismissed && (Date.now() - Number(dismissed)) < 7 * 24 * 60 * 60 * 1000) {
-			window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); });
-		}
-	} catch (e) {}
 
 	// Masquer si déjà installé
 	window.addEventListener('appinstalled', function () {

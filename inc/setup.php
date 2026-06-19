@@ -108,9 +108,13 @@ add_filter(
 			'handler',
 			'listener',
 		);
+		// iterator_to_array() matérialise la DOMNodeList (live) en tableau PHP statique.
+		// Sans ça, removeChild() pendant le foreach réindexe la liste et saute le nœud suivant.
 		foreach ( $dangerous_tags as $tag ) {
-			foreach ( $xpath->query( "//*[local-name()='" . $tag . "']" ) as $node ) {
-				$node->parentNode->removeChild( $node );
+			foreach ( iterator_to_array( $xpath->query( "//*[local-name()='" . $tag . "']" ) ) as $node ) {
+				if ( $node->parentNode ) {
+					$node->parentNode->removeChild( $node );
+				}
 			}
 		}
 
@@ -118,7 +122,7 @@ add_filter(
 		$unsafe_protocols = array( 'javascript', 'data', 'vbscript' );
 		$url_attrs        = array( 'href', 'src', 'action' );
 
-		foreach ( $xpath->query( '//@*' ) as $attr ) {
+		foreach ( iterator_to_array( $xpath->query( '//@*' ) ) as $attr ) {
 			if ( ! ( $attr instanceof DOMAttr ) ) {
 				continue;
 			}

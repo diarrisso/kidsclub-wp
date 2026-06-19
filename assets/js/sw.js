@@ -3,7 +3,7 @@
  * Cache-first pour les assets, network-first pour les pages HTML.
  */
 
-const CACHE = 'kidsclub-v3.0.5';
+const CACHE = 'kidsclub-v3.1.0';
 const THEME = '/wp-content/themes/kidsclub';
 const OFFLINE_URL = '/offline';
 
@@ -51,9 +51,10 @@ self.addEventListener('fetch', (event) => {
     if (url.origin !== self.location.origin) return;
 
     // Assets statiques (css, js, fonts, images) → cache-first
+    // ignoreSearch:true : WordPress ajoute ?ver=X.X aux assets, le PRECACHE ne les inclut pas.
     if (/\.(css|js|woff2?|ttf|otf|svg|png|jpe?g|webp|ico|gif)(\?.*)?$/.test(url.pathname)) {
         event.respondWith(
-            caches.match(request).then((cached) => {
+            caches.match(request, { ignoreSearch: true }).then((cached) => {
                 if (cached) return cached;
                 return fetch(request).then((resp) => {
                     if (resp.ok) {
