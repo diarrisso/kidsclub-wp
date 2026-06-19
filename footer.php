@@ -41,9 +41,6 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 			<!-- Col 2: Adresse -->
 			<div class="footer-col footer-address">
 				<p class="footer-col-title">Kontakt</p>
-				<img class="footer-mobile-logo"
-					src="<?php echo esc_url( $logo_url ); ?>"
-					alt="Kids Club by zacp" width="140" height="40">
 				<?php if ( $addr ) : ?>
 					<address><?php echo nl2br( esc_html( $addr ) ); ?></address>
 				<?php endif; ?>
