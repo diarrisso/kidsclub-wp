@@ -771,7 +771,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .nav-links,.nav-phone{display:none}
   .burger{display:grid}
   body{font-size:17px}
-  .hero-banner{min-height:clamp(480px,60vh,560px);padding:0 0 clamp(200px,50vw,280px);display:flex;align-items:center;justify-content:center}
+  .hero-banner{min-height:clamp(560px,78vh,700px);padding:0;display:grid;place-items:center}
   .hero-scrim{background:rgba(255,255,255,.30)}
   .hero-banner-inner h1,.hero-banner-inner .lead{max-width:none}
   .services-grid,.team-grid{grid-template-columns:1fr}

@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function syncSwiper() {
         if (mq.matches && !instance) {
             instance = new Swiper(sel, {
-                slidesPerView: 1.3,
+                slidesPerView: 1,
                 spaceBetween: 14,
                 loop: true,
                 autoplay: reduceMotion
