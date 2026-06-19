@@ -26,8 +26,9 @@ if ( have_rows( 'sections' ) ) :
 		$kc_has_bg = is_array( $kc_bg ) && ! empty( $kc_bg['url'] );
 
 		if ( $kc_has_bg ) {
+			echo '<div class="kc-section-bg">';
 			printf(
-				'<div class="kc-section-bg" style="background-image:url(%s)">',
+				'<div class="kc-section-bg__img" style="background-image:url(%s)" aria-hidden="true"></div>',
 				esc_url( $kc_bg['url'] )
 			);
 		}

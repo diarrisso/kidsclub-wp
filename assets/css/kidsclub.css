@@ -859,10 +859,14 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    englobant errone -> slides geants vides. height:auto laisse le contenu
    dicter la hauteur ; les cards restent egalisees par le flex stretch. */
 
-/* Optionales Sektions-Hintergrundbild (ACF, pro Sektion). */
-.kc-section-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
-/* Wenn ein Bild gesetzt ist, eigenen Vollflaechen-Hintergrund der Sektion durchscheinen lassen */
-.kc-section-bg > section{background-color:transparent}
+/* Optionales Sektions-Hintergrundbild (ACF, pro Sektion).
+   .kc-section-bg__img = div dédiée avec background-image en inline style
+   → l'opacité s'applique uniquement sur l'image, pas sur le contenu de la section */
+.kc-section-bg{position:relative}
+.kc-section-bg__img{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-size:115% auto;background-position:center top;background-repeat:no-repeat;
+  opacity:.06}
+.kc-section-bg > section{position:relative;z-index:1}
 
 /* ---------- WILLKOMMEN (Intro) ---------- */
 .intro-welcome{padding:clamp(48px,7vw,84px) 0;background:#fff}
@@ -887,13 +891,11 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Header-CTA: Outline-Pill wie im PDF (weiß, magenta Rand + Text) */
 /* (.nav-cta .btn-primary Outline = vom Basis-.btn-primary geerbt, kein Duplikat) */
 
-/* Spray-Dekor hinter der Praxis-Sektion (weiß, dezent) wie im PDF */
+/* Zimmer + Leistungen: les backgrounds décoratifs sont maintenant gérés via ACF
+   (background_image par section) → pas de ::before hardcodé ici */
 .section-zimmer{position:relative}
-.section-zimmer::before{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:url('../img/spray2.svg') center top/115% auto no-repeat;opacity:.06}
 .section-zimmer .container{position:relative;z-index:1}
-/* Team: clean, kein Hintergrund-Dekor */
+/* Team: clean */
 .section-team{background:#fff}
 
 /* Team-Karten: Name als Overlay auf dem Foto (wie PDF), kein farbiger Rand */
@@ -901,13 +903,11 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .team-card:nth-child(n){border-top-color:transparent}
 .team-card__img{height:300px}
 .team-card__body{position:absolute;left:0;right:0;bottom:0;z-index:2;text-align:left;
-  padding:34px 18px 14px;background:linear-gradient(to top,rgba(255,255,255,.96),rgba(255,255,255,.72) 55%,transparent)}
+  padding:34px 18px 14px;background:var(--band)!important;opacity:.7}
 .team-card__role,.team-card__body p{display:none}
 
-/* Leistungen: Spray-Hintergrund + Textfarben je Kartenfarbe (PDF) */
+/* Leistungen: Textfarben je Kartenfarbe (PDF) */
 #leistungen{position:relative}
-#leistungen::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:url('../img/spray2.svg') center top/115% auto no-repeat;opacity:.07}
 #leistungen .container{position:relative;z-index:1}
 .svc--blue h3,.svc--green h3,.svc--blue p,.svc--green p{color:var(--navy)}
 .svc--yellow h3,.svc--pink h3,.svc--yellow p,.svc--pink p{color:var(--magenta)}
