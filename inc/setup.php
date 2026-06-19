@@ -68,7 +68,7 @@ add_filter(
 	}
 );
 
-// Sanitize les SVG uploadés : supprime <script>, attributs on*, hrefs externes.
+// Sanitize les SVG uploadés — allowlist stricte des éléments + attributs dangereux.
 add_filter(
 	'wp_handle_upload_prefilter',
 	function ( $file ) {
@@ -82,35 +82,60 @@ add_filter(
 			return $file;
 		}
 
+		// Bloquer XXE et billion-laughs avant tout parsing DOM.
+		// <!DOCTYPE> / <!ENTITY> permettent l'expansion d'entités (DoS) et l'exfiltration de fichiers.
+		if ( preg_match( '/<!(DOCTYPE|ENTITY)/i', $svg ) ) {
+			$file['error'] = 'SVG enthält unzulässige DOCTYPE/ENTITY-Deklaration.';
+			return $file;
+		}
+
 		$dom = new DOMDocument();
 		libxml_use_internal_errors( true );
 		$dom->loadXML( $svg, LIBXML_NONET );
 		libxml_clear_errors();
 
-		$xpath    = new DOMXPath( $dom );
-		$ns       = 'http://www.w3.org/2000/svg';
-		$html_ns  = 'http://www.w3.org/1999/xhtml';
+		$xpath = new DOMXPath( $dom );
 
-		// Supprime les éléments dangereux : script, foreignObject, use (href ext.)
-		$dangerous_tags = array( 'script', 'foreignObject' );
+		// Éléments dangereux : vecteurs XSS directs ou porteurs d'attributs exécutables.
+		$dangerous_tags = array(
+			'script',        // JS direct
+			'foreignObject', // HTML arbitraire embarqué
+			'style',         // @import (fuite IP/DSGVO), expression() hérité
+			'animate',       // attributeName="onload" to="alert(1)"
+			'animatetransform',
+			'animatemotion',
+			'set',           // <set attributeName="href" to="javascript:...">
+			'handler',
+			'listener',
+		);
 		foreach ( $dangerous_tags as $tag ) {
-			foreach ( $xpath->query( "//*[local-name()='{$tag}']" ) as $node ) {
+			foreach ( $xpath->query( "//*[local-name()='" . $tag . "']" ) as $node ) {
 				$node->parentNode->removeChild( $node );
 			}
 		}
 
-		// Supprime les attributs on* (event handlers) et href/xlink:href pointant vers JS
+		// Attributs dangereux : event handlers on* + protocoles exécutables.
+		$unsafe_protocols = array( 'javascript', 'data', 'vbscript' );
+		$url_attrs        = array( 'href', 'src', 'action' );
+
 		foreach ( $xpath->query( '//@*' ) as $attr ) {
 			if ( ! ( $attr instanceof DOMAttr ) ) {
 				continue;
 			}
 			$name  = strtolower( $attr->localName );
 			$value = strtolower( trim( $attr->value ) );
-			if (
-				0 === strpos( $name, 'on' ) ||
-				( in_array( $name, array( 'href', 'src', 'action', 'xlink:href' ), true )
-					&& 0 === strpos( $value, 'javascript' ) )
-			) {
+
+			$is_event_handler = ( 0 === strpos( $name, 'on' ) );
+			$is_unsafe_url    = in_array( $name, $url_attrs, true ) &&
+				array_reduce(
+					$unsafe_protocols,
+					static function ( $carry, $proto ) use ( $value ) {
+						return $carry || ( 0 === strpos( $value, $proto ) );
+					},
+					false
+				);
+
+			if ( $is_event_handler || $is_unsafe_url ) {
 				if ( $attr->ownerElement instanceof DOMElement ) {
 					$attr->ownerElement->removeAttributeNode( $attr );
 				}

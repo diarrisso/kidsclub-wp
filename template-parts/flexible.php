@@ -49,12 +49,13 @@ if ( have_rows( 'sections' ) ) :
 				: '';
 
 			// Une seule passe regex : injecte style + div en même temps.
+			// Fallback sur $kc_html si preg_replace retourne null (dépassement pcre.backtrack_limit).
 			echo preg_replace(
 				'/<section([^>]*)>/',
 				'<section$1' . $kc_style . '>' . $kc_bg_div,
 				$kc_html,
 				1
-			);
+			) ?? $kc_html;
 		}
 
 		// Trenner nach jedem Block (außer Hero + letztem Block vor Footer) — wie im PDF.

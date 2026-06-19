@@ -683,7 +683,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card .kontakt-form__consent{display:flex;align-items:center;gap:12px;margin-right:auto}
 .kontakt-card .kontakt-form__footer .wpcf7-spinner{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0}
 .kontakt-card .kontakt-form__consent,
-.kontakt-card .wpcf7-acceptance label{color:#0E3A8E;font-size:.92rem;align-items:center}
+.kontakt-card .wpcf7-acceptance label{color:#0E3A8E;font-size:.92rem;align-items:flex-start}
 .kontakt-card .wpcf7-acceptance a{color:#0E3A8E;text-decoration:underline}
 /* Checkbox als weißes, abgerundetes Quadrat mit blauem Haken (wie Design) */
 .kontakt-card .wpcf7-acceptance input[type="checkbox"]{-webkit-appearance:none;appearance:none;width:28px!important;height:28px!important;padding:0!important;flex:none;margin:0;background:#fff;border:0;border-radius:6px;cursor:pointer;box-sizing:border-box}
@@ -867,6 +867,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   background-size:115% auto;background-position:center top;background-repeat:no-repeat;
   opacity:.06}
 section:has(.kc-section-bg__img){position:relative;overflow:hidden}
+section.section-hero:has(.kc-section-bg__img){overflow:visible}
 
 /* ---------- WILLKOMMEN (Intro) ---------- */
 .intro-welcome{padding:clamp(48px,7vw,84px) 0;background:#fff}
