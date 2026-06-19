@@ -860,13 +860,13 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    dicter la hauteur ; les cards restent egalisees par le flex stretch. */
 
 /* Optionales Sektions-Hintergrundbild (ACF, pro Sektion).
-   .kc-section-bg__img = div dédiée avec background-image en inline style
-   → l'opacité s'applique uniquement sur l'image, pas sur le contenu de la section */
-.kc-section-bg{position:relative}
+   .kc-section-bg__img est injecté comme premier enfant de <section> via ob_start()
+   dans flexible.php — l'image est ainsi au-dessus du background-color de la section
+   mais en dessous du contenu (z-index:0 vs z-index:1 du contenu). */
 .kc-section-bg__img{position:absolute;inset:0;z-index:0;pointer-events:none;
   background-size:115% auto;background-position:center top;background-repeat:no-repeat;
   opacity:.06}
-.kc-section-bg > section{position:relative;z-index:1}
+section:has(.kc-section-bg__img){position:relative;overflow:hidden}
 
 /* ---------- WILLKOMMEN (Intro) ---------- */
 .intro-welcome{padding:clamp(48px,7vw,84px) 0;background:#fff}
@@ -1151,7 +1151,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-booking__text{color:rgba(255,255,255,.85);font-size:.95rem;line-height:1.55;margin:0;max-width:180px}
 .footer-qr{display:block;width:92px;height:92px;border-radius:6px;background:#fff;padding:6px;box-sizing:border-box;flex:none}
 /* Bouton desktop: pleine largeur pour passer sous texte+QR */
-.footer-booking__btn{align-self:flex-start;margin-top:4px;flex-basis:100%;padding:9px 22px;font-size:.92rem;background:var(--magenta);color:#fff;border-color:var(--magenta)}
+.footer-booking__break{flex-basis:100%;height:0}
+.footer-booking__btn{align-self:flex-start;width:fit-content;padding:9px 22px;font-size:.92rem;background:var(--magenta);color:#fff;border-color:var(--magenta)}
 .footer-booking__btn:hover{background:#fff;color:var(--magenta);transform:translateY(-2px)}
 /* Bottom-Leiste: Social links · Recht mittig · Copyright rechts (eine Zeile) */
 .site-footer .footer-bottom{display:flex!important;flex-direction:row!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;border-top:0}

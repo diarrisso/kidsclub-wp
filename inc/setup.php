@@ -55,3 +55,73 @@ add_filter(
 		return $classes;
 	}
 );
+
+// SVG autorisé uniquement pour les admins — le SVG peut contenir du JS (XSS).
+add_filter(
+	'upload_mimes',
+	function ( $mimes ) {
+		if ( current_user_can( 'manage_options' ) ) {
+			$mimes['svg']  = 'image/svg+xml';
+			$mimes['svgz'] = 'image/svg+xml';
+		}
+		return $mimes;
+	}
+);
+
+// Sanitize les SVG uploadés : supprime <script>, attributs on*, hrefs externes.
+add_filter(
+	'wp_handle_upload_prefilter',
+	function ( $file ) {
+		if ( ! isset( $file['type'] ) || 'image/svg+xml' !== $file['type'] ) {
+			return $file;
+		}
+
+		$svg = file_get_contents( $file['tmp_name'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( false === $svg ) {
+			$file['error'] = 'SVG konnte nicht gelesen werden.';
+			return $file;
+		}
+
+		$dom = new DOMDocument();
+		libxml_use_internal_errors( true );
+		$dom->loadXML( $svg, LIBXML_NONET );
+		libxml_clear_errors();
+
+		$xpath    = new DOMXPath( $dom );
+		$ns       = 'http://www.w3.org/2000/svg';
+		$html_ns  = 'http://www.w3.org/1999/xhtml';
+
+		// Supprime les éléments dangereux : script, foreignObject, use (href ext.)
+		$dangerous_tags = array( 'script', 'foreignObject' );
+		foreach ( $dangerous_tags as $tag ) {
+			foreach ( $xpath->query( "//*[local-name()='{$tag}']" ) as $node ) {
+				$node->parentNode->removeChild( $node );
+			}
+		}
+
+		// Supprime les attributs on* (event handlers) et href/xlink:href pointant vers JS
+		foreach ( $xpath->query( '//@*' ) as $attr ) {
+			if ( ! ( $attr instanceof DOMAttr ) ) {
+				continue;
+			}
+			$name  = strtolower( $attr->localName );
+			$value = strtolower( trim( $attr->value ) );
+			if (
+				0 === strpos( $name, 'on' ) ||
+				( in_array( $name, array( 'href', 'src', 'action', 'xlink:href' ), true )
+					&& 0 === strpos( $value, 'javascript' ) )
+			) {
+				if ( $attr->ownerElement instanceof DOMElement ) {
+					$attr->ownerElement->removeAttributeNode( $attr );
+				}
+			}
+		}
+
+		$clean = $dom->saveXML( $dom->documentElement );
+		if ( $clean ) {
+			file_put_contents( $file['tmp_name'], $clean ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		}
+
+		return $file;
+	}
+);
