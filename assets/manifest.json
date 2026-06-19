@@ -1,0 +1,39 @@
+{
+  "name": "Kids Club by zacp",
+  "short_name": "Kids Club",
+  "description": "Kinderzahnarztpraxis für Kinder in Osnabrück",
+  "start_url": "/?utm_source=pwa",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0E3A8E",
+  "theme_color": "#E91E8C",
+  "lang": "de",
+  "categories": ["medical", "health"],
+  "icons": [
+    {
+      "src": "/wp-content/themes/kidsclub/assets/img/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/wp-content/themes/kidsclub/assets/img/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Termin buchen",
+      "short_name": "Buchen",
+      "url": "/?utm_source=pwa-shortcut#termin",
+      "icons": [
+        {
+          "src": "/wp-content/themes/kidsclub/assets/img/pwa-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

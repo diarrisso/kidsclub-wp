@@ -1213,3 +1213,23 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
 @media(prefers-reduced-motion:reduce){
   .kc-floater,.kc-sparkle,.kc-confetti-piece{display:none!important}
 }
+
+/* ── PWA Install Banner ───────────────────────────────────────────────────── */
+.kc-install-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;
+  display:flex;align-items:center;gap:12px;padding:14px 20px;
+  background:#0E3A8E;color:#fff;box-shadow:0 -4px 24px rgba(0,0,0,.18);
+  font-size:.9rem;animation:kc-banner-in .3s ease}
+@keyframes kc-banner-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.kc-install-banner[hidden]{display:none}
+.kc-install-banner__text{flex:1;margin:0;line-height:1.4}
+.kc-install-banner__btn{flex:none;padding:9px 18px;background:#E91E8C;color:#fff;
+  border:none;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer;
+  white-space:nowrap;font-family:inherit}
+.kc-install-banner__btn:hover{opacity:.88}
+.kc-install-banner__close{flex:none;background:none;border:none;color:rgba(255,255,255,.7);
+  cursor:pointer;padding:4px;line-height:0;display:flex;align-items:center;justify-content:center}
+.kc-install-banner__close:hover{color:#fff}
+@media(max-width:480px){
+  .kc-install-banner{flex-wrap:wrap;gap:8px}
+  .kc-install-banner__btn{order:2;width:100%}
+}

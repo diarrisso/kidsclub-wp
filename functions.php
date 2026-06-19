@@ -15,3 +15,4 @@ require get_theme_file_path( 'inc/schema.php' );
 require get_theme_file_path( 'inc/uploads-cache-bust.php' );
 require get_theme_file_path( 'inc/embed-allowlist.php' );
 require get_theme_file_path( 'inc/cleanup.php' );
+require get_theme_file_path( 'inc/pwa.php' );
