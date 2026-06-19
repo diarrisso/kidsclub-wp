@@ -1194,7 +1194,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    ═══════════════════════════════════════════════════ */
 
 /* Variant 1 : Schwebende Symbole */
-.kc-floater{position:fixed;pointer-events:none;z-index:50;will-change:transform}
+.kc-floater{position:fixed;pointer-events:none;z-index:1;will-change:transform}
+/* Contenu de section devant les floaters décoratifs (z-index > 1) */
+.ablauf-item,.faq-item,.stimmen-card,.room,.kontakt-form-wrap,.kontakt-info{position:relative;z-index:2}
 .kc-floater svg{width:100%;height:100%;display:block}
 @keyframes kc-float{
   0%,100%{transform:translateY(0) rotate(0deg) scale(1)}
