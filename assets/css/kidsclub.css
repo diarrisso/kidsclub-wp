@@ -690,13 +690,18 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card .wpcf7-acceptance input[type="checkbox"]:checked{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E3A8E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 13l4 4L19 7'/></svg>") center/64% no-repeat}
 .kontakt-card .wpcf7 input[type="submit"]{background:var(--navy);color:#fff;border:0;border-radius:var(--pill);font-size:1rem;padding:15px 32px;font-weight:600;width:auto;flex:none;cursor:pointer;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
 .kontakt-card .wpcf7 input[type="submit"]:hover{background:#1a4fa8;transform:translateY(-3px);box-shadow:0 8px 24px rgba(16,46,121,.35)}
-@media(max-width:600px){.kontakt-card .form-row{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .kontakt-card .form-row{grid-template-columns:1fr;gap:10px}
+  .kontakt-card .field{margin-bottom:10px}
+  .kontakt-card .kontakt-inner--form-only .kontakt-form-wrap{margin-top:16px}
+}
 @media(max-width:480px){
-  .kontakt-card{padding:24px 18px;border-radius:16px}
+  .kontakt-card{padding:24px 16px;border-radius:16px}
   .kontakt-card .wpcf7 input:not([type="submit"]),
-  .kontakt-card .wpcf7 textarea{padding:11px 14px;font-size:.92rem}
+  .kontakt-card .wpcf7 textarea{padding:11px 14px;font-size:.92rem;border-radius:10px}
   .kontakt-card .wpcf7 textarea{min-height:100px}
-  .kontakt-card .wpcf7 input[type="submit"]{padding:12px 24px}
+  .kontakt-card .kontakt-form__footer p{flex-direction:column;align-items:flex-start;gap:10px}
+  .kontakt-card .wpcf7 input[type="submit"]{padding:12px 24px;width:100%}
 }
 
 /* ---------- FOOTER ---------- */
