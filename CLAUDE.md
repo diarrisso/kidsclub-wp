@@ -103,6 +103,15 @@ trigger button and its `data-booking-open` attribute / handler**.
   `.deploy-config`, which is gitignored and holds no secrets). **Never deploy automatically** —
   only when the user explicitly says so, and only after code review. Prefer the `deploy-kidsclub`
   skill for the full flow.
+  - **Run it WITHOUT a pipe** (`./deploy-scp.sh > /tmp/deploy.log 2>&1`, never `| grep | tail`):
+    a pipe makes `$?` the pipe's last command (`exit 0`) and **masks a failed deploy**.
+  - The tar **excludes** `ZACP/`, `.superpowers`, `*-backup.mp4`, `RAPPORT-*.md`, `.phpactor.json`,
+    `docs/superpowers`. These are big local-only folders (e.g. `ZACP/` ≈ 270 MB of design assets);
+    without the excludes the archive balloons to ~330 MB and the SCP transfer is killed → a
+    silent, incomplete deploy. Keep these excludes in `deploy-scp.sh`.
+  - **Always verify on the server after deploy** (not just "exit 0"):
+    `ssh kidsclub "grep -c '<new-marker>' <path>/assets/css/kidsclub.min.css"` and the served
+    `?ver=` via `curl`. See the global CLAUDE.md deploy rule.
 
 ## Pages & templates
 
