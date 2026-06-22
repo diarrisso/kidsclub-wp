@@ -7,9 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$addr   = get_field( 'footer_address', 'option' );
-$phone  = get_field( 'footer_phone', 'option' );
-$hours  = get_field( 'footer_hours', 'option' );
+$addr  = get_field( 'footer_address', 'option' );
+$phone = get_field( 'footer_phone', 'option' );
+$hours = get_field( 'footer_hours', 'option' );
+// Termin-Button im Footer: NULL = noch nie konfiguriert → Standard anzeigen;
+// '' (leer gespeichert) = vom Admin bewusst ausgeblendet; sonst der eingegebene Text.
+$booking_btn = get_field( 'footer_booking_btn', 'option' );
+if ( null === $booking_btn ) {
+	$booking_btn = 'Termin buchen';
+}
 $social = get_field( 'footer_social', 'option' ) ?: array();
 $legal  = get_field( 'footer_legal', 'option' ) ?: array();
 $copy   = get_field( 'footer_copyright', 'option' ) ?: 'Kids Club by ZACP';
@@ -67,14 +73,17 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 			<!-- Col 4: Online Termin QR + Text -->
 			<div class="footer-col footer-booking">
 				<p class="footer-col-title">Online Termin</p>
-				<div class="footer-booking__head">
-					<p class="footer-booking__text">Bequem mit dem Smartphone den Termin buchen.</p>
-					<img class="footer-qr" src="<?php echo esc_url( $qr_url ); ?>" alt="QR-Code für die Online-Terminbuchung" width="92" height="92">
-					<span class="footer-booking__break" aria-hidden="true"></span>
+				<div class="footer-booking__card">
+					<div class="footer-booking__head">
+						<img class="footer-qr" src="<?php echo esc_url( $qr_url ); ?>" alt="QR-Code für die Online-Terminbuchung" width="92" height="92">
+						<p class="footer-booking__text">Bequem mit dem Smartphone den Termin buchen.</p>
+					</div>
+					<?php if ( ! empty( $booking_btn ) ) : ?>
 					<button type="button" class="btn btn-primary footer-booking__btn" data-booking-open aria-haspopup="dialog">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-						Buchen
+						<?php echo esc_html( $booking_btn ); ?>
 					</button>
+					<?php endif; ?>
 				</div>
 			</div>
 
@@ -117,6 +126,11 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 	</div>
 </div>
 <?php endif; ?>
+
+<button class="back-to-top" id="backToTop" aria-label="Nach oben" aria-hidden="true" tabindex="-1">
+	<?php echo kc_svg( 'back-to-top' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+</button>
+
 <?php wp_footer(); ?>
 </body>
 </html>

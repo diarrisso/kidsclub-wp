@@ -378,6 +378,8 @@ section{position:relative;z-index:2}
 	.zimmer-swiper{overflow:visible!important}
 	.zimmer-swiper .swiper-wrapper{display:grid!important;grid-template-columns:repeat(2,1fr);gap:18px;transform:none!important}
 	.zimmer-swiper .swiper-slide{width:auto!important;margin:0!important}
+	/* Grid = alle Karten gleich sichtbar; das Karussell-Dimming (opacity .45) hier neutralisieren */
+	.zimmer-swiper .swiper-slide:not(.swiper-slide-active){opacity:1}
 }
 @media(min-width:1024px){
 	.zimmer-swiper .swiper-wrapper{grid-template-columns:repeat(5,1fr)!important}
@@ -678,7 +680,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    Submit (rechts) auf EINER Zeile, vertikal zentriert. Der CF7-Spinner sitzt nach dem
    Button → absolut positioniert, damit der Button bündig am rechten Rand bleibt. */
 .kontakt-card .kontakt-form__footer{display:block;margin-top:8px}
-.kontakt-card .kontakt-form__footer p{position:relative;display:flex;align-items:center;justify-content:flex-end;width:100%;margin:0}
+.kontakt-card .kontakt-form__footer p{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:28px;width:100%;margin:0}
 .kontakt-card .kontakt-form__footer br{display:none}
 .kontakt-card .kontakt-form__consent{display:flex;align-items:center;gap:12px;margin-right:auto}
 .kontakt-card .kontakt-form__footer .wpcf7-spinner{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0}
@@ -703,6 +705,30 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .kontakt-card .kontakt-form__footer p{flex-direction:column;align-items:flex-start;gap:10px}
   .kontakt-card .wpcf7 input[type="submit"]{padding:12px 24px;width:100%}
 }
+
+/* ===== Variante "schlank/modern": ohne farbige Box (kt_card_bg = aus) ===== */
+.kontakt-card--plain{background:none;padding:0;max-width:720px}
+.kontakt-card--plain .section-title{color:var(--navy)}
+.kontakt-card--plain .section-lead{color:var(--navy);opacity:.8}
+.kontakt-card--plain .kontakt-inner--form-only .kontakt-form-wrap{margin-top:clamp(22px,3vw,32px)}
+.kontakt-card--plain .form-row{gap:16px}
+.kontakt-card--plain .field{margin-bottom:16px}
+/* Felder: heller Rahmen statt gefülltem Kasten, kompakter, Magenta-Fokus */
+.kontakt-card--plain .wpcf7 input:not([type="submit"]),
+.kontakt-card--plain .wpcf7 textarea{background:#fff;border:1.5px solid #e2e6ee;border-radius:12px;padding:14px 16px;font-size:.97rem;color:var(--navy);transition:border-color .2s,box-shadow .2s}
+.kontakt-card--plain .wpcf7 input:not([type="submit"]):focus,
+.kontakt-card--plain .wpcf7 textarea:focus{outline:none;border-color:var(--magenta);box-shadow:0 0 0 3px color-mix(in oklab,var(--magenta) 16%,transparent)}
+.kontakt-card--plain .wpcf7 textarea{min-height:140px}
+.kontakt-card--plain .wpcf7 input::placeholder,
+.kontakt-card--plain .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
+/* Einwilligung + Submit in Navy/Magenta statt Weiß */
+.kontakt-card--plain .kontakt-form__consent,
+.kontakt-card--plain .wpcf7-acceptance label{color:var(--navy)}
+.kontakt-card--plain .wpcf7-acceptance a{color:var(--magenta)}
+.kontakt-card--plain .wpcf7-acceptance input[type="checkbox"]{width:24px!important;height:24px!important;border:1.5px solid #cbd2de;background:#fff}
+.kontakt-card--plain .wpcf7-acceptance input[type="checkbox"]:checked{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EA4589' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 13l4 4L19 7'/></svg>") center/64% no-repeat;border-color:var(--magenta)}
+.kontakt-card--plain .wpcf7 input[type="submit"]{background:var(--magenta);box-shadow:var(--shadow-mag)}
+.kontakt-card--plain .wpcf7 input[type="submit"]:hover{background:var(--magenta-deep)}
 
 /* ---------- FOOTER ---------- */
 .site-footer{background:var(--navy);color:rgba(255,255,255,.74);padding:0 0 20px}
@@ -1061,7 +1087,7 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
 /* Design Karten-Titel — EINZIGE Quelle: size 38 / spacing 0 / line 43 (≈1.13) / Jost Halbfett(600) / uppercase */
 .svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:100%;line-height:1.13;font-weight:600;letter-spacing:0}
 /* Design Karten-Text — EINZIGE Quelle: size 22 / spacing 0 / line 30 (≈1.36) / Jost Regular */
-.svc p{margin:0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:100%;letter-spacing:0;font-weight:400}
+.svc p{margin:40px 0 0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:100%;letter-spacing:0;font-weight:400}
 .svc-symbol{width:88px;height:auto;top:24px;right:24px;padding-bottom:0}
 /* couleurs texte par carte (bleu/vert = navy, jaune/rose = magenta) */
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
@@ -1150,12 +1176,12 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
 .footer-address .fc-key{color:#fff;min-width:16px}
 /* Buchungsspalte: Text + QR + Button in einem flex-wrap Container */
 .footer-booking{display:flex;flex-direction:column;gap:0}
-.footer-booking__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px 18px}
-.footer-booking__text{color:rgba(255,255,255,.85);font-size:.95rem;line-height:1.55;margin:0;max-width:180px}
-.footer-qr{display:block;width:92px;height:92px;border-radius:6px;background:#fff;padding:6px;box-sizing:border-box;flex:none}
-/* Bouton desktop: pleine largeur pour passer sous texte+QR */
-.footer-booking__break{flex-basis:100%;height:0}
-.footer-booking__btn{align-self:flex-start;width:fit-content;padding:9px 22px;font-size:.92rem;background:var(--magenta-deep);color:#fff;border-color:var(--magenta-deep)}
+/* Carte groupée: QR + texte côte à côte, bouton pleine largeur dessous */
+.footer-booking__card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px;max-width:290px}
+.footer-booking__head{display:flex;align-items:center;gap:14px}
+.footer-booking__text{color:rgba(255,255,255,.85);font-size:.9rem;line-height:1.45;margin:0}
+.footer-qr{display:block;width:84px;height:84px;border-radius:8px;background:#fff;padding:6px;box-sizing:border-box;flex:none}
+.footer-booking__btn{width:100%;justify-content:center;padding:11px 22px;font-size:.95rem;background:var(--magenta-deep);color:#fff;border-color:var(--magenta-deep)}
 .footer-booking__btn:hover{background:#fff;color:var(--magenta-deep);transform:translateY(-2px)}
 /* Bottom-Leiste: Social links · Recht mittig · Copyright rechts (eine Zeile) */
 .site-footer .footer-bottom{display:flex!important;flex-direction:row!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;border-top:0}
@@ -1176,9 +1202,7 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
   .footer-top{grid-template-columns:1fr;gap:22px}
   .footer-logo-col{display:flex!important;margin-bottom:2px}
   .footer-logo-col .footer-logo{width:110px;height:auto}
-  .footer-booking__head{flex-direction:column;align-items:flex-start;gap:12px}
-  .footer-qr{width:80px!important;height:80px!important}
-  .footer-booking__btn{flex-basis:auto;padding:0 9px;margin-top:0}
+  .footer-booking__card{max-width:none}
   .site-footer .footer-bottom{flex-direction:column!important;align-items:flex-start;gap:14px}
 }
 
@@ -1215,6 +1239,21 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
 @media(prefers-reduced-motion:reduce){
   .kc-floater,.kc-sparkle,.kc-confetti-piece{display:none!important}
 }
+
+/* ── Back-to-Top ──────────────────────────────────────────────────────────── */
+.back-to-top{position:fixed;bottom:28px;right:28px;z-index:10000;
+  width:54px;height:54px;border-radius:50%;
+  background:var(--magenta);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-mag);
+  opacity:0;transform:translateY(12px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+  pointer-events:none}
+.back-to-top svg{width:20px;height:20px;stroke:#fff;stroke-width:1.6;transition:transform .25s var(--ease)}
+.back-to-top.is-visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.back-to-top:hover svg{transform:translateY(-3px)}
+@media(max-width:639px){.back-to-top{bottom:20px;right:16px;width:48px;height:48px}}
+@media(prefers-reduced-motion:reduce){.back-to-top{transition:none}.back-to-top:hover svg{transform:none}}
 
 /* ── PWA Install Banner ───────────────────────────────────────────────────── */
 .kc-install-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;

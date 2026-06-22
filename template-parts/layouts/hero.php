@@ -31,7 +31,10 @@ $hero_media = $cinematic ? 'video' : ( $is_slider ? 'video_slider' : '' );
 ?>
 <section class="hero hero-banner"
 		data-anim="<?php echo esc_attr( $anim ); ?>"
-		<?php if ( $hero_media ) : ?>data-media="<?php echo esc_attr( $hero_media ); ?>"<?php endif; ?>>
+		<?php
+		if ( $hero_media ) :
+			?>
+			data-media="<?php echo esc_attr( $hero_media ); ?>"<?php endif; ?>>
 
 
 <?php if ( $is_slider ) : ?>

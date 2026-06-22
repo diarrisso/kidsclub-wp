@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action(
 	'wp_head',
 	function () {
-		$theme      = get_stylesheet_directory_uri();
-		$icon_192   = $theme . '/assets/img/pwa-icon-192.png';
-		$manifest   = $theme . '/assets/manifest.json';
+		$theme    = get_stylesheet_directory_uri();
+		$icon_192 = $theme . '/assets/img/pwa-icon-192.png';
+		$manifest = $theme . '/assets/manifest.json';
 		?>
 <link rel="manifest" href="<?php echo esc_url( $manifest ); ?>">
 <meta name="theme-color" content="#E91E8C">
@@ -105,7 +105,7 @@ add_action(
 	</button>
 	<button type="button" id="kc-install-close" class="kc-install-banner__close" aria-label="Schließen">
 		<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-		     stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+			stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
 			<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
 		</svg>
 	</button>

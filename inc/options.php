@@ -235,6 +235,14 @@ add_action(
 						'placeholder'  => "Mo.\u{2013}Do. 08\u{2013}13 & 14\u{2013}18 Uhr\nFr. 08\u{2013}13 Uhr",
 						'instructions' => 'Zeilenumbrüche werden im Footer übernommen.',
 					],
+					[
+						'key'           => 'f_footer_booking_btn',
+						'label'         => 'Termin-Button (Footer)',
+						'name'          => 'footer_booking_btn',
+						'type'          => 'text',
+						'default_value' => 'Termin buchen',
+						'instructions'  => 'Beschriftung des Buchungs-Buttons im Footer (öffnet die Online-Terminbuchung). Leer lassen = Button ausblenden, nur der QR-Code bleibt sichtbar.',
+					],
 
 					/* ===== DESIGN ===== */
 					[

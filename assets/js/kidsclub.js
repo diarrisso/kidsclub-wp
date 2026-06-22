@@ -415,6 +415,30 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 }());
 
+/* === BACK-TO-TOP ============================================================ */
+(function () {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function check() {
+    var y = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    var v = y > 400;
+    btn.classList.toggle('is-visible', v);
+    btn.setAttribute('aria-hidden', String(!v));
+    btn.tabIndex = v ? 0 : -1;
+  }
+
+  window.addEventListener('scroll', check, { passive: true });
+  document.addEventListener('scroll', check, { passive: true });
+  check();
+
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'instant' : 'smooth' });
+  });
+}());
+
 /* === QR-AUTO-OPEN: open booking modal when arrived via ?termin=1 (QR code) === */
 (function () {
   function openFromQuery() {
