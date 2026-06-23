@@ -463,6 +463,17 @@ button.chip{border:0;font-family:inherit}
 .gal-lightbox__close{position:absolute;top:16px;right:20px;font-size:2rem;color:#fff;background:none;border:none;cursor:pointer;line-height:1}
 .gal-lightbox__close:hover{color:var(--magenta)}
 .gal-lightbox__close:focus{outline:3px solid var(--magenta);outline-offset:4px}
+.gal-lightbox__figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:94vw}
+.gal-lightbox__nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border:none;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:2rem;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .25s var(--ease)}
+.gal-lightbox__nav:hover{background:var(--magenta)}
+.gal-lightbox__nav:focus{outline:3px solid var(--magenta);outline-offset:3px}
+.gal-lightbox__nav--prev{left:18px}
+.gal-lightbox__nav--next{right:18px}
+.gal-lightbox__nav:disabled{opacity:.3;cursor:default;background:rgba(255,255,255,.14)}
+.gal-lightbox__caption{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff;text-align:center}
+.gal-lightbox__counter{font-weight:700;font-size:.95rem;opacity:.85}
+.gal-lightbox__alt{font-size:1rem}
+@media (prefers-reduced-motion:reduce){.gal-lightbox__nav{transition-duration:0ms}}
 /* Responsive */
 @media(max-width:768px){
   .gal-grid{grid-template-columns:repeat(2,1fr)}
