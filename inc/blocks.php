@@ -364,28 +364,6 @@ add_action(
 								],
 							],
 
-							/* ---------- PRAXIS ---------- */
-							'layout_praxis'     => [
-								'key'        => 'layout_praxis',
-								'name'       => 'praxis',
-								'label'      => 'Praxis-Galerie',
-								'display'    => 'block',
-								'sub_fields' => [
-									kc_bg_field( 'praxis' ),
-									kc_bg_color_field( 'praxis' ),
-									...kc_bg_settings_fields( 'praxis' ),
-									kc_field( 'prx_eyebrow', 'Eyebrow', 'text' ),
-									kc_field( 'prx_title', 'Überschrift', 'text' ),
-									[
-										'key'     => 'field_kc_prx_hinweis',
-										'label'   => 'Fotos & Kategorien',
-										'type'    => 'message',
-										'message' =>
-											'Die Fotos werden im Menü <strong>Praxis-Galerie</strong> gepflegt (Foto = Beitragsbild, Filter-Chips = Bereiche, Reihenfolge = Attribut Reihenfolge).',
-									],
-								],
-							],
-
 							/* ---------- TEAM ---------- */
 							'layout_team'       => [
 								'key'        => 'layout_team',
