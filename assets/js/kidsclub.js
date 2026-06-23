@@ -1,4 +1,21 @@
 /* Kids Club by zacp — interactions */
+
+// Geteilte Tab-Fokusfalle für modale Overlays (Booking-Modal + Galerie-Lightbox).
+window.kcTrapTab = function (e, container, selector) {
+  if (e.key !== 'Tab' || !container) { return; }
+  var sel = selector || 'a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+  var nodes = Array.prototype.slice.call(container.querySelectorAll(sel));
+  if (!nodes.length) { return; }
+  var first = nodes[0];
+  var last = nodes[nodes.length - 1];
+  var active = document.activeElement;
+  if (e.shiftKey) {
+    if (active === first || nodes.indexOf(active) === -1) { e.preventDefault(); last.focus(); }
+  } else if (active === last || nodes.indexOf(active) === -1) {
+    e.preventDefault(); first.focus();
+  }
+};
+
 (function () {
   'use strict';
 
@@ -288,18 +305,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
   });
 
-  // Focus trap: keep Tab inside modal
+  // Focus trap: keep Tab inside modal (shared helper)
   modal.addEventListener('keydown', function (e) {
-    if (e.key !== 'Tab') return;
-    var focusable = getFocusable();
-    if (!focusable.length) return;
-    var first = focusable[0];
-    var last  = focusable[focusable.length - 1];
-    if (e.shiftKey) {
-      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
-    } else {
-      if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
-    }
+    window.kcTrapTab(e, modal);
   });
 }());
 

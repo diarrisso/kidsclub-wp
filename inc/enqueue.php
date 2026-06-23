@@ -12,7 +12,7 @@ add_action(
 	function () {
 
 		$dir    = get_stylesheet_directory_uri();
-		$ver    = '3.2.9'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+		$ver    = '3.5.1'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 		$debug  = defined( 'WP_DEBUG' ) && WP_DEBUG;
 		$css_sf = $debug ? '' : '.min';
 		$js_sf  = $debug ? '' : '.min';
@@ -32,8 +32,13 @@ add_action(
 		// 4. kidsclub JS (minifiziert in Produktion)
 		wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub' . $js_sf . '.js', [ 'swiper' ], $ver, true );
 
-		// 5. Alpine.js — selbst gehostet, requis pour les accordéons (eltern, faq)
-		wp_enqueue_script( 'alpinejs', $dir . '/assets/vendor/alpine.min.js', [], '3.14.0', true );
+		// 5. Galerie-Komponente — MUSS vor Alpine laufen (registriert Alpine.data
+		//    bei 'alpine:init'). Als Abhängigkeit von Alpine => garantierte Reihenfolge.
+		wp_enqueue_script( 'kc-gallery', $dir . '/assets/js/gallery.js', [], $ver, true );
+		wp_script_add_data( 'kc-gallery', 'defer', true );
+
+		// 6. Alpine.js — selbst gehostet, requis pour les accordéons (eltern, faq)
+		wp_enqueue_script( 'alpinejs', $dir . '/assets/vendor/alpine.min.js', [ 'kc-gallery' ], '3.14.0', true );
 		wp_script_add_data( 'alpinejs', 'defer', true );
 	},
 	20

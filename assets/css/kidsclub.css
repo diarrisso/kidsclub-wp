@@ -424,7 +424,7 @@ section{position:relative;z-index:2}
 .step-line{position:absolute;top:28px;left:9%;right:9%;height:3px;background:repeating-linear-gradient(90deg,var(--magenta) 0 11px,transparent 11px 22px);opacity:.5;z-index:0}
 
 /* ---------- PRAXIS GALLERY ---------- */
-.chips{display:flex;flex-wrap:wrap;gap:13px;margin:22px 0 30px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:13px;margin:22px 0 30px}
 .chip{display:inline-flex;align-items:center;gap:9px;background:var(--surface);border-radius:var(--pill);padding:11px 20px;font-weight:700;font-size:.98rem;color:var(--navy);box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
 .chip:hover{transform:translateY(-3px);box-shadow:var(--shadow);background:var(--magenta);color:#fff}
 .chip .heart-ic{width:15px;height:15px}
@@ -439,15 +439,6 @@ button.chip{border:0;font-family:inherit}
 /* erstes Bild größer (Hero-Kachel) — nur in der Ansicht "Alle" */
 .praxis-gallery:not(.praxis-gallery--flat) .praxis-gallery__item:first-child{grid-column:span 2;grid-row:span 2}
 
-/* Filter-Animation (Alpine x-transition) */
-.pg-enter{transition:opacity .25s var(--ease),transform .25s var(--ease)}
-.pg-leave{transition:opacity .15s ease,transform .15s ease}
-.pg-enter-start{opacity:0;transform:scale(.92)}
-.pg-enter-end{opacity:1;transform:scale(1)}
-@media(prefers-reduced-motion:reduce){
-  .pg-enter,.pg-leave{transition:none}
-}
-
 /* ---------- SECTION GALERIE ---------- */
 .section-galerie{padding:clamp(60px,8vw,112px) 0}
 .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -456,13 +447,7 @@ button.chip{border:0;font-family:inherit}
 .gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s var(--ease)}
 .gal-item:hover img{transform:scale(1.04)}
 .gal-item:focus{outline:3px solid var(--magenta);outline-offset:3px}
-/* Lightbox */
-.gal-lightbox{position:fixed;inset:0;z-index:400;background:rgba(16,46,121,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center}
 [x-cloak]{display:none!important}
-.gal-lightbox img{max-width:94vw;max-height:92vh;border-radius:12px;object-fit:contain}
-.gal-lightbox__close{position:absolute;top:16px;right:20px;font-size:2rem;color:#fff;background:none;border:none;cursor:pointer;line-height:1}
-.gal-lightbox__close:hover{color:var(--magenta)}
-.gal-lightbox__close:focus{outline:3px solid var(--magenta);outline-offset:4px}
 /* Responsive */
 @media(max-width:768px){
   .gal-grid{grid-template-columns:repeat(2,1fr)}
@@ -885,15 +870,6 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    englobant errone -> slides geants vides. height:auto laisse le contenu
    dicter la hauteur ; les cards restent egalisees par le flex stretch. */
 
-/* Optionales Sektions-Hintergrundbild (ACF, pro Sektion).
-   .kc-section-bg__img est injecté comme premier enfant de <section> via ob_start()
-   dans flexible.php — l'image est ainsi au-dessus du background-color de la section
-   mais en dessous du contenu (z-index:0 vs z-index:1 du contenu). */
-.kc-section-bg__img{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background-size:115% auto;background-position:center top;background-repeat:no-repeat;
-  opacity:.06}
-section:has(.kc-section-bg__img){position:relative;overflow:hidden}
-section.section-hero:has(.kc-section-bg__img){overflow:visible}
 
 /* ---------- WILLKOMMEN (Intro) ---------- */
 .intro-welcome{padding:clamp(48px,7vw,84px) 0;background:#fff}
@@ -907,7 +883,7 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
 .swiper-nav:hover{color:var(--magenta)}
 
 /* ---------- ZIMMER Karussell ---------- */
-.section-zimmer{background:var(--band);padding:clamp(56px,8vw,96px) 0}
+.section-zimmer{padding:clamp(56px,8vw,96px) 0}
 .section-zimmer .section-title{text-align:center;color:var(--magenta)}
 .swiper-nav.swiper-button-disabled{opacity:.4;cursor:default}
 
@@ -1166,6 +1142,8 @@ section.section-hero:has(.kc-section-bg__img){overflow:visible}
    Logo · Adresse · Öffnungszeiten · Buchung (QR + Button) + Bottom-Leiste.
    ========================================================= */
 .footer-top{display:grid;grid-template-columns:0.8fr 1.2fr 1.2fr 1.3fr;gap:40px;align-items:start;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.14)}
+/* Kein QR-Code hochgeladen: Buchungsspalte entfällt → 3 Spalten (nur Desktop). */
+@media(min-width:821px){.footer-top--no-qr{grid-template-columns:0.8fr 1.4fr 1.4fr}}
 @media(min-width:821px){.site-footer .footer-logo-col{display:flex;justify-content:flex-start;align-items:flex-start}}
 .footer-logo-col .footer-logo{width:clamp(130px,11vw,170px);height:auto}
 /* Adresse + Öffnungszeiten: heller Lauftext */

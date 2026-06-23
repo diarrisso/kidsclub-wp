@@ -13,15 +13,17 @@ $embed_code = get_sub_field( 'embed_code' );
 ?>
 <section class="section-termin reveal" id="termin">
 	<div class="container">
-		<?php
-		if ( $eyebrow ) :
-			?>
-			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
-		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
-		<?php
-		if ( $text ) :
-			?>
-			<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
+		<div class="section-head center reveal">
+			<?php
+			if ( $eyebrow ) :
+				?>
+				<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
+			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+			<?php
+			if ( $text ) :
+				?>
+				<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
+		</div>
 		<div class="termin-layout">
 			<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>
 			<div class="termin-cta">

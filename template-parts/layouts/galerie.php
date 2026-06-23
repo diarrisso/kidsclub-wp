@@ -1,11 +1,10 @@
 <?php
 /**
- * Layout: Galerie mit Filter-Chips und Lightbox (Alpine.js)
+ * Layout: Galerie mit Bereich-Filtern (ohne Lightbox).
  *
- * Source : CPT `praxis_foto` (featured image = photo, tri menu_order).
- * Filtrage : taxonomie `bereich` → chips Alpine.js (même pattern que praxis.php).
- * Visuel : réutilise les classes .praxis-gallery / .praxis-gallery__item pour cohérence.
- * Lightbox : clic sur une photo → modal plein écran, fermeture Escape/fond/bouton ×.
+ * Source : CPT `praxis_foto` (Beitragsbild = Foto, Sortierung menu_order).
+ * Filter : Taxonomie `bereich` → Chips (Alpine-Komponente praxisGallery).
+ * Beim Filterwechsel wird die Scroll-Position verankert (kein Seiten-Sprung).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -15,7 +14,7 @@ $eyebrow = get_sub_field( 'gl_eyebrow' );
 $title   = get_sub_field( 'gl_title' );
 $text    = get_sub_field( 'gl_text' );
 
-/* Photos depuis le CPT praxis_foto */
+/* Fotos aus dem CPT sammeln. */
 $photos     = [];
 $cats_order = [];
 
@@ -41,20 +40,17 @@ foreach ( $foto_posts as $foto ) {
 			$cats_order[ $slug ] = $terms[0]->name;
 		}
 	}
-	$full_src = wp_get_attachment_image_src( $img_id, 'full' );
 	$photos[] = [
-		'id'       => $img_id,
-		'cat'      => $slug,
-		'alt'      => get_the_title( $foto ),
-		'full_url' => $full_src ? $full_src[0] : '',
+		'id'  => (int) $img_id,
+		'cat' => $slug,
+		'alt' => get_the_title( $foto ),
 	];
 }
 ?>
 <section
 	class="section-galerie reveal"
 	id="galerie"
-	x-data="{ f: 'alle', lbOpen: false, lbSrc: '', lbAlt: '' }"
-	@keydown.escape.window="lbOpen = false"
+	x-data="praxisGallery"
 >
 	<div class="container">
 
@@ -73,12 +69,12 @@ foreach ( $foto_posts as $foto ) {
 			<button type="button" class="chip"
 				:class="f === 'alle' && 'chip--active'"
 				:aria-pressed="f === 'alle'"
-				@click="f = 'alle'"><?php esc_html_e( 'Alle', 'kidsclub' ); ?></button>
+				@click="setFilter('alle')"><?php esc_html_e( 'Alle', 'kidsclub' ); ?></button>
 			<?php foreach ( $cats_order as $slug => $label ) : ?>
 			<button type="button" class="chip"
 				:class="f === '<?php echo esc_js( $slug ); ?>' && 'chip--active'"
 				:aria-pressed="f === '<?php echo esc_js( $slug ); ?>'"
-				@click="f = '<?php echo esc_js( $slug ); ?>'"><?php echo esc_html( $label ); ?></button>
+				@click="setFilter('<?php echo esc_js( $slug ); ?>')"><?php echo esc_html( $label ); ?></button>
 			<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
@@ -88,20 +84,7 @@ foreach ( $foto_posts as $foto ) {
 			<?php foreach ( $photos as $p ) : ?>
 			<figure
 				class="praxis-gallery__item"
-				role="button"
-				tabindex="0"
-				aria-label="<?php echo esc_attr( $p['alt'] ); ?>"
-				style="cursor:pointer"
 				x-show="f === 'alle'<?php echo $p['cat'] ? " || f === '" . esc_js( $p['cat'] ) . "'" : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_js appliqué ?>"
-				x-transition:enter="pg-enter"
-				x-transition:enter-start="pg-enter-start"
-				x-transition:enter-end="pg-enter-end"
-				x-transition:leave="pg-leave"
-				x-transition:leave-start="pg-enter-end"
-				x-transition:leave-end="pg-enter-start"
-				@click="lbSrc = '<?php echo esc_js( $p['full_url'] ); ?>'; lbAlt = '<?php echo esc_js( $p['alt'] ); ?>'; lbOpen = true"
-				@keydown.enter="lbSrc = '<?php echo esc_js( $p['full_url'] ); ?>'; lbAlt = '<?php echo esc_js( $p['alt'] ); ?>'; lbOpen = true"
-				@keydown.space.prevent="lbSrc = '<?php echo esc_js( $p['full_url'] ); ?>'; lbAlt = '<?php echo esc_js( $p['alt'] ); ?>'; lbOpen = true"
 			>
 				<?php
 				echo wp_get_attachment_image(
@@ -109,8 +92,9 @@ foreach ( $foto_posts as $foto ) {
 					'large',
 					false,
 					[
-						'loading' => 'lazy',
-						'alt'     => $p['alt'],
+						'loading'  => 'lazy',
+						'decoding' => 'async',
+						'alt'      => $p['alt'],
 					]
 				);
 				?>
@@ -120,24 +104,4 @@ foreach ( $foto_posts as $foto ) {
 		<?php endif; ?>
 
 	</div>
-
-	<!-- Lightbox -->
-	<div
-		class="gal-lightbox"
-		role="dialog"
-		aria-modal="true"
-		aria-label="<?php esc_attr_e( 'Bild-Vorschau', 'kidsclub' ); ?>"
-		x-show="lbOpen"
-		x-cloak
-		@click.self="lbOpen = false"
-	>
-		<button
-			type="button"
-			class="gal-lightbox__close"
-			aria-label="<?php esc_attr_e( 'Schließen', 'kidsclub' ); ?>"
-			@click="lbOpen = false"
-		>&times;</button>
-		<img :src="lbSrc" :alt="lbAlt" width="1200" height="900">
-	</div>
-
 </section>

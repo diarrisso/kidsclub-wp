@@ -241,7 +241,17 @@ add_action(
 						'name'          => 'footer_booking_btn',
 						'type'          => 'text',
 						'default_value' => 'Termin buchen',
-						'instructions'  => 'Beschriftung des Buchungs-Buttons im Footer (öffnet die Online-Terminbuchung). Leer lassen = Button ausblenden, nur der QR-Code bleibt sichtbar.',
+						'instructions'  => 'Beschriftung des Buchungs-Buttons im Footer (öffnet die Online-Terminbuchung). Leer lassen = Button ausblenden.',
+					],
+					[
+						'key'           => 'f_footer_qr',
+						'label'         => 'QR-Code (Online-Termin)',
+						'name'          => 'footer_qr',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'thumbnail',
+						'mime_types'    => 'png,jpg,jpeg,svg,webp',
+						'instructions'  => 'QR-Code, der zur Online-Terminbuchung führt. Erscheint im Footer (Spalte „Online Termin“). Leer lassen = ganze Buchungsspalte wird ausgeblendet.',
 					],
 
 					/* ===== DESIGN ===== */
