@@ -36,6 +36,9 @@ if ( have_rows( 'sections' ) ) :
 			$kc_html = ob_get_clean();
 
 			// Eine Regex-Passe: Style ins erste <section>-Tag injizieren.
+			// Voraussetzung: Das äußerste gerenderte Element des Layouts ist eine
+			// <section> — neue Layouts müssen dieses Wrapper-Element beibehalten,
+			// sonst bekommt die Section keinen Hintergrund (still, ohne Fehler).
 			// Fallback auf $kc_html, falls preg_replace null liefert (pcre.backtrack_limit).
 			echo preg_replace(
 				'/<section([^>]*)>/',
