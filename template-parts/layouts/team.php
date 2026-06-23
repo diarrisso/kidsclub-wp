@@ -63,11 +63,13 @@ $team_posts = get_posts(
 ?>
 <section class="section-team reveal" id="team">
 	<div class="container">
-		<?php
-		if ( $eyebrow ) :
-			?>
-			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
-		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+		<div class="section-head center reveal">
+			<?php
+			if ( $eyebrow ) :
+				?>
+				<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
+			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+		</div>
 		<?php if ( $team_posts ) : ?>
 			<?php
 			$grouped   = [];
