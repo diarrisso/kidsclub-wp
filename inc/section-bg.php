@@ -11,11 +11,6 @@
  * @package KidsClub
  */
 
-if ( ! defined( 'ABSPATH' ) && ! defined( 'KC_SECTION_BG_TEST' ) ) {
-	// Im normalen WP-Lauf hängt ABSPATH; im Standalone-Test wird die Datei
-	// per require eingebunden — dann nicht abbrechen.
-}
-
 /**
  * Wandelt einen Hex-Farbwert in "r,g,b" um. Fällt bei Ungültigkeit auf Weiß zurück.
  */
@@ -56,13 +51,13 @@ function kc_section_bg_build_style( array $o ): string {
 
 	$decls = [];
 	if ( $has_color ) {
-		$decls[] = 'background-color:' . $color;
+		$decls[] = 'background-color:' . esc_attr( $color );
 	}
 	if ( $has_img ) {
 		$veil    = 'linear-gradient(rgba(' . $rgb . ',' . $alpha . '),rgba(' . $rgb . ',' . $alpha . '))';
 		$decls[] = 'background-image:' . $veil . ',url(' . esc_url( $img ) . ')';
-		$decls[] = 'background-size:' . $size;
-		$decls[] = 'background-position:' . $position;
+		$decls[] = 'background-size:' . esc_attr( $size );
+		$decls[] = 'background-position:' . esc_attr( $position );
 		$decls[] = 'background-repeat:no-repeat';
 	}
 
@@ -86,5 +81,5 @@ function kc_section_bg_style(): string {
 		]
 	);
 
-	return '' === $style ? '' : ' style="' . esc_attr( $style ) . '"';
+	return '' === $style ? '' : ' style="' . $style . '"';
 }
