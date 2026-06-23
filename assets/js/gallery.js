@@ -37,6 +37,7 @@
       },
       setFilter(cat) {
         this.f = cat;
+        this.index = 0;
       },
       indexOfId(id) {
         return this.list.findIndex((p) => p.id === id);
@@ -74,11 +75,13 @@
         this.open = true;
         this._trigger = ev && ev.currentTarget ? ev.currentTarget : null;
         this._preloadNeighbors();
-        this.$nextTick(() => {
-          if (this.$refs && this.$refs.lbClose) {
-            this.$refs.lbClose.focus();
-          }
-        });
+        if (typeof this.$nextTick === 'function') {
+          this.$nextTick(() => {
+            if (this.$refs && this.$refs.lbClose) {
+              this.$refs.lbClose.focus();
+            }
+          });
+        }
       },
       close() {
         this.open = false;

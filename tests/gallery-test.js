@@ -52,5 +52,12 @@ g.setFilter('alle');
 check('alle erneut: total 4', g.total === 4);
 check('indexOfId(3) === 2', g.indexOfId(3) === 2);
 
+// Filterwechsel setzt den Index zurück (Finding I1)
+g.setFilter('empfang');
+g.index = 1;
+g.setFilter('behandlung');
+check('setFilter setzt index auf 0', g.index === 0);
+check('setFilter: current ist erstes Foto der neuen Liste (id 3)', g.current && g.current.id === 3);
+
 console.log(fail === 0 ? '\nALL PASS' : '\n' + fail + ' FAILED');
 process.exit(fail === 0 ? 0 : 1);
