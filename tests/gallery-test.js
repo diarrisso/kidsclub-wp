@@ -1,5 +1,5 @@
 /**
- * Node-Test der reinen Galerie-Logik (DOM-frei).
+ * Node-Test der Galerie-Filterlogik (DOM-frei).
  * Run: node tests/gallery-test.js
  */
 const { createPraxisGallery } = require('../assets/js/gallery.js');
@@ -10,64 +10,17 @@ function check(label, cond) {
   else { fail++; console.log('FAIL: ' + label); }
 }
 
-const photos = [
-  { id: 1, cat: 'empfang',    srcLarge: 'a', alt: 'A' },
-  { id: 2, cat: 'empfang',    srcLarge: 'b', alt: 'B' },
-  { id: 3, cat: 'behandlung', srcLarge: 'c', alt: 'C' },
-  { id: 4, cat: '',           srcLarge: 'd', alt: 'D' },
-];
-
 const g = createPraxisGallery();
-g.all = photos;
+check('Default-Filter ist "alle"', g.f === 'alle');
 
-// Filter 'alle'
-g.f = 'alle';
-check('alle: total 4', g.total === 4);
-check('alle: position 1 von 4', g.position === 1);
-
-// Filter 'empfang'
 g.setFilter('empfang');
-check('empfang: total 2', g.total === 2);
-check('empfang: current id 1', g.current.id === 1);
+check('setFilter setzt f auf empfang', g.f === 'empfang');
 
-// next/prev mit Clamping innerhalb der gefilterten Liste
-g.index = 0;
-g.next();
-check('next -> id 2', g.current.id === 2);
-check('atEnd true', g.atEnd === true);
-g.next();
-check('next am Ende bleibt index 1', g.index === 1);
-g.prev();
-check('prev -> index 0', g.index === 0);
-check('atStart true', g.atStart === true);
-g.prev();
-check('prev am Anfang bleibt index 0', g.index === 0);
+g.setFilter('empfang');
+check('setFilter mit gleichem Wert bleibt empfang', g.f === 'empfang');
 
-// indexOfId respektiert den aktiven Filter
-check('indexOfId(2) === 1 (in empfang)', g.indexOfId(2) === 1);
-check('indexOfId(3) === -1 (gefiltert raus)', g.indexOfId(3) === -1);
-
-// Filterwechsel
 g.setFilter('alle');
-check('alle erneut: total 4', g.total === 4);
-check('indexOfId(3) === 2', g.indexOfId(3) === 2);
-
-// Filterwechsel setzt den Index zurück (Finding I1)
-g.setFilter('empfang');
-g.index = 1;
-g.setFilter('behandlung');
-check('setFilter setzt index auf 0', g.index === 0);
-check('setFilter: current ist erstes Foto der neuen Liste (id 3)', g.current && g.current.id === 3);
-
-// Swipe: links wischen = next, rechts wischen = prev (Schwelle 40px)
-g.setFilter('empfang');
-g.index = 0;
-g.onTouchStart({ changedTouches: [{ clientX: 200 }] });
-g.onTouchEnd({ changedTouches: [{ clientX: 100 }] }); // dx -100 -> next
-check('swipe links -> next (index 1)', g.index === 1);
-g.onTouchStart({ changedTouches: [{ clientX: 100 }] });
-g.onTouchEnd({ changedTouches: [{ clientX: 200 }] }); // dx +100 -> prev
-check('swipe rechts -> prev (index 0)', g.index === 0);
+check('setFilter zurück auf alle', g.f === 'alle');
 
 console.log(fail === 0 ? '\nALL PASS' : '\n' + fail + ' FAILED');
 process.exit(fail === 0 ? 0 : 1);

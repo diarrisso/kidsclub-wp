@@ -1,10 +1,10 @@
 <?php
 /**
- * Layout: Galerie mit Bereich-Filtern und Lightbox (Alpine-Komponente praxisGallery).
+ * Layout: Galerie mit Bereich-Filtern (ohne Lightbox).
  *
  * Source : CPT `praxis_foto` (Beitragsbild = Foto, Sortierung menu_order).
- * Filter : Taxonomie `bereich` → Chips. Lightbox: Prev/Next, Tastatur, Swipe,
- * Zähler + Caption, filtertreue Navigation. Logik in assets/js/gallery.js.
+ * Filter : Taxonomie `bereich` → Chips (Alpine-Komponente praxisGallery).
+ * Beim Filterwechsel wird die Scroll-Position verankert (kein Seiten-Sprung).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,30 +40,18 @@ foreach ( $foto_posts as $foto ) {
 			$cats_order[ $slug ] = $terms[0]->name;
 		}
 	}
-	$large = wp_get_attachment_image_src( $img_id, 'large' );
-	if ( ! $large ) {
-		continue;
-	}
 	$photos[] = [
-		'id'       => (int) $img_id,
-		'cat'      => $slug,
-		'alt'      => get_the_title( $foto ),
-		'srcLarge' => $large[0],
-		'w'        => (int) $large[1],
-		'h'        => (int) $large[2],
+		'id'  => (int) $img_id,
+		'cat' => $slug,
+		'alt' => get_the_title( $foto ),
 	];
 }
-
-/* JSON sicher in <script> einbetten (Tags/Ampersands hexen). */
-$photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 ?>
 <section
 	class="section-galerie reveal"
 	id="galerie"
 	x-data="praxisGallery"
 >
-	<script type="application/json"><?php echo $photos_json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_json_encode mit JSON_HEX_TAG|JSON_HEX_AMP ?></script>
-
 	<div class="container">
 
 		<div class="section-head center reveal">
@@ -96,20 +84,7 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 			<?php foreach ( $photos as $p ) : ?>
 			<figure
 				class="praxis-gallery__item"
-				role="button"
-				tabindex="0"
-				aria-label="<?php echo esc_attr( $p['alt'] ); ?>"
-				style="cursor:pointer"
 				x-show="f === 'alle'<?php echo $p['cat'] ? " || f === '" . esc_js( $p['cat'] ) . "'" : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_js appliqué ?>"
-				x-transition:enter="pg-enter"
-				x-transition:enter-start="pg-enter-start"
-				x-transition:enter-end="pg-enter-end"
-				x-transition:leave="pg-leave"
-				x-transition:leave-start="pg-enter-end"
-				x-transition:leave-end="pg-enter-start"
-				@click="openById(<?php echo (int) $p['id']; ?>, $event)"
-				@keydown.enter="openById(<?php echo (int) $p['id']; ?>, $event)"
-				@keydown.space.prevent="openById(<?php echo (int) $p['id']; ?>, $event)"
 			>
 				<?php
 				echo wp_get_attachment_image(
@@ -129,46 +104,4 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 		<?php endif; ?>
 
 	</div>
-
-	<!-- Lightbox -->
-	<div
-		class="gal-lightbox"
-		role="dialog"
-		aria-modal="true"
-		aria-label="<?php esc_attr_e( 'Bild-Vorschau', 'kidsclub' ); ?>"
-		x-show="open"
-		x-cloak
-		@keydown.escape.window="open && close()"
-		@keydown.arrow-left.window="open && prev()"
-		@keydown.arrow-right.window="open && next()"
-		@keydown.tab.window="open && trapTab($event)"
-		@click.self="close()"
-	>
-		<button type="button" class="gal-lightbox__close" x-ref="lbClose"
-			aria-label="<?php esc_attr_e( 'Schließen', 'kidsclub' ); ?>" @click="close()"><?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></button>
-
-		<button type="button" class="gal-lightbox__nav gal-lightbox__nav--prev"
-			@click="prev()" :disabled="atStart" :aria-disabled="atStart"
-			aria-label="<?php esc_attr_e( 'Vorheriges Bild', 'kidsclub' ); ?>"><?php echo kc_svg( 'slide-prev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></button>
-
-		<figure class="gal-lightbox__figure">
-			<img
-				:src="current && current.srcLarge"
-				:alt="current && current.alt"
-				:width="current && current.w"
-				:height="current && current.h"
-				@touchstart="onTouchStart($event)"
-				@touchend="onTouchEnd($event)">
-			<figcaption class="gal-lightbox__caption">
-				<span class="gal-lightbox__counter" aria-live="polite"
-					x-text="'<?php echo esc_js( __( 'Bild', 'kidsclub' ) ); ?> ' + position + ' <?php echo esc_js( __( 'von', 'kidsclub' ) ); ?> ' + total"></span>
-				<span class="gal-lightbox__alt" x-text="current && current.alt"></span>
-			</figcaption>
-		</figure>
-
-		<button type="button" class="gal-lightbox__nav gal-lightbox__nav--next"
-			@click="next()" :disabled="atEnd" :aria-disabled="atEnd"
-			aria-label="<?php esc_attr_e( 'Nächstes Bild', 'kidsclub' ); ?>"><?php echo kc_svg( 'slide-next' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></button>
-	</div>
-
 </section>
