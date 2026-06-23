@@ -21,7 +21,13 @@ $soc_icons = array(
 );
 
 $phone_digits = preg_replace( '/[^+\d]/', '', (string) $phone );
-$qr_url       = get_theme_file_uri( 'assets/img/qr-placeholder.svg' );
+
+// QR-Code für die Online-Terminbuchung (Theme-Einstellungen → Footer).
+// Kein QR hochgeladen = ganze Spalte „Online Termin“ entfällt, Footer rückt auf 3 Spalten.
+$qr     = get_field( 'footer_qr', 'option' );
+$qr_url = ( is_array( $qr ) && ! empty( $qr['url'] ) ) ? $qr['url'] : '';
+$has_qr = '' !== $qr_url;
+$qr_alt = ( is_array( $qr ) && ! empty( $qr['alt'] ) ) ? $qr['alt'] : 'QR-Code für die Online-Terminbuchung';
 
 // Cache-Bust für SVGs (Browser cachen <img>-SVGs nach Dateiname, nicht via $ver).
 $logo_path = get_theme_file_path( 'assets/img/logo-quer-white.svg' );
@@ -30,7 +36,7 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 <footer class="site-footer">
 	<div class="container footer-inner">
 
-		<div class="footer-top">
+		<div class="footer-top<?php echo $has_qr ? '' : ' footer-top--no-qr'; ?>">
 
 			<!-- Col 1: Logo -->
 			<div class="footer-logo-col">
@@ -64,12 +70,13 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 				<?php endif; ?>
 			</div>
 
-			<!-- Col 4: Online Termin QR + Text -->
+			<?php if ( $has_qr ) : ?>
+			<!-- Col 4: Online Termin QR + Text (nur wenn QR hochgeladen) -->
 			<div class="footer-col footer-booking">
 				<p class="footer-col-title">Online Termin</p>
 				<div class="footer-booking__head">
 					<p class="footer-booking__text">Bequem mit dem Smartphone den Termin buchen.</p>
-					<img class="footer-qr" src="<?php echo esc_url( $qr_url ); ?>" alt="QR-Code für die Online-Terminbuchung" width="92" height="92">
+					<img class="footer-qr" src="<?php echo esc_url( $qr_url ); ?>" alt="<?php echo esc_attr( $qr_alt ); ?>" width="92" height="92">
 					<span class="footer-booking__break" aria-hidden="true"></span>
 					<button type="button" class="btn btn-primary footer-booking__btn" data-booking-open aria-haspopup="dialog">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -77,6 +84,7 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 					</button>
 				</div>
 			</div>
+			<?php endif; ?>
 
 		</div>
 

@@ -235,6 +235,16 @@ add_action(
 						'placeholder'  => "Mo.\u{2013}Do. 08\u{2013}13 & 14\u{2013}18 Uhr\nFr. 08\u{2013}13 Uhr",
 						'instructions' => 'Zeilenumbrüche werden im Footer übernommen.',
 					],
+					[
+						'key'           => 'f_footer_qr',
+						'label'         => 'QR-Code (Online-Termin)',
+						'name'          => 'footer_qr',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'thumbnail',
+						'mime_types'    => 'png,jpg,jpeg,svg,webp',
+						'instructions'  => 'QR-Code, der zur Online-Terminbuchung führt. Erscheint im Footer (Spalte „Online Termin“). Leer lassen = QR-Code wird ausgeblendet.',
+					],
 
 					/* ===== DESIGN ===== */
 					[
