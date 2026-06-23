@@ -101,6 +101,12 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 				aria-label="<?php echo esc_attr( $p['alt'] ); ?>"
 				style="cursor:pointer"
 				x-show="f === 'alle'<?php echo $p['cat'] ? " || f === '" . esc_js( $p['cat'] ) . "'" : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_js appliqué ?>"
+				x-transition:enter="pg-enter"
+				x-transition:enter-start="pg-enter-start"
+				x-transition:enter-end="pg-enter-end"
+				x-transition:leave="pg-leave"
+				x-transition:leave-start="pg-enter-end"
+				x-transition:leave-end="pg-enter-start"
 				@click="openById(<?php echo (int) $p['id']; ?>, $event)"
 				@keydown.enter="openById(<?php echo (int) $p['id']; ?>, $event)"
 				@keydown.space.prevent="openById(<?php echo (int) $p['id']; ?>, $event)"
@@ -132,18 +138,18 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 		aria-label="<?php esc_attr_e( 'Bild-Vorschau', 'kidsclub' ); ?>"
 		x-show="open"
 		x-cloak
-		@keydown.escape.window="close()"
+		@keydown.escape.window="open && close()"
 		@keydown.arrow-left.window="open && prev()"
 		@keydown.arrow-right.window="open && next()"
 		@keydown.tab.window="open && trapTab($event)"
 		@click.self="close()"
 	>
 		<button type="button" class="gal-lightbox__close" x-ref="lbClose"
-			aria-label="<?php esc_attr_e( 'Schließen', 'kidsclub' ); ?>" @click="close()">&times;</button>
+			aria-label="<?php esc_attr_e( 'Schließen', 'kidsclub' ); ?>" @click="close()"><?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></button>
 
 		<button type="button" class="gal-lightbox__nav gal-lightbox__nav--prev"
 			@click="prev()" :disabled="atStart" :aria-disabled="atStart"
-			aria-label="<?php esc_attr_e( 'Vorheriges Bild', 'kidsclub' ); ?>">&lsaquo;</button>
+			aria-label="<?php esc_attr_e( 'Vorheriges Bild', 'kidsclub' ); ?>"><?php echo kc_svg( 'slide-prev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></button>
 
 		<figure class="gal-lightbox__figure">
 			<img
@@ -162,7 +168,7 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 
 		<button type="button" class="gal-lightbox__nav gal-lightbox__nav--next"
 			@click="next()" :disabled="atEnd" :aria-disabled="atEnd"
-			aria-label="<?php esc_attr_e( 'Nächstes Bild', 'kidsclub' ); ?>">&rsaquo;</button>
+			aria-label="<?php esc_attr_e( 'Nächstes Bild', 'kidsclub' ); ?>"><?php echo kc_svg( 'slide-next' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG ?></button>
 	</div>
 
 </section>

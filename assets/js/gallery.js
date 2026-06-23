@@ -88,6 +88,7 @@
         if (this._trigger && this._trigger.focus) {
           this._trigger.focus();
         }
+        this._trigger = null;
       },
       onTouchStart(ev) {
         this._touchX = ev.changedTouches ? ev.changedTouches[0].clientX : null;
@@ -105,23 +106,12 @@
         this._touchX = null;
       },
       trapTab(ev) {
-        const nodes = Array.from(
-          this.$el.querySelectorAll('.gal-lightbox button:not([disabled])')
-        );
-        if (nodes.length === 0) {
-          return;
-        }
-        const first = nodes[0];
-        const last = nodes[nodes.length - 1];
-        const active = document.activeElement;
-        if (ev.shiftKey) {
-          if (active === first || nodes.indexOf(active) === -1) {
-            ev.preventDefault();
-            last.focus();
-          }
-        } else if (active === last || nodes.indexOf(active) === -1) {
-          ev.preventDefault();
-          first.focus();
+        if (typeof window.kcTrapTab === 'function') {
+          window.kcTrapTab(
+            ev,
+            this.$el.querySelector('.gal-lightbox'),
+            'button:not([disabled])'
+          );
         }
       },
       _preloadNeighbors() {
