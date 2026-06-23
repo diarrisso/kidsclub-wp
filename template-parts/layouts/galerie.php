@@ -135,7 +135,7 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 		@keydown.escape.window="close()"
 		@keydown.arrow-left.window="open && prev()"
 		@keydown.arrow-right.window="open && next()"
-		@keydown.tab="trapTab($event)"
+		@keydown.tab.window="open && trapTab($event)"
 		@click.self="close()"
 	>
 		<button type="button" class="gal-lightbox__close" x-ref="lbClose"
