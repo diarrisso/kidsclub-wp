@@ -424,7 +424,7 @@ section{position:relative;z-index:2}
 .step-line{position:absolute;top:28px;left:9%;right:9%;height:3px;background:repeating-linear-gradient(90deg,var(--magenta) 0 11px,transparent 11px 22px);opacity:.5;z-index:0}
 
 /* ---------- PRAXIS GALLERY ---------- */
-.chips{display:flex;flex-wrap:wrap;gap:13px;margin:22px 0 30px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:13px;margin:22px 0 30px}
 .chip{display:inline-flex;align-items:center;gap:9px;background:var(--surface);border-radius:var(--pill);padding:11px 20px;font-weight:700;font-size:.98rem;color:var(--navy);box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
 .chip:hover{transform:translateY(-3px);box-shadow:var(--shadow);background:var(--magenta);color:#fff}
 .chip .heart-ic{width:15px;height:15px}
