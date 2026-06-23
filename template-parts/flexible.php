@@ -22,17 +22,11 @@ if ( have_rows( 'sections' ) ) :
 
 		$layout = get_row_layout(); // z. B. "hero", "leistungen", "zimmer"
 
-		$kc_bg        = get_sub_field( 'background_image' );
-		$kc_has_bg    = is_array( $kc_bg ) && ! empty( $kc_bg['url'] );
-		$kc_color     = get_sub_field( 'background_color' );
-		$kc_has_color = ! empty( $kc_color );
-
-		$kc_needs_transform = $kc_has_bg || $kc_has_color;
+		// Inline-Style (Farbe + Schleier-Bild) direkt auf die <section>.
+		$kc_bg_style        = kc_section_bg_style(); // '' oder ' style="..."'
+		$kc_needs_transform = '' !== $kc_bg_style;
 
 		if ( $kc_needs_transform ) {
-			// Capturer le HTML du layout pour injecter couleur + image DANS la <section>.
-			// Le background-color inline surcharge le CSS du thème (spécificité inline > classe).
-			// Le div bg-img positionné à l'intérieur de la section reste visible par-dessus sa couleur.
 			ob_start();
 		}
 
@@ -41,18 +35,11 @@ if ( have_rows( 'sections' ) ) :
 		if ( $kc_needs_transform ) {
 			$kc_html = ob_get_clean();
 
-			$kc_style  = $kc_has_color
-				? ' style="background-color:' . esc_attr( $kc_color ) . '"'
-				: '';
-			$kc_bg_div = $kc_has_bg
-				? '<div class="kc-section-bg__img" style="background-image:url(' . esc_url( $kc_bg['url'] ) . ')" aria-hidden="true"></div>'
-				: '';
-
-			// Une seule passe regex : injecte style + div en même temps.
-			// Fallback sur $kc_html si preg_replace retourne null (dépassement pcre.backtrack_limit).
+			// Eine Regex-Passe: Style ins erste <section>-Tag injizieren.
+			// Fallback auf $kc_html, falls preg_replace null liefert (pcre.backtrack_limit).
 			echo preg_replace(
 				'/<section([^>]*)>/',
-				'<section$1' . $kc_style . '>' . $kc_bg_div,
+				'<section$1' . $kc_bg_style . '>',
 				$kc_html,
 				1
 			) ?? $kc_html;
