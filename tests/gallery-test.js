@@ -59,5 +59,15 @@ g.setFilter('behandlung');
 check('setFilter setzt index auf 0', g.index === 0);
 check('setFilter: current ist erstes Foto der neuen Liste (id 3)', g.current && g.current.id === 3);
 
+// Swipe: links wischen = next, rechts wischen = prev (Schwelle 40px)
+g.setFilter('empfang');
+g.index = 0;
+g.onTouchStart({ changedTouches: [{ clientX: 200 }] });
+g.onTouchEnd({ changedTouches: [{ clientX: 100 }] }); // dx -100 -> next
+check('swipe links -> next (index 1)', g.index === 1);
+g.onTouchStart({ changedTouches: [{ clientX: 100 }] });
+g.onTouchEnd({ changedTouches: [{ clientX: 200 }] }); // dx +100 -> prev
+check('swipe rechts -> prev (index 0)', g.index === 0);
+
 console.log(fail === 0 ? '\nALL PASS' : '\n' + fail + ' FAILED');
 process.exit(fail === 0 ? 0 : 1);

@@ -41,7 +41,6 @@ foreach ( $foto_posts as $foto ) {
 		}
 	}
 	$large = wp_get_attachment_image_src( $img_id, 'large' );
-	$full  = wp_get_attachment_image_src( $img_id, 'full' );
 	if ( ! $large ) {
 		continue;
 	}
@@ -50,7 +49,6 @@ foreach ( $foto_posts as $foto ) {
 		'cat'      => $slug,
 		'alt'      => get_the_title( $foto ),
 		'srcLarge' => $large[0],
-		'srcFull'  => $full ? $full[0] : $large[0],
 		'w'        => (int) $large[1],
 		'h'        => (int) $large[2],
 	];
@@ -137,6 +135,7 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 		@keydown.escape.window="close()"
 		@keydown.arrow-left.window="open && prev()"
 		@keydown.arrow-right.window="open && next()"
+		@keydown.tab="trapTab($event)"
 		@click.self="close()"
 	>
 		<button type="button" class="gal-lightbox__close" x-ref="lbClose"
@@ -156,7 +155,7 @@ $photos_json = wp_json_encode( $photos, JSON_HEX_TAG | JSON_HEX_AMP );
 				@touchend="onTouchEnd($event)">
 			<figcaption class="gal-lightbox__caption">
 				<span class="gal-lightbox__counter" aria-live="polite"
-					x-text="'<?php esc_html_e( 'Bild', 'kidsclub' ); ?> ' + position + ' <?php esc_html_e( 'von', 'kidsclub' ); ?> ' + total"></span>
+					x-text="'<?php echo esc_js( __( 'Bild', 'kidsclub' ) ); ?> ' + position + ' <?php echo esc_js( __( 'von', 'kidsclub' ) ); ?> ' + total"></span>
 				<span class="gal-lightbox__alt" x-text="current && current.alt"></span>
 			</figcaption>
 		</figure>

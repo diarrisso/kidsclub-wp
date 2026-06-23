@@ -104,6 +104,26 @@
         }
         this._touchX = null;
       },
+      trapTab(ev) {
+        const nodes = Array.from(
+          this.$el.querySelectorAll('.gal-lightbox button:not([disabled])')
+        );
+        if (nodes.length === 0) {
+          return;
+        }
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        const active = document.activeElement;
+        if (ev.shiftKey) {
+          if (active === first || nodes.indexOf(active) === -1) {
+            ev.preventDefault();
+            last.focus();
+          }
+        } else if (active === last || nodes.indexOf(active) === -1) {
+          ev.preventDefault();
+          first.focus();
+        }
+      },
       _preloadNeighbors() {
         if (typeof Image === 'undefined') {
           return;
