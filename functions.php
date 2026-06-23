@@ -11,6 +11,7 @@ require get_theme_file_path( 'inc/options.php' );
 require get_theme_file_path( 'inc/cpt/team.php' );
 require get_theme_file_path( 'inc/cpt/praxis.php' );
 require get_theme_file_path( 'inc/blocks.php' );
+require get_theme_file_path( 'inc/section-bg.php' );
 require get_theme_file_path( 'inc/schema.php' );
 require get_theme_file_path( 'inc/uploads-cache-bust.php' );
 require get_theme_file_path( 'inc/embed-allowlist.php' );
