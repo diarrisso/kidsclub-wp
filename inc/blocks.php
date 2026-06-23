@@ -53,6 +53,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'hero' ),
 									kc_bg_color_field( 'hero' ),
+									...kc_bg_settings_fields( 'hero' ),
 									kc_field( 'hero_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'hero_title', 'Überschrift', 'text' ),
 									kc_field(
@@ -169,6 +170,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'willkommen' ),
 									kc_bg_color_field( 'willkommen' ),
+									...kc_bg_settings_fields( 'willkommen' ),
 									[
 										'key'          => 'field_kc_wk_text',
 										'label'        => 'Text',
@@ -192,6 +194,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'leistungen' ),
 									kc_bg_color_field( 'leistungen' ),
+									...kc_bg_settings_fields( 'leistungen' ),
 									[
 										'key'   => 'field_kc_ls_eyebrow',
 										'label' => 'Eyebrow',
@@ -265,6 +268,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'zimmer' ),
 									kc_bg_color_field( 'zimmer' ),
+									...kc_bg_settings_fields( 'zimmer' ),
 									[
 										'key'   => 'field_kc_zm_eyebrow',
 										'label' => 'Eyebrow',
@@ -320,6 +324,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'ablauf' ),
 									kc_bg_color_field( 'ablauf' ),
+									...kc_bg_settings_fields( 'ablauf' ),
 									kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
 									kc_field( 'abl_text', 'Einleitung', 'textarea' ),
@@ -352,6 +357,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'galerie' ),
 									kc_bg_color_field( 'galerie' ),
+									...kc_bg_settings_fields( 'galerie' ),
 									kc_field( 'gl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'gl_title', 'Titel', 'text' ),
 									kc_field( 'gl_text', 'Einleitung', 'textarea' ),
@@ -367,6 +373,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'praxis' ),
 									kc_bg_color_field( 'praxis' ),
+									...kc_bg_settings_fields( 'praxis' ),
 									kc_field( 'prx_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'prx_title', 'Überschrift', 'text' ),
 									[
@@ -388,6 +395,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'team' ),
 									kc_bg_color_field( 'team' ),
+									...kc_bg_settings_fields( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
 									[
@@ -421,6 +429,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'eltern' ),
 									kc_bg_color_field( 'eltern' ),
+									...kc_bg_settings_fields( 'eltern' ),
 									kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'el_title', 'Überschrift', 'text' ),
 									kc_field( 'el_text', 'Einleitung', 'textarea' ),
@@ -453,6 +462,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'stimmen' ),
 									kc_bg_color_field( 'stimmen' ),
+									...kc_bg_settings_fields( 'stimmen' ),
 									kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'st_title', 'Überschrift', 'text' ),
 									[
@@ -480,6 +490,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'faq' ),
 									kc_bg_color_field( 'faq' ),
+									...kc_bg_settings_fields( 'faq' ),
 									kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'fq_title', 'Überschrift', 'text' ),
 									[
@@ -510,6 +521,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'termin' ),
 									kc_bg_color_field( 'termin' ),
+									...kc_bg_settings_fields( 'termin' ),
 									kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tr_title', 'Überschrift', 'text' ),
 									kc_field( 'tr_text', 'Text', 'textarea' ),
@@ -539,6 +551,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'kontakt' ),
 									kc_bg_color_field( 'kontakt' ),
+									...kc_bg_settings_fields( 'kontakt' ),
 									kc_field( 'kt_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'kt_title', 'Überschrift', 'text' ),
 									kc_field( 'kt_text', 'Text', 'textarea' ),
@@ -604,5 +617,56 @@ function kc_bg_color_field( $layout ) {
 		'type'          => 'color_picker',
 		'default_value' => '',
 		'instructions'  => 'Optional. Leer lassen = CSS-Standard des Themes.',
+	];
+}
+
+/** Darstellungs-Einstellungen fürs Hintergrundbild pro Section. */
+function kc_bg_settings_fields( $layout ) {
+	$img_key   = 'field_kc_bg_' . $layout;
+	$show_cond = [ [ [ 'field' => $img_key, 'operator' => '!=empty' ] ] ];
+
+	return [
+		[
+			'key'               => 'field_kc_bgopa_' . $layout,
+			'label'             => 'Deckkraft des Hintergrundbilds (%)',
+			'name'              => 'bg_opacity',
+			'type'              => 'range',
+			'default_value'     => 8,
+			'min'               => 0,
+			'max'               => 100,
+			'step'              => 1,
+			'append'            => '%',
+			'instructions'      => 'Höher = Bild stärker sichtbar.',
+			'conditional_logic' => $show_cond,
+		],
+		[
+			'key'               => 'field_kc_bgsize_' . $layout,
+			'label'             => 'Bildgröße',
+			'name'              => 'bg_size',
+			'type'              => 'select',
+			'choices'           => [
+				'115%'    => 'Standard (115%)',
+				'cover'   => 'Füllend (cover)',
+				'contain' => 'Einpassend (contain)',
+				'auto'    => 'Originalgröße (auto)',
+			],
+			'default_value'     => '115%',
+			'conditional_logic' => $show_cond,
+		],
+		[
+			'key'               => 'field_kc_bgpos_' . $layout,
+			'label'             => 'Bildposition',
+			'name'              => 'bg_position',
+			'type'              => 'select',
+			'choices'           => [
+				'center top'    => 'Oben mittig',
+				'center'        => 'Mittig',
+				'center bottom' => 'Unten mittig',
+				'left center'   => 'Links',
+				'right center'  => 'Rechts',
+			],
+			'default_value'     => 'center top',
+			'conditional_logic' => $show_cond,
+		],
 	];
 }
