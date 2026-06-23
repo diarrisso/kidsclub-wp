@@ -898,7 +898,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .swiper-nav:hover{color:var(--magenta)}
 
 /* ---------- ZIMMER Karussell ---------- */
-.section-zimmer{background:var(--band);padding:clamp(56px,8vw,96px) 0}
+.section-zimmer{padding:clamp(56px,8vw,96px) 0}
 .section-zimmer .section-title{text-align:center;color:var(--magenta)}
 .swiper-nav.swiper-button-disabled{opacity:.4;cursor:default}
 
