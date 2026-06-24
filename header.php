@@ -70,7 +70,7 @@ function kc_nav_url( $link ) {
 
 <div class="mobile-menu" id="mobileMenu">
 	<div class="mm-top">
-		<img src="<?php echo esc_url( $src_mobile ); ?>" alt="Kids Club by zacp" class="mm-logo" width="48" height="64">
+		<img src="<?php echo esc_url( $src_desktop ); ?>" alt="Kids Club by zacp" class="mm-logo" width="150" height="56">
 		<button class="close" id="menuClose" aria-label="Menü schließen"><?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 	</div>
 	<nav class="mm-nav">
