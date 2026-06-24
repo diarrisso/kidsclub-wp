@@ -62,6 +62,15 @@ function kc_svg( $slug, $label = '' ) {
 		return '';
 	}
 	$svg = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+	// Préfixer tous les IDs pour éviter les conflits quand plusieurs SVGs sont inlinés sur la même page.
+	static $counters = [];
+	$counters[ $slug ] = ( $counters[ $slug ] ?? 0 ) + 1;
+	$prefix            = 'kc-' . $slug . '-' . $counters[ $slug ] . '-';
+	$svg               = preg_replace( '/\bid="([^"]+)"/', 'id="' . $prefix . '$1"', $svg );
+	$svg               = preg_replace( '/\burl\(#([^)]+)\)/', 'url(#' . $prefix . '$1)', $svg );
+	$svg               = preg_replace( '/xlink:href="#([^"]+)"/', 'xlink:href="#' . $prefix . '$1"', $svg );
+
 	if ( $label ) {
 		$svg = str_replace( 'aria-hidden="true"', 'role="img" aria-label="' . esc_attr( $label ) . '"', $svg );
 	}
