@@ -220,7 +220,7 @@ section{position:relative;z-index:2}
 .nav-phone{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy)}
 .nav-phone svg{width:18px;height:18px;color:var(--magenta)}
 .burger{display:none;width:44px;height:44px;border-radius:0;background:none;box-shadow:none;place-items:center;color:var(--navy)}
-.burger svg{width:22px;height:22px}
+.burger svg{width:36px;height:36px}
 
 /* ---------- HERO ---------- */
 .hero{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(48px,7vw,88px);overflow:hidden;background:#fff}
@@ -527,7 +527,7 @@ button.chip{border:0;font-family:inherit}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item .pm{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--bg);color:var(--magenta);display:grid;place-items:center;flex:none;transition:transform .3s var(--ease),background .25s,color .25s}
 .faq-item[open] .pm{transform:rotate(45deg);background:var(--magenta);color:#fff}
-.faq-item .pm svg{width:18px;height:18px}
+.faq-item .pm svg{width:28px;height:28px}
 .faq-body{padding:0 26px 24px 26px;color:var(--ink-soft);font-size:1.02rem;font-weight:500}
 .faq-body p{margin:0}
 
@@ -540,7 +540,7 @@ button.chip{border:0;font-family:inherit}
 .accordion-trigger:hover{background:color-mix(in oklab,var(--bg) 55%,transparent)}
 .accordion-trigger > span:not(.accordion-icon){flex:1}
 /* führendes Icon (kc_icon) – ohne eigene Klasse */
-.accordion-trigger > svg:not(.accordion-chevron){width:26px;height:26px;flex:none;color:var(--magenta)}
+.accordion-trigger > svg:not(.accordion-chevron){width:32px;height:32px;flex:none;color:var(--magenta)}
 /* Accordion open/close icons (OE-SVG, zwei Zustände) */
 .accordion-icon{position:relative;flex:none;margin-left:auto;width:22px;height:22px;color:var(--navy)}
 .accordion-icon .icon-plus,.accordion-icon .icon-minus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .22s ease,transform .22s ease}
@@ -840,7 +840,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .mobile-menu .mm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;opacity:0;transition:opacity .3s ease .35s}
 .mobile-menu.open .mm-top{opacity:1}
 .mobile-menu .close{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;color:var(--navy)}
-.mobile-menu .close svg{width:32px;height:32px}
+.mobile-menu .close svg{width:40px;height:40px}
 /* mm-nav: centré verticalement + horizontalement */
 .mm-nav{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
 /* Liens : masqués par défaut, transition rapide à la fermeture */
