@@ -61,10 +61,17 @@ add_action(
 					],
 					[
 						'key'          => 'f_logo',
-						'label'        => 'Logo (optional)',
+						'label'        => 'Logo Desktop (optional)',
 						'name'         => 'header_logo',
 						'type'         => 'image',
-						'instructions' => 'Leer lassen = gezeichnetes Bogen-Logo + Schriftzug.',
+						'instructions' => 'Querformat. Leer lassen = logo-quer.svg.',
+					],
+					[
+						'key'          => 'f_logo_mobile',
+						'label'        => 'Logo Mobil (optional)',
+						'name'         => 'header_logo_mobile',
+						'type'         => 'image',
+						'instructions' => 'Hochformat für Mobilgeräte (< 768 px). Leer lassen = logo-hoch.svg.',
 					],
 					[
 						'key'          => 'f_nav',

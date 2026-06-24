@@ -65,15 +65,35 @@ function kc_section_bg_build_style( array $o ): string {
 }
 
 /**
+ * Résout l'URL d'image à utiliser : image ACF (médiathèque) en priorité,
+ * puis spray prédéfini depuis les assets du thème.
+ */
+function kc_section_bg_resolve_img(): string {
+	if ( ! function_exists( 'get_sub_field' ) ) {
+		return '';
+	}
+
+	$img = get_sub_field( 'background_image' );
+	if ( is_array( $img ) && ! empty( $img['url'] ) ) {
+		return $img['url'];
+	}
+
+	$preset = (string) get_sub_field( 'bg_spray_preset' );
+	if ( '' !== $preset ) {
+		return esc_url( get_theme_file_uri( 'assets/img/' . $preset . '.png' ) );
+	}
+
+	return '';
+}
+
+/**
  * Liest die Sub-Fields der aktuellen ACF-Row und liefert das fertige
  * `style`-Attribut (inkl. führendem Leerzeichen) oder '' zurück.
  */
 function kc_section_bg_style(): string {
-	$img = function_exists( 'get_sub_field' ) ? get_sub_field( 'background_image' ) : null;
-
 	$style = kc_section_bg_build_style(
 		[
-			'img'      => is_array( $img ) && ! empty( $img['url'] ) ? $img['url'] : '',
+			'img'      => kc_section_bg_resolve_img(),
 			'color'    => function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'background_color' ) : '',
 			'opacity'  => function_exists( 'get_sub_field' ) ? get_sub_field( 'bg_opacity' ) : '',
 			'size'     => function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'bg_size' ) : '',

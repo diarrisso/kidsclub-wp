@@ -73,12 +73,13 @@ function kc_svg( $slug, $label = '' ) {
  * Gibt ein <img> auf die SVG-Datei zurück (Voll-Farbe, 691×573).
  */
 function kc_symbol( $slug, $alt = '' ) {
-	$allowed = [ 'symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5' ];
+	$allowed = [ 'symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5', 'symbol6', 'symbol7', 'symbol8', 'symbol9' ];
 	if ( ! in_array( $slug, $allowed, true ) ) {
 		return '';
 	}
-	$num  = substr( $slug, -1 );
-	$path = get_theme_file_path( "assets/img/symbols/Symbol{$num}.svg" );
-	$url  = get_theme_file_uri( "assets/img/symbols/Symbol{$num}.svg" ) . '?v=' . ( file_exists( $path ) ? filemtime( $path ) : '1' );
+	// Support "a" variant: 'symbol1a' → 'Symbol1a.svg'
+	$file = preg_replace( '/^symbol(\d+)(a?)$/', 'Symbol$1$2', $slug );
+	$path = get_theme_file_path( "assets/img/symbols/{$file}.svg" );
+	$url  = get_theme_file_uri( "assets/img/symbols/{$file}.svg" ) . '?v=' . ( file_exists( $path ) ? filemtime( $path ) : '1' );
 	return '<img class="svc-symbol" src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '" loading="lazy" width="96" height="80">';
 }

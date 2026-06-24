@@ -7,15 +7,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$logo      = get_field( 'header_logo', 'option' );
-$cta_label = get_field( 'header_cta_label', 'option' ) ?: 'Online Termin buchen';
-$cta_link  = get_field( 'header_cta_link', 'option' ) ?: '#termin';
+$logo        = get_field( 'header_logo', 'option' );
+$logo_mobile = get_field( 'header_logo_mobile', 'option' );
+$cta_label   = get_field( 'header_cta_label', 'option' ) ?: 'Online Termin buchen';
+$cta_link    = get_field( 'header_cta_link', 'option' ) ?: '#termin';
 
-/* Brand-Markup (Logo-Bild via ACF ODER Datei-Logo als Fallback) */
-$default_logo = '<img class="brand-logo" src="' . esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) ) . '" alt="Kids Club by zacp" width="150" height="56">';
-$brand        = $logo
-	? '<img src="' . esc_url( $logo['url'] ) . '" alt="' . esc_attr( $logo['alt'] ?: 'Kids Club by zacp' ) . '" style="height:48px;width:auto">'
-	: $default_logo;
+/* Brand-Markup — Desktop-Logo + Mobil-Logo mit CSS show/hide */
+$alt_desktop = esc_attr( ( is_array( $logo ) && $logo['alt'] ) ? $logo['alt'] : 'Kids Club by zacp' );
+$alt_mobile  = esc_attr( ( is_array( $logo_mobile ) && $logo_mobile['alt'] ) ? $logo_mobile['alt'] : 'Kids Club by zacp' );
+$src_desktop = $logo ? esc_url( $logo['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) );
+$src_mobile  = $logo_mobile ? esc_url( $logo_mobile['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-hoch.svg' ) );
+
+$brand = '<img class="brand-logo brand-logo--desktop" src="' . $src_desktop . '" alt="' . $alt_desktop . '" width="150" height="56">'
+       . '<img class="brand-logo brand-logo--mobile"  src="' . $src_mobile  . '" alt="' . $alt_mobile  . '" width="48"  height="64">';
 
 $nav           = get_field( 'header_nav', 'option' ) ?: [];
 $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
@@ -66,7 +70,7 @@ function kc_nav_url( $link ) {
 
 <div class="mobile-menu" id="mobileMenu">
 	<div class="mm-top">
-		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) ); ?>" alt="Kids Club by zacp" class="mm-logo" width="130" height="48">
+		<img src="<?php echo esc_url( $src_mobile ); ?>" alt="Kids Club by zacp" class="mm-logo" width="48" height="64">
 		<button class="close" id="menuClose" aria-label="Menü schließen"><?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 	</div>
 	<nav class="mm-nav">

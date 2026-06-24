@@ -81,13 +81,32 @@ add_action(
 									],
 									[
 										'key'           => 'field_kc_hero_video',
-										'label'         => 'Video-Datei (.mp4)',
+										'label'         => 'Video Desktop (.mp4)',
 										'name'          => 'hero_video',
 										'type'          => 'file',
 										'return_format' => 'array',
 										'mime_types'    => 'mp4',
 										'instructions'  =>
-											'Kurzes Intro-Video (≤ 15 Sek., max. 20 MB). Wird vor dem Willkommen-Text abgespielt.',
+											'Querformat-Video für Desktop (≤ 15 Sek., max. 20 MB). Leer = spray-quer.mp4.',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_hero_media_type',
+													'operator' => '==',
+													'value'    => 'video',
+												],
+											],
+										],
+									],
+									[
+										'key'           => 'field_kc_hero_video_mobile',
+										'label'         => 'Video Mobil (.mp4)',
+										'name'          => 'hero_video_mobile',
+										'type'          => 'file',
+										'return_format' => 'array',
+										'mime_types'    => 'mp4',
+										'instructions'  =>
+											'Hochformat-Video für Mobilgeräte (≤ 768 px). Leer = spray-hoch.mp4 wenn vorhanden.',
 										'conditional_logic' => [
 											[
 												[
@@ -193,6 +212,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'leistungen' ),
+									kc_bg_spray_field( 'leistungen' ),
 									kc_bg_color_field( 'leistungen' ),
 									...kc_bg_settings_fields( 'leistungen' ),
 									[
@@ -372,6 +392,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'team' ),
+									kc_bg_spray_field( 'team' ),
 									kc_bg_color_field( 'team' ),
 									...kc_bg_settings_fields( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
@@ -439,6 +460,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'stimmen' ),
+									kc_bg_spray_field( 'stimmen' ),
 									kc_bg_color_field( 'stimmen' ),
 									...kc_bg_settings_fields( 'stimmen' ),
 									kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
@@ -498,6 +520,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'termin' ),
+									kc_bg_spray_field( 'termin' ),
 									kc_bg_color_field( 'termin' ),
 									...kc_bg_settings_fields( 'termin' ),
 									kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
@@ -582,7 +605,30 @@ function kc_bg_field( $layout ) {
 		'type'          => 'image',
 		'return_format' => 'array',
 		'preview_size'  => 'medium',
-		'instructions'  => 'Optional. Leer lassen = CSS-Standard.',
+		'instructions'  => 'Optional. Leer lassen = CSS-Standard oder Spray-Voreinstellung nutzen.',
+	];
+}
+
+/** Voreingestellte Spray-Dekoration (Theme-Asset, kein Upload nötig). */
+function kc_bg_spray_field( $layout ) {
+	return [
+		'key'               => 'field_kc_spray_' . $layout,
+		'label'             => 'Spray-Dekoration (voreingestellt)',
+		'name'              => 'bg_spray_preset',
+		'type'              => 'select',
+		'choices'           => [
+			''       => '— Keiner —',
+			'Spray1' => 'Spray 1',
+			'Spray2' => 'Spray 2',
+			'Spray3' => 'Spray 3',
+			'Spray4' => 'Spray 4',
+			'Spray5' => 'Spray 5',
+			'Spray6' => 'Spray 6',
+		],
+		'default_value'     => '',
+		'allow_null'        => true,
+		'instructions'      => 'Wähle einen voreingestellten Spray. Wird ignoriert wenn oben ein eigenes Bild gesetzt ist.',
+		'conditional_logic' => [ [ [ 'field' => 'field_kc_bg_' . $layout, 'operator' => '==empty' ] ] ],
 	];
 }
 

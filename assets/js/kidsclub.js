@@ -80,35 +80,59 @@ window.kcTrapTab = function (e, container, selector) {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
 
-  // Hero marquee — infinite scrolling brand motifs
+  // Hero marquee — Symbol illustrations (Symbol1–9)
   var track = document.querySelector('.marquee-track');
   if (track) {
-    var heart = '<svg viewBox="0 0 24 24" fill="#EC0A8C"><path d="M12 21C7 17 4 13.5 4 9.8 4 7 6 5 8.6 5c1.6 0 3 .8 3.4 2 .4-1.2 1.8-2 3.4-2C18 5 20 7 20 9.8c0 3.7-3 7.2-8 11.2Z"/></svg>';
-    var tooth = '<svg viewBox="0 0 24 24" fill="#fff" stroke="#26257F" stroke-width="1.6"><path d="M12 3c-4 0-6 2.6-6 6.5 0 4 1.6 8 3.4 9 1.2.6 1.4-3.2 2.6-3.2s1.4 3.8 2.6 3.2c1.8-1 3.4-5 3.4-9C18 5.6 16 3 12 3Z"/></svg>';
-    var star = '<svg viewBox="0 0 24 24" fill="#F7E29D" stroke="#E3C25A" stroke-width="1"><path d="m12 3 2.4 5.3L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.7Z"/></svg>';
-    var dot = '<svg viewBox="0 0 24 24" fill="#98ACBA"><circle cx="12" cy="12" r="7"/></svg>';
-    var arch = '<svg viewBox="0 0 24 24" fill="none" stroke="#26257F" stroke-width="2.4" stroke-linecap="round"><path d="M5 21V11Q5 4 12 4Q19 4 19 11V21"/><path d="M12 19c-3-2.6-4.6-4-4.6-6 0-1.5 1.1-2.6 2.5-2.6.9 0 1.6.4 2.1 1.1.5-.7 1.2-1.1 2.1-1.1 1.4 0 2.5 1.1 2.5 2.6 0 2-1.6 3.4-4.6 6Z" fill="#EC0A8C" stroke="none"/></svg>';
-    var unit = '<span class="m">' + heart + tooth + star + arch + dot + '</span>';
-    track.innerHTML = unit.repeat(10);
+    var base = (typeof kcData !== 'undefined' && kcData.themeUri) ? kcData.themeUri : '';
+    var fragment = document.createDocumentFragment();
+    for (var rep = 0; rep < 4; rep++) {
+      var span = document.createElement('span');
+      span.className = 'm';
+      for (var n = 1; n <= 9; n++) {
+        var img = document.createElement('img');
+        img.src     = base + '/assets/img/symbols/Symbol' + n + '.svg';
+        img.alt     = '';
+        img.width   = 58;
+        img.height  = 48;
+        img.loading = 'lazy';
+        span.appendChild(img);
+      }
+      fragment.appendChild(span);
+    }
+    track.appendChild(fragment);
   }
 
   // Hero cinematic video reveal
   var heroSection = document.querySelector('.hero[data-media="video"]');
   if (heroSection) {
-    var heroVideo = heroSection.querySelector('.hero-video');
+    var heroVideoDesktop = heroSection.querySelector('.hero-video--desktop');
+    var heroVideoMobile  = heroSection.querySelector('.hero-video--mobile');
+    var isMobile = window.innerWidth < 768 ||
+                   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Pick the active video and discard the other to stop network fetch.
+    var heroVideo;
+    if (isMobile && heroVideoMobile) {
+      if (heroVideoDesktop) heroVideoDesktop.remove();
+      heroVideo = heroVideoMobile;
+    } else {
+      if (heroVideoMobile) heroVideoMobile.remove();
+      heroVideo = heroVideoDesktop || heroSection.querySelector('.hero-video');
+    }
 
     function revealHero() {
       heroSection.classList.add('hero--revealed');
     }
 
-    // Mobile < 768px or reduced-motion: remove video element (stops network fetch), reveal immediately
-    if (window.innerWidth < 768 ||
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      if (heroVideo) heroVideo.remove();
+    if (!heroVideo) {
       revealHero();
-    } else if (!heroVideo) {
+    } else if (isMobile && !heroVideoMobile) {
+      // Mobile but no mobile video: skip video, reveal immediately.
+      heroVideo.remove();
       revealHero();
     } else {
+      heroVideo.preload = 'metadata';
+      heroVideo.play().catch(function() {});
       // 3s hard cap: text never hidden longer than this (covers autoplay-blocked + stall)
       setTimeout(revealHero, 3000);
       // Normal path: video ends → reveal (idempotent with timer)

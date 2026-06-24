@@ -214,6 +214,8 @@ section{position:relative;z-index:2}
 .nav-links a:hover::after,.nav-links a[aria-current="page"]::after{right:0}
 .nav-links a[aria-current="page"]{color:var(--magenta)}
 .brand-logo{height:48px;width:auto}
+.brand-logo--mobile{display:none}
+@media(max-width:767px){.brand-logo--desktop{display:none}.brand-logo--mobile{display:block;height:40px}}
 .nav-cta{display:flex;align-items:center;gap:14px}
 .nav-phone{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy)}
 .nav-phone svg{width:18px;height:18px;color:var(--magenta)}
@@ -252,7 +254,7 @@ section{position:relative;z-index:2}
   -webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .marquee-track{display:flex;width:max-content;height:100%;align-items:center;will-change:transform}
 .marquee-track .m{display:flex;align-items:center;gap:50px;padding:0 25px}
-.marquee-track .m svg{width:46px;height:46px;flex:none}
+.marquee-track .m svg,.marquee-track .m img{width:58px;height:48px;flex:none;object-fit:contain}
 
 .kid{transform-box:fill-box}
 .wave{transform-box:fill-box;transform-origin:18% 95%}

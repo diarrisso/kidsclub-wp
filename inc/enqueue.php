@@ -31,6 +31,7 @@ add_action(
 
 		// 4. kidsclub JS (minifiziert in Produktion)
 		wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub' . $js_sf . '.js', [ 'swiper' ], $ver, true );
+		wp_localize_script( 'kidsclub', 'kcData', [ 'themeUri' => $dir ] );
 
 		// 5. Galerie-Komponente — MUSS vor Alpine laufen (registriert Alpine.data
 		//    bei 'alpine:init'). Als Abhängigkeit von Alpine => garantierte Reihenfolge.
