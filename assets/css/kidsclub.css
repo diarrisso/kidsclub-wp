@@ -839,7 +839,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* mm-top: apparaît rapidement après le début de la révélation */
 .mobile-menu .mm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;opacity:0;transition:opacity .3s ease .35s}
 .mobile-menu.open .mm-top{opacity:1}
-.mobile-menu .close{width:48px;height:48px;border-radius:13px;background:var(--surface);box-shadow:var(--shadow-sm);display:grid;place-items:center;color:var(--navy)}
+.mobile-menu .close{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;color:var(--navy)}
+.mobile-menu .close svg{width:32px;height:32px}
 /* mm-nav: centré verticalement + horizontalement */
 .mm-nav{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
 /* Liens : masqués par défaut, transition rapide à la fermeture */
@@ -1082,7 +1083,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .praxis-gallery__item{border-radius:10px!important}
 
 /* Logo im Mobile-Menü */
-.mm-logo{height:44px;width:auto;display:block}
+.mm-logo{height:64px;width:auto;display:block}
 
 /* Nav CTA — gleiche Outline-Pille wie Footer/Termin (erbt .btn-primary), Header-Größe */
 .nav-cta .btn-primary{padding:4px 20px;font-size:1rem;font-weight:600}
