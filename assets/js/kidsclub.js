@@ -343,19 +343,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Variant 1 : Schwebende Brand-Symbole (anim-floating) ── */
   if (body.classList.contains('anim-floating')) {
-    var svgs = [
-      '<svg viewBox="0 0 24 24" fill="#EC0A8C"><path d="M12 21C7 17 4 13.5 4 9.8 4 7 6 5 8.6 5c1.6 0 3 .8 3.4 2 .4-1.2 1.8-2 3.4-2C18 5 20 7 20 9.8c0 3.7-3 7.2-8 11.2Z"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="#26257F" stroke-width="1.6"><path d="M12 3c-4 0-6 2.6-6 6.5 0 4 1.6 8 3.4 9 1.2.6 1.4-3.2 2.6-3.2s1.4 3.8 2.6 3.2c1.8-1 3.4-5 3.4-9C18 5.6 16 3 12 3Z"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="#F7E29D" stroke="#D4A832" stroke-width="0.8"><path fill="#C8962A" stroke="none" d="M12 9C11.4 10.5 11.4 12.5 12 15C12.6 12.5 12.6 10.5 12 9Z"/><path fill="none" stroke="#C8962A" stroke-width="0.7" stroke-linecap="round" d="M12 9C11 7 9 6 8.5 5M12 9C13 7 15 6 15.5 5"/><path d="M12 10C9 8 4.5 8.5 4 11C3.5 13.5 8 14 12 12Z"/><path d="M12 10C15 8 19.5 8.5 20 11C20.5 13.5 16 14 12 12Z"/><path d="M12 12.5C8 11 4 13 5 16C6 18.5 10 17.5 12 14.5Z"/><path d="M12 12.5C16 11 20 13 19 16C18 18.5 14 17.5 12 14.5Z"/></svg>',
-    ];
+    var base = (typeof kcData !== 'undefined' && kcData.themeUri) ? kcData.themeUri : '';
     var positions = [
       [8,12],[18,45],[5,70],[88,8],[92,55],[75,30],[30,88],[60,15],[45,65],[80,78]
     ];
-    var range = document.createRange();
     positions.forEach(function(pos, i) {
       var el = document.createElement('div');
       el.className = 'kc-floater';
-      el.appendChild(range.createContextualFragment(svgs[i % svgs.length]));
+      var img = document.createElement('img');
+      img.src     = base + '/assets/img/symbols/Symbol' + ((i % 5) + 1) + 'a.svg';
+      img.alt     = '';
+      img.loading = 'lazy';
+      el.appendChild(img);
       var size = 36 + (i % 3) * 14;
       var dur  = 6 + (i % 5) * 1.8;
       var delay = (i % 4) * 0.8;
