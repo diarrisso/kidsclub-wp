@@ -36,8 +36,8 @@ $has_qr = '' !== $qr_url;
 $qr_alt = ( is_array( $qr ) && ! empty( $qr['alt'] ) ) ? $qr['alt'] : 'QR-Code für die Online-Terminbuchung';
 
 // Cache-Bust für SVGs (Browser cachen <img>-SVGs nach Dateiname, nicht via $ver).
-$logo_path = get_theme_file_path( 'assets/img/logo-quer-white.svg' );
-$logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' );
+$logo_path = get_theme_file_path( 'assets/img/logo-hoch-white.svg' );
+$logo_url  = get_theme_file_uri( 'assets/img/logo-hoch-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' );
 ?>
 <footer class="site-footer">
 	<div class="container footer-inner">
@@ -47,7 +47,7 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-quer-white.svg' ) . '?v=' . ( 
 			<!-- Col 1: Logo -->
 			<div class="footer-logo-col">
 				<img src="<?php echo esc_url( $logo_url ); ?>"
-					alt="Kids Club by zacp" class="footer-logo" width="170" height="49">
+					alt="Kids Club by zacp" class="footer-logo footer-logo--hoch" width="118" height="149">
 			</div>
 
 			<!-- Col 2: Adresse -->

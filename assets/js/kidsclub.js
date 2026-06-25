@@ -224,55 +224,61 @@ window.kcTrapTab = function (e, container, selector) {
 document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.stimmen-swiper')) {
         new Swiper('.stimmen-swiper', {
-            slidesPerView: 1.1,
+            slidesPerView: 1.05,
             spaceBetween: 20,
             loop: false,
+            navigation: { prevEl: '.stimmen-swiper__prev', nextEl: '.stimmen-swiper__next' },
             pagination: { el: '.stimmen-swiper__pagination', clickable: true },
             breakpoints: {
-                640: { slidesPerView: 2, spaceBetween: 24 },
-                1024: { slidesPerView: 3, spaceBetween: 24 },
+                768: { slidesPerView: 2, spaceBetween: 28 },
             },
             a11y: { enabled: true },
         });
     }
 });
 
-// Zimmer: Desktop = statisches Grid (alle 5 sichtbar), Mobile = Swiper-Karussell.
-// Swiper wird NUR unter 640px initialisiert; auf Desktop bleibt das Markup ein
-// neutrales Grid (CSS). Auf Resize wird sauber initialisiert/zerstört.
+// Einblicke: Foto-Karussell (Swiper). 1 Foto mobil → 3 auf Desktop.
 document.addEventListener('DOMContentLoaded', function () {
-    var sel = '.zimmer-swiper';
-    if (!document.querySelector(sel)) {
+    if (!document.querySelector('.einblicke-swiper')) {
         return;
     }
     var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    var mq = window.matchMedia('(max-width:639px)');
-    var instance = null;
+    new Swiper('.einblicke-swiper', {
+        slidesPerView: 1.15,
+        spaceBetween: 16,
+        loop: true,
+        autoplay: reduceMotion
+            ? false
+            : { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+        navigation: { prevEl: '.einblicke-swiper__prev', nextEl: '.einblicke-swiper__next' },
+        pagination: { el: '.einblicke-swiper__pagination', clickable: true },
+        breakpoints: {
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
+        },
+        a11y: { enabled: true },
+    });
+});
 
-    function syncSwiper() {
-        if (mq.matches && !instance) {
-            instance = new Swiper(sel, {
-                slidesPerView: 1,
-                spaceBetween: 14,
-                loop: true,
-                autoplay: reduceMotion
-                    ? false
-                    : { delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true },
-                breakpoints: {
-                    480: { slidesPerView: 2, spaceBetween: 16 },
-                },
-                navigation: { prevEl: '.zimmer-swiper__prev', nextEl: '.zimmer-swiper__next' },
-                pagination: { el: '.zimmer-swiper__pagination', clickable: true },
-                a11y: { enabled: true },
-            });
-        } else if (!mq.matches && instance) {
-            instance.destroy(true, true); // cleanStyles → Grid (CSS) übernimmt wieder
-            instance = null;
-        }
+// Räume: farbige Kreise. Mouseover/Fokus zeigt den Text (CSS). Zusätzlich
+// Tap/Klick-Toggle für Touch-Geräte (kein Hover) + Tastatur (Enter/Space).
+document.addEventListener('DOMContentLoaded', function () {
+    var circles = document.querySelectorAll('.section-zimmer .room.has-desc');
+    if (!circles.length) {
+        return;
     }
-
-    syncSwiper();
-    mq.addEventListener('change', syncSwiper);
+    circles.forEach(function (el) {
+        el.addEventListener('click', function () {
+            var open = el.classList.toggle('is-open');
+            el.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
 });
 
 // Booking Modal

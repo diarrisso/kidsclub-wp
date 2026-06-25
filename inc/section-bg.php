@@ -91,13 +91,29 @@ function kc_section_bg_resolve_img(): string {
  * `style`-Attribut (inkl. führendem Leerzeichen) oder '' zurück.
  */
 function kc_section_bg_style(): string {
+	if ( ! function_exists( 'get_sub_field' ) ) {
+		return '';
+	}
+
+	$bg_img     = get_sub_field( 'background_image' );
+	$has_bg_img = is_array( $bg_img ) && ! empty( $bg_img['url'] );
+	$preset     = (string) get_sub_field( 'bg_spray_preset' );
+	$raw_opacity = get_sub_field( 'bg_opacity' );
+
+	// Spray sans photo de fond → pas de voile (opacity 100 = alpha 0).
+	// Pour une vraie photo, le fallback à 8 préserve la lisibilité du texte.
+	// ACF retourne sa default_value (8) même quand le champ est masqué par
+	// conditional_logic → on ignore bg_opacity pour les sprays décoratifs.
+	$is_spray_only = '' !== $preset && ! $has_bg_img;
+	$opacity       = $is_spray_only ? 100 : ( ( false !== $raw_opacity && '' !== $raw_opacity ) ? $raw_opacity : 8 );
+
 	$style = kc_section_bg_build_style(
 		[
 			'img'      => kc_section_bg_resolve_img(),
-			'color'    => function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'background_color' ) : '',
-			'opacity'  => function_exists( 'get_sub_field' ) ? get_sub_field( 'bg_opacity' ) : '',
-			'size'     => function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'bg_size' ) : '',
-			'position' => function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'bg_position' ) : '',
+			'color'    => (string) get_sub_field( 'background_color' ),
+			'opacity'  => $opacity,
+			'size'     => $is_spray_only ? 'cover' : ( (string) get_sub_field( 'bg_size' ) ),
+			'position' => $is_spray_only ? 'center center' : ( (string) get_sub_field( 'bg_position' ) ),
 		]
 	);
 

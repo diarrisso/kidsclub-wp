@@ -75,6 +75,13 @@ ul{margin:0;padding:0;list-style:none}
 
   --maxw:1200px;
   --ease:cubic-bezier(.2,.7,.2,1);
+
+  /* ---- Vertikaler Rhythmus (Designer-Feedback: "Abstand einheitlich").
+     EINE Quelle der Wahrheit für alle Section-Abstände, statt verstreuter Einzelwerte. */
+  --section-pad:clamp(60px,8vw,112px);   /* Abstand oben/unten je Section */
+  --gap-eyebrow:14px;                    /* Eyebrow → Titel */
+  --gap-title:clamp(14px,2vw,20px);      /* Titel → Lead/Beschreibung */
+  --gap-head:clamp(38px,5vw,58px);       /* Section-Head → Inhalt (Karten/Grid) */
 }
 
 body{
@@ -107,9 +114,12 @@ p{margin:0 0 1em}
 /* Design Block-Beschreibung (alle Sektionen wie Leistungen): size 30 / spacing 0.3 / line 43 (≈1.43) / Jost Regular.
    Gilt für .section-head .lead (Leistungen, Die Praxis) + .section-lead (Ablauf, Eltern, Termin, Kontakt).
    Hero-Lead bleibt unberührt (liegt in .hero-banner-inner, nicht in .section-head). */
+/* Designer-Feedback: EINE einheitliche Lead-Größe für ALLE Sektionen ("Schriftgröße
+   einheitlich wie oben, gerne etwas größer"). .section-lead erbt jetzt dieselbe Größe
+   wie .section-head .lead (vorher kleiner überschrieben) — nur Farbe + Abstand bleiben eigen. */
 .section-head .lead,
-.section-lead{font-size:clamp(1.05rem,1.5vw,1.45rem);font-weight:400;line-height:1.43;letter-spacing:.01em}
-.section-lead{font-size:clamp(1rem,1.3vw,1.15rem);color:var(--ink-soft);line-height:1.6;font-weight:500;margin:0 0 clamp(28px,4vw,44px)}
+.section-lead{font-size:clamp(1.1rem,1.6vw,1.5rem);font-weight:400;line-height:1.43;letter-spacing:.01em}
+.section-lead{color:var(--ink-soft);margin:0 0 clamp(28px,4vw,44px)}
 .eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:10px}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
@@ -120,8 +130,8 @@ p{margin:0 0 1em}
 section{position:relative;z-index:2}
 .section,
 .section-ablauf,.section-eltern,.section-faq,.section-kontakt,
-.section-praxis,.section-stimmen,.section-team,.section-termin{padding:clamp(60px,8vw,112px) 0}
-.section-head{max-width:760px;margin-bottom:clamp(34px,5vw,58px)}
+.section-praxis,.section-stimmen,.section-team,.section-termin{padding:var(--section-pad) 0}
+.section-head{max-width:760px;margin-bottom:var(--gap-head)}
 /* Perf: ignorer le rendu des sections hors viewport (gain LCP/INP sur les sections below-fold) */
 .section-ablauf,.section-eltern,.section-faq,.section-galerie,
 .section-praxis,.section-stimmen,.section-team,.section-termin{
@@ -130,13 +140,13 @@ section{position:relative;z-index:2}
 }
 .termin-cta{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:48px;padding:32px 0}
 /* Design Termin-Block: mehr Abstand Titel→Beschreibung→Button; größerer, breiterer Button */
-.section-termin .section-lead{margin-top:clamp(22px,3vw,34px)}
+.section-termin .section-lead{margin-top:var(--gap-title)}
 .section-termin .termin-cta{padding:clamp(28px,4vw,44px) 0 0}
 .section-termin .btn-primary{background:var(--magenta-deep);color:#fff;border-color:var(--magenta-deep)}
 .section-termin .btn-primary:hover{background:var(--navy);border-color:var(--navy);color:#fff}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
-.section-head .eyebrow{margin-bottom:14px}
-.section-head p{margin-top:14px}
+.section-head .eyebrow{margin-bottom:var(--gap-eyebrow)}
+.section-head p{margin-top:var(--gap-title)}
 
 /* ---------- SECTION ALIGNMENT (data-section-align) ---------- */
 [data-section-align="center"] .container>.eyebrow,
@@ -293,6 +303,9 @@ section{position:relative;z-index:2}
   .hero[data-media="video"] .hero-banner-inner .eyebrow,
   .hero[data-media="video"] .hero-banner-inner .display,
   .hero[data-media="video"] .hero-banner-inner .lead{opacity:1;transform:none;transition:none}
+  /* Swiper-Regel #4 : keine Slide-Transition bei reduzierter Bewegung */
+  .einblicke-swiper .swiper-wrapper,
+  .stimmen-swiper .swiper-wrapper{transition-duration:0ms !important}
 }
 
 @media (prefers-reduced-motion:no-preference){
@@ -369,47 +382,51 @@ section{position:relative;z-index:2}
 .rooms{padding:0}
 .rooms-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:6px}
 /* Zimmer: Desktop = Grid (alle 5 sichtbar), Mobile = Swiper-Karussell */
-.zimmer-swiper-wrap{position:relative}
-.zimmer-swiper{overflow:visible!important;padding-bottom:40px}
-.zimmer-swiper .swiper-slide{height:auto;transition:opacity .3s}
-.zimmer-swiper .swiper-slide:not(.swiper-slide-active){opacity:.45}
-.zimmer-swiper .room{height:100%;min-height:230px}
-/* Desktop ≥640px: statisches 5er-Grid, kein Slider. !important = Sicherheitsnetz,
-   falls Swiper am Breakpoint noch aktiv ist (flex/transform würden sonst gewinnen). */
-@media(min-width:640px){
-	.zimmer-swiper{overflow:visible!important}
-	.zimmer-swiper .swiper-wrapper{display:grid!important;grid-template-columns:repeat(2,1fr);gap:18px;transform:none!important}
-	.zimmer-swiper .swiper-slide{width:auto!important;margin:0!important}
-	/* Grid = alle Karten gleich sichtbar; das Karussell-Dimming (opacity .45) hier neutralisieren */
-	.zimmer-swiper .swiper-slide:not(.swiper-slide-active){opacity:1}
-}
-@media(min-width:1024px){
-	.zimmer-swiper .swiper-wrapper{grid-template-columns:repeat(5,1fr)!important}
-}
-/* Mobile <640px: aktives Karussell → off-screen Slides clippen (sonst horizontaler
-   Overflow / kaputtes Responsive). padding-bottom hält den Card-Schatten sichtbar. */
+/* ---------- EINBLICKE : Foto-Karussell (Swiper) ---------- */
+/* Volle Breite (full-bleed) — bricht aus dem .container aus, wie im PDF */
+.einblicke-swiper-wrap{position:relative;width:100vw;margin-left:calc(50% - 50vw);padding:0}
+/* .swiper hat overflow:hidden → padding-bottom hier, damit der Card-Schatten sichtbar bleibt */
+.einblicke-swiper{overflow:hidden;padding:0 clamp(54px,5vw,86px) 44px}
+.einblicke-swiper .swiper-slide{height:auto}
+.einblicke-slide{margin:0;height:clamp(240px,30vw,360px);overflow:hidden;border-radius:22px;border:5px solid #fff;box-shadow:var(--shadow-sm)}
+.einblicke-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.einblicke-swiper__pagination{text-align:center;margin-top:6px}
+.einblicke-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
+.einblicke-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
+/* Pfeile = nur Icon, kein Hintergrund/Box (höhere Spezifität schlägt .swiper-nav-btn). */
+.einblicke-swiper-wrap .swiper-nav-btn{width:clamp(40px,4vw,56px);height:auto;border-radius:0;background:transparent;color:var(--navy);box-shadow:none}
+.einblicke-swiper-wrap .swiper-nav-btn:hover{background:transparent;color:var(--magenta);transform:translateY(-50%) scale(1.15)}
+.einblicke-swiper-wrap .swiper-nav-btn svg{height:38px}
+.einblicke-swiper__prev{left:14px}
+.einblicke-swiper__next{right:14px}
 @media(max-width:639px){
-	.zimmer-swiper-wrap{padding:0 44px}
-	.zimmer-swiper{overflow:hidden!important;padding-bottom:30px}
+	.einblicke-slide{height:230px}
+	.einblicke-swiper-wrap .swiper-nav-btn svg{height:30px}
 }
-.swiper-nav-btn{position:absolute;top:50%;transform:translateY(-60%);z-index:2;width:40px;height:40px;border-radius:50%;background:var(--bg);border:0;box-shadow:var(--shadow);display:grid;place-items:center;cursor:pointer;color:var(--navy);transition:background .2s,transform .2s}
-.swiper-nav-btn:hover{background:var(--magenta);color:#fff;transform:translateY(-60%) scale(1.08)}
+
+/* Karussell-Navigationsbutton (geteilt: Einblicke, Stimmen …) */
+.swiper-nav-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border-radius:50%;background:var(--surface);border:0;box-shadow:var(--shadow);display:grid;place-items:center;cursor:pointer;color:var(--navy);transition:background .2s,transform .2s,color .2s}
+.swiper-nav-btn:hover{background:var(--magenta);color:#fff;transform:translateY(-50%) scale(1.08)}
 .swiper-nav-btn svg{height:22px;width:auto}
-.zimmer-swiper__prev{left:0}
-.zimmer-swiper__next{right:0}
-.zimmer-swiper__pagination{text-align:center;margin-top:8px}
-.zimmer-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
-.zimmer-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
-/* Desktop: keine Slider-Steuerung (Grid zeigt alle 5) — nach den Button-Regeln, damit es greift */
-@media(min-width:640px){
-	.zimmer-swiper__prev,.zimmer-swiper__next,.zimmer-swiper__pagination{display:none!important}
-}
-.room{border-radius:var(--r);padding:26px 20px 24px;text-align:center;position:relative;overflow:hidden;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.room:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
-.room .rh{position:absolute;top:28px;left:0;right:0;display:flex;justify-content:center}
-.room .rh svg{width:52px;height:52px;color:var(--navy);opacity:.75}
-.room-nr{position:absolute;top:14px;left:16px;font-family:var(--font-display);font-size:.75rem;font-weight:900;color:var(--navy);opacity:.75;letter-spacing:.04em}
-.room b{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--navy)}
+
+/* ---------- RÄUME : farbige Kreise mit Mouseover-Text ---------- */
+.rooms-circles{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(16px,3vw,40px)}
+.rooms-circles__item{display:flex}
+.room{position:relative;width:clamp(140px,15vw,188px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.room.has-desc{cursor:pointer}
+.room:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(16,46,121,.18)}
+.room:focus-visible{transform:translateY(-6px);box-shadow:0 14px 32px rgba(16,46,121,.18);outline:3px solid var(--magenta);outline-offset:3px}
+/* Label und Beschreibung übereinander legen → Cross-Fade */
+.room__label,.room__desc{grid-area:1/1;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.room__label{display:flex;flex-direction:column;gap:4px;align-items:center}
+.room .room-nr{position:static;font-family:var(--font-display);font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);opacity:.85}
+.room .room__name{padding:0;font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
+.room__desc{opacity:0;transform:scale(.95);font-size:.82rem;line-height:1.38;font-weight:500;color:var(--navy);padding:4px}
+/* Reveal : hover (aperçu souris) + .is-open (clic/Enter/Espace = source de vérité, sync avec aria-expanded) */
+.room.has-desc:hover .room__label,
+.room.has-desc.is-open .room__label{opacity:0;transform:scale(.95)}
+.room.has-desc:hover .room__desc,
+.room.has-desc.is-open .room__desc{opacity:1;transform:scale(1)}
 .room.g{background:var(--room-green)}.room.y{background:var(--room-yellow)}.room.o{background:var(--room-orange)}.room.b{background:var(--room-blue)}.room.l{background:var(--room-lila)}
 
 /* ---------- STEPS ---------- */
@@ -460,7 +477,7 @@ button.chip{border:0;font-family:inherit}
 }
 
 /* ---------- TEAM ---------- */
-.section-team h2.section-title{margin-bottom:38px;text-align:center}
+.section-team h2.section-title{margin-bottom:var(--gap-head);text-align:center}
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:var(--maxw);margin-inline:auto}
 .team-card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
   transition:transform .32s var(--ease),box-shadow .32s var(--ease);border-top:4px solid transparent}
@@ -500,33 +517,37 @@ button.chip{border:0;font-family:inherit}
 
 /* ---------- TESTIMONIALS (Swiper) ---------- */
 .section-stimmen{background:var(--band)}
-.section-stimmen h2.section-title{margin-bottom:38px}
+.section-stimmen h2.section-title{margin-bottom:var(--gap-head)}
 .section-faq{background:var(--band)}
 .section-galerie{background:var(--band)}
-.stimmen-swiper-wrap{padding-bottom:40px}
+.stimmen-swiper-wrap{position:relative;padding-bottom:40px}
+.stimmen-swiper__prev{left:-6px}
+.stimmen-swiper__next{right:-6px}
+@media(min-width:1280px){.stimmen-swiper__prev{left:-20px}.stimmen-swiper__next{right:-20px}}
+.stimmen-swiper__prev.swiper-button-disabled,.stimmen-swiper__next.swiper-button-disabled{opacity:.3;cursor:default}
 .stimmen-swiper{overflow:hidden}
 .stimmen-swiper .swiper-slide{height:auto}
 .stimmen-swiper .stimmen-card{height:100%}
 .stimmen-swiper__pagination{text-align:center;margin-top:28px}
 .stimmen-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
 .stimmen-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
-.stimmen-card{background:var(--surface);border-radius:var(--r-lg);padding:32px 28px;box-shadow:var(--shadow-sm);border:1.5px solid rgba(234,69,137,.12);display:flex;flex-direction:column;position:relative}
-.stimmen-card::before{content:'\201C';font-family:var(--font-display);font-size:5rem;color:var(--magenta);line-height:.6;opacity:.35;position:absolute;top:20px;left:24px}
-.stimmen-quote{margin:0;display:flex;flex-direction:column;flex:1;padding-top:28px}
-.stimmen-quote p{font-size:1rem;line-height:1.7;color:var(--navy);font-weight:500;flex:1;margin:0 0 20px}
-.stimmen-author{margin-top:auto;display:flex;align-items:center;gap:12px}
+.stimmen-card{background:var(--room-orange);border-radius:var(--r-lg);padding:48px clamp(28px,4vw,56px) 36px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;position:relative;overflow:hidden;text-align:center}
+.stimmen-card::before{content:'\00BB';font-family:var(--font-display);font-size:5.5rem;color:#fff;line-height:.6;opacity:.9;position:absolute;top:22px;left:26px}
+.stimmen-quote{margin:0;display:flex;flex-direction:column;flex:1;padding-top:14px}
+.stimmen-quote p{font-size:1.05rem;line-height:1.7;color:var(--navy);font-weight:500;flex:1;margin:0 0 20px}
+.stimmen-author{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:2px}
 .stimmen-author strong{font-weight:800;font-size:.95rem;color:var(--navy)}
 .stimmen-author span{font-size:.85rem;color:var(--ink-soft);font-weight:600}
 
 /* ---------- FAQ ---------- */
 .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,60px);align-items:start}
 .faq-list{display:grid;gap:14px}
-.faq-item{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;border:2px solid transparent;transition:border-color .25s}
+.faq-item{background:var(--room-yellow);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;border:2px solid transparent;transition:border-color .25s}
 .faq-item[open]{border-color:color-mix(in oklab,var(--magenta) 40%, transparent)}
 .faq-item summary{list-style:none;cursor:pointer;padding:22px 26px;display:flex;align-items:center;gap:16px;font-family:var(--font-display);font-weight:600;font-size:1.12rem;color:var(--navy)}
 .faq-item summary::-webkit-details-marker{display:none}
-.faq-item .pm{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--bg);color:var(--magenta);display:grid;place-items:center;flex:none;transition:transform .3s var(--ease),background .25s,color .25s}
-.faq-item[open] .pm{transform:rotate(45deg);background:var(--magenta);color:#fff}
+.faq-item .pm{margin-left:auto;width:38px;height:38px;border-radius:50%;background:transparent;color:#fff;display:grid;place-items:center;flex:none;transition:transform .3s var(--ease),color .25s}
+.faq-item[open] .pm{transform:rotate(45deg);color:#fff}
 .faq-item .pm svg{width:28px;height:28px}
 .faq-body{padding:0 26px 24px 26px;color:var(--ink-soft);font-size:1.02rem;font-weight:500}
 .faq-body p{margin:0}
@@ -534,7 +555,7 @@ button.chip{border:0;font-family:inherit}
 /* ---------- ACCORDION (Eltern + FAQ, Alpine.js) ---------- */
 .accordion{max-width:860px;margin:30px auto 0;display:grid;gap:14px}
 .faq-accordion{max-width:760px}
-.accordion-item{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;border:2px solid transparent;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.accordion-item{background:var(--room-yellow);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;border:2px solid transparent;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
 .accordion-item:has(.accordion-trigger[aria-expanded="true"]){border-color:color-mix(in oklab,var(--magenta) 42%,transparent);box-shadow:var(--shadow)}
 .accordion-trigger{width:100%;display:flex;align-items:center;gap:15px;padding:20px 24px;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--navy);transition:background .2s var(--ease)}
 .accordion-trigger:hover{background:color-mix(in oklab,var(--bg) 55%,transparent)}
@@ -542,7 +563,7 @@ button.chip{border:0;font-family:inherit}
 /* führendes Icon (kc_icon) – ohne eigene Klasse */
 .accordion-trigger > svg:not(.accordion-chevron){width:32px;height:32px;flex:none;color:var(--magenta)}
 /* Accordion open/close icons (OE-SVG, zwei Zustände) */
-.accordion-icon{position:relative;flex:none;margin-left:auto;width:22px;height:22px;color:var(--navy)}
+.accordion-icon{position:relative;flex:none;margin-left:auto;width:22px;height:22px;color:#fff}
 .accordion-icon .icon-plus,.accordion-icon .icon-minus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .22s ease,transform .22s ease}
 .accordion-icon svg{width:100%;height:100%}
 .accordion-icon .icon-plus{opacity:1;transform:rotate(0deg) scale(1)}
@@ -558,9 +579,9 @@ button.chip{border:0;font-family:inherit}
 .ablauf-accordion .ablauf-item{border-radius:10px}
 .ablauf-item{border-radius:var(--r-lg);overflow:hidden}
 /* Header-Bänder (Design): 1 gelb, 2 salbeigrün, 3 pfirsich — zyklisch */
-.ablauf-item:nth-child(3n+1){background:var(--room-yellow)}
+.ablauf-item:nth-child(3n+1){background:var(--room-green)}
 .ablauf-item:nth-child(3n+2){background:var(--room-green)}
-.ablauf-item:nth-child(3n+3){background:var(--room-orange)}
+.ablauf-item:nth-child(3n+3){background:var(--room-green)}
 .ablauf-trigger{width:100%;display:flex;align-items:center;gap:16px;padding:18px 22px;background:none;border:0;cursor:pointer;text-align:left}
 .ablauf-num{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5vw,3rem);line-height:1;color:rgba(255,255,255,.75);flex:none}
 .ablauf-q{flex:1;color:var(--navy);font-family:var(--font-display);font-weight:600;font-size:clamp(1.05rem,2vw,1.25rem)}
@@ -714,8 +735,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card--plain .wpcf7-acceptance a{color:var(--magenta)}
 .kontakt-card--plain .wpcf7-acceptance input[type="checkbox"]{width:24px!important;height:24px!important;border:1.5px solid #cbd2de;background:#fff}
 .kontakt-card--plain .wpcf7-acceptance input[type="checkbox"]:checked{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EA4589' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M5 13l4 4L19 7'/></svg>") center/64% no-repeat;border-color:var(--magenta)}
-.kontakt-card--plain .wpcf7 input[type="submit"]{background:var(--magenta);box-shadow:var(--shadow-mag)}
-.kontakt-card--plain .wpcf7 input[type="submit"]:hover{background:var(--magenta-deep)}
+.kontakt-card--plain .wpcf7 input[type="submit"]{background:var(--navy);box-shadow:none}
+.kontakt-card--plain .wpcf7 input[type="submit"]:hover{background:#1a4fa8}
 
 /* ---------- FOOTER ---------- */
 .site-footer{background:var(--navy);color:rgba(255,255,255,.74);padding:0 0 20px}
@@ -825,7 +846,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   .faq-item summary{padding:16px 18px;font-size:1rem}
   .faq-body{padding:0 18px 18px}
   .rooms-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .room{min-height:180px;padding:20px 16px}
+  .room{width:clamp(118px,40vw,150px);min-height:0;padding:14px}
   .praxis-grid{grid-template-columns:1fr;grid-auto-rows:200px}
   .g1{grid-column:span 1}
   .kontakt-form-wrap{padding:16px 18px}
@@ -917,7 +938,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 #leistungen .container{position:relative;z-index:1}
 .svc--blue h3,.svc--green h3,.svc--blue p,.svc--green p{color:var(--navy)}
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
-.svc--yellow p,.svc--pink p{color:var(--navy)}
+.svc--yellow p,.svc--pink p{color:var(--magenta-deep)}
 
 /* Hero: Overlay stark reduzieren, damit das Spray-Video sichtbar ist */
 .hero-banner .hero-scrim{background:rgba(255,255,255,.10)}
@@ -998,7 +1019,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Jaune + Rose → magenta ; Bleu + Vert → navy (déjà partiel, renforcer) */
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
 .svc--blue h3,.svc--green h3{color:var(--navy)}
-.svc--yellow p,.svc--pink p{color:var(--navy)}
+.svc--yellow p,.svc--pink p{color:var(--magenta-deep)}
 .svc--blue p,.svc--green p{color:var(--navy);opacity:.85}
 /* Symbole haut-droite, title+texte à gauche bien espacés */
 .svc{padding:32px 28px 28px}
@@ -1064,22 +1085,23 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    symbole grand haut-droite séparé du texte, body dessous */
 .svc{padding:32px 32px 36px;min-height:220px}
 /* Design Karten-Titel — EINZIGE Quelle: size 38 / spacing 0 / line 43 (≈1.13) / Jost Halbfett(600) / uppercase */
-.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:100%;line-height:1.13;font-weight:600;letter-spacing:0}
+/* Designer-Feedback: "H3 bitte etwas sperren" → Buchstabenabstand auf Karten-Titeln. */
+.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:100%;line-height:1.13;font-weight:600;letter-spacing:.06em}
 /* Design Karten-Text — EINZIGE Quelle: size 22 / spacing 0 / line 30 (≈1.36) / Jost Regular */
 .svc p{margin:40px 0 0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:100%;letter-spacing:0;font-weight:400}
 .svc-symbol{width:88px;height:auto;top:24px;right:24px;padding-bottom:0}
 /* couleurs texte par carte (bleu/vert = navy, jaune/rose = magenta) */
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
-.svc--yellow p,.svc--pink p{color:var(--navy)}
+.svc--yellow p,.svc--pink p{color:var(--magenta-deep)}
 .svc--blue h3,.svc--blue p,.svc--green h3,.svc--green p{color:var(--navy)}
 
 
 /* Team cards — radius 10px comme demandé */
 .team-card,.team-card__img{border-radius:10px!important}
 
-/* Homogénéité des cartes — border-radius: 10px partout */
+/* Homogénéité des cartes — border-radius: 10px partout (sauf .room = Kreis) */
 .svc,.team-card,.team-card__img,
-.ablauf-item,.room,
+.ablauf-item,
 .praxis-gallery__item{border-radius:10px!important}
 
 /* Logo im Mobile-Menü */
@@ -1148,7 +1170,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Kein QR-Code hochgeladen: Buchungsspalte entfällt → 3 Spalten (nur Desktop). */
 @media(min-width:821px){.footer-top--no-qr{grid-template-columns:0.8fr 1.4fr 1.4fr}}
 @media(min-width:821px){.site-footer .footer-logo-col{display:flex;justify-content:flex-start;align-items:flex-start}}
-.footer-logo-col .footer-logo{width:clamp(130px,11vw,170px);height:auto}
+.footer-logo-col .footer-logo{width:clamp(100px,9vw,124px);height:auto}
 /* Adresse + Öffnungszeiten: heller Lauftext */
 .footer-address address,
 .footer-hours p{font-style:normal;color:#fff;font-size:.95rem;line-height:1.9;margin:0}
@@ -1169,7 +1191,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-bottom__social{display:flex;gap:12px}
 .footer-bottom__social a{width:34px;height:34px;border-radius:999px;background:var(--magenta);display:grid;place-items:center;transition:transform .2s}
 .footer-bottom__social a:hover{transform:translateY(-2px)}
-.footer-bottom__social svg{width:20px;height:20px;color:#fff}
+.footer-bottom__social svg{width:20px;height:20px;color:var(--navy)}
 .footer-bottom__legal{display:flex;gap:20px}
 .footer-bottom__legal a{color:rgba(255,255,255,.82);font-size:.92rem;font-weight:400}
 .footer-bottom__legal a:hover{color:#fff}
@@ -1177,12 +1199,12 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 @media(max-width:820px){
   .footer-top{grid-template-columns:1fr 1fr;gap:28px}
   .footer-logo-col{display:flex!important;grid-column:1/-1;justify-content:flex-start;margin-bottom:4px}
-  .footer-logo-col .footer-logo{width:130px;height:auto}
+  .footer-logo-col .footer-logo{width:104px;height:auto}
 }
 @media(max-width:560px){
   .footer-top{grid-template-columns:1fr;gap:22px}
   .footer-logo-col{display:flex!important;margin-bottom:2px}
-  .footer-logo-col .footer-logo{width:110px;height:auto}
+  .footer-logo-col .footer-logo{width:92px;height:auto}
   .footer-booking__card{max-width:none}
   .site-footer .footer-bottom{flex-direction:column!important;align-items:flex-start;gap:14px}
 }

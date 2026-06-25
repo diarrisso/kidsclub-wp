@@ -1,10 +1,12 @@
 <?php
 /**
- * Layout: Galerie mit Bereich-Filtern (ohne Lightbox).
+ * Layout: Einblicke — Foto-Karussell (Swiper).
  *
  * Source : CPT `praxis_foto` (Beitragsbild = Foto, Sortierung menu_order).
- * Filter : Taxonomie `bereich` → Chips (Alpine-Komponente praxisGallery).
- * Beim Filterwechsel wird die Scroll-Position verankert (kein Seiten-Sprung).
+ * Ersetzt die frühere Filter-Galerie: ein Karussell mit 3 sichtbaren Fotos
+ * (Desktop) + prev/next-Pfeilen + Pagination. Vermeidet die Dopplung mit der
+ * Räume-Sektion. Swiper-Regeln des Projekts beachtet (overflow/padding-bottom,
+ * slidesPerView responsive, prefers-reduced-motion, a11y).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -15,8 +17,7 @@ $title   = get_sub_field( 'gl_title' );
 $text    = get_sub_field( 'gl_text' );
 
 /* Fotos aus dem CPT sammeln. */
-$photos     = [];
-$cats_order = [];
+$photos = [];
 
 $foto_posts = get_posts(
 	[
@@ -32,25 +33,18 @@ foreach ( $foto_posts as $foto ) {
 	if ( ! $img_id ) {
 		continue;
 	}
-	$terms = get_the_terms( $foto, 'bereich' );
-	$slug  = '';
-	if ( $terms && ! is_wp_error( $terms ) ) {
-		$slug = $terms[0]->slug;
-		if ( ! isset( $cats_order[ $slug ] ) ) {
-			$cats_order[ $slug ] = $terms[0]->name;
-		}
-	}
 	$photos[] = [
 		'id'  => (int) $img_id,
-		'cat' => $slug,
 		'alt' => get_the_title( $foto ),
 	];
 }
+
+$total = count( $photos );
 ?>
 <section
-	class="section-galerie reveal"
+	class="section section-galerie reveal"
 	id="galerie"
-	x-data="praxisGallery"
+	<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 >
 	<div class="container">
 
@@ -58,48 +52,56 @@ foreach ( $foto_posts as $foto ) {
 			<?php if ( $eyebrow ) : ?>
 				<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
 			<?php endif; ?>
-			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+			<?php if ( $title ) : ?>
+				<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+			<?php endif; ?>
 			<?php if ( $text ) : ?>
-				<p class="lead"><?php echo esc_html( $text ); ?></p>
+				<p class="section-lead"><?php echo esc_html( $text ); ?></p>
 			<?php endif; ?>
 		</div>
 
-		<?php if ( $cats_order ) : ?>
-		<div class="chips" role="group" aria-label="<?php esc_attr_e( 'Galerie filtern', 'kidsclub' ); ?>">
-			<button type="button" class="chip"
-				:class="f === 'alle' && 'chip--active'"
-				:aria-pressed="f === 'alle'"
-				@click="setFilter('alle')"><?php esc_html_e( 'Alle', 'kidsclub' ); ?></button>
-			<?php foreach ( $cats_order as $slug => $label ) : ?>
-			<button type="button" class="chip"
-				:class="f === '<?php echo esc_js( $slug ); ?>' && 'chip--active'"
-				:aria-pressed="f === '<?php echo esc_js( $slug ); ?>'"
-				@click="setFilter('<?php echo esc_js( $slug ); ?>')"><?php echo esc_html( $label ); ?></button>
-			<?php endforeach; ?>
-		</div>
-		<?php endif; ?>
-
 		<?php if ( $photos ) : ?>
-		<div class="praxis-gallery" :class="f !== 'alle' && 'praxis-gallery--flat'">
-			<?php foreach ( $photos as $p ) : ?>
-			<figure
-				class="praxis-gallery__item"
-				x-show="f === 'alle'<?php echo $p['cat'] ? " || f === '" . esc_js( $p['cat'] ) . "'" : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_js appliqué ?>"
-			>
-				<?php
-				echo wp_get_attachment_image(
-					$p['id'],
-					'large',
-					false,
-					[
-						'loading'  => 'lazy',
-						'decoding' => 'async',
-						'alt'      => $p['alt'],
-					]
-				);
-				?>
-			</figure>
-			<?php endforeach; ?>
+		<div class="einblicke-swiper-wrap">
+
+			<button class="einblicke-swiper__prev swiper-nav-btn" type="button" aria-label="<?php esc_attr_e( 'Vorheriges Foto', 'kidsclub' ); ?>">
+				<?php echo kc_svg( 'slide-prev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</button>
+			<button class="einblicke-swiper__next swiper-nav-btn" type="button" aria-label="<?php esc_attr_e( 'Nächstes Foto', 'kidsclub' ); ?>">
+				<?php echo kc_svg( 'slide-next' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</button>
+
+			<div class="einblicke-swiper swiper"
+				aria-roledescription="Karussell"
+				aria-label="<?php esc_attr_e( 'Einblicke in unsere Praxis', 'kidsclub' ); ?>">
+				<div class="swiper-wrapper" aria-live="polite">
+					<?php
+					$i = 0;
+					foreach ( $photos as $p ) :
+						++$i;
+						?>
+						<div class="swiper-slide" role="group" aria-roledescription="Folie"
+							aria-label="<?php echo esc_attr( sprintf( /* translators: 1: aktuelles Foto, 2: Gesamtzahl */ __( 'Foto %1$d von %2$d', 'kidsclub' ), $i, $total ) ); ?>">
+							<figure class="einblicke-slide">
+								<?php
+								echo wp_get_attachment_image(
+									$p['id'],
+									'large',
+									false,
+									[
+										'loading'  => 'lazy',
+										'decoding' => 'async',
+										'alt'      => $p['alt'],
+									]
+								);
+								?>
+							</figure>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+
+			<div class="einblicke-swiper__pagination"></div>
+
 		</div>
 		<?php endif; ?>
 

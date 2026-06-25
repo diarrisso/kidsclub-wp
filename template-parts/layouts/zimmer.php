@@ -1,63 +1,72 @@
 <?php
 /**
- * Layout: 5 Behandlungszimmer — Swiper-Karussell
- * Felder: eyebrow, title, text, rooms[] (name, color)
+ * Layout: 5 Behandlungszimmer — farbige Kreise (statisch).
+ *
+ * Jeder Raum = ein farbiger Kreis (RAUM N + Name). Beim Mouseover / Fokus /
+ * Tap erscheint der erklärende Text (Feld `beschreibung`). Kein Karussell:
+ * Desktop = 5 Kreise nebeneinander, Mobile = Umbruch (flex-wrap).
+ * Felder: eyebrow, title, text, rooms[] (name, theme, color, beschreibung).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 $rooms_rows = get_sub_field( 'rooms' );
+$eyebrow    = get_sub_field( 'eyebrow' );
+$title      = get_sub_field( 'title' );
+$lead       = get_sub_field( 'text' );
 ?>
-<section class="section section-zimmer" id="zimmer">
+<section class="section section-zimmer reveal" id="zimmer"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="container">
 
-		<div class="section-head center" style="margin-bottom:30px">
-			<span class="eyebrow"><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
-			<h2 class="section-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
-			<?php
-			$t = get_sub_field( 'text' );
-			if ( $t ) :
-				?>
-				<p class="lead"><?php echo esc_html( $t ); ?></p>
+		<?php if ( $eyebrow || $title || $lead ) : ?>
+		<div class="section-head center">
+			<?php if ( $eyebrow ) : ?>
+				<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
+			<?php endif; ?>
+			<?php if ( $title ) : ?>
+				<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+			<?php endif; ?>
+			<?php if ( $lead ) : ?>
+				<p class="section-lead"><?php echo esc_html( $lead ); ?></p>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 
 		<?php if ( $rooms_rows ) : ?>
-		<div class="zimmer-swiper-wrap">
-
-			<button class="zimmer-swiper__prev swiper-nav-btn" aria-label="Vorherige">
-				<?php echo kc_svg( 'slide-prev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			</button>
-			<button class="zimmer-swiper__next swiper-nav-btn" aria-label="Nächste">
-				<?php echo kc_svg( 'slide-next' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			</button>
-
-			<div class="zimmer-swiper swiper"
-				aria-roledescription="Karussell"
-				aria-label="Behandlungszimmer">
-				<div class="swiper-wrapper">
-					<?php
-					$rn = 0;
-					while ( have_rows( 'rooms' ) ) :
-						the_row();
-						++$rn;
-						$c = get_sub_field( 'color' ); // g | y | o | b | l
-						?>
-						<div class="swiper-slide" role="group" aria-roledescription="Folie" aria-label="Zimmer <?php echo esc_attr( (string) $rn ); ?>">
-							<div class="room <?php echo esc_attr( $c ); ?>">
-								<span class="room-nr"><?php echo esc_html( sprintf( '%02d', $rn ) ); ?></span>
-								<span class="rh"><?php echo kc_icon( 'room_' . $c ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-								<b><?php echo esc_html( get_sub_field( 'name' ) ); ?></b>
-							</div>
-						</div>
-					<?php endwhile; ?>
-				</div>
-			</div>
-
-			<div class="zimmer-swiper__pagination"></div>
-
-		</div>
+		<ul class="rooms-circles" role="list">
+			<?php
+			$rn = 0;
+			while ( have_rows( 'rooms' ) ) :
+				the_row();
+				++$rn;
+				$c    = (string) get_sub_field( 'color' ); // g | y | o | b | l
+				$name = (string) get_sub_field( 'name' );
+				$desc = (string) get_sub_field( 'beschreibung' );
+				/* translators: %d = Zimmer-Nummer */
+				$label = sprintf( __( 'Raum %d', 'kidsclub' ), $rn );
+				?>
+				<li class="rooms-circles__item">
+					<div
+						class="room <?php echo esc_attr( $c ); ?><?php echo $desc ? ' has-desc' : ''; ?>"
+						<?php if ( $desc ) : ?>
+						tabindex="0"
+						role="button"
+						aria-expanded="false"
+						aria-label="<?php echo esc_attr( $label . ' ' . $name ); ?>"
+						<?php endif; ?>
+					>
+						<span class="room__label">
+							<span class="room-nr"><?php echo esc_html( $label ); ?></span>
+							<b class="room__name"><?php echo esc_html( $name ); ?></b>
+						</span>
+						<?php if ( $desc ) : ?>
+							<span class="room__desc"><?php echo esc_html( $desc ); ?></span>
+						<?php endif; ?>
+					</div>
+				</li>
+			<?php endwhile; ?>
+		</ul>
 		<?php endif; ?>
 
 	</div>
