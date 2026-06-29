@@ -142,8 +142,8 @@ section{position:relative;z-index:2}
 /* Design Termin-Block: mehr Abstand Titel→Beschreibung→Button; größerer, breiterer Button */
 .section-termin .section-lead{margin-top:var(--gap-title)}
 .section-termin .termin-cta{padding:clamp(28px,4vw,44px) 0 0}
-.section-termin .btn-primary{background:var(--navy);color:#fff;border-color:var(--navy)}
-.section-termin .btn-primary:hover{background:var(--magenta-deep);border-color:var(--magenta-deep);color:#fff}
+.section-termin .btn-primary{background:var(--magenta-deep);color:#fff;border-color:var(--magenta-deep)}
+.section-termin .btn-primary:hover{background:var(--navy);border-color:var(--navy);color:#fff}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:var(--gap-eyebrow)}
 .section-head p{margin-top:var(--gap-title)}
