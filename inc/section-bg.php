@@ -103,17 +103,25 @@ function kc_section_bg_style(): string {
 	$preset     = (string) get_sub_field( 'bg_spray_preset' );
 	$raw_opacity = get_sub_field( 'bg_opacity' );
 
+	// Couleur : preset palette en priorité, sinon color picker (rétrocompat).
+	$color_preset = (string) get_sub_field( 'bg_color_preset' );
+	if ( '' !== $color_preset && 'custom' !== $color_preset ) {
+		$color = $color_preset;
+	} else {
+		$color = (string) get_sub_field( 'background_color' );
+	}
+
 	// Spray sans photo de fond → pas de voile (opacity 100 = alpha 0).
-	// Pour une vraie photo, le fallback à 8 préserve la lisibilité du texte.
-	// ACF retourne sa default_value (8) même quand le champ est masqué par
-	// conditional_logic → on ignore bg_opacity pour les sprays décoratifs.
+	// Pour une vraie photo, le fallback à 60 assure une bonne visibilité.
+	// ACF retourne sa default_value même quand le champ est masqué →
+	// on ignore bg_opacity pour les sprays décoratifs.
 	$is_spray_only = '' !== $preset && ! $has_bg_img;
-	$opacity       = $is_spray_only ? 100 : ( ( false !== $raw_opacity && '' !== $raw_opacity ) ? $raw_opacity : 8 );
+	$opacity       = $is_spray_only ? 100 : ( ( false !== $raw_opacity && '' !== $raw_opacity ) ? (int) $raw_opacity : 60 );
 
 	$style = kc_section_bg_build_style(
 		[
 			'img'      => kc_section_bg_resolve_img(),
-			'color'    => (string) get_sub_field( 'background_color' ),
+			'color'    => $color,
 			'opacity'  => $opacity,
 			'size'     => $is_spray_only ? 'cover' : ( (string) get_sub_field( 'bg_size' ) ),
 			'position' => $is_spray_only ? 'center center' : ( (string) get_sub_field( 'bg_position' ) ),

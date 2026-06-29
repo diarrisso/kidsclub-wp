@@ -52,7 +52,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'hero' ),
-									kc_bg_color_field( 'hero' ),
+									...kc_bg_color_field( 'hero' ),
 									...kc_bg_settings_fields( 'hero' ),
 									kc_field( 'hero_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'hero_title', 'Überschrift', 'text' ),
@@ -188,7 +188,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'willkommen' ),
-									kc_bg_color_field( 'willkommen' ),
+									...kc_bg_color_field( 'willkommen' ),
 									...kc_bg_settings_fields( 'willkommen' ),
 									[
 										'key'          => 'field_kc_wk_text',
@@ -213,7 +213,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'leistungen' ),
 									kc_bg_spray_field( 'leistungen' ),
-									kc_bg_color_field( 'leistungen' ),
+									...kc_bg_color_field( 'leistungen' ),
 									...kc_bg_settings_fields( 'leistungen' ),
 									[
 										'key'   => 'field_kc_ls_eyebrow',
@@ -291,7 +291,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'zimmer' ),
-									kc_bg_color_field( 'zimmer' ),
+									...kc_bg_color_field( 'zimmer' ),
 									...kc_bg_settings_fields( 'zimmer' ),
 									[
 										'key'   => 'field_kc_zm_eyebrow',
@@ -348,7 +348,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'ablauf' ),
-									kc_bg_color_field( 'ablauf' ),
+									...kc_bg_color_field( 'ablauf' ),
 									...kc_bg_settings_fields( 'ablauf' ),
 									kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
@@ -381,7 +381,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'galerie' ),
-									kc_bg_color_field( 'galerie' ),
+									...kc_bg_color_field( 'galerie' ),
 									...kc_bg_settings_fields( 'galerie' ),
 									kc_field( 'gl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'gl_title', 'Titel', 'text' ),
@@ -418,7 +418,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'team' ),
 									kc_bg_spray_field( 'team' ),
-									kc_bg_color_field( 'team' ),
+									...kc_bg_color_field( 'team' ),
 									...kc_bg_settings_fields( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
@@ -452,7 +452,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'eltern' ),
-									kc_bg_color_field( 'eltern' ),
+									...kc_bg_color_field( 'eltern' ),
 									...kc_bg_settings_fields( 'eltern' ),
 									kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'el_title', 'Überschrift', 'text' ),
@@ -486,7 +486,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'stimmen' ),
 									kc_bg_spray_field( 'stimmen' ),
-									kc_bg_color_field( 'stimmen' ),
+									...kc_bg_color_field( 'stimmen' ),
 									...kc_bg_settings_fields( 'stimmen' ),
 									kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'st_title', 'Überschrift', 'text' ),
@@ -516,7 +516,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'faq' ),
 									kc_bg_spray_field( 'faq' ),
-									kc_bg_color_field( 'faq' ),
+									...kc_bg_color_field( 'faq' ),
 									...kc_bg_settings_fields( 'faq' ),
 									kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'fq_title', 'Überschrift', 'text' ),
@@ -548,7 +548,7 @@ add_action(
 								'sub_fields' => [
 									kc_bg_field( 'termin' ),
 									kc_bg_spray_field( 'termin' ),
-									kc_bg_color_field( 'termin' ),
+									...kc_bg_color_field( 'termin' ),
 									...kc_bg_settings_fields( 'termin' ),
 									kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tr_title', 'Überschrift', 'text' ),
@@ -578,7 +578,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'kontakt' ),
-									kc_bg_color_field( 'kontakt' ),
+									...kc_bg_color_field( 'kontakt' ),
 									...kc_bg_settings_fields( 'kontakt' ),
 									kc_field( 'kt_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'kt_title', 'Überschrift', 'text' ),
@@ -659,15 +659,44 @@ function kc_bg_spray_field( $layout ) {
 	];
 }
 
-/** Optionale Hintergrundfarbe pro Sektion (überschreibt den CSS-Standard). */
+/** Palette + champ libre pour la couleur de fond de section. Retourne 2 champs. */
 function kc_bg_color_field( $layout ) {
+	$preset_key = 'field_kc_bgcp_' . $layout;
 	return [
-		'key'           => 'field_kc_bgc_' . $layout,
-		'label'         => 'Hintergrundfarbe (optional)',
-		'name'          => 'background_color',
-		'type'          => 'color_picker',
-		'default_value' => '',
-		'instructions'  => 'Optional. Leer lassen = CSS-Standard des Themes.',
+		[
+			'key'           => $preset_key,
+			'label'         => 'Hintergrundfarbe',
+			'name'          => 'bg_color_preset',
+			'type'          => 'select',
+			'choices'       => [
+				''         => '— Standard (CSS) —',
+				'#FFFFFF'  => '⬜ Weiß',
+				'#EFF2F0'  => '🟩 Vert-gris (Band)',
+				'#FBB9C4'  => '🌸 Rose poudré',
+				'#F0F2F5'  => '🔲 Gris-bleu',
+				'#FAECBF'  => '🟡 Crème',
+				'#FDF0EB'  => '🍑 Pêche',
+				'#D4DED7'  => '🌿 Sauge',
+				'#DEDBDF'  => '💜 Lilas',
+				'#BCC9D2'  => '🩶 Bleu-gris',
+				'#102E79'  => '🟦 Navy',
+				'#EA4589'  => '🌸 Rose vif',
+				'#D52E72'  => '🌺 Rose profond',
+				'custom'   => '🎨 Personnalisée…',
+			],
+			'default_value' => '',
+			'allow_null'    => false,
+			'instructions'  => 'Choisir une couleur de la palette ou "Personnalisée" pour saisir un code hex.',
+		],
+		[
+			'key'               => 'field_kc_bgc_' . $layout,
+			'label'             => 'Couleur personnalisée (hex)',
+			'name'              => 'background_color',
+			'type'              => 'color_picker',
+			'default_value'     => '',
+			'conditional_logic' => [ [ [ 'field' => $preset_key, 'operator' => '==', 'value' => 'custom' ] ] ],
+			'instructions'      => 'Visible uniquement si "Personnalisée" est sélectionné ci-dessus.',
+		],
 	];
 }
 
@@ -682,7 +711,7 @@ function kc_bg_settings_fields( $layout ) {
 			'label'             => 'Deckkraft des Hintergrundbilds (%)',
 			'name'              => 'bg_opacity',
 			'type'              => 'range',
-			'default_value'     => 8,
+			'default_value'     => 60,
 			'min'               => 0,
 			'max'               => 100,
 			'step'              => 1,
