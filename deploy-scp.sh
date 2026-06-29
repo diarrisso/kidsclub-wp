@@ -39,6 +39,7 @@ TEMP_ARCHIVE="/tmp/kidsclub-deploy-$(date +%s).tar.gz"
 
 tar -czf "$TEMP_ARCHIVE" \
     --exclude='node_modules' \
+    --exclude='vendor' \
     --exclude='.git' \
     --exclude='.claude' \
     --exclude='.DS_Store' \
@@ -56,6 +57,11 @@ tar -czf "$TEMP_ARCHIVE" \
     --exclude='*-backup.mp4' \
     --exclude='RAPPORT-*.md' \
     --exclude='docs/superpowers' \
+    --exclude='assets/hero clips' \
+    --exclude='assets/backgrounds' \
+    --exclude='assets/logo' \
+    --exclude='assets/symbols' \
+    --exclude='PastedGraphic-*.png' \
     -C "$SCRIPT_DIR" .
 
 log "Création du répertoire distant si nécessaire..."

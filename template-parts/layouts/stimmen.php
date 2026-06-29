@@ -37,9 +37,9 @@ $items   = get_sub_field( 'items' );
 			<div class="stimmen-swiper swiper"
 				aria-roledescription="Karussell"
 				aria-label="Kundenstimmen">
-				<div class="swiper-wrapper">
-					<?php foreach ( $items as $item ) : ?>
-					<div class="swiper-slide">
+				<div class="swiper-wrapper" aria-live="polite">
+					<?php foreach ( $items as $i => $item ) : ?>
+					<div class="swiper-slide" role="group" aria-roledescription="Stimme" aria-label="Stimme <?php echo absint( $i + 1 ); ?> von <?php echo absint( count( $items ) ); ?>"><?php // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase ?>
 						<div class="stimmen-card">
 							<blockquote class="stimmen-quote">
 								<p><?php echo esc_html( $item['st_quote'] ); ?></p>
