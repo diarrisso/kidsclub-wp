@@ -16,27 +16,41 @@ $eyebrow = get_sub_field( 'gl_eyebrow' );
 $title   = get_sub_field( 'gl_title' );
 $text    = get_sub_field( 'gl_text' );
 
-/* Fotos aus dem CPT sammeln. */
+/* Fotos: ACF Gallery field (priorité) → fallback CPT praxis_foto. */
 $photos = [];
 
-$foto_posts = get_posts(
-	[
-		'post_type'      => 'praxis_foto',
-		'posts_per_page' => -1,
-		'orderby'        => 'menu_order',
-		'order'          => 'ASC',
-	]
-);
-
-foreach ( $foto_posts as $foto ) {
-	$img_id = get_post_thumbnail_id( $foto );
-	if ( ! $img_id ) {
-		continue;
+$acf_gallery = get_sub_field( 'gl_photos' );
+if ( ! empty( $acf_gallery ) && is_array( $acf_gallery ) ) {
+	// Source 1 : champ gallery ACF (sélection multiple directe).
+	foreach ( $acf_gallery as $img ) {
+		if ( empty( $img['ID'] ) ) {
+			continue;
+		}
+		$photos[] = [
+			'id'  => (int) $img['ID'],
+			'alt' => ! empty( $img['alt'] ) ? $img['alt'] : ( ! empty( $img['title'] ) ? $img['title'] : '' ),
+		];
 	}
-	$photos[] = [
-		'id'  => (int) $img_id,
-		'alt' => get_the_title( $foto ),
-	];
+} else {
+	// Source 2 : fallback CPT (photos ajoutées avant la migration ACF).
+	$foto_posts = get_posts(
+		[
+			'post_type'      => 'praxis_foto',
+			'posts_per_page' => -1,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+		]
+	);
+	foreach ( $foto_posts as $foto ) {
+		$img_id = get_post_thumbnail_id( $foto );
+		if ( ! $img_id ) {
+			continue;
+		}
+		$photos[] = [
+			'id'  => (int) $img_id,
+			'alt' => get_the_title( $foto ),
+		];
+	}
 }
 
 $total = count( $photos );
