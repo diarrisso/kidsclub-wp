@@ -939,8 +939,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   padding:34px 18px 14px;background:var(--band)!important;opacity:.7}
 .team-card__role,.team-card__body p{display:none}
 
-/* Leistungen: Textfarben je Kartenfarbe (PDF) */
-#leistungen{position:relative}
+/* Leistungen: fond gris + spray (PDF) */
+#leistungen{position:relative;background:#F0F2F5;overflow:hidden}
+#leistungen::before{content:'';position:absolute;inset:0;background:url('../img/Spray3.png') center/cover no-repeat;opacity:.07;pointer-events:none;z-index:0}
 #leistungen .container{position:relative;z-index:1}
 .svc--blue h3,.svc--green h3,.svc--blue p,.svc--green p{color:var(--navy)}
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
