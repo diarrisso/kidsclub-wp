@@ -142,7 +142,7 @@ section{position:relative;z-index:2}
 /* Design Termin-Block: mehr Abstand Titel→Beschreibung→Button; größerer, breiterer Button */
 .section-termin .section-lead{margin-top:var(--gap-title)}
 .section-termin .termin-cta{padding:clamp(28px,4vw,44px) 0 0}
-.section-termin .btn-primary{background:var(--magenta-deep);color:#fff;border-color:var(--magenta-deep)}
+.section-termin .btn-primary{background:#fff;color:var(--navy);border-color:#fff}
 .section-termin .btn-primary:hover{background:var(--navy);border-color:var(--navy);color:#fff}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:var(--gap-eyebrow)}
@@ -972,7 +972,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .section-termin{background:#F0F2F5;border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
 .section-termin::before{content:'';position:absolute;inset:0;background:url('../img/Spray2.png') center/cover no-repeat;opacity:.06;pointer-events:none;z-index:0}
 .section-termin .container{position:relative;z-index:1}
-.section-termin .section-title{color:var(--magenta);font-size:clamp(2.4rem,5.5vw,4.5rem);text-transform:uppercase}
+.section-termin .section-title{color:var(--magenta);font-size:clamp(2.4rem,5.5vw,4.5rem);text-transform:uppercase;white-space:nowrap}
 .section-termin .eyebrow{color:#9aa3b2}
 .section-termin .btn-primary{font-size:1.1rem;padding:16px 48px;letter-spacing:.01em}
 /* Eyebrows zentrieren nur wenn .center explizit gesetzt */
