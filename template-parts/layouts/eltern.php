@@ -11,7 +11,7 @@ $title   = get_sub_field( 'el_title' );
 $text    = get_sub_field( 'el_text' );
 $items   = get_sub_field( 'items' );
 ?>
-<section class="section-eltern reveal" id="eltern">
+<section class="section-eltern reveal" id="eltern"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="container">
 		<?php
 		if ( $eyebrow ) :

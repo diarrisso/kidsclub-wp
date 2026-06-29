@@ -142,8 +142,8 @@ section{position:relative;z-index:2}
 /* Design Termin-Block: mehr Abstand Titel→Beschreibung→Button; größerer, breiterer Button */
 .section-termin .section-lead{margin-top:var(--gap-title)}
 .section-termin .termin-cta{padding:clamp(28px,4vw,44px) 0 0}
-.section-termin .btn-primary{background:#fff;color:var(--navy);border-color:#fff}
-.section-termin .btn-primary:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.section-termin .btn-primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.section-termin .btn-primary:hover{background:var(--magenta-deep);border-color:var(--magenta-deep);color:#fff}
 .section-head.center{margin-left:auto;margin-right:auto;text-align:center}
 .section-head .eyebrow{margin-bottom:var(--gap-eyebrow)}
 .section-head p{margin-top:var(--gap-title)}
@@ -516,10 +516,7 @@ button.chip{border:0;font-family:inherit}
 .eltern-item p{margin:0;color:var(--ink-soft);font-size:1rem;font-weight:500}
 
 /* ---------- TESTIMONIALS (Swiper) ---------- */
-.section-stimmen{background:var(--band)}
 .section-stimmen h2.section-title{margin-bottom:var(--gap-head)}
-.section-faq{background:var(--band)}
-.section-galerie{background:var(--band)}
 .stimmen-swiper-wrap{position:relative}
 .stimmen-swiper__prev{left:-6px}
 .stimmen-swiper__next{right:-6px}
@@ -719,7 +716,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 }
 
 /* ===== Variante "schlank/modern": ohne farbige Box (kt_card_bg = aus) ===== */
-.section-kontakt:has(.kontakt-card--plain){background:#F0F2F5}
+.section-kontakt:has(.kontakt-card--plain){}
 .kontakt-card--plain{background:none;padding:0;max-width:720px;margin-inline:auto}
 .kontakt-card--plain .eyebrow{color:#9aa3b2}
 .kontakt-card--plain .section-title{color:var(--magenta)}
@@ -928,8 +925,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
    (background_image par section) → pas de ::before hardcodé ici */
 .section-zimmer{position:relative}
 .section-zimmer .container{position:relative;z-index:1}
-/* Team: clean */
-.section-team{background:#fff}
+/* Team: fond géré via ACF */
 
 /* Team-Karten: Name als Overlay auf dem Foto (wie PDF), kein farbiger Rand */
 .team-card{position:relative;border-top:0}
@@ -939,9 +935,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
   padding:34px 18px 14px;background:var(--band)!important;opacity:.7}
 .team-card__role,.team-card__body p{display:none}
 
-/* Leistungen: fond gris + spray (PDF) */
-#leistungen{position:relative;background:#F0F2F5;overflow:hidden}
-#leistungen::before{content:'';position:absolute;inset:0;background:url('../img/Spray3.png') center/cover no-repeat;opacity:.07;pointer-events:none;z-index:0}
+/* Leistungen: fond géré via ACF */
+#leistungen{position:relative;overflow:hidden}
 #leistungen .container{position:relative;z-index:1}
 .svc--blue h3,.svc--green h3,.svc--blue p,.svc--green p{color:var(--navy)}
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
@@ -969,9 +964,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Block-Trenner (dünne Linie nach jedem Block, wie PDF) */
 .block-sep{border:0;border-top:1px solid var(--line);margin:0}
 
-/* === Termin — design PDF (image #8) === */
-.section-termin{background:#F0F2F5;border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-.section-termin::before{content:'';position:absolute;inset:0;background:url('../img/Spray2.png') center/cover no-repeat;opacity:.06;pointer-events:none;z-index:0}
+/* === Termin — design PDF (fond géré via ACF) === */
+.section-termin{border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
 .section-termin .container{position:relative;z-index:1}
 .section-termin .section-title{color:var(--magenta);font-size:clamp(2.4rem,5.5vw,4.5rem);text-transform:uppercase;white-space:nowrap}
 .section-termin .eyebrow{color:#9aa3b2}

@@ -17,7 +17,7 @@ $form_shortcode = get_sub_field( 'form_shortcode' );
 $kt_card_bg = get_sub_field( 'kt_card_bg' );
 $plain_form = ( null !== $kt_card_bg && ! $kt_card_bg );
 ?>
-<section class="section-kontakt reveal" id="kontakt">
+<section class="section-kontakt reveal" id="kontakt"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="container">
 		<div class="kontakt-card<?php echo $plain_form ? ' kontakt-card--plain' : ''; ?>">
 			<?php

@@ -11,7 +11,7 @@ $title   = get_sub_field( 'abl_title' );
 $text    = get_sub_field( 'abl_text' );
 $items   = get_sub_field( 'items' );
 ?>
-<section class="section-ablauf reveal" id="ablauf">
+<section class="section-ablauf reveal" id="ablauf"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="container">
 		<?php if ( $eyebrow ) : ?>
 			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span>

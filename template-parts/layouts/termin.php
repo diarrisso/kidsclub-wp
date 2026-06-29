@@ -11,7 +11,7 @@ $title      = get_sub_field( 'tr_title' );
 $text       = get_sub_field( 'tr_text' );
 $embed_code = get_sub_field( 'embed_code' );
 ?>
-<section class="section-termin reveal" id="termin">
+<section class="section-termin reveal" id="termin"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="container">
 		<div class="section-head center reveal">
 			<?php
