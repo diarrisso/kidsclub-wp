@@ -965,7 +965,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-newsletter{text-decoration:underline;text-underline-offset:3px}
 
 /* Block-Trenner (dünne Linie nach jedem Block, wie PDF) */
-.block-sep{border:0;border-top:1px solid var(--line);margin:0}
+.block-sep{border:0;border-top:1px solid var(--line);margin:32px 0}
 
 /* === Termin — design PDF (fond par défaut — écrasé par ACF quand configuré) === */
 .section-termin{background:#F0F2F5;position:relative;overflow:hidden}
@@ -1074,7 +1074,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:18px;margin-top:4px}
 
 /* --- 9. SECTION WILLKOMMEN : séparateur visible ────────────── */
-.block-sep{border-top:1px solid rgba(16,46,121,.10);margin:0}
+.block-sep{border-top:1px solid rgba(16,46,121,.10)}
 
 /* --- 10. REVEAL : les cartes Leistungen sont visibles sans JS ─ */
 .services-grid .svc.reveal:not(.in){opacity:1;transform:none}

@@ -50,10 +50,7 @@ if ( have_rows( 'sections' ) ) :
 			) ?? $kc_html;
 		}
 
-		// Trenner nach jedem Block (außer Hero + letztem Block vor Footer) — wie im PDF.
-		if ( 'hero' !== $layout && $kc_section_no < $kc_total ) {
-			echo '<div class="container"><hr class="block-sep"></div>';
-		}
+		// Hinweis: Trenner werden nun als eigenes ACF-Layout "trenner" eingefügt.
 
 	endwhile;
 endif;

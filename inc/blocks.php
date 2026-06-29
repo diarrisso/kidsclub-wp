@@ -570,6 +570,15 @@ add_action(
 								],
 							],
 
+							/* ---------- TRENNER ---------- */
+							'layout_trenner'    => [
+								'key'        => 'layout_trenner',
+								'name'       => 'trenner',
+								'label'      => '─── Trenner (Séparateur)',
+								'display'    => 'block',
+								'sub_fields' => [],
+							],
+
 							/* ---------- KONTAKT ---------- */
 							'layout_kontakt'    => [
 								'key'        => 'layout_kontakt',
