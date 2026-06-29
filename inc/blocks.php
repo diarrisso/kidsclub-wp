@@ -653,7 +653,7 @@ function kc_bg_spray_field( $layout ) {
 			'Spray6' => 'Spray 6',
 		],
 		'default_value'     => '',
-		'allow_null'        => true,
+		'allow_null'        => false,
 		'instructions'      => 'Wähle einen voreingestellten Spray. Wird ignoriert wenn oben ein eigenes Bild gesetzt ist.',
 		'conditional_logic' => [ [ [ 'field' => 'field_kc_bg_' . $layout, 'operator' => '==empty' ] ] ],
 	];

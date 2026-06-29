@@ -83,7 +83,7 @@ function kc_section_bg_resolve_img(): string {
 
 	$preset = (string) get_sub_field( 'bg_spray_preset' );
 	if ( '' !== $preset ) {
-		return esc_url( get_theme_file_uri( 'assets/img/' . $preset . '.png' ) );
+		return get_theme_file_uri( 'assets/img/' . $preset . '.png' );
 	}
 
 	return '';

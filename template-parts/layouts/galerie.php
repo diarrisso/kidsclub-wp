@@ -45,7 +45,7 @@ if ( empty( $photos ) ) {
 		]
 	);
 	foreach ( $foto_posts as $foto ) {
-		$img_id = get_post_thumbnail_id( $foto );
+		$img_id = (int) get_post_thumbnail_id( $foto );
 		if ( ! $img_id ) {
 			continue;
 		}
