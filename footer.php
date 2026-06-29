@@ -35,9 +35,20 @@ $qr_url = ( is_array( $qr ) && ! empty( $qr['url'] ) ) ? $qr['url'] : '';
 $has_qr = '' !== $qr_url;
 $qr_alt = ( is_array( $qr ) && ! empty( $qr['alt'] ) ) ? $qr['alt'] : 'QR-Code für die Online-Terminbuchung';
 
-// Cache-Bust für SVGs (Browser cachen <img>-SVGs nach Dateiname, nicht via $ver).
-$logo_path = get_theme_file_path( 'assets/img/logo-hoch-white.svg' );
-$logo_url  = get_theme_file_uri( 'assets/img/logo-hoch-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' );
+// Logo footer : champ ACF options en priorité, fallback fichier SVG.
+$footer_logo_acf = get_field( 'footer_logo', 'option' );
+if ( is_array( $footer_logo_acf ) && ! empty( $footer_logo_acf['url'] ) ) {
+	$logo_url = esc_url( $footer_logo_acf['url'] );
+	$logo_w   = ! empty( $footer_logo_acf['width'] ) ? (int) $footer_logo_acf['width'] : 118;
+	$logo_h   = ! empty( $footer_logo_acf['height'] ) ? (int) $footer_logo_acf['height'] : 149;
+	$logo_alt = ! empty( $footer_logo_acf['alt'] ) ? esc_attr( $footer_logo_acf['alt'] ) : 'Kids Club by zacp';
+} else {
+	$logo_path = get_theme_file_path( 'assets/img/logo-hoch-white.svg' );
+	$logo_url  = esc_url( get_theme_file_uri( 'assets/img/logo-hoch-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' ) );
+	$logo_w    = 118;
+	$logo_h    = 149;
+	$logo_alt  = 'Kids Club by zacp';
+}
 ?>
 <footer class="site-footer">
 	<div class="container footer-inner">
@@ -46,8 +57,10 @@ $logo_url  = get_theme_file_uri( 'assets/img/logo-hoch-white.svg' ) . '?v=' . ( 
 
 			<!-- Col 1: Logo -->
 			<div class="footer-logo-col">
-				<img src="<?php echo esc_url( $logo_url ); ?>"
-					alt="Kids Club by zacp" class="footer-logo footer-logo--hoch" width="118" height="149">
+				<img src="<?php echo $logo_url; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — déjà esc_url() ci-dessus ?>"
+					alt="<?php echo $logo_alt; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — déjà esc_attr() ci-dessus ?>"
+					class="footer-logo footer-logo--hoch"
+					width="<?php echo $logo_w; ?>" height="<?php echo $logo_h; ?>">
 			</div>
 
 			<!-- Col 2: Adresse -->

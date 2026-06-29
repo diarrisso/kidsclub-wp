@@ -117,6 +117,15 @@ add_action(
 						'type'  => 'tab',
 					],
 					[
+						'key'          => 'f_footer_logo',
+						'label'        => 'Logo Footer (optional)',
+						'name'         => 'footer_logo',
+						'type'         => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions' => 'Logo für den Footer (weiße Version empfohlen). Leer lassen = logo-hoch-white.svg.',
+					],
+					[
 						'key'   => 'f_about',
 						'label' => 'Kurztext',
 						'name'  => 'footer_about',
