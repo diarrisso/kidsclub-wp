@@ -568,7 +568,7 @@ button.chip{border:0;font-family:inherit}
 /* führendes Icon (kc_icon) – ohne eigene Klasse */
 .accordion-trigger > svg:not(.accordion-chevron){width:32px;height:32px;flex:none;color:var(--magenta)}
 /* Accordion open/close icons (OE-SVG, zwei Zustände) */
-.accordion-icon{position:relative;flex:none;margin-left:auto;width:22px;height:22px;color:#fff}
+.accordion-icon{position:relative;flex:none;margin-left:auto;width:32px;height:32px;color:#fff}
 .accordion-icon .icon-plus,.accordion-icon .icon-minus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .22s ease,transform .22s ease}
 .accordion-icon svg{width:100%;height:100%}
 .accordion-icon .icon-plus{opacity:1;transform:rotate(0deg) scale(1)}
@@ -1061,7 +1061,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .ablauf-q{font-size:clamp(1.05rem,2vw,1.2rem);font-weight:600;color:var(--navy)}
 .ablauf-trigger{padding:24px 28px;gap:20px;align-items:center}
 /* Icône +/− navy sur fond sage (contraste WCAG 3:1+) */
-.ablauf-trigger .accordion-icon{color:var(--navy);opacity:1;width:30px;height:30px}
+.ablauf-trigger .accordion-icon{color:var(--navy);opacity:1;width:36px;height:36px}
 /* Antwort-Panel: padding-top für Abstand zwischen Header-Band und Text (wie Design) */
 .ablauf-panel{padding:26px 28px 28px;color:var(--navy);opacity:.85}
 
