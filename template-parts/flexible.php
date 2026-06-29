@@ -40,9 +40,11 @@ if ( have_rows( 'sections' ) ) :
 			// <section> — neue Layouts müssen dieses Wrapper-Element beibehalten,
 			// sonst bekommt die Section keinen Hintergrund (still, ohne Fehler).
 			// Fallback auf $kc_html, falls preg_replace null liefert (pcre.backtrack_limit).
-			echo preg_replace(
+			echo preg_replace_callback(
 				'/<section([^>]*)>/',
-				'<section$1' . $kc_bg_style . '>',
+				function ( $m ) use ( $kc_bg_style ) {
+					return '<section' . $m[1] . $kc_bg_style . '>';
+				},
 				$kc_html,
 				1
 			) ?? $kc_html;

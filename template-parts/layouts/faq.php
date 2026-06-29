@@ -10,7 +10,7 @@ $eyebrow = get_sub_field( 'fq_eyebrow' );
 $title   = get_sub_field( 'fq_title' );
 $items   = get_sub_field( 'items' );
 ?>
-<section class="section-faq reveal" id="faq"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<section class="section-faq reveal" id="faq">
 	<div class="container">
 		<?php
 		if ( $eyebrow ) :

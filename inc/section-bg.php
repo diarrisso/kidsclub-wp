@@ -51,7 +51,10 @@ function kc_section_bg_build_style( array $o ): string {
 
 	$decls = [];
 	if ( $has_color ) {
-		$decls[] = 'background-color:' . esc_attr( $color );
+		$safe_color = sanitize_hex_color( $color ) ?? '';
+		if ( '' !== $safe_color ) {
+			$decls[] = 'background-color:' . esc_attr( $safe_color );
+		}
 	}
 	if ( $has_img ) {
 		$veil    = 'linear-gradient(rgba(' . $rgb . ',' . $alpha . '),rgba(' . $rgb . ',' . $alpha . '))';

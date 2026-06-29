@@ -61,7 +61,7 @@ $team_posts = get_posts(
 	]
 );
 ?>
-<section class="section-team reveal" id="team"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<section class="section-team reveal" id="team">
 	<div class="container">
 		<div class="section-head center reveal">
 			<?php

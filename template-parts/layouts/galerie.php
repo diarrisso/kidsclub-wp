@@ -31,7 +31,10 @@ if ( ! empty( $acf_gallery ) && is_array( $acf_gallery ) ) {
 			'alt' => ! empty( $img['alt'] ) ? $img['alt'] : ( ! empty( $img['title'] ) ? $img['title'] : '' ),
 		];
 	}
-} else {
+}
+
+// Fallback CPT si ACF vide OU si tous les IDs étaient invalides (pièces jointes supprimées).
+if ( empty( $photos ) ) {
 	// Source 2 : fallback CPT (photos ajoutées avant la migration ACF).
 	$foto_posts = get_posts(
 		[
@@ -55,11 +58,7 @@ if ( ! empty( $acf_gallery ) && is_array( $acf_gallery ) ) {
 
 $total = count( $photos );
 ?>
-<section
-	class="section section-galerie reveal"
-	id="galerie"
-	<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
->
+<section class="section section-galerie reveal" id="galerie">
 	<div class="container">
 
 		<div class="section-head center reveal">

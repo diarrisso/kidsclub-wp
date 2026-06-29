@@ -12,7 +12,7 @@ if ( ! $wk_text ) {
 	return;
 }
 ?>
-<section class="section intro-welcome reveal" id="willkommen"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<section class="section intro-welcome reveal" id="willkommen">
 	<div class="container intro-welcome__inner">
 		<?php echo wp_kses_post( $wk_text ); ?>
 	</div>

@@ -12,7 +12,7 @@ $title   = get_sub_field( 'st_title' );
 $lead    = get_sub_field( 'st_text' );
 $items   = get_sub_field( 'items' );
 ?>
-<section class="section-stimmen reveal" id="stimmen"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<section class="section-stimmen reveal" id="stimmen">
 	<div class="container">
 		<div class="section-head center reveal">
 			<?php if ( $eyebrow ) : ?>

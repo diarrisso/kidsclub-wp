@@ -16,7 +16,7 @@ $eyebrow    = get_sub_field( 'eyebrow' );
 $title      = get_sub_field( 'title' );
 $lead       = get_sub_field( 'text' );
 ?>
-<section class="section section-zimmer reveal" id="zimmer"<?php echo kc_section_bg_style(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<section class="section section-zimmer reveal" id="zimmer">
 	<div class="container">
 
 		<?php if ( $eyebrow || $title || $lead ) : ?>

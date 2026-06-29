@@ -404,7 +404,7 @@ add_action(
 										'max_width'     => '',
 										'max_height'    => '',
 										'max_size'      => '',
-										'mime_types'    => 'jpg,jpeg,webp,png',
+										'mime_types'    => '',
 									],
 								],
 							],
