@@ -939,7 +939,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .team-card__role,.team-card__body p{display:none}
 
 /* Leistungen: fond par défaut — écrasé par ACF quand configuré */
-#leistungen{position:relative;background:#F0F2F5;overflow:hidden}
+#leistungen{position:relative;overflow:hidden}
 #leistungen .container{position:relative;z-index:1}
 .svc--blue h3,.svc--green h3,.svc--blue p,.svc--green p{color:var(--navy)}
 .svc--yellow h3,.svc--pink h3{color:var(--magenta-deep)}
