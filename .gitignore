@@ -2,3 +2,24 @@
 vendor/
 composer.lock
 .DS_Store
+
+# Dossiers sources design (non-livrables, exclus du deploy)
+ZACP/
+assets/backgrounds/
+assets/hero clips/
+assets/logo/
+assets/symbols/
+
+# Backups vidéo
+assets/video/*-backup.*
+
+# Fichiers temporaires / screenshots de session (racine uniquement)
+/*.png
+RAPPORT-*.md
+
+# Outils de développement locaux
+.phpactor.json
+.superpowers/
+
+# Plans de session (générés par Claude Code)
+docs/superpowers/
