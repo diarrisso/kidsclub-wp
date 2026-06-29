@@ -964,8 +964,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .fc-key svg{width:16px;height:16px}
 .footer-newsletter{text-decoration:underline;text-underline-offset:3px}
 
-/* Block-Trenner (dünne Linie nach jedem Block, wie PDF) */
-.block-sep{border:0;border-top:1px solid var(--line);margin:32px 0}
+/* Block-Trenner pleine largeur — comme le design PDF */
+.block-sep{display:block;border:0;border-top:1px solid var(--line);margin:clamp(32px,5vw,60px) 0;width:100%}
 
 /* === Termin — design PDF (fond par défaut — écrasé par ACF quand configuré) === */
 .section-termin{background:#F0F2F5;position:relative;overflow:hidden}
