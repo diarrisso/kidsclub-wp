@@ -968,7 +968,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .block-sep{border:0;border-top:1px solid var(--line);margin:0}
 
 /* === Termin — design PDF (fond par défaut — écrasé par ACF quand configuré) === */
-.section-termin{background:#F0F2F5;border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.section-termin{background:#F0F2F5;position:relative;overflow:hidden}
 .section-termin .container{position:relative;z-index:1}
 .section-termin .section-title{color:var(--magenta);font-size:clamp(2.4rem,5.5vw,4.5rem);text-transform:uppercase;white-space:nowrap}
 .section-termin .eyebrow{color:#9aa3b2}
