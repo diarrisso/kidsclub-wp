@@ -1313,3 +1313,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-social .kc-icon-custom{width:22px;height:22px}
 .footer-bottom__social .kc-icon-custom{width:20px;height:20px}
 .swiper-nav .kc-icon-custom{width:22px;height:22px}
+
+/* Micro-animation hover sur les icônes (svg + custom) */
+button svg,a svg,button .kc-icon-custom,a .kc-icon-custom{transition:transform .2s var(--ease)}
+button:hover svg,a:hover svg{transform:scale(1.15)}
+button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
+@media(prefers-reduced-motion:reduce){button:hover svg,a:hover svg{transform:none}button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.4)}}
