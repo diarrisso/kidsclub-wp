@@ -1,9 +1,9 @@
 <?php
 /**
- * Layout: Trenner (Séparateur horizontal pleine largeur).
+ * Layout: Trenner (Séparateur horizontal, aligné sur le container des sections).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<hr class="block-sep">
+<div class="container"><hr class="block-sep"></div>

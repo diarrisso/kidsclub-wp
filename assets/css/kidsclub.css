@@ -961,7 +961,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-newsletter{text-decoration:underline;text-underline-offset:3px}
 
 /* Block-Trenner pleine largeur — comme le design PDF */
-.block-sep{display:block;border:0;border-top:1px solid var(--line);margin:clamp(32px,5vw,60px) 0;width:100%}
+.block-sep{display:block;border:0;border-top:1px solid #000;margin:clamp(32px,5vw,60px) 0;width:100%}
 
 /* === Termin — design PDF (fond par défaut — écrasé par ACF quand configuré) === */
 .section-termin{position:relative;overflow:hidden}
@@ -1070,7 +1070,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:18px;margin-top:4px}
 
 /* --- 9. SECTION WILLKOMMEN : séparateur visible ────────────── */
-.block-sep{border-top:1px solid rgba(16,46,121,.10)}
+.block-sep{border-top:1px solid #000}
 
 /* --- 10. REVEAL : les cartes Leistungen sont visibles sans JS ─ */
 .services-grid .svc.reveal:not(.in){opacity:1;transform:none}
