@@ -671,7 +671,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .wpcf7-validation-errors,.wpcf7-spam-blocked{background:rgba(192,57,43,.08);color:#c0392b}
 
 /* ===== Design Kontakt-Block: blau-graue Karte, weißer Titel, weiße Felder, navy Submit ===== */
-.kontakt-card{background:var(--room-blue);border-radius:24px;padding:clamp(36px,3vw,64px) clamp(22px,3vw,72px);max-width:1080px;margin-inline:auto;text-align:center}
+.kontakt-card{background:transparent;border-radius:24px;padding:clamp(36px,3vw,64px) clamp(22px,3vw,72px);max-width:1080px;margin-inline:auto;text-align:center}
 .section-kontakt .section-title{color:#fff}
 .section-kontakt .section-lead{color:#0E3A8E;margin-top:clamp(14px,2vw,20px)}
 /* Formular füllt die Karte (kein innerer weißer Kasten) */
