@@ -12,7 +12,7 @@ add_action(
 	function () {
 
 		$dir    = get_stylesheet_directory_uri();
-		$ver    = '3.9.4'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+		$ver    = '3.9.5'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 		$debug  = defined( 'WP_DEBUG' ) && WP_DEBUG;
 		$css_sf = $debug ? '' : '.min';
 		$js_sf  = $debug ? '' : '.min';
@@ -31,7 +31,24 @@ add_action(
 
 		// 4. kidsclub JS (minifiziert in Produktion)
 		wp_enqueue_script( 'kidsclub', $dir . '/assets/js/kidsclub' . $js_sf . '.js', [ 'swiper' ], $ver, true );
-		wp_localize_script( 'kidsclub', 'kcData', [ 'themeUri' => $dir ] );
+		// Eigene schwebende Symbole aus den Theme-Optionen (leer = Theme-Standard im JS).
+		$floating_symbols = [];
+		$floating_field   = get_field( 'floating_symbols', 'option' );
+		if ( is_array( $floating_field ) ) {
+			foreach ( $floating_field as $sym ) {
+				if ( is_array( $sym ) && ! empty( $sym['url'] ) ) {
+					$floating_symbols[] = esc_url_raw( $sym['url'] );
+				}
+			}
+		}
+		wp_localize_script(
+			'kidsclub',
+			'kcData',
+			[
+				'themeUri'        => $dir,
+				'floatingSymbols' => $floating_symbols,
+			]
+		);
 
 		// 5. Galerie-Komponente — MUSS vor Alpine laufen (registriert Alpine.data
 		//    bei 'alpine:init'). Als Abhängigkeit von Alpine => garantierte Reihenfolge.

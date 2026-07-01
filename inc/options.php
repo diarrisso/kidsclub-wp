@@ -305,6 +305,25 @@ add_action(
 						'default_value' => 'floating',
 						'return_format' => 'value',
 					],
+					[
+						'key'               => 'f_floating_symbols',
+						'label'             => 'Schwebende Symbole (Bilder)',
+						'name'              => 'floating_symbols',
+						'type'              => 'gallery',
+						'instructions'      => 'Eigene Symbole für die schwebende Animation (SVG/PNG/WebP). Leer = Standard-Symbole des Themes.',
+						'return_format'     => 'array',
+						'library'           => 'all',
+						'mime_types'        => 'svg,png,webp',
+						'conditional_logic' => [
+							[
+								[
+									'field'    => 'f_anim_variant',
+									'operator' => '==',
+									'value'    => 'floating',
+								],
+							],
+						],
+					],
 
 					/* ===== SEO ===== */
 					[

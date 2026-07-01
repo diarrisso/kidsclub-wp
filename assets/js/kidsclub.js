@@ -350,6 +350,8 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── Variant 1 : Schwebende Brand-Symbole (anim-floating) ── */
   if (body.classList.contains('anim-floating')) {
     var base = (typeof kcData !== 'undefined' && kcData.themeUri) ? kcData.themeUri : '';
+    // Eigene Symbole aus den Theme-Optionen, sonst Theme-Standard.
+    var custom = (typeof kcData !== 'undefined' && kcData.floatingSymbols && kcData.floatingSymbols.length) ? kcData.floatingSymbols : null;
     var positions = [
       [8,12],[18,45],[5,70],[88,8],[92,55],[75,30],[30,88],[60,15],[45,65],[80,78]
     ];
@@ -357,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var el = document.createElement('div');
       el.className = 'kc-floater';
       var img = document.createElement('img');
-      img.src     = base + '/assets/img/symbols/Symbol' + ((i % 5) + 1) + 'a.svg';
+      img.src     = custom ? custom[i % custom.length] : base + '/assets/img/symbols/Symbol' + ((i % 5) + 1) + 'a.svg';
       img.alt     = '';
       img.loading = 'lazy';
       el.appendChild(img);

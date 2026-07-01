@@ -16,10 +16,11 @@ $cta_link    = get_field( 'header_cta_link', 'option' ) ?: '#termin';
 $alt_desktop = esc_attr( ( is_array( $logo ) && $logo['alt'] ) ? $logo['alt'] : 'Kids Club by zacp' );
 $alt_mobile  = esc_attr( ( is_array( $logo_mobile ) && $logo_mobile['alt'] ) ? $logo_mobile['alt'] : 'Kids Club by zacp' );
 $src_desktop = $logo ? esc_url( $logo['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) );
-$src_mobile  = $logo_mobile ? esc_url( $logo_mobile['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-hoch.svg' ) );
+// Mobil nutzt jetzt AUCH das Querformat-Logo (kein Hochformat mehr im Header).
+$src_mobile  = $logo_mobile ? esc_url( $logo_mobile['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) );
 
-$brand = '<img class="brand-logo brand-logo--desktop" src="' . $src_desktop . '" alt="' . $alt_desktop . '" width="150" height="56">'
-		. '<img class="brand-logo brand-logo--mobile"  src="' . $src_mobile . '" alt="' . $alt_mobile . '" width="48"  height="64">';
+$brand = '<img class="brand-logo brand-logo--desktop" src="' . $src_desktop . '" alt="' . $alt_desktop . '" width="150" height="48">'
+		. '<img class="brand-logo brand-logo--mobile"  src="' . $src_mobile . '" alt="' . $alt_mobile . '" width="124" height="40">';
 
 $nav           = get_field( 'header_nav', 'option' ) ?: [];
 $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';
@@ -70,7 +71,7 @@ function kc_nav_url( $link ) {
 
 <div class="mobile-menu" id="mobileMenu">
 	<div class="mm-top">
-		<img src="<?php echo esc_url( $src_desktop ); ?>" alt="Kids Club by zacp" class="mm-logo" width="150" height="56">
+		<img src="<?php echo esc_url( $src_desktop ); ?>" alt="Kids Club by zacp" class="mm-logo" width="150" height="48">
 		<button class="close" id="menuClose" aria-label="Menü schließen"><?php echo kc_svg( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 	</div>
 	<nav class="mm-nav">
