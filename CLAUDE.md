@@ -94,6 +94,12 @@ trigger button and its `data-booking-open` attribute / handler**.
 
 ## Project guardrails
 
+- **German-only UI — every user-facing string is German.** This is a German practice; the
+  whole admin and front-end is in German. All ACF labels, `instructions`, `choices` labels,
+  option/select names, button text, and front-end copy **must be in German** (e.g. `Weiß`,
+  `Puderrosa`, `Salbei`, `Benutzerdefiniert…`, not `Blanc`, `Rose poudré`, `Sauge`,
+  `Personnalisée`). French is allowed **only in code comments**, never in anything an editor
+  or visitor sees. When adding or editing a field/label, write it in German from the start.
 - **Never load TailwindCSS (`main.css`) into WP admin** via `admin_enqueue_scripts` — the
   Preflight reset breaks native admin styling. A separate `admin.css` (no Preflight) if needed.
 - **Swiper:** `.swiper` has `overflow:hidden` → put card-shadow `padding-bottom` on `.swiper`
