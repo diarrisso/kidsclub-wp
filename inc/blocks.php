@@ -664,7 +664,14 @@ function kc_bg_spray_field( $layout ) {
 		'default_value'     => '',
 		'allow_null'        => false,
 		'instructions'      => 'Wähle einen voreingestellten Spray. Wird ignoriert wenn oben ein eigenes Bild gesetzt ist.',
-		'conditional_logic' => [ [ [ 'field' => 'field_kc_bg_' . $layout, 'operator' => '==empty' ] ] ],
+		'conditional_logic' => [
+			[
+				[
+					'field'    => 'field_kc_bg_' . $layout,
+					'operator' => '==empty',
+				],
+			],
+		],
 	];
 }
 
@@ -678,13 +685,13 @@ function kc_bg_color_field( $layout ) {
 			'name'          => 'bg_color_preset',
 			'type'          => 'select',
 			'choices'       => [
-				''         => '— Standard (CSS) —',
-				'#FFFFFF'  => 'Weiß',
-				'#EFF2F0'  => 'Grüngrau (Band)',
-				'#FBB9C4'  => 'Puderrosa',
-				'#FAECBF'  => 'Creme',
-				'#D4DED7'  => 'Salbei',
-				'custom'   => 'Benutzerdefiniert…',
+				''        => '— Standard (CSS) —',
+				'#FFFFFF' => 'Weiß',
+				'#EFF2F0' => 'Grüngrau (Band)',
+				'#FBB9C4' => 'Puderrosa',
+				'#FAECBF' => 'Creme',
+				'#D4DED7' => 'Salbei',
+				'custom'  => 'Benutzerdefiniert…',
 			],
 			'default_value' => '',
 			'allow_null'    => false,
@@ -696,7 +703,15 @@ function kc_bg_color_field( $layout ) {
 			'name'              => 'background_color',
 			'type'              => 'color_picker',
 			'default_value'     => '',
-			'conditional_logic' => [ [ [ 'field' => $preset_key, 'operator' => '==', 'value' => 'custom' ] ] ],
+			'conditional_logic' => [
+				[
+					[
+						'field'    => $preset_key,
+						'operator' => '==',
+						'value'    => 'custom',
+					],
+				],
+			],
 			'instructions'      => 'Nur sichtbar, wenn oben „Benutzerdefiniert“ gewählt ist.',
 		],
 	];
@@ -705,7 +720,14 @@ function kc_bg_color_field( $layout ) {
 /** Darstellungs-Einstellungen fürs Hintergrundbild pro Section. */
 function kc_bg_settings_fields( $layout ) {
 	$img_key   = 'field_kc_bg_' . $layout;
-	$show_cond = [ [ [ 'field' => $img_key, 'operator' => '!=empty' ] ] ];
+	$show_cond = [
+		[
+			[
+				'field'    => $img_key,
+				'operator' => '!=empty',
+			],
+		],
+	];
 
 	return [
 		[

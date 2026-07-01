@@ -19,7 +19,7 @@ $src_desktop = $logo ? esc_url( $logo['url'] ) : esc_url( get_theme_file_uri( 'a
 $src_mobile  = $logo_mobile ? esc_url( $logo_mobile['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-hoch.svg' ) );
 
 $brand = '<img class="brand-logo brand-logo--desktop" src="' . $src_desktop . '" alt="' . $alt_desktop . '" width="150" height="56">'
-       . '<img class="brand-logo brand-logo--mobile"  src="' . $src_mobile  . '" alt="' . $alt_mobile  . '" width="48"  height="64">';
+		. '<img class="brand-logo brand-logo--mobile"  src="' . $src_mobile . '" alt="' . $alt_mobile . '" width="48"  height="64">';
 
 $nav           = get_field( 'header_nav', 'option' ) ?: [];
 $section_align = get_field( 'section_alignment', 'option' ) ?: 'left';

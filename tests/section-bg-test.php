@@ -4,8 +4,12 @@
  * Kein WP-Bootstrap — die Escaping-Funktionen werden gestubbt.
  * Run: php tests/section-bg-test.php
  */
-if ( ! function_exists( 'esc_url' ) )  { function esc_url( $u ) { return $u; } }
-if ( ! function_exists( 'esc_attr' ) ) { function esc_attr( $s ) { return $s; } }
+if ( ! function_exists( 'esc_url' ) ) {
+	function esc_url( $u ) {
+		return $u; } }
+if ( ! function_exists( 'esc_attr' ) ) {
+	function esc_attr( $s ) {
+		return $s; } }
 
 require __DIR__ . '/../inc/section-bg.php';
 
@@ -15,15 +19,15 @@ function check( $label, $actual, $expected ) {
 	if ( $actual === $expected ) {
 		echo "PASS: $label\n";
 	} else {
-		$failed++;
+		++$failed;
 		echo "FAIL: $label\n  expected: " . var_export( $expected, true ) . "\n  actual:   " . var_export( $actual, true ) . "\n";
 	}
 }
 
 // hex -> rgb
-check( 'hex 6-stellig',      kc_section_bg_hex_to_rgb( '#0E3A8E' ), '14,58,142' );
-check( 'hex 3-stellig',      kc_section_bg_hex_to_rgb( '#fff' ),    '255,255,255' );
-check( 'hex ungültig->weiß', kc_section_bg_hex_to_rgb( 'xyz' ),     '255,255,255' );
+check( 'hex 6-stellig', kc_section_bg_hex_to_rgb( '#0E3A8E' ), '14,58,142' );
+check( 'hex 3-stellig', kc_section_bg_hex_to_rgb( '#fff' ), '255,255,255' );
+check( 'hex ungültig->weiß', kc_section_bg_hex_to_rgb( 'xyz' ), '255,255,255' );
 
 // build_style
 check( 'leer -> ""', kc_section_bg_build_style( [] ), '' );
@@ -38,7 +42,15 @@ check(
 
 check(
 	'Bild + Farbe (Schleier nimmt Farbe)',
-	kc_section_bg_build_style( [ 'img' => 'http://x/a.png', 'color' => '#000000', 'opacity' => 20, 'size' => 'cover', 'position' => 'center' ] ),
+	kc_section_bg_build_style(
+		[
+			'img'      => 'http://x/a.png',
+			'color'    => '#000000',
+			'opacity'  => 20,
+			'size'     => 'cover',
+			'position' => 'center',
+		]
+	),
 	'background-color:#000000;background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(http://x/a.png);background-size:cover;background-position:center;background-repeat:no-repeat'
 );
 

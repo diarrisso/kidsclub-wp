@@ -37,14 +37,15 @@ $qr_alt = ( is_array( $qr ) && ! empty( $qr['alt'] ) ) ? $qr['alt'] : 'QR-Code f
 
 // Logo footer : champ ACF options en priorité, fallback fichier SVG.
 $footer_logo_acf = get_field( 'footer_logo', 'option' );
+// Valeurs brutes ici ; l'échappement se fait au point de sortie (escape-on-output, WPCS).
 if ( is_array( $footer_logo_acf ) && ! empty( $footer_logo_acf['url'] ) ) {
-	$logo_url = esc_url( $footer_logo_acf['url'] );
+	$logo_url = $footer_logo_acf['url'];
 	$logo_w   = ! empty( $footer_logo_acf['width'] ) ? (int) $footer_logo_acf['width'] : 118;
 	$logo_h   = ! empty( $footer_logo_acf['height'] ) ? (int) $footer_logo_acf['height'] : 149;
-	$logo_alt = ! empty( $footer_logo_acf['alt'] ) ? esc_attr( $footer_logo_acf['alt'] ) : 'Kids Club by zacp';
+	$logo_alt = ! empty( $footer_logo_acf['alt'] ) ? $footer_logo_acf['alt'] : 'Kids Club by zacp';
 } else {
 	$logo_path = get_theme_file_path( 'assets/img/logo-hoch-white.svg' );
-	$logo_url  = esc_url( get_theme_file_uri( 'assets/img/logo-hoch-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' ) );
+	$logo_url  = get_theme_file_uri( 'assets/img/logo-hoch-white.svg' ) . '?v=' . ( file_exists( $logo_path ) ? filemtime( $logo_path ) : '1' );
 	$logo_w    = 118;
 	$logo_h    = 149;
 	$logo_alt  = 'Kids Club by zacp';
@@ -57,10 +58,10 @@ if ( is_array( $footer_logo_acf ) && ! empty( $footer_logo_acf['url'] ) ) {
 
 			<!-- Col 1: Logo -->
 			<div class="footer-logo-col">
-				<img src="<?php echo $logo_url; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — déjà esc_url() ci-dessus ?>"
-					alt="<?php echo $logo_alt; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — déjà esc_attr() ci-dessus ?>"
+				<img src="<?php echo esc_url( $logo_url ); ?>"
+					alt="<?php echo esc_attr( $logo_alt ); ?>"
 					class="footer-logo footer-logo--hoch"
-					width="<?php echo $logo_w; ?>" height="<?php echo $logo_h; ?>">
+					width="<?php echo (int) $logo_w; ?>" height="<?php echo (int) $logo_h; ?>">
 			</div>
 
 			<!-- Col 2: Adresse -->

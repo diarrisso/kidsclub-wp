@@ -64,7 +64,7 @@ function kc_svg( $slug, $label = '' ) {
 	$svg = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
 	// Préfixer tous les IDs pour éviter les conflits quand plusieurs SVGs sont inlinés sur la même page.
-	static $counters = [];
+	static $counters   = [];
 	$counters[ $slug ] = ( $counters[ $slug ] ?? 0 ) + 1;
 	$prefix            = 'kc-' . $slug . '-' . $counters[ $slug ] . '-';
 	$svg               = preg_replace( '/\bid="([^"]+)"/', 'id="' . $prefix . '$1"', $svg );
