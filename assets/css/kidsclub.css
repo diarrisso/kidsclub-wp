@@ -1303,3 +1303,13 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .trust-item .ic .kc-icon-custom{width:21px;height:21px}
 .eltern-item .ic .kc-icon-custom{width:24px;height:24px}
 .book-panel .ph .ic .kc-icon-custom{width:30px;height:30px}
+
+/* Contextes icônes manqués — mêmes tailles que les <svg> statiques */
+.swiper-nav-btn .kc-icon-custom{height:22px;width:auto}
+.einblicke-swiper-wrap .swiper-nav-btn .kc-icon-custom{height:38px;width:auto}
+.faq-item .pm .kc-icon-custom{width:28px;height:28px}
+.kontakt-info-list li .kc-icon-custom{width:22px;height:22px}
+.socials .kc-icon-custom{width:19px;height:19px}
+.footer-social .kc-icon-custom{width:22px;height:22px}
+.footer-bottom__social .kc-icon-custom{width:20px;height:20px}
+.swiper-nav .kc-icon-custom{width:22px;height:22px}
