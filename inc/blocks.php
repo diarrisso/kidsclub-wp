@@ -691,6 +691,7 @@ function kc_bg_color_field( $layout ) {
 				'#FBB9C4' => 'Puderrosa',
 				'#FAECBF' => 'Creme',
 				'#D4DED7' => 'Salbei',
+				'#BDCCC2' => 'Grün',
 				'custom'  => 'Benutzerdefiniert…',
 			],
 			'default_value' => '',
