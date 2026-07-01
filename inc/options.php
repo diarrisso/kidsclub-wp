@@ -325,6 +325,8 @@ add_action(
 						],
 					],
 
+					...kc_build_icon_option_fields(),
+
 					/* ===== SEO ===== */
 					[
 						'key'   => 'tab_seo',
