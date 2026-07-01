@@ -38,6 +38,62 @@ function kc_icon( $slug ) {
  * Ohne $label bleibt aria-hidden="true" (dekorativ).
  * Mit $label wird aria-hidden entfernt und role="img" + aria-label gesetzt.
  */
+/**
+ * UI-Icons, die im Backend (Theme-Optionen → Icons) überschrieben werden können.
+ * slug => Label (Deutsch). Reihenfolge = Reihenfolge im Backend.
+ */
+function kc_ui_icon_slugs() {
+	return [
+		'menu'            => 'Menü (Burger)',
+		'close'           => 'Schließen (X)',
+		'phone'           => 'Telefon',
+		'email'           => 'E-Mail',
+		'fax'             => 'Fax',
+		'back-to-top'     => 'Back-to-Top (Pfeil hoch)',
+		'arrow'           => 'Pfeil',
+		'plus'            => 'Plus',
+		'accordion-open'  => 'Akkordeon geöffnet',
+		'accordion-close' => 'Akkordeon geschlossen',
+		'slide-prev'      => 'Slider zurück',
+		'slide-next'      => 'Slider vor',
+		'facebook'        => 'Facebook',
+	];
+}
+
+/** ACF-Feldname für ein Icon-Override (Bindestrich → Unterstrich). */
+function kc_icon_field_name( $slug ) {
+	return 'icon_' . str_replace( '-', '_', $slug );
+}
+
+/**
+ * Baut die ACF-Felder (Tab + Bild-Felder) für die Icon-Overrides.
+ * Wird in inc/options.php per Spread eingefügt.
+ */
+function kc_build_icon_option_fields() {
+	$fields = [
+		[
+			'key'   => 'tab_icons',
+			'label' => 'Icons',
+			'type'  => 'tab',
+		],
+	];
+	foreach ( kc_ui_icon_slugs() as $slug => $label ) {
+		$name     = kc_icon_field_name( $slug );
+		$fields[] = [
+			'key'           => 'f_' . $name,
+			'label'         => $label,
+			'name'          => $name,
+			'type'          => 'image',
+			'return_format' => 'array',
+			'preview_size'  => 'thumbnail',
+			'library'       => 'all',
+			'mime_types'    => 'svg,png,webp',
+			'instructions'  => 'Eigenes Icon (SVG/PNG/WebP). Leer = Standard-Icon des Themes.',
+		];
+	}
+	return $fields;
+}
+
 function kc_svg( $slug, $label = '' ) {
 	$allowed = [
 		'arrow',
@@ -57,6 +113,16 @@ function kc_svg( $slug, $label = '' ) {
 	if ( ! in_array( $slug, $allowed, true ) ) {
 		return '';
 	}
+
+	// Override aus den Theme-Optionen (Bild-Upload). Leer = Theme-SVG unten.
+	if ( function_exists( 'get_field' ) ) {
+		$custom = get_field( kc_icon_field_name( $slug ), 'option' );
+		if ( is_array( $custom ) && ! empty( $custom['url'] ) ) {
+			$aria = $label ? ' role="img" aria-label="' . esc_attr( $label ) . '"' : ' aria-hidden="true"';
+			return '<img class="kc-icon-custom" src="' . esc_url( $custom['url'] ) . '"' . $aria . ' width="24" height="24" loading="lazy">';
+		}
+	}
+
 	$path = get_theme_file_path( "assets/svg/{$slug}.svg" );
 	if ( ! file_exists( $path ) ) {
 		return '';
