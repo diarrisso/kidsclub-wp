@@ -15,9 +15,12 @@ $cta_link    = get_field( 'header_cta_link', 'option' ) ?: '#termin';
 /* Brand-Markup — Desktop-Logo + Mobil-Logo mit CSS show/hide */
 $alt_desktop = esc_attr( ( is_array( $logo ) && $logo['alt'] ) ? $logo['alt'] : 'Kids Club by zacp' );
 $alt_mobile  = esc_attr( ( is_array( $logo_mobile ) && $logo_mobile['alt'] ) ? $logo_mobile['alt'] : 'Kids Club by zacp' );
-$src_desktop = $logo ? esc_url( $logo['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) );
+// Fallback-Logo (Theme-Asset) mit Cache-Buster (filemtime), damit ein neues Logo sofort erscheint.
+$logo_quer_path = get_theme_file_path( 'assets/img/logo-quer.svg' );
+$logo_quer_uri  = get_theme_file_uri( 'assets/img/logo-quer.svg' ) . '?v=' . ( file_exists( $logo_quer_path ) ? filemtime( $logo_quer_path ) : '1' );
+$src_desktop = $logo ? esc_url( $logo['url'] ) : esc_url( $logo_quer_uri );
 // Mobil nutzt jetzt AUCH das Querformat-Logo (kein Hochformat mehr im Header).
-$src_mobile  = $logo_mobile ? esc_url( $logo_mobile['url'] ) : esc_url( get_theme_file_uri( 'assets/img/logo-quer.svg' ) );
+$src_mobile  = $logo_mobile ? esc_url( $logo_mobile['url'] ) : esc_url( $logo_quer_uri );
 
 $brand = '<img class="brand-logo brand-logo--desktop" src="' . $src_desktop . '" alt="' . $alt_desktop . '" width="150" height="48">'
 		. '<img class="brand-logo brand-logo--mobile"  src="' . $src_mobile . '" alt="' . $alt_mobile . '" width="124" height="40">';
