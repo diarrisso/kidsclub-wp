@@ -119,7 +119,7 @@ function kc_svg( $slug, $label = '' ) {
 		$custom = get_field( kc_icon_field_name( $slug ), 'option' );
 		if ( is_array( $custom ) && ! empty( $custom['url'] ) ) {
 			$aria = $label ? ' role="img" aria-label="' . esc_attr( $label ) . '"' : ' aria-hidden="true"';
-			return '<img class="kc-icon-custom" src="' . esc_url( $custom['url'] ) . '"' . $aria . ' width="24" height="24" loading="lazy">';
+			return '<img class="kc-icon-custom" src="' . esc_url( $custom['url'] ) . '"' . $aria . ' width="24" height="24">';
 		}
 	}
 
