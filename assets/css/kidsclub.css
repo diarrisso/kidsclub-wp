@@ -119,8 +119,8 @@ p{margin:0 0 1em}
    wie .section-head .lead (vorher kleiner überschrieben) — nur Farbe + Abstand bleiben eigen. */
 .section-head .lead,
 .section-lead{font-size:clamp(1.1rem,1.6vw,1.5rem);font-weight:400;line-height:1.43;letter-spacing:.01em}
-.section-lead{color:var(--ink-soft);margin:0 0 clamp(28px,4vw,44px)}
-.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:10px}
+.section-lead{color:var(--ink-soft);margin:var(--gap-title) 0 clamp(28px,4vw,44px)}
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow)}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
 .hl{color:var(--magenta)}
@@ -961,7 +961,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-newsletter{text-decoration:underline;text-underline-offset:3px}
 
 /* Block-Trenner pleine largeur — comme le design PDF */
-.block-sep{display:block;border:0;border-top:1px solid var(--line);margin:clamp(32px,5vw,60px) 0;width:100%}
+.block-sep{display:block;border:0;border-top:1px solid #000;margin:clamp(32px,5vw,60px) 0;width:100%}
 
 /* === Termin — design PDF (fond par défaut — écrasé par ACF quand configuré) === */
 .section-termin{position:relative;overflow:hidden}
@@ -1070,7 +1070,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:18px;margin-top:4px}
 
 /* --- 9. SECTION WILLKOMMEN : séparateur visible ────────────── */
-.block-sep{border-top:1px solid rgba(16,46,121,.10)}
+.block-sep{border-top:1px solid #000}
 
 /* --- 10. REVEAL : les cartes Leistungen sont visibles sans JS ─ */
 .services-grid .svc.reveal:not(.in){opacity:1;transform:none}
@@ -1182,7 +1182,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Adresse + Öffnungszeiten: heller Lauftext */
 .footer-address address,
 .footer-hours p{font-style:normal;color:#fff;font-size:.95rem;line-height:1.9;margin:0}
-.footer-address .footer-contact-line{display:flex;gap:8px;align-items:baseline;font-size:.95rem;color:#fff;line-height:1.9;margin:0}
+.footer-address .footer-contact-line{display:flex;gap:8px;align-items:center;font-size:.95rem;color:#fff;line-height:1.9;margin:0}
 .footer-address .footer-contact-line a{color:#fff}
 .footer-address .fc-key{color:#fff;min-width:16px}
 /* Buchungsspalte: Text + QR + Button in einem flex-wrap Container */
