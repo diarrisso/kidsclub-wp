@@ -5,7 +5,9 @@
  *
  * Diese Seitenvorlage rendert ausschliesslich die ACF-Flexible-Content-Sektionen.
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 get_header();
 ?>
 <main id="top">

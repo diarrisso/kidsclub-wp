@@ -32,6 +32,23 @@
         <exclude name="Squiz.PHP.DisallowMultipleAssignments"/>
     </rule>
 
+    <!-- Propriétés natives de l'API DOM PHP (DOMNode/DOMAttr/DOMElement) — imposées par PHP,
+         non renommables. Utilisées dans la sanitisation SVG (inc/setup.php). -->
+    <rule ref="WordPress.NamingConventions.ValidVariableName">
+        <properties>
+            <property name="allowed_custom_properties" type="array">
+                <element value="parentNode"/>
+                <element value="localName"/>
+                <element value="ownerElement"/>
+                <element value="documentElement"/>
+                <element value="nodeName"/>
+                <element value="nodeValue"/>
+                <element value="childNodes"/>
+                <element value="tagName"/>
+            </property>
+        </properties>
+    </rule>
+
     <!-- Sécurité : échappement output + nonces (le plus important) -->
     <rule ref="WordPress.Security"/>
     <rule ref="WordPress.Security.EscapeOutput">

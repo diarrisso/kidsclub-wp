@@ -98,9 +98,9 @@ function kc_section_bg_style(): string {
 		return '';
 	}
 
-	$bg_img     = get_sub_field( 'background_image' );
-	$has_bg_img = is_array( $bg_img ) && ! empty( $bg_img['url'] );
-	$preset     = (string) get_sub_field( 'bg_spray_preset' );
+	$bg_img      = get_sub_field( 'background_image' );
+	$has_bg_img  = is_array( $bg_img ) && ! empty( $bg_img['url'] );
+	$preset      = (string) get_sub_field( 'bg_spray_preset' );
 	$raw_opacity = get_sub_field( 'bg_opacity' );
 
 	// Couleur : preset palette en priorité, sinon color picker (rétrocompat).

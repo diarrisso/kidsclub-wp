@@ -40,6 +40,7 @@ if ( have_rows( 'sections' ) ) :
 			// <section> — neue Layouts müssen dieses Wrapper-Element beibehalten,
 			// sonst bekommt die Section keinen Hintergrund (still, ohne Fehler).
 			// Fallback auf $kc_html, falls preg_replace null liefert (pcre.backtrack_limit).
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $kc_html ist bereits gerendertes Template-HTML; $kc_bg_style ist in section-bg.php escaped.
 			echo preg_replace_callback(
 				'/<section([^>]*)>/',
 				function ( $m ) use ( $kc_bg_style ) {
