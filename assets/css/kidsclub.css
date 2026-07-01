@@ -899,7 +899,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* ---------- WILLKOMMEN (Intro) ---------- */
 .intro-welcome{padding:clamp(48px,7vw,84px) 0}
-.intro-welcome__inner{max-width:960px;margin-inline:auto;text-align:center;color:var(--magenta);font-size:1.15rem;line-height:1.7}
+.intro-welcome__inner{max-width:var(--maxw);margin-inline:auto;text-align:center;color:var(--magenta);font-size:1.15rem;line-height:1.7}
 .intro-welcome__inner p{margin:0 0 1em}
 .intro-welcome__inner strong{color:var(--magenta);font-weight:700}
 
