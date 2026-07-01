@@ -405,9 +405,9 @@ section{position:relative;z-index:2}
 }
 
 /* Karussell-Navigationsbutton (geteilt: Einblicke, Stimmen …) */
-.swiper-nav-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border-radius:50%;background:transparent;border:0;box-shadow:none;display:grid;place-items:center;cursor:pointer;color:var(--navy);transition:background .2s,transform .2s,color .2s}
+.swiper-nav-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:56px;height:56px;border-radius:50%;background:transparent;border:0;box-shadow:none;display:grid;place-items:center;cursor:pointer;color:var(--navy);transition:background .2s,transform .2s,color .2s}
 .swiper-nav-btn:hover{background:transparent;color:var(--magenta);transform:translateY(-50%) scale(1.08)}
-.swiper-nav-btn svg{height:30px;width:auto}
+.swiper-nav-btn svg{height:48px;width:auto}
 
 /* ---------- RÄUME : farbige Kreise mit Mouseover-Text ---------- */
 .rooms-circles{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(16px,3vw,40px)}
@@ -1305,7 +1305,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .book-panel .ph .ic .kc-icon-custom{width:30px;height:30px}
 
 /* Contextes icônes manqués — mêmes tailles que les <svg> statiques */
-.swiper-nav-btn .kc-icon-custom{width:30px;height:30px}
+.swiper-nav-btn .kc-icon-custom{width:48px;height:48px}
 .einblicke-swiper-wrap .swiper-nav-btn .kc-icon-custom{width:38px;height:38px}
 .faq-item .pm .kc-icon-custom{width:28px;height:28px}
 .kontakt-info-list li .kc-icon-custom{width:22px;height:22px}
