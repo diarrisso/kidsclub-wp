@@ -13,7 +13,8 @@ function kc_icon( $slug ) {
 	if ( function_exists( 'get_field' ) && array_key_exists( $slug, kc_content_icon_slugs() ) ) {
 		$custom = get_field( kc_icon_field_name( $slug ), 'option' );
 		if ( is_array( $custom ) && ! empty( $custom['url'] ) ) {
-			return '<img class="kc-icon-custom" src="' . esc_url( $custom['url'] ) . '" aria-hidden="true" width="24" height="24">';
+			$u = esc_url( $custom['url'] );
+			return '<span class="kc-icon-custom" aria-hidden="true" style="-webkit-mask:url(' . $u . ') center/contain no-repeat;mask:url(' . $u . ') center/contain no-repeat"></span>';
 		}
 	}
 	$s   = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
@@ -167,7 +168,8 @@ function kc_svg( $slug, $label = '' ) {
 		$custom = get_field( kc_icon_field_name( $slug ), 'option' );
 		if ( is_array( $custom ) && ! empty( $custom['url'] ) ) {
 			$aria = $label ? ' role="img" aria-label="' . esc_attr( $label ) . '"' : ' aria-hidden="true"';
-			return '<img class="kc-icon-custom" src="' . esc_url( $custom['url'] ) . '"' . $aria . ' width="24" height="24">';
+			$u    = esc_url( $custom['url'] );
+			return '<span class="kc-icon-custom"' . $aria . ' style="-webkit-mask:url(' . $u . ') center/contain no-repeat;mask:url(' . $u . ') center/contain no-repeat"></span>';
 		}
 	}
 

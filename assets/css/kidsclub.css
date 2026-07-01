@@ -1287,7 +1287,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 }
 
 /* Überschreibbare UI-Icons (Bild-Upload aus Theme-Optionen) — Größe je Kontext wie die SVGs */
-.kc-icon-custom{object-fit:contain;display:block;transform:scale(1.4)}
+.kc-icon-custom{display:inline-block;background-color:currentColor;transform:scale(1.4)}
 .eyebrow .kc-icon-custom{width:24px;height:24px}
 .btn .kc-icon-custom{width:20px;height:20px}
 .btn-sm .kc-icon-custom{width:14px;height:14px}
