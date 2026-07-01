@@ -9,6 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function kc_icon( $slug ) {
+	// Override aus den Theme-Optionen (Bild-Upload). Leer = Inline-SVG unten.
+	if ( function_exists( 'get_field' ) && array_key_exists( $slug, kc_content_icon_slugs() ) ) {
+		$custom = get_field( kc_icon_field_name( $slug ), 'option' );
+		if ( is_array( $custom ) && ! empty( $custom['url'] ) ) {
+			return '<img class="kc-icon-custom" src="' . esc_url( $custom['url'] ) . '" aria-hidden="true" width="24" height="24">';
+		}
+	}
 	$s   = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"';
 	$map = [
 		'heart'         => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C7 17 4 13.5 4 9.8 4 7 6 5 8.6 5c1.6 0 3 .8 3.4 2 .4-1.2 1.8-2 3.4-2C18 5 20 7 20 9.8c0 3.7-3 7.2-8 11.2Z"/></svg>',
@@ -60,24 +67,31 @@ function kc_ui_icon_slugs() {
 	];
 }
 
+/**
+ * Inhalts-Icons (kc_icon), die überschrieben werden können.
+ * Genutzt v. a. für die Leistungs-Icons (eltern) + Herz.
+ */
+function kc_content_icon_slugs() {
+	return [
+		'heart'    => 'Herz',
+		'vorsorge' => 'Vorsorge',
+		'fuellung' => 'Füllung',
+		'notfall'  => 'Notfall',
+		'lachgas'  => 'Lachgas',
+		'kfo'      => 'Kieferorthopädie',
+		'angst'    => 'Angstpatienten',
+	];
+}
+
 /** ACF-Feldname für ein Icon-Override (Bindestrich → Unterstrich). */
 function kc_icon_field_name( $slug ) {
 	return 'icon_' . str_replace( '-', '_', $slug );
 }
 
-/**
- * Baut die ACF-Felder (Tab + Bild-Felder) für die Icon-Overrides.
- * Wird in inc/options.php per Spread eingefügt.
- */
-function kc_build_icon_option_fields() {
-	$fields = [
-		[
-			'key'   => 'tab_icons',
-			'label' => 'Icons',
-			'type'  => 'tab',
-		],
-	];
-	foreach ( kc_ui_icon_slugs() as $slug => $label ) {
+/** Baut die Bild-Felder für eine slug=>Label-Map (ohne Tab). */
+function kc_icon_fields_from_map( array $map ) {
+	$fields = [];
+	foreach ( $map as $slug => $label ) {
 		$name     = kc_icon_field_name( $slug );
 		$fields[] = [
 			'key'           => 'f_' . $name,
@@ -92,6 +106,40 @@ function kc_build_icon_option_fields() {
 		];
 	}
 	return $fields;
+}
+
+/**
+ * Baut die ACF-Felder (Tab + Bild-Felder) für die Icon-Overrides.
+ * Wird in inc/options.php per Spread eingefügt.
+ */
+function kc_build_icon_option_fields() {
+	return array_merge(
+		[
+			[
+				'key'   => 'tab_icons',
+				'label' => 'Icons',
+				'type'  => 'tab',
+			],
+			[
+				'key'     => 'msg_icons_ui',
+				'label'   => 'UI-Icons',
+				'name'    => '',
+				'type'    => 'message',
+				'message' => 'Bedien-Icons (Header, Menü, Slider, Footer). Leer = Standard-Icon des Themes.',
+			],
+		],
+		kc_icon_fields_from_map( kc_ui_icon_slugs() ),
+		[
+			[
+				'key'     => 'msg_icons_content',
+				'label'   => 'Inhalts-Icons',
+				'name'    => '',
+				'type'    => 'message',
+				'message' => 'Leistungs-Icons (Eltern-Bereich) + Herz. Leer = Standard-Icon des Themes.',
+			],
+		],
+		kc_icon_fields_from_map( kc_content_icon_slugs() )
+	);
 }
 
 function kc_svg( $slug, $label = '' ) {

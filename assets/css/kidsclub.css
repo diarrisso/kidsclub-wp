@@ -1298,3 +1298,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .fc-key .kc-icon-custom{width:16px;height:16px}
 .footer-social .kc-icon-custom{width:22px;height:22px}
 .back-to-top .kc-icon-custom{width:20px;height:20px}
+
+/* Inhalts-Icons (kc_icon) überschreibbar — Größe je Kontext */
+.trust-item .ic .kc-icon-custom{width:21px;height:21px}
+.eltern-item .ic .kc-icon-custom{width:24px;height:24px}
+.book-panel .ph .ic .kc-icon-custom{width:30px;height:30px}
