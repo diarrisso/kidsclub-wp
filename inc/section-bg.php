@@ -118,13 +118,15 @@ function kc_section_bg_style(): string {
 	$is_spray_only = '' !== $preset && ! $has_bg_img;
 	$opacity       = $is_spray_only ? 100 : ( ( false !== $raw_opacity && '' !== $raw_opacity ) ? (int) $raw_opacity : 60 );
 
+	// Maquette : les sprays sont des bandes (~4:1) posées EN HAUT de la
+	// section, derrière le titre — jamais étirées sur toute la hauteur.
 	$style = kc_section_bg_build_style(
 		[
 			'img'      => kc_section_bg_resolve_img(),
 			'color'    => $color,
 			'opacity'  => $opacity,
-			'size'     => $is_spray_only ? 'cover' : ( (string) get_sub_field( 'bg_size' ) ),
-			'position' => $is_spray_only ? 'center center' : ( (string) get_sub_field( 'bg_position' ) ),
+			'size'     => $is_spray_only ? '100% auto' : ( (string) get_sub_field( 'bg_size' ) ),
+			'position' => $is_spray_only ? 'center top' : ( (string) get_sub_field( 'bg_position' ) ),
 		]
 	);
 

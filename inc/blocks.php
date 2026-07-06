@@ -52,6 +52,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'hero' ),
+									kc_bg_spray_field( 'hero' ),
 									...kc_bg_color_field( 'hero' ),
 									...kc_bg_settings_fields( 'hero' ),
 									kc_field( 'hero_eyebrow', 'Eyebrow', 'text' ),
@@ -188,6 +189,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'willkommen' ),
+									kc_bg_spray_field( 'willkommen' ),
 									...kc_bg_color_field( 'willkommen' ),
 									...kc_bg_settings_fields( 'willkommen' ),
 									[
@@ -291,6 +293,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'zimmer' ),
+									kc_bg_spray_field( 'zimmer' ),
 									...kc_bg_color_field( 'zimmer' ),
 									...kc_bg_settings_fields( 'zimmer' ),
 									[
@@ -348,6 +351,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'ablauf' ),
+									kc_bg_spray_field( 'ablauf' ),
 									...kc_bg_color_field( 'ablauf' ),
 									...kc_bg_settings_fields( 'ablauf' ),
 									kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
@@ -381,6 +385,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'galerie' ),
+									kc_bg_spray_field( 'galerie' ),
 									...kc_bg_color_field( 'galerie' ),
 									...kc_bg_settings_fields( 'galerie' ),
 									kc_field( 'gl_eyebrow', 'Eyebrow', 'text' ),
@@ -452,6 +457,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'eltern' ),
+									kc_bg_spray_field( 'eltern' ),
 									...kc_bg_color_field( 'eltern' ),
 									...kc_bg_settings_fields( 'eltern' ),
 									kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
@@ -587,6 +593,7 @@ add_action(
 								'display'    => 'block',
 								'sub_fields' => [
 									kc_bg_field( 'kontakt' ),
+									kc_bg_spray_field( 'kontakt' ),
 									...kc_bg_color_field( 'kontakt' ),
 									...kc_bg_settings_fields( 'kontakt' ),
 									kc_field( 'kt_eyebrow', 'Eyebrow', 'text' ),
@@ -654,12 +661,14 @@ function kc_bg_spray_field( $layout ) {
 		'type'              => 'select',
 		'choices'           => [
 			''       => '— Keiner —',
-			'Spray1' => 'Spray 1',
-			'Spray2' => 'Spray 2',
-			'Spray3' => 'Spray 3',
-			'Spray4' => 'Spray 4',
-			'Spray5' => 'Spray 5',
-			'Spray6' => 'Spray 6',
+			'Spray1' => 'Spray 1 (Weiß → Hellgrau)',
+			'Spray2' => 'Spray 2 (Hellgrau → Weiß)',
+			'Spray3' => 'Spray 3 (Weiß → Salbei)',
+			'Spray4' => 'Spray 4 (Salbei → Weiß)',
+			'Spray5' => 'Spray 5 (Weiß → Creme)',
+			'Spray6' => 'Spray 6 (Creme → Weiß)',
+			'Spray7' => 'Spray 7 (Weiß → Rosé)',
+			'Spray8' => 'Spray 8 (Rosé → Weiß)',
 		],
 		'default_value'     => '',
 		'allow_null'        => false,
@@ -687,6 +696,10 @@ function kc_bg_color_field( $layout ) {
 			'choices'       => [
 				''        => '— Standard (CSS) —',
 				'#FFFFFF' => 'Weiß',
+				'#F6F6F6' => 'Hellgrau (Spray 1/2)',
+				'#EEF2EF' => 'Salbei hell (Spray 3/4)',
+				'#FFFBEE' => 'Creme hell (Spray 5/6)',
+				'#F9F2F0' => 'Rosé hell (Spray 7/8)',
 				'#EFF2F0' => 'Grüngrau (Band)',
 				'#FBB9C4' => 'Puderrosa',
 				'#FAECBF' => 'Creme',
