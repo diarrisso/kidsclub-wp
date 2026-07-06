@@ -57,8 +57,11 @@ function kc_section_bg_build_style( array $o ): string {
 		}
 	}
 	if ( $has_img ) {
-		$veil    = 'linear-gradient(rgba(' . $rgb . ',' . $alpha . '),rgba(' . $rgb . ',' . $alpha . '))';
-		$decls[] = 'background-image:' . $veil . ',url(' . esc_url( $img ) . ')';
+		// Voile d'atténuation seulement si une opacité < 100 est demandée.
+		$veil    = $alpha > 0
+			? 'linear-gradient(rgba(' . $rgb . ',' . $alpha . '),rgba(' . $rgb . ',' . $alpha . ')),'
+			: '';
+		$decls[] = 'background-image:' . $veil . 'url(' . esc_url( $img ) . ')';
 		$decls[] = 'background-size:' . esc_attr( $size );
 		$decls[] = 'background-position:' . esc_attr( $position );
 		$decls[] = 'background-repeat:no-repeat';
@@ -68,40 +71,19 @@ function kc_section_bg_build_style( array $o ): string {
 }
 
 /**
- * Résout l'URL d'image à utiliser : image ACF (médiathèque) en priorité,
- * puis spray prédéfini depuis les assets du thème.
- */
-function kc_section_bg_resolve_img(): string {
-	if ( ! function_exists( 'get_sub_field' ) ) {
-		return '';
-	}
-
-	$img = get_sub_field( 'background_image' );
-	if ( is_array( $img ) && ! empty( $img['url'] ) ) {
-		return $img['url'];
-	}
-
-	$preset = (string) get_sub_field( 'bg_spray_preset' );
-	if ( '' !== $preset ) {
-		return get_theme_file_uri( 'assets/img/' . $preset . '.png' );
-	}
-
-	return '';
-}
-
-/**
  * Liest die Sub-Fields der aktuellen ACF-Row und liefert das fertige
  * `style`-Attribut (inkl. führendem Leerzeichen) oder '' zurück.
+ *
+ * Maquette : les sprays sont des bandes de transition (Spray1–6 : 1700×984,
+ * Spray7/8 : 1950×450) posées EN HAUT de la section à leur hauteur naturelle
+ * (largeur 100 %), derrière le titre — jamais étirées, jamais voilées.
  */
 function kc_section_bg_style(): string {
 	if ( ! function_exists( 'get_sub_field' ) ) {
 		return '';
 	}
 
-	$bg_img      = get_sub_field( 'background_image' );
-	$has_bg_img  = is_array( $bg_img ) && ! empty( $bg_img['url'] );
-	$preset      = (string) get_sub_field( 'bg_spray_preset' );
-	$raw_opacity = get_sub_field( 'bg_opacity' );
+	$preset = (string) get_sub_field( 'bg_spray_preset' );
 
 	// Couleur : preset palette en priorité, sinon color picker (rétrocompat).
 	$color_preset = (string) get_sub_field( 'bg_color_preset' );
@@ -111,23 +93,13 @@ function kc_section_bg_style(): string {
 		$color = (string) get_sub_field( 'background_color' );
 	}
 
-	// Spray sans photo de fond → pas de voile (opacity 100 = alpha 0).
-	// Pour une vraie photo, le fallback à 60 assure une bonne visibilité.
-	// ACF retourne sa default_value même quand le champ est masqué →
-	// on ignore bg_opacity pour les sprays décoratifs.
-	$is_spray_only = '' !== $preset && ! $has_bg_img;
-	$opacity       = $is_spray_only ? 100 : ( ( false !== $raw_opacity && '' !== $raw_opacity ) ? (int) $raw_opacity : 60 );
-
-	// Maquette : les sprays sont des bandes de transition (Spray1–6 : 1700×984,
-	// Spray7/8 : 1950×450) posées EN HAUT de la section à leur hauteur naturelle
-	// (largeur 100 %), derrière le titre — jamais étirées sur toute la hauteur.
 	$style = kc_section_bg_build_style(
 		[
-			'img'      => kc_section_bg_resolve_img(),
+			'img'      => '' !== $preset ? get_theme_file_uri( 'assets/img/' . $preset . '.png' ) : '',
 			'color'    => $color,
-			'opacity'  => $opacity,
-			'size'     => $is_spray_only ? '100% auto' : ( (string) get_sub_field( 'bg_size' ) ),
-			'position' => $is_spray_only ? 'center top' : ( (string) get_sub_field( 'bg_position' ) ),
+			'opacity'  => 100,
+			'size'     => '100% auto',
+			'position' => 'center top',
 		]
 	);
 

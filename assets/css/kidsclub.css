@@ -920,8 +920,8 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 /* Header-CTA: Outline-Pill wie im PDF (weiß, magenta Rand + Text) */
 /* (.nav-cta .btn-primary Outline = vom Basis-.btn-primary geerbt, kein Duplikat) */
 
-/* Zimmer + Leistungen: les backgrounds décoratifs sont maintenant gérés via ACF
-   (background_image par section) → pas de ::before hardcodé ici */
+/* Zimmer + Leistungen: les backgrounds décoratifs sont gérés via ACF
+   (bg_spray_preset / bg_color_preset) → pas de ::before hardcodé ici */
 .section-zimmer{position:relative}
 .section-zimmer .container{position:relative;z-index:1}
 /* Team: fond géré via ACF */
