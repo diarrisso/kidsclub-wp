@@ -47,6 +47,19 @@ add_filter(
 	}
 );
 
+// Pas de redirection canonique (slash final) sur /sw.js et /offline :
+// un service worker dont le script répond par un 301 est REFUSÉ par le
+// navigateur (l'enregistrement échoue silencieusement).
+add_filter(
+	'redirect_canonical',
+	function ( $redirect_url ) {
+		if ( get_query_var( 'kc_pwa' ) ) {
+			return false;
+		}
+		return $redirect_url;
+	}
+);
+
 add_action(
 	'template_redirect',
 	function () {
