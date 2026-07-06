@@ -85,6 +85,10 @@ function kc_section_bg_style(): string {
 
 	$preset = (string) get_sub_field( 'bg_spray_preset' );
 
+	// Versatz nach oben (px) : schiebt die Bande hoch, damit die Striche
+	// hinter der Überschrift landen (die Bänder beginnen mit einer Uni-Zone).
+	$offset = max( 0, min( 500, (int) get_sub_field( 'bg_spray_offset' ) ) );
+
 	// Couleur : preset palette en priorité, sinon color picker (rétrocompat).
 	$color_preset = (string) get_sub_field( 'bg_color_preset' );
 	if ( '' !== $color_preset && 'custom' !== $color_preset ) {
@@ -99,7 +103,7 @@ function kc_section_bg_style(): string {
 			'color'    => $color,
 			'opacity'  => 100,
 			'size'     => '100% auto',
-			'position' => 'center top',
+			'position' => $offset > 0 ? 'center -' . $offset . 'px' : 'center top',
 		]
 	);
 
