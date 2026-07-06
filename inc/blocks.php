@@ -51,7 +51,7 @@ add_action(
 								'label'      => 'Hero (Banner)',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'hero' ),
+									...kc_bg_spray_field( 'hero' ),
 									...kc_bg_color_field( 'hero' ),
 									kc_field( 'hero_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'hero_title', 'Überschrift', 'text' ),
@@ -186,7 +186,7 @@ add_action(
 								'label'      => 'Willkommen (Intro)',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'willkommen' ),
+									...kc_bg_spray_field( 'willkommen' ),
 									...kc_bg_color_field( 'willkommen' ),
 									[
 										'key'          => 'field_kc_wk_text',
@@ -209,7 +209,7 @@ add_action(
 								'label'      => 'Leistungsspektrum',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'leistungen' ),
+									...kc_bg_spray_field( 'leistungen' ),
 									...kc_bg_color_field( 'leistungen' ),
 									[
 										'key'   => 'field_kc_ls_eyebrow',
@@ -286,7 +286,7 @@ add_action(
 								'label'      => '5 Zimmer',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'zimmer' ),
+									...kc_bg_spray_field( 'zimmer' ),
 									...kc_bg_color_field( 'zimmer' ),
 									[
 										'key'   => 'field_kc_zm_eyebrow',
@@ -342,7 +342,7 @@ add_action(
 								'label'      => 'Erster Besuch (Ablauf)',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'ablauf' ),
+									...kc_bg_spray_field( 'ablauf' ),
 									...kc_bg_color_field( 'ablauf' ),
 									kc_field( 'abl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
@@ -374,7 +374,7 @@ add_action(
 								'label'      => 'Galerie',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'galerie' ),
+									...kc_bg_spray_field( 'galerie' ),
 									...kc_bg_color_field( 'galerie' ),
 									kc_field( 'gl_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'gl_title', 'Titel', 'text' ),
@@ -409,7 +409,7 @@ add_action(
 								'label'      => 'Team / Behandler',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'team' ),
+									...kc_bg_spray_field( 'team' ),
 									...kc_bg_color_field( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
@@ -442,7 +442,7 @@ add_action(
 								'label'      => 'Für Eltern',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'eltern' ),
+									...kc_bg_spray_field( 'eltern' ),
 									...kc_bg_color_field( 'eltern' ),
 									kc_field( 'el_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'el_title', 'Überschrift', 'text' ),
@@ -474,7 +474,7 @@ add_action(
 								'label'      => 'Kundenstimmen',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'stimmen' ),
+									...kc_bg_spray_field( 'stimmen' ),
 									...kc_bg_color_field( 'stimmen' ),
 									kc_field( 'st_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'st_title', 'Überschrift', 'text' ),
@@ -502,7 +502,7 @@ add_action(
 								'label'      => 'FAQ',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'faq' ),
+									...kc_bg_spray_field( 'faq' ),
 									...kc_bg_color_field( 'faq' ),
 									kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'fq_title', 'Überschrift', 'text' ),
@@ -532,7 +532,7 @@ add_action(
 								'label'      => 'Termin buchen',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'termin' ),
+									...kc_bg_spray_field( 'termin' ),
 									...kc_bg_color_field( 'termin' ),
 									kc_field( 'tr_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tr_title', 'Überschrift', 'text' ),
@@ -572,7 +572,7 @@ add_action(
 								'label'      => 'Kontakt',
 								'display'    => 'block',
 								'sub_fields' => [
-									kc_bg_spray_field( 'kontakt' ),
+									...kc_bg_spray_field( 'kontakt' ),
 									...kc_bg_color_field( 'kontakt' ),
 									kc_field( 'kt_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'kt_title', 'Überschrift', 'text' ),
@@ -617,27 +617,50 @@ function kc_field( $name, $label, $type ) {
 	];
 }
 
-/** Voreingestellte Spray-Dekoration (Theme-Asset, kein Upload nötig). */
+/** Voreingestellte Spray-Dekoration (Theme-Asset, kein Upload nötig). Retourne 2 champs. */
 function kc_bg_spray_field( $layout ) {
+	$spray_key = 'field_kc_spray_' . $layout;
 	return [
-		'key'               => 'field_kc_spray_' . $layout,
-		'label'             => 'Spray-Dekoration (voreingestellt)',
-		'name'              => 'bg_spray_preset',
-		'type'              => 'select',
-		'choices'           => [
-			''       => '— Keiner —',
-			'Spray1' => 'Spray 1 (Weiß → Hellgrau)',
-			'Spray2' => 'Spray 2 (Hellgrau → Weiß)',
-			'Spray3' => 'Spray 3 (Weiß → Salbei)',
-			'Spray4' => 'Spray 4 (Salbei → Weiß)',
-			'Spray5' => 'Spray 5 (Weiß → Creme)',
-			'Spray6' => 'Spray 6 (Creme → Weiß)',
-			'Spray7' => 'Spray 7 (Weiß → Rosé)',
-			'Spray8' => 'Spray 8 (Rosé → Weiß)',
+		[
+			'key'           => $spray_key,
+			'label'         => 'Spray-Dekoration (voreingestellt)',
+			'name'          => 'bg_spray_preset',
+			'type'          => 'select',
+			'choices'       => [
+				''       => '— Keiner —',
+				'Spray1' => 'Spray 1 (Weiß → Hellgrau)',
+				'Spray2' => 'Spray 2 (Hellgrau → Weiß)',
+				'Spray3' => 'Spray 3 (Weiß → Salbei)',
+				'Spray4' => 'Spray 4 (Salbei → Weiß)',
+				'Spray5' => 'Spray 5 (Weiß → Creme)',
+				'Spray6' => 'Spray 6 (Creme → Weiß)',
+				'Spray7' => 'Spray 7 (Weiß → Rosé)',
+				'Spray8' => 'Spray 8 (Rosé → Weiß)',
+			],
+			'default_value' => '',
+			'allow_null'    => false,
+			'instructions'  => 'Wähle eine voreingestellte Spray-Übergangsbande (erscheint oben in der Sektion, hinter der Überschrift).',
 		],
-		'default_value'     => '',
-		'allow_null'        => false,
-		'instructions'      => 'Wähle eine voreingestellte Spray-Übergangsbande (erscheint oben in der Sektion, hinter der Überschrift).',
+		[
+			'key'               => 'field_kc_sprayoff_' . $layout,
+			'label'             => 'Spray-Versatz nach oben (px)',
+			'name'              => 'bg_spray_offset',
+			'type'              => 'number',
+			'default_value'     => 0,
+			'min'               => 0,
+			'max'               => 500,
+			'step'              => 10,
+			'append'            => 'px',
+			'instructions'      => 'Schiebt die Spray-Bande nach oben, damit die weißen Striche hinter der Überschrift sichtbar werden. 0 = Bande beginnt am Sektionsanfang.',
+			'conditional_logic' => [
+				[
+					[
+						'field'    => $spray_key,
+						'operator' => '!=empty',
+					],
+				],
+			],
+		],
 	];
 }
 
@@ -687,4 +710,3 @@ function kc_bg_color_field( $layout ) {
 		],
 	];
 }
-
