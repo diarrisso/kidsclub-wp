@@ -962,6 +962,9 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* Block-Trenner pleine largeur — comme le design PDF */
 .block-sep{display:block;border:0;border-top:1px solid #000;margin:clamp(32px,5vw,60px) 0;width:100%}
+/* Le padding (pas la marge du hr) porte la couleur de fond ACF de la zone */
+.section-trenner{padding:clamp(32px,5vw,60px) 0}
+.section-trenner .block-sep{margin:0}
 
 /* === Termin — design PDF (fond par défaut — écrasé par ACF quand configuré) === */
 .section-termin{position:relative;overflow:hidden}
