@@ -120,7 +120,7 @@ p{margin:0 0 1em}
 .section-head .lead,
 .section-lead{font-size:clamp(1.1rem,1.6vw,1.5rem);font-weight:400;line-height:1.43;letter-spacing:.01em}
 .section-lead{color:var(--ink-soft);margin:var(--gap-title) 0 clamp(28px,4vw,44px)}
-.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow)}
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:#9aa3b2;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow)}.hero .eyebrow{color:var(--magenta)}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
 .hl{color:var(--magenta)}
@@ -556,7 +556,7 @@ button.chip{border:0;font-family:inherit}
 .accordion-item:has(.accordion-trigger[aria-expanded="true"]){border-color:transparent;box-shadow:var(--shadow)}
 /* FAQ : panel ouvert plus clair, titre magenta, eyebrow gris */
 .section-faq .section-title{color:var(--magenta)}
-.section-faq .eyebrow{color:#9aa3b2}
+
 .faq-accordion .accordion-panel{background:var(--pal-cream);padding:22px 28px 26px}
 .accordion-trigger{width:100%;display:flex;align-items:center;gap:15px;padding:20px 24px;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--navy);transition:background .2s var(--ease)}
 .accordion-trigger:hover{background:color-mix(in oklab,var(--bg) 55%,transparent)}
@@ -717,7 +717,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 
 /* ===== Variante "schlank/modern": ohne farbige Box (kt_card_bg = aus) ===== */
 .kontakt-card--plain{background:none;padding:0;max-width:720px;margin-inline:auto}
-.kontakt-card--plain .eyebrow{color:#9aa3b2}
+
 .kontakt-card--plain .section-title{color:var(--magenta)}
 .kontakt-card--plain .section-lead{color:var(--navy);opacity:.9}
 .kontakt-card--plain .kontakt-inner--form-only .kontakt-form-wrap{margin-top:clamp(22px,3vw,32px)}
@@ -975,7 +975,7 @@ section.reveal.in>*{opacity:1;transform:none}
 .section-termin{position:relative;overflow:hidden}
 .section-termin .container{position:relative;z-index:1}
 .section-termin .section-title{color:var(--magenta);font-size:clamp(2.4rem,5.5vw,4.5rem);text-transform:uppercase;white-space:nowrap}
-.section-termin .eyebrow{color:#9aa3b2}
+
 .section-termin .btn-primary{font-size:1.1rem;padding:16px 48px;letter-spacing:.01em}
 /* Eyebrows zentrieren nur wenn .center explizit gesetzt */
 .section-head.center .eyebrow,[data-section-align="center"] .container>.eyebrow{display:flex;justify-content:center;text-align:center}
