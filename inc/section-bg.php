@@ -118,8 +118,9 @@ function kc_section_bg_style(): string {
 	$is_spray_only = '' !== $preset && ! $has_bg_img;
 	$opacity       = $is_spray_only ? 100 : ( ( false !== $raw_opacity && '' !== $raw_opacity ) ? (int) $raw_opacity : 60 );
 
-	// Maquette : les sprays sont des bandes (~4:1) posées EN HAUT de la
-	// section, derrière le titre — jamais étirées sur toute la hauteur.
+	// Maquette : les sprays sont des bandes de transition (Spray1–6 : 1700×984,
+	// Spray7/8 : 1950×450) posées EN HAUT de la section à leur hauteur naturelle
+	// (largeur 100 %), derrière le titre — jamais étirées sur toute la hauteur.
 	$style = kc_section_bg_build_style(
 		[
 			'img'      => kc_section_bg_resolve_img(),
