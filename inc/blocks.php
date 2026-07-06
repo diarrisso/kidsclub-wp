@@ -580,9 +580,11 @@ add_action(
 							'layout_trenner'    => [
 								'key'        => 'layout_trenner',
 								'name'       => 'trenner',
-								'label'      => '─── Trenner (Séparateur)',
+								'label'      => '─── Trenner (Trennlinie)',
 								'display'    => 'block',
-								'sub_fields' => [],
+								'sub_fields' => [
+									...kc_bg_color_field( 'trenner' ),
+								],
 							],
 
 							/* ---------- KONTAKT ---------- */
