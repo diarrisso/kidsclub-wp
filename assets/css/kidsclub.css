@@ -951,8 +951,8 @@ section.reveal.in>*{opacity:1;transform:none}
 /* Nur 4 Leistungs-Karten wie im PDF */
 .services-grid .svc:nth-child(n+5){display:none}
 
-/* Ablauf: nur 3 Bänder wie im PDF */
-.ablauf-accordion .ablauf-item:nth-child(n+4){display:none}
+/* Ablauf: nur 4 Bänder wie im PDF */
+.ablauf-accordion .ablauf-item:nth-child(n+5){display:none}
 
 /* Alle Block-Titel zentriert (wie Leistungen) */
 .section-title,.section-lead{text-align:center}
