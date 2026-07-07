@@ -412,7 +412,7 @@ section{position:relative;z-index:2}
 /* ---------- RÄUME : farbige Kreise mit Mouseover-Text ---------- */
 .rooms-circles{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(16px,3vw,40px)}
 .rooms-circles__item{display:flex}
-.room{position:relative;width:clamp(140px,15vw,188px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.room{position:relative;width:clamp(150px,16vw,210px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
 .room.has-desc{cursor:pointer}
 .room:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(16,46,121,.18)}
 .room:focus-visible{transform:translateY(-6px);box-shadow:0 14px 32px rgba(16,46,121,.18);outline:3px solid var(--magenta);outline-offset:3px}
