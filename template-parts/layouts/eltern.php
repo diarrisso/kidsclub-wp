@@ -21,7 +21,7 @@ $items   = get_sub_field( 'items' );
 		<?php
 		if ( $text ) :
 			?>
-			<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
+			<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 		<?php if ( $items ) : ?>
 		<div class="accordion" x-data="{ open: null }">
 			<?php foreach ( $items as $i => $item ) : ?>
@@ -45,7 +45,7 @@ $items   = get_sub_field( 'items' );
 					id="eltern-panel-<?php echo absint( $i ); ?>"
 					x-show="open === <?php echo absint( $i ); ?>"
 					x-transition>
-					<p><?php echo esc_html( $item['el_answer'] ); ?></p>
+					<p><?php echo wp_kses( $item['el_answer'], [ 'strong' => [] ] ); ?></p>
 				</div>
 			</div>
 			<?php endforeach; ?>

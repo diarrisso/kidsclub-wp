@@ -348,6 +348,17 @@ add_action(
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
 									kc_field( 'abl_text', 'Einleitung', 'textarea' ),
 									[
+										'key'     => 'field_kc_abl_display',
+										'label'   => 'Darstellung',
+										'name'    => 'display_style',
+										'type'    => 'select',
+										'choices' => [
+											'grid'      => 'Kompakt (Raster wie PDF, alle 4 Karten immer sichtbar)',
+											'accordion' => 'Standard (Akkordeon, eine Karte auf einmal)',
+										],
+										'default_value' => 'grid',
+									],
+									[
 										'key'          => 'field_kc_abl_items',
 										'label'        => 'Schritte',
 										'name'         => 'items',
@@ -413,6 +424,7 @@ add_action(
 									...kc_bg_color_field( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
+									kc_field( 'tm_text', 'Einleitung', 'textarea' ),
 									[
 										'key'          => 'field_kc_tm_members',
 										'label'        => 'Teammitglieder',

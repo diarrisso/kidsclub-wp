@@ -28,7 +28,7 @@ $plain_form = ( null !== $kt_card_bg && ! $kt_card_bg );
 			<?php
 			if ( $text ) :
 				?>
-				<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
+				<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 
 			<div class="kontakt-inner kontakt-inner--form-only">
 

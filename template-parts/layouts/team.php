@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $eyebrow = get_sub_field( 'tm_eyebrow' );
 $title   = get_sub_field( 'tm_title' );
+$text    = get_sub_field( 'tm_text' );
 
 if ( ! function_exists( 'kc_team_card' ) ) :
 	/**
@@ -45,7 +46,7 @@ if ( ! function_exists( 'kc_team_card' ) ) :
 			$bio = get_field( 'tm_bio', $member );
 			if ( $bio ) :
 				?>
-				<p><?php echo esc_html( $bio ); ?></p><?php endif; ?>
+				<p><?php echo wp_kses( $bio, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 		</div>
 	</article>
 		<?php
@@ -55,7 +56,7 @@ endif;
 $team_posts = get_posts(
 	[
 		'post_type'      => 'team',
-		'posts_per_page' => -1,
+		'posts_per_page' => 3, // Vorerst nur 3 Karten zeigen (Team-Ausbau folgt später).
 		'orderby'        => 'menu_order',
 		'order'          => 'ASC',
 	]
@@ -69,6 +70,9 @@ $team_posts = get_posts(
 				?>
 				<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
 			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+			<?php if ( $text ) : ?>
+				<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p>
+			<?php endif; ?>
 		</div>
 		<?php if ( $team_posts ) : ?>
 			<?php
@@ -109,6 +113,7 @@ $team_posts = get_posts(
 			// Fallback : ancien repeater ACF (avant migration vers le CPT).
 			$members = get_sub_field( 'members' );
 			if ( $members ) :
+				$members = array_slice( $members, 0, 3 ); // Vorerst nur 3 Karten zeigen.
 				?>
 			<div class="team-grid">
 				<?php
@@ -131,7 +136,7 @@ $team_posts = get_posts(
 						<?php
 						if ( $member['tm_bio'] ) :
 							?>
-							<p><?php echo esc_html( $member['tm_bio'] ); ?></p><?php endif; ?>
+							<p><?php echo wp_kses( $member['tm_bio'], [ 'strong' => [] ] ); ?></p><?php endif; ?>
 					</div>
 				</article>
 				<?php endforeach; ?>

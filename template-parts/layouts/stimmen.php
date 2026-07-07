@@ -20,7 +20,7 @@ $items   = get_sub_field( 'items' );
 			<?php endif; ?>
 			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
 			<?php if ( $lead ) : ?>
-				<p class="section-lead"><?php echo esc_html( $lead ); ?></p>
+				<p class="section-lead"><?php echo wp_kses( $lead, [ 'strong' => [] ] ); ?></p>
 			<?php endif; ?>
 		</div>
 
@@ -42,7 +42,7 @@ $items   = get_sub_field( 'items' );
 					<div class="swiper-slide" role="group" aria-roledescription="Stimme" aria-label="Stimme <?php echo absint( $i + 1 ); ?> von <?php echo absint( count( $items ) ); ?>"><?php // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase ?>
 						<div class="stimmen-card">
 							<blockquote class="stimmen-quote">
-								<p><?php echo esc_html( $item['st_quote'] ); ?></p>
+								<p><?php echo wp_kses( $item['st_quote'], [ 'strong' => [] ] ); ?></p>
 								<footer class="stimmen-author">
 									<strong><?php echo esc_html( $item['st_name'] ); ?></strong>
 									<?php if ( ! empty( $item['st_role'] ) ) : ?>
