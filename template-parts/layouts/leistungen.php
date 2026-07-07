@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			if ( $t = get_sub_field( 'text' ) ) :
 				?>
-				<p class="lead"><?php echo esc_html( $t ); ?></p><?php endif; ?>
+				<p class="lead"><?php echo wp_kses( $t, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 		</div>
 
 		<div class="services-grid">
