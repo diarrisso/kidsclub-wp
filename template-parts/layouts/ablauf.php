@@ -10,6 +10,7 @@ $eyebrow = get_sub_field( 'abl_eyebrow' );
 $title   = get_sub_field( 'abl_title' );
 $text    = get_sub_field( 'abl_text' );
 $items   = get_sub_field( 'items' );
+$display = get_sub_field( 'display_style' ) ?: 'grid';
 ?>
 <section class="section-ablauf reveal" id="ablauf">
 	<div class="container">
@@ -20,7 +21,21 @@ $items   = get_sub_field( 'items' );
 		<?php if ( $text ) : ?>
 			<p class="section-lead"><?php echo esc_html( $text ); ?></p>
 		<?php endif; ?>
-		<?php if ( $items ) : ?>
+		<?php if ( $items && 'grid' === $display ) : ?>
+		<div class="ablauf-grid">
+			<?php foreach ( $items as $i => $step ) : ?>
+			<div class="ablauf-card">
+				<div class="ablauf-card__head">
+					<span class="ablauf-card__title"><?php echo esc_html( $step['abl_heading'] ); ?></span>
+					<span class="ablauf-card__num" aria-hidden="true"><?php echo esc_html( $step['abl_nr'] ?: (string) ( $i + 1 ) ); ?></span>
+				</div>
+				<?php if ( $step['abl_body'] ) : ?>
+					<p class="ablauf-card__body"><?php echo esc_html( $step['abl_body'] ); ?></p>
+				<?php endif; ?>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<?php elseif ( $items ) : ?>
 		<div class="accordion ablauf-accordion" x-data="{ open: 0 }" x-cloak>
 			<?php foreach ( $items as $i => $step ) : ?>
 			<div class="ablauf-item">
