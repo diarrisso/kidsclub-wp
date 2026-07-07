@@ -69,7 +69,7 @@ $total = count( $photos );
 				<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
 			<?php endif; ?>
 			<?php if ( $text ) : ?>
-				<p class="section-lead"><?php echo esc_html( $text ); ?></p>
+				<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p>
 			<?php endif; ?>
 		</div>
 

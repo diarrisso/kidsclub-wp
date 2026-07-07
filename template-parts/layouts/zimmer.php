@@ -28,7 +28,7 @@ $lead       = get_sub_field( 'text' );
 				<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
 			<?php endif; ?>
 			<?php if ( $lead ) : ?>
-				<p class="section-lead"><?php echo esc_html( $lead ); ?></p>
+				<p class="section-lead"><?php echo wp_kses( $lead, [ 'strong' => [] ] ); ?></p>
 			<?php endif; ?>
 		</div>
 		<?php endif; ?>
