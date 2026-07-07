@@ -61,7 +61,7 @@ $lead       = get_sub_field( 'text' );
 							<b class="room__name"><?php echo esc_html( $name ); ?></b>
 						</span>
 						<?php if ( $desc ) : ?>
-							<span class="room__desc"><?php echo esc_html( $desc ); ?></span>
+							<span class="room__desc"><?php echo wp_kses( $desc, [ 'strong' => [] ] ); ?></span>
 						<?php endif; ?>
 					</div>
 				</li>

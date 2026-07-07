@@ -22,7 +22,7 @@ $embed_code = get_sub_field( 'embed_code' );
 			<?php
 			if ( $text ) :
 				?>
-				<p class="section-lead"><?php echo esc_html( $text ); ?></p><?php endif; ?>
+				<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 		</div>
 		<div class="termin-layout">
 			<?php if ( shortcode_exists( 'masinga_booking' ) ) : ?>

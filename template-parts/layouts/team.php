@@ -46,7 +46,7 @@ if ( ! function_exists( 'kc_team_card' ) ) :
 			$bio = get_field( 'tm_bio', $member );
 			if ( $bio ) :
 				?>
-				<p><?php echo esc_html( $bio ); ?></p><?php endif; ?>
+				<p><?php echo wp_kses( $bio, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 		</div>
 	</article>
 		<?php
@@ -136,7 +136,7 @@ $team_posts = get_posts(
 						<?php
 						if ( $member['tm_bio'] ) :
 							?>
-							<p><?php echo esc_html( $member['tm_bio'] ); ?></p><?php endif; ?>
+							<p><?php echo wp_kses( $member['tm_bio'], [ 'strong' => [] ] ); ?></p><?php endif; ?>
 					</div>
 				</article>
 				<?php endforeach; ?>

@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<article class="svc svc--<?php echo esc_attr( get_sub_field( 'card_color' ) ?: 'yellow' ); ?> reveal">
 					<?php echo wp_kses_post( kc_symbol( get_sub_field( 'symbol' ) ?: 'symbol1' ) ); ?>
 					<h3><?php echo esc_html( get_sub_field( 'heading' ) ); ?></h3>
-					<p><?php echo esc_html( get_sub_field( 'body' ) ); ?></p>
+					<p><?php echo wp_kses( get_sub_field( 'body' ), [ 'strong' => [] ] ); ?></p>
 				</article>
 			<?php endwhile; ?>
 		</div>

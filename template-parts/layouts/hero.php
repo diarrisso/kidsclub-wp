@@ -104,7 +104,7 @@ $hero_media = $cinematic ? 'video' : ( $is_slider ? 'video_slider' : '' );
 			<?php endif; ?>
 		</h1>
 		<?php if ( $tx = get_sub_field( 'hero_text' ) ) : ?>
-			<p class="lead"><?php echo esc_html( $tx ); ?></p>
+			<p class="lead"><?php echo wp_kses( $tx, [ 'strong' => [] ] ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>

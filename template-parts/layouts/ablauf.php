@@ -30,7 +30,7 @@ $display = get_sub_field( 'display_style' ) ?: 'grid';
 					<span class="ablauf-card__num" aria-hidden="true"><?php echo esc_html( $step['abl_nr'] ?: (string) ( $i + 1 ) ); ?></span>
 				</div>
 				<?php if ( $step['abl_body'] ) : ?>
-					<p class="ablauf-card__body"><?php echo esc_html( $step['abl_body'] ); ?></p>
+					<p class="ablauf-card__body"><?php echo wp_kses( $step['abl_body'], [ 'strong' => [] ] ); ?></p>
 				<?php endif; ?>
 			</div>
 			<?php endforeach; ?>
@@ -57,7 +57,7 @@ $display = get_sub_field( 'display_style' ) ?: 'grid';
 					x-show="open === <?php echo absint( $i ); ?>"
 					x-transition>
 					<?php if ( $step['abl_body'] ) : ?>
-						<p><?php echo esc_html( $step['abl_body'] ); ?></p>
+						<p><?php echo wp_kses( $step['abl_body'], [ 'strong' => [] ] ); ?></p>
 					<?php endif; ?>
 				</div>
 			</div>
