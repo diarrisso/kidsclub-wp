@@ -1215,9 +1215,9 @@ section.reveal.in>*{opacity:1;transform:none}
 /* Bottom-Leiste: Social links · Recht mittig · Copyright rechts (eine Zeile) */
 .site-footer .footer-bottom{display:flex!important;flex-direction:row!important;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;border-top:0}
 .footer-bottom__social{display:flex;gap:12px}
-.footer-bottom__social a{width:34px;height:34px;border-radius:999px;background:var(--magenta);display:grid;place-items:center;transition:transform .2s}
+.footer-bottom__social a{width:40px;height:40px;border-radius:999px;background:var(--magenta);display:grid;place-items:center;transition:transform .2s}
 .footer-bottom__social a:hover{transform:translateY(-2px)}
-.footer-bottom__social svg{width:20px;height:20px;color:var(--navy)}
+.footer-bottom__social svg{width:22px;height:22px;color:var(--navy)}
 .footer-bottom__legal{display:flex;gap:20px}
 .footer-bottom__legal a{color:#9cabb9;font-size:.92rem;font-weight:400;text-decoration:underline}
 .footer-bottom__legal a:hover{color:#fff}
@@ -1329,7 +1329,7 @@ section.reveal.in>*{opacity:1;transform:none}
 .kontakt-info-list li .kc-icon-custom{width:22px;height:22px}
 .socials .kc-icon-custom{width:19px;height:19px}
 .footer-social .kc-icon-custom{width:22px;height:22px}
-.footer-bottom__social .kc-icon-custom{width:20px;height:20px}
+.footer-bottom__social .kc-icon-custom{width:22px;height:22px}
 .swiper-nav .kc-icon-custom{width:22px;height:22px}
 
 /* Micro-animation hover sur les icônes (svg + custom) */
