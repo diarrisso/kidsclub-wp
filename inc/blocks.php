@@ -424,6 +424,7 @@ add_action(
 									...kc_bg_color_field( 'team' ),
 									kc_field( 'tm_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'tm_title', 'Überschrift', 'text' ),
+									kc_field( 'tm_text', 'Einleitung', 'textarea' ),
 									[
 										'key'          => 'field_kc_tm_members',
 										'label'        => 'Teammitglieder',

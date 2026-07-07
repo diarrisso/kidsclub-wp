@@ -37,7 +37,7 @@ $items   = get_sub_field( 'items' );
 					id="faq-panel-<?php echo absint( $i ); ?>"
 					x-show="open === <?php echo absint( $i ); ?>"
 					x-transition>
-					<p><?php echo esc_html( $item['fq_answer'] ); ?></p>
+					<p><?php echo wp_kses( $item['fq_answer'], [ 'strong' => [] ] ); ?></p>
 				</div>
 			</div>
 			<?php endforeach; ?>
@@ -53,7 +53,7 @@ $items   = get_sub_field( 'items' );
 					"name": <?php echo wp_json_encode( $item['fq_question'] ); ?>,
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": <?php echo wp_json_encode( $item['fq_answer'] ); ?>
+						"text": <?php echo wp_json_encode( wp_strip_all_tags( $item['fq_answer'] ) ); ?>
 					}
 				}<?php echo ( $i < count( $items ) - 1 ) ? ',' : ''; ?>
 

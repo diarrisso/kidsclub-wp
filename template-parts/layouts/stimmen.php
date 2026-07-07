@@ -20,7 +20,7 @@ $items   = get_sub_field( 'items' );
 			<?php endif; ?>
 			<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
 			<?php if ( $lead ) : ?>
-				<p class="section-lead"><?php echo esc_html( $lead ); ?></p>
+				<p class="section-lead"><?php echo wp_kses( $lead, [ 'strong' => [] ] ); ?></p>
 			<?php endif; ?>
 		</div>
 

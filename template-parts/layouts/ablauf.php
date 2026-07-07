@@ -19,7 +19,7 @@ $display = get_sub_field( 'display_style' ) ?: 'grid';
 		<?php endif; ?>
 		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
 		<?php if ( $text ) : ?>
-			<p class="section-lead"><?php echo esc_html( $text ); ?></p>
+			<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p>
 		<?php endif; ?>
 		<?php if ( $items && 'grid' === $display ) : ?>
 		<div class="ablauf-grid">
