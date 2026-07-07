@@ -419,8 +419,8 @@ section{position:relative;z-index:2}
 /* Label und Beschreibung übereinander legen → Cross-Fade */
 .room__label,.room__desc{grid-area:1/1;transition:opacity .3s var(--ease),transform .3s var(--ease)}
 .room__label{display:flex;flex-direction:column;gap:4px;align-items:center}
-.room .room-nr{position:static;font-family:var(--font-display);font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);opacity:.85}
-.room .room__name{padding:0;font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
+.room .room-nr{position:static;font-family:var(--font-display);font-size:1rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);opacity:.85}
+.room .room__name{padding:0;font-family:var(--font-display);font-weight:700;font-size:.90rem;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
 .room__desc{opacity:0;transform:scale(.95);font-size:.82rem;line-height:1.38;font-weight:500;color:var(--navy);padding:4px}
 /* Reveal : hover (aperçu souris) + .is-open (clic/Enter/Espace = source de vérité, sync avec aria-expanded) */
 .room.has-desc:hover .room__label,
