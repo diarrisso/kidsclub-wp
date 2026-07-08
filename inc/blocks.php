@@ -230,6 +230,14 @@ add_action(
 										'type'  => 'textarea',
 									],
 									[
+										'key'           => 'field_kc_ls_accordion_title',
+										'label'         => 'Akkordeon-Titel (weitere Leistungen)',
+										'name'          => 'accordion_title',
+										'type'          => 'text',
+										'default_value' => 'Moderne Behandlung',
+										'instructions'  => 'Erscheint nur, wenn mehr als 4 Leistungen erfasst sind: ab der 5. Leistung werden sie als Akkordeon unter den 4 Karten angezeigt statt als weitere Karte.',
+									],
+									[
 										'key'          => 'field_kc_leistungen_items',
 										'label'        => 'Leistungen',
 										'name'         => 'items',
