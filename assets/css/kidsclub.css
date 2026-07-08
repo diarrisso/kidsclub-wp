@@ -238,6 +238,9 @@ section{position:relative;z-index:2}
 .brand-logo{height:60px;width:auto;flex:none}
 .brand-logo--mobile{display:none}
 @media(max-width:767px){.brand-logo--desktop{display:none}.brand-logo--mobile{display:block;height:52px}}
+/* Très petits écrans (≤360px) : logo réduit pour que le burger tienne dans la
+   ligne (logo 52px + CTA + burger débordaient entre 300–320px). */
+@media(max-width:360px){.brand-logo--mobile{height:40px}}
 .nav-cta{display:flex;align-items:center;gap:14px}
 /* Très petits écrans : le logo (flex:none) garde sa taille ; le bouton Termin
    buchen (data-booking-open préservé) réduit à son icône seule pour libérer la place. */
@@ -610,10 +613,12 @@ button.chip{border:0;font-family:inherit}
 .accordion--plain .accordion-item{background:none;box-shadow:none;border-radius:0;border:0;border-bottom:1px solid var(--line)}
 .accordion--plain .accordion-item:last-child{border-bottom:0}
 .accordion--plain .accordion-item:has(.accordion-trigger[aria-expanded="true"]){box-shadow:none}
-.accordion--plain .accordion-trigger:hover{background:color-mix(in oklab,#9aa3b2 12%,transparent)}
+.accordion--plain .accordion-trigger:hover{background:color-mix(in oklab,#9aa3b2 12%,transparent);padding-left:16px}
 .accordion--plain .accordion-icon{color:#9aa3b2;width:44px;height:44px}
-/* Titel + Panel bündig mit dem border-bottom (kein horizontales Padding). */
+/* Titel + Panel bündig mit dem border-bottom (kein horizontales Padding).
+   Beim Hover leichtes padding-left als sanfter Slide-Effekt (transition). */
 .accordion--plain .accordion-trigger,.accordion--plain .accordion-panel{padding-left:0;padding-right:0}
+.accordion--plain .accordion-trigger{transition:background .2s var(--ease),padding-left .2s var(--ease)}
 .ls-accordion-wrap{padding-top:5rem}
 .ls-accordion-title{margin-bottom:var(--gap-title)}
 
