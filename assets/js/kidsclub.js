@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     new Swiper('.einblicke-swiper', {
-        slidesPerView: 1.15,
+        slidesPerView: 1,
         spaceBetween: 16,
         loop: true,
         autoplay: reduceMotion
