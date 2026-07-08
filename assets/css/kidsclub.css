@@ -587,7 +587,7 @@ button.chip{border:0;font-family:inherit}
 .accordion--plain .accordion-item{background:none;box-shadow:none;border-radius:0;border:0;border-bottom:1px solid var(--line)}
 .accordion--plain .accordion-item:last-child{border-bottom:0}
 .accordion--plain .accordion-item:has(.accordion-trigger[aria-expanded="true"]){box-shadow:none}
-.accordion--plain .accordion-icon{color:var(--ink-soft)}
+.accordion--plain .accordion-icon{color:#9aa3b2}
 .ls-accordion-title{display:block;margin:clamp(28px,4vw,44px) 0 14px}
 
 /* ---------- ABLAUF Akkordeon (Der erste Besuch) ---------- */
