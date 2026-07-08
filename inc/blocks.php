@@ -500,6 +500,15 @@ add_action(
 									kc_field( 'st_title', 'Überschrift', 'text' ),
 									kc_field( 'st_text', 'Einleitung', 'textarea' ),
 									[
+										'key'           => 'field_kc_st_autoplay',
+										'label'         => 'Automatisch abspielen (Autoplay)',
+										'name'          => 'st_autoplay',
+										'type'          => 'true_false',
+										'ui'            => 1,
+										'default_value' => 0,
+										'instructions'  => 'Wenn aktiviert, läuft das Karussell automatisch durch (alle 3,5 s, Pause bei Mouseover) und die Pfeile UND Punkte werden ausgeblendet. Wenn deaktiviert (Standard), steuern Besucher manuell über Pfeile und Punkte.',
+									],
+									[
 										'key'          => 'field_kc_st_items',
 										'label'        => 'Bewertungen',
 										'name'         => 'items',

@@ -1,16 +1,20 @@
 <?php
 /**
  * Layout: Kundenstimmen — Swiper (2 breite Karten = volle Breite, wie PDF).
- * Felder: st_eyebrow, st_title, st_text, items[](st_quote, st_name, st_role)
+ * Felder: st_eyebrow, st_title, st_text, st_autoplay, items[](st_quote, st_name, st_role)
+ *
+ * st_autoplay = an → Autoplay (3,5 s, Pause bei Mouseover), Pfeile UND Punkte werden
+ * gar nicht erst gerendert. Aus (Standard) → manuelle Steuerung über Pfeile + Punkte.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$eyebrow = get_sub_field( 'st_eyebrow' );
-$title   = get_sub_field( 'st_title' );
-$lead    = get_sub_field( 'st_text' );
-$items   = get_sub_field( 'items' );
+$eyebrow  = get_sub_field( 'st_eyebrow' );
+$title    = get_sub_field( 'st_title' );
+$lead     = get_sub_field( 'st_text' );
+$autoplay = (bool) get_sub_field( 'st_autoplay' );
+$items    = get_sub_field( 'items' );
 ?>
 <section class="section-stimmen reveal" id="stimmen">
 	<div class="container">
@@ -25,14 +29,16 @@ $items   = get_sub_field( 'items' );
 		</div>
 
 		<?php if ( $items ) : ?>
-		<div class="stimmen-swiper-wrap">
+		<div class="stimmen-swiper-wrap" data-autoplay="<?php echo $autoplay ? '1' : '0'; ?>">
 
+			<?php if ( ! $autoplay ) : ?>
 			<button class="stimmen-swiper__prev swiper-nav-btn" type="button" aria-label="<?php esc_attr_e( 'Vorherige Stimme', 'kidsclub' ); ?>">
 				<?php echo kc_svg( 'slide-prev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</button>
 			<button class="stimmen-swiper__next swiper-nav-btn" type="button" aria-label="<?php esc_attr_e( 'Nächste Stimme', 'kidsclub' ); ?>">
 				<?php echo kc_svg( 'slide-next' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</button>
+			<?php endif; ?>
 
 			<div class="stimmen-swiper swiper"
 				aria-roledescription="Karussell"
@@ -55,7 +61,9 @@ $items   = get_sub_field( 'items' );
 					<?php endforeach; ?>
 				</div>
 			</div>
+			<?php if ( ! $autoplay ) : ?>
 			<div class="stimmen-swiper__pagination"></div>
+			<?php endif; ?>
 		</div>
 		<?php endif; ?>
 	</div>

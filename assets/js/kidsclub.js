@@ -220,21 +220,37 @@ window.kcTrapTab = function (e, container, selector) {
   // (kein Ausblenden mehr beim Abspielen).
 })();
 
-// Kundenstimmen Swiper
+// Kundenstimmen Swiper — Autoplay optional via ACF-Feld "st_autoplay"
+// (data-autoplay am .stimmen-swiper-wrap). Bei Autoplay: kein Pfeil/Punkt-DOM
+// (siehe stimmen.php), daher hier auch keine navigation/pagination-Konfiguration.
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.querySelector('.stimmen-swiper')) {
-        new Swiper('.stimmen-swiper', {
-            slidesPerView: 1.05,
-            spaceBetween: 20,
-            loop: false,
-            navigation: { prevEl: '.stimmen-swiper__prev', nextEl: '.stimmen-swiper__next' },
-            pagination: { el: '.stimmen-swiper__pagination', clickable: true },
-            breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 28 },
-            },
-            a11y: { enabled: true },
-        });
+    if (!document.querySelector('.stimmen-swiper')) {
+        return;
     }
+    var stimmenWrap = document.querySelector('.stimmen-swiper-wrap');
+    var isAutoplay = !!stimmenWrap && stimmenWrap.dataset.autoplay === '1';
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    var stimmenConfig = {
+        slidesPerView: 1.05,
+        spaceBetween: 20,
+        loop: isAutoplay,
+        breakpoints: {
+            768: { slidesPerView: 2, spaceBetween: 28 },
+        },
+        a11y: { enabled: true },
+    };
+
+    if (isAutoplay) {
+        stimmenConfig.autoplay = reduceMotion
+            ? false
+            : { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true };
+    } else {
+        stimmenConfig.navigation = { prevEl: '.stimmen-swiper__prev', nextEl: '.stimmen-swiper__next' };
+        stimmenConfig.pagination = { el: '.stimmen-swiper__pagination', clickable: true };
+    }
+
+    new Swiper('.stimmen-swiper', stimmenConfig);
 });
 
 // Einblicke: Foto-Karussell (Swiper). 1 Foto mobil → 3 auf Desktop.

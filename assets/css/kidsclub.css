@@ -499,7 +499,7 @@ button.chip{border:0;font-family:inherit}
 }
 
 /* ---------- TEAM ---------- */
-.section-team h2.section-title{margin-bottom:var(--gap-head);text-align:center}
+.section-team h2.section-title{text-align:center}
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:var(--maxw);margin-inline:auto}
 .team-card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;
   transition:transform .32s var(--ease),box-shadow .32s var(--ease);border-top:4px solid transparent}
@@ -538,7 +538,6 @@ button.chip{border:0;font-family:inherit}
 .eltern-item p{margin:0;color:var(--ink-soft);font-size:1rem;font-weight:500}
 
 /* ---------- TESTIMONIALS (Swiper) ---------- */
-.section-stimmen h2.section-title{margin-bottom:var(--gap-head)}
 .stimmen-swiper-wrap{position:relative}
 .stimmen-swiper__prev{left:-6px}
 .stimmen-swiper__next{right:-6px}
