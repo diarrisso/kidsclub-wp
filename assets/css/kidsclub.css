@@ -377,7 +377,7 @@ section{position:relative;z-index:2}
 .svc-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
 .svc .svc-head-row h3{margin:0}
 .svc .svc-head-row+p{margin-top:0}
-.svc-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5vw,3rem);line-height:1;color:color-mix(in oklab,var(--navy) 25%,transparent)}
+.svc-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5vw,3rem);line-height:1;color:rgba(255,255,255,.75)}
 /* .svc h3 / .svc p : siehe konsolidierte Regel im Design-Block weiter unten (keine Duplikate) */
 .svc--yellow{background:var(--card-yellow)}
 .svc--blue{background:var(--card-blue)}
