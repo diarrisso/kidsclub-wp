@@ -60,6 +60,16 @@ ul{margin:0;padding:0;list-style:none}
   --pal-lilac:#DEDBDF;
   --pal-bluegrey:#BCC9D2;
 
+  /* ---- Figma-Palette (Export 08.07.2026) : 10 Farben, noch KEINE davon im Einsatz.
+     5 sind bereits als --room-* vorhanden (gelb=room-yellow, rosa=room-orange,
+     hellblau=room-blue, lila=room-lila, tuerkis=room-green — identische Hex-Werte,
+     bewusst nicht dupliziert). Nur die 5 neuen hier: */
+  --fig-blau:#012F7D;
+  --fig-grau:#E7E7E7;
+  --fig-magenta:#FF008A;
+  --fig-weiss:#FFFFFF;
+  --fig-zacp-grau:#333333;
+
   --logo-navy:var(--navy);
   --logo-pink:var(--magenta);
 
