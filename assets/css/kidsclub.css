@@ -953,7 +953,7 @@ section.reveal.in>*{opacity:1;transform:none}
 /* ---------- WILLKOMMEN (Intro) ---------- */
 .intro-welcome{padding:clamp(48px,7vw,84px) 0}
 .intro-welcome__inner{max-width:var(--maxw);margin-inline:auto;text-align:center;color:var(--magenta);font-size:1.15rem;line-height:1.7}
-.intro-welcome__inner p{margin:0 0 2rem}
+.intro-welcome__inner p{margin:0 0 3rem}
 .intro-welcome__inner strong{color:var(--magenta);font-weight:700}
 
 /* ---------- SWIPER NAV (reusable) ---------- */
@@ -1149,10 +1149,7 @@ section.reveal.in>*{opacity:1;transform:none}
 .svc{padding:32px 32px 36px;min-height:220px}
 /* Design Karten-Titel — EINZIGE Quelle: size 38 / spacing 0 / line 43 (≈1.13) / Jost Halbfett(600) / uppercase */
 /* Designer-Feedback: "H3 bitte etwas sperren" → Buchstabenabstand auf Karten-Titeln. */
-.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:100%;line-height:1.13;font-weight:600;letter-spacing:.06em}
-/* Ablauf (Der erste Besuch) : Karten-Titel fett (bold), im Gegensatz zu den
-   Leistungen-Karten die font-weight:600 behalten. */
-.section-ablauf .svc h3{font-weight:700}
+.svc h3{color:var(--magenta);text-transform:uppercase;font-size:clamp(1.2rem,2.2vw,1.75rem);margin:0 0 16px;max-width:100%;line-height:1.13;font-weight:700;letter-spacing:.06em}
 /* Design Karten-Text — EINZIGE Quelle: size 22 / spacing 0 / line 30 (≈1.36) / Jost Regular */
 .svc p{margin:40px 0 0;color:var(--navy);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.36;max-width:100%;letter-spacing:0;font-weight:400;text-transform:none}
 .svc-symbol{top:24px;right:24px;width:88px;height:auto;padding-bottom:0}
