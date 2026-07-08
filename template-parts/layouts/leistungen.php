@@ -43,32 +43,34 @@ $accordion_title = get_sub_field( 'accordion_title' );
 		</div>
 
 		<?php if ( $accordion_items ) : ?>
-		<?php if ( $accordion_title ) : ?>
-			<span class="eyebrow ls-accordion-title"><?php echo esc_html( $accordion_title ); ?></span>
-		<?php endif; ?>
-		<div class="accordion accordion--plain ls-accordion" x-data="{ open: null }" x-cloak>
-			<?php foreach ( $accordion_items as $i => $item ) : ?>
-			<div class="accordion-item">
-				<button class="accordion-trigger"
-						@click="open === <?php echo absint( $i ); ?> ? open = null : open = <?php echo absint( $i ); ?>"
-						:aria-expanded="open === <?php echo absint( $i ); ?>"
-						aria-controls="ls-panel-<?php echo absint( $i ); ?>"
-						type="button">
-					<span><?php echo esc_html( $item['heading'] ); ?></span>
-					<span class="accordion-icon" aria-hidden="true"
-						:class="open === <?php echo absint( $i ); ?> ? 'is-open' : ''">
-						<span class="icon-plus"><?php echo kc_svg( 'accordion-open' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-						<span class="icon-minus"><?php echo kc_svg( 'accordion-close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-					</span>
-				</button>
-				<div class="accordion-panel"
-					id="ls-panel-<?php echo absint( $i ); ?>"
-					x-show="open === <?php echo absint( $i ); ?>"
-					x-transition>
-					<p><?php echo wp_kses( $item['body'], [ 'strong' => [] ] ); ?></p>
+		<div class="ls-accordion-wrap">
+			<?php if ( $accordion_title ) : ?>
+				<span class="eyebrow ls-accordion-title"><?php echo esc_html( $accordion_title ); ?></span>
+			<?php endif; ?>
+			<div class="accordion accordion--plain ls-accordion" x-data="{ open: null }" x-cloak>
+				<?php foreach ( $accordion_items as $i => $item ) : ?>
+				<div class="accordion-item">
+					<button class="accordion-trigger"
+							@click="open === <?php echo absint( $i ); ?> ? open = null : open = <?php echo absint( $i ); ?>"
+							:aria-expanded="open === <?php echo absint( $i ); ?>"
+							aria-controls="ls-panel-<?php echo absint( $i ); ?>"
+							type="button">
+						<span><?php echo esc_html( $item['heading'] ); ?></span>
+						<span class="accordion-icon" aria-hidden="true"
+							:class="open === <?php echo absint( $i ); ?> ? 'is-open' : ''">
+							<span class="icon-plus"><?php echo kc_svg( 'accordion-open' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<span class="icon-minus"><?php echo kc_svg( 'accordion-close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						</span>
+					</button>
+					<div class="accordion-panel"
+						id="ls-panel-<?php echo absint( $i ); ?>"
+						x-show="open === <?php echo absint( $i ); ?>"
+						x-transition>
+						<p><?php echo wp_kses( $item['body'], [ 'strong' => [] ] ); ?></p>
+					</div>
 				</div>
+				<?php endforeach; ?>
 			</div>
-			<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
 	</div>
