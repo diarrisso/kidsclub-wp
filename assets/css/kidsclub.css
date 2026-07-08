@@ -853,10 +853,14 @@ section.reveal.in>*{opacity:1;transform:none}
   .facts{grid-template-columns:repeat(2,1fr)}
   .fact:nth-child(2){border-right:0}
 }
-@media (max-width:768px){
-  .termin-cta{flex-direction:column;gap:24px}
+/* Burger/Desktop-Nav umschalten bei 1024px : zwischen 769–~960px passten die
+   6 Nav-Links + Logo + CTA nicht mehr in eine Zeile (Überlauf). */
+@media(max-width:1024px){
   .nav-links,.nav-phone{display:none}
   .burger{display:grid}
+}
+@media (max-width:768px){
+  .termin-cta{flex-direction:column;gap:24px}
   body{font-size:17px}
   .hero-banner{min-height:clamp(560px,78vh,700px);padding:0;display:grid;place-items:center}
   .hero-scrim{background:rgba(255,255,255,.30)}
