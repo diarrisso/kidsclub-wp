@@ -946,7 +946,7 @@ section.reveal.in>*{opacity:1;transform:none}
 
 /* ---------- ZIMMER Karussell ---------- */
 .section-zimmer{padding:var(--section-pad) 0}
-.section-zimmer .section-title{text-align:center}
+.section-zimmer .section-title{text-align:center;color:#9aa3b2}
 .swiper-nav.swiper-button-disabled{opacity:.4;cursor:default}
 
 /* =========================================================
