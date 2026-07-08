@@ -46,7 +46,6 @@ $accordion_title = get_sub_field( 'accordion_title' );
 		<div class="ls-accordion-wrap">
 			<?php if ( $accordion_title ) : ?>
 				<span class="eyebrow ls-accordion-title"><?php echo esc_html( $accordion_title ); ?></span>
-				<h2 class="section-title ls-accordion-h2"><?php echo esc_html( $accordion_title ); ?></h2>
 			<?php endif; ?>
 			<div class="accordion accordion--plain ls-accordion" x-data="{ open: null }" x-cloak>
 				<?php foreach ( $accordion_items as $i => $item ) : ?>
