@@ -23,15 +23,18 @@ $display = get_sub_field( 'display_style' ) ?: 'grid';
 		<?php endif; ?>
 		<?php
 		// Grid-Darstellung nutzt exakt die Leistungen-Karte (.svc) — kein zweites, fast identisches
-		// Karten-System pflegen. Nur der Slot oben rechts unterscheidet sich: Nummer statt Symbol.
-		$svc_colors = [ 'yellow', 'blue', 'green', 'pink' ];
+		// Karten-System pflegen. Einheitliche Farbe (grün, wie "Kids first!") statt der
+		// Leistungen-Farbrotation ; die Nummer sitzt neben dem Titel (flex-Zeile), nicht mehr als
+		// Icon-Ersatz oben rechts.
 		?>
 		<?php if ( $items && 'grid' === $display ) : ?>
 		<div class="services-grid">
 			<?php foreach ( $items as $i => $step ) : ?>
-			<article class="svc svc--<?php echo esc_attr( $svc_colors[ $i % count( $svc_colors ) ] ); ?> reveal">
-				<span class="svc-symbol svc-num" aria-hidden="true"><?php echo esc_html( $step['abl_nr'] ?: (string) ( $i + 1 ) ); ?></span>
-				<h3><?php echo esc_html( $step['abl_heading'] ); ?></h3>
+			<article class="svc svc--green reveal">
+				<div class="svc-head-row">
+					<h3><?php echo esc_html( $step['abl_heading'] ); ?></h3>
+					<span class="svc-num" aria-hidden="true"><?php echo esc_html( $step['abl_nr'] ?: (string) ( $i + 1 ) ); ?></span>
+				</div>
 				<?php if ( $step['abl_body'] ) : ?>
 					<p><?php echo wp_kses( $step['abl_body'], [ 'strong' => [] ] ); ?></p>
 				<?php endif; ?>
