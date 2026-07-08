@@ -88,7 +88,7 @@ ul{margin:0;padding:0;list-style:none}
 
   /* ---- Vertikaler Rhythmus (Designer-Feedback: "Abstand einheitlich").
      EINE Quelle der Wahrheit für alle Section-Abstände, statt verstreuter Einzelwerte. */
-  --section-pad:clamp(60px,8vw,112px);   /* Abstand oben/unten je Section */
+  --section-pad:clamp(60px,8vw,100px);   /* Abstand oben/unten je Section */
   --gap-eyebrow:14px;                    /* Eyebrow → Titel */
   --gap-title:clamp(14px,2vw,20px);      /* Titel → Lead/Beschreibung */
   --gap-head:clamp(38px,5vw,58px);       /* Section-Head → Inhalt (Karten/Grid) */
