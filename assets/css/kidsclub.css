@@ -785,7 +785,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .footer-brand .fname{font-family:var(--font-display);font-weight:700;font-size:1rem;color:#fff}
 .footer-brand .fname small{display:block;font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600}
 .footer-brand p{margin:8px 0 12px;font-size:.8rem;max-width:220px;font-weight:500;line-height:1.5;color:rgba(255,255,255,.6)}
-.footer-col h5,.footer-col-title{color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 12px}
+.footer-col h5,.footer-col-title{color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0}
 .footer-col a{display:block;padding:3px 0;font-size:.84rem;font-weight:600;color:rgba(255,255,255,.65)}
 .footer-col a:hover{color:var(--magenta)}
 .footer-contact-line{display:flex;align-items:center;gap:8px;font-size:.82rem;margin-bottom:8px;line-height:1.4}
