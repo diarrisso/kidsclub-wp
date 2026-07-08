@@ -65,7 +65,7 @@ function kc_nav_url( $link ) {
 		<div class="nav-cta">
 			<button type="button" class="btn btn-primary btn-sm" data-booking-open aria-haspopup="dialog" style="display:inline-flex;align-items:center;gap:6px">
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-				<?php echo esc_html( $cta_label ); ?>
+				<span class="nav-cta__label"><?php echo esc_html( $cta_label ); ?></span>
 			</button>
 			<button class="burger" id="burger" aria-label="Menü öffnen"><?php echo kc_svg( 'menu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 		</div>
