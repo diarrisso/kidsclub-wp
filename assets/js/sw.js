@@ -3,7 +3,7 @@
  * Cache-first pour les assets, network-first pour les pages HTML.
  */
 
-const CACHE = 'kidsclub-v3.7.4';
+const CACHE = 'kidsclub-v3.7.5';
 const THEME = '/wp-content/themes/kidsclub';
 const OFFLINE_URL = '/offline';
 
