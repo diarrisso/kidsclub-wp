@@ -613,7 +613,11 @@ button.chip{border:0;font-family:inherit}
 .accordion--plain .accordion-item{background:none;box-shadow:none;border-radius:0;border:0;border-bottom:1px solid var(--line)}
 .accordion--plain .accordion-item:last-child{border-bottom:0}
 .accordion--plain .accordion-item:has(.accordion-trigger[aria-expanded="true"]){box-shadow:none}
-.accordion--plain .accordion-trigger:hover{background:color-mix(in oklab,#9aa3b2 12%,transparent);padding-left:16px}
+/* Hover nur auf GESCHLOSSENEN Einträgen: der offene Eintrag bekommt weder Hintergrund
+   noch den padding-left-Versatz (Alpine setzt aria-expanded, Container hat x-cloak). */
+.accordion--plain .accordion-trigger[aria-expanded="false"]:hover{background:color-mix(in oklab,#9aa3b2 12%,transparent);padding-left:16px}
+/* Sonst würde der offene Eintrag den generischen Hover aus .accordion-trigger:hover erben. */
+.accordion--plain .accordion-trigger[aria-expanded="true"]:hover{background:none;padding-left:0}
 .accordion--plain .accordion-icon{color:#9aa3b2;width:44px;height:44px}
 /* Titel + Panel bündig mit dem border-bottom (kein horizontales Padding).
    Beim Hover leichtes padding-left als sanfter Slide-Effekt (transition). */
