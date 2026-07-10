@@ -897,7 +897,7 @@ section.reveal.in>*{opacity:1;transform:none}
   .section-zimmer{padding:0 0 44px}
   .services-grid{grid-template-columns:1fr}
   .svc{padding:24px 22px;min-height:auto}
-  .svc-symbol{width:60px}
+  /* .svc-symbol: Größe wird zentral in der @media(max-width:600px)-Regel weiter unten gesetzt. */
   .steps{grid-template-columns:1fr;gap:20px}
   .steps-wrap{padding:24px 20px}
   .stimmen-card{padding:24px 20px}
@@ -1202,9 +1202,17 @@ section.reveal.in>*{opacity:1;transform:none}
 
 
 
-/* Leistungen symbols kleiner auf Mobile */
+/* Leistungen symbols auf Mobile — größer, Titel bekommt Freiraum rechts
+   (svc-symbol ist absolut positioniert und würde sonst das h3 überlagern) */
 @media(max-width:600px){
-  .svc-symbol{width:50px;height:auto;top:24px;right:24px;padding-bottom:0}
+  .svc-symbol{width:68px;height:auto;top:22px;right:20px;padding-bottom:0}
+  /* NUR Leistungen: die Ablauf-Karten nutzen dieselbe .svc-Klasse (siehe ablauf.php),
+     haben aber KEIN Symbol — ohne #leistungen-Scope bekämen sie 78px leeres Padding
+     und einen verkleinerten Titel.
+     "AngstpatientInnen" ist ein einziges Wort: es kann nicht umbrechen und würde bei
+     .svc{overflow:hidden} abgeschnitten. Titel leicht kleiner (letter-spacing bleibt),
+     damit das größere Symbol daneben passt — gemessen: 30px Abstand statt 1px. */
+  #leistungen .svc h3{padding-right:78px;font-size:1.05rem}
 }
 
 /* Ablauf: fond coloré visible sur le panel ouvert
