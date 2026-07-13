@@ -202,6 +202,70 @@ add_action(
 								],
 							],
 
+							/* ---------- TEXTBLOCK (générique, réutilisable) ---------- */
+							'layout_textblock'  => [
+								'key'        => 'layout_textblock',
+								'name'       => 'textblock',
+								'label'      => 'Textblock (freier Text)',
+								'display'    => 'block',
+								'sub_fields' => [
+									...kc_bg_spray_field( 'textblock' ),
+									...kc_bg_color_field( 'textblock' ),
+									[
+										'key'          => 'field_kc_tb_anchor',
+										'label'        => 'Anker-ID',
+										'name'         => 'tb_anchor',
+										'type'         => 'text',
+										'instructions' => 'Optional. Ohne Raute, z. B. „angst“ — dieser Abschnitt ist dann über den Link #angst erreichbar.',
+									],
+									kc_field( 'tb_eyebrow', 'Eyebrow', 'text' ),
+									kc_field( 'tb_title', 'Überschrift', 'text' ),
+									[
+										'key'           => 'field_kc_tb_style',
+										'label'         => 'Darstellung',
+										'name'          => 'tb_style',
+										'type'          => 'select',
+										'choices'       => [
+											'fliesstext' => 'Fließtext (schlicht, zentriert)',
+											'karte'      => 'Karte (Pastellfläche mit Schatten)',
+										],
+										'default_value' => 'fliesstext',
+									],
+									[
+										'key'               => 'field_kc_tb_card_color',
+										'label'             => 'Kartenfarbe',
+										'name'              => 'tb_card_color',
+										'type'              => 'select',
+										'choices'           => [
+											'yellow' => 'Gelb',
+											'blue'   => 'Blau',
+											'green'  => 'Grün',
+											'pink'   => 'Rosa',
+										],
+										'default_value'     => 'pink',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_tb_style',
+													'operator' => '==',
+													'value'    => 'karte',
+												],
+											],
+										],
+									],
+									[
+										'key'          => 'field_kc_tb_content',
+										'label'        => 'Inhalt',
+										'name'         => 'tb_content',
+										'type'         => 'wysiwyg',
+										'media_upload' => 0,
+										'tabs'         => 'visual',
+										'toolbar'      => 'full',
+										'instructions' => 'Zwischenüberschriften (H3), Aufzählungen und Fettungen sind erlaubt.',
+									],
+								],
+							],
+
 							/* ---------- LEISTUNGEN ---------- */
 							'layout_leistungen' => [
 								'key'        => 'layout_leistungen',

@@ -1395,3 +1395,25 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 @media(prefers-reduced-motion:reduce){button:hover svg,a:hover svg{transform:none}button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.4)}}
 
 .accordion-trigger .kc-icon-custom{width:32px;height:32px}
+
+/* ---------- TEXTBLOCK (freier Text aus dem WYSIWYG) ---------- */
+.section-textblock .tb-prose{max-width:860px;margin:0 auto}
+.tb-prose p{margin:0 0 1.1em;color:var(--ink-soft);font-size:clamp(1.02rem,1.2vw,1.14rem);line-height:1.62}
+.tb-prose p:last-child{margin-bottom:0}
+.tb-prose h3{font-family:var(--font-display);font-weight:700;font-size:clamp(1.25rem,1.8vw,1.5rem);line-height:1.25;color:var(--navy);margin:1.9em 0 .6em}
+.tb-prose h3:first-child{margin-top:0}
+.tb-prose strong{color:var(--navy);font-weight:700}
+.tb-prose a{color:var(--magenta);font-weight:600}
+.tb-prose a:hover{text-decoration:underline}
+/* Das globale Reset (ul{list-style:none}) entfernt die Aufzählungszeichen — hier gezielt zurückholen. */
+.tb-prose ul{list-style:none;margin:0 0 1.3em;padding:0;display:grid;gap:.5em}
+.tb-prose ul li{position:relative;padding-left:1.6em;color:var(--ink-soft);line-height:1.55}
+.tb-prose ul li::before{content:"";position:absolute;left:0;top:.55em;width:.5em;height:.5em;border-radius:50%;background:var(--magenta)}
+.tb-prose ol{margin:0 0 1.3em;padding-left:1.4em;list-style:decimal;color:var(--ink-soft)}
+.tb-prose ol li{margin-bottom:.45em;line-height:1.55}
+/* Variante „Karte“ — gleiche Anmutung wie die Leistungs-Karten / .accordion-item. */
+.tb-prose.tb-card{padding:clamp(24px,3.4vw,40px);border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.tb-card--yellow{background:var(--card-yellow)}
+.tb-card--blue{background:var(--card-blue)}
+.tb-card--green{background:var(--card-green)}
+.tb-card--pink{background:var(--card-pink)}
