@@ -48,12 +48,29 @@ page-landing.php                    Page template "Kids Club Landing"
   shorthand helper for simple fields (key convention: `field_kc_<name>`).
 - **`textblock`** is the generic long-copy layout: eyebrow + title + a full WYSIWYG (`h3`, `ul`,
   links), rendered through `wp_kses_post()`, with an optional `tb_anchor` giving the `<section>`
-  its `id` (used by `#angst`), and a `karte` variant that reuses the Leistungen card look. Reach
-  for it whenever the client sends prose that has no dedicated section — do not invent a new
-  one-off layout.
+  its `id`, and a `karte` variant that reuses the Leistungen card look. Reach for it whenever the
+  client sends prose that has no dedicated section — do not invent a new one-off layout.
   ⚠️ Its `.tb-prose` styles **restore the list bullets** that the global reset
   (`ul{list-style:none}`, `kidsclub.css:12`) strips. A WYSIWYG list rendered without them shows
   no bullets and no indent.
+- **`willkommen`** has two `Darstellung` modes: `klassisch` (the original single WYSIWYG) and
+  `editorial` (lead, two columns, full-bleed quote band, closing line). The old `text` field is
+  kept as the klassisch fallback — switching back must never lose content.
+- **`angst`** renders the anxiety section as **two comparison cards** (Lachgas / Vollnarkose)
+  instead of running prose: the client's copy *compares* two options, so the form follows the
+  content. Each card's body is a WYSIWYG — `<ul>` becomes a checkmark list, `<strong>` becomes a
+  sub-heading. The cards `stretch` to equal height and their closing sentence is pushed to the
+  bottom, so an uneven number of lists doesn't leave one card floating.
+- **Full-bleed bands** (`.wk-motto`, `.ag-cta`) leave the `.container` on purpose
+  (`width:100vw; margin-left:calc(50% - 50vw)`) and carry a **spray graphic** as background — the
+  same 8 assets the `bg_spray_preset` field uses. `kc_spray_url()` whitelists them; a free value
+  must never reach a file path.
+  ⚠️ Any component on a coloured/image background **must declare its own `color`**: the theme sets
+  `h1,h2,h3 { color: var(--magenta) }` globally, so an undeclared heading renders magenta-on-magenta
+  — invisible.
+- **Spacing:** use the theme tokens — `--gap-eyebrow` (eyebrow→title), `--gap-title`
+  (title→description), `--gap-head` (head→content), `--section-pad`. Ad-hoc `clamp()` values are
+  what makes a new block look "off" next to the others.
 - **Markup:** one partial per layout in `template-parts/layouts/{name}.php`. The `$layout`
   name from `get_row_layout()` maps 1:1 to the filename.
 - **Adding a section** = add a layout block in `inc/blocks.php` **and** create the matching

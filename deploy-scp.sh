@@ -40,6 +40,7 @@ TEMP_ARCHIVE="/tmp/kidsclub-deploy-$(date +%s).tar.gz"
 tar -czf "$TEMP_ARCHIVE" \
     --exclude='node_modules' \
     --exclude='vendor' \
+    --exclude='demo-blocks.html' \
     --exclude='.git' \
     --exclude='.claude' \
     --exclude='.DS_Store' \
