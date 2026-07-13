@@ -1417,3 +1417,12 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .tb-card--blue{background:var(--card-blue)}
 .tb-card--green{background:var(--card-green)}
 .tb-card--pink{background:var(--card-pink)}
+
+/* ---------- LEISTUNGEN — Beschreibung kommt jetzt aus dem WYSIWYG ---------- */
+.ls-card-body p,.ls-acc-body p{margin:0 0 .9em}
+.ls-card-body p:last-child,.ls-acc-body p:last-child{margin-bottom:0}
+.ls-card-body ul,.ls-acc-body ul{list-style:none;margin:.6em 0;padding:0;display:grid;gap:.4em}
+.ls-card-body ul li,.ls-acc-body ul li{position:relative;padding-left:1.4em}
+.ls-card-body ul li::before,.ls-acc-body ul li::before{content:"";position:absolute;left:0;top:.55em;width:.45em;height:.45em;border-radius:50%;background:var(--magenta)}
+.ls-card-body a,.ls-acc-body a{color:var(--magenta);font-weight:600}
+.ls-card-body a:hover,.ls-acc-body a:hover{text-decoration:underline}

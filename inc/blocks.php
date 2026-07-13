@@ -341,11 +341,19 @@ add_action(
 												'default_value' => 'symbol1',
 											],
 											kc_field( 'heading', 'Titel', 'text' ),
-											kc_field(
-												'body',
-												'Beschreibung',
-												'textarea',
-											),
+											// Ex-textarea. La clé 'field_kc_body' NE DOIT PAS changer :
+											// c'est celle que kc_field( 'body', … ) produisait — la modifier
+											// perdrait tout le contenu déjà saisi.
+											[
+												'key'          => 'field_kc_body',
+												'label'        => 'Beschreibung',
+												'name'         => 'body',
+												'type'         => 'wysiwyg',
+												'media_upload' => 0,
+												'tabs'         => 'visual',
+												'toolbar'      => 'basic',
+												'instructions' => 'Aufzählungen und Links sind erlaubt. Bestehende Texte bleiben unverändert.',
+											],
 										],
 									],
 								],
