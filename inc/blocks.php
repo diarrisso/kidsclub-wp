@@ -189,15 +189,202 @@ add_action(
 									...kc_bg_spray_field( 'willkommen' ),
 									...kc_bg_color_field( 'willkommen' ),
 									[
+										'key'           => 'field_kc_wk_style',
+										'label'         => 'Darstellung',
+										'name'          => 'wk_style',
+										'type'          => 'select',
+										'choices'       => [
+											'klassisch' => 'Klassisch (ein zentrierter Textblock)',
+											'editorial' => 'Editorial (Auftakt, zwei Spalten, Zitat-Bande)',
+										],
+										'default_value' => 'klassisch',
+										'instructions'  => 'Bei „Editorial“ werden die Felder darunter genutzt; „Klassisch“ nutzt nur das Textfeld ganz unten.',
+									],
+									[
+										'key'   => 'field_kc_wk_eyebrow',
+										'label' => 'Eyebrow',
+										'name'  => 'wk_eyebrow',
+										'type'  => 'text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_title',
+										'label' => 'Überschrift',
+										'name'  => 'wk_title',
+										'type'  => 'text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'          => 'field_kc_wk_title_hl',
+										'label'        => 'Überschrift — hervorgehobener Teil',
+										'name'         => 'wk_title_hl',
+										'type'         => 'text',
+										'instructions' => 'Steht magenta in einer zweiten Zeile, z. B. „ZACP Kids Club“.',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_lead',
+										'label' => 'Auftakt (erster Absatz)',
+										'name'  => 'wk_lead',
+										'type'  => 'textarea',
+										'rows'  => 3,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_col1',
+										'label' => 'Spalte links',
+										'name'  => 'wk_col1',
+										'type'  => 'textarea',
+										'rows'  => 4,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_col2',
+										'label' => 'Spalte rechts',
+										'name'  => 'wk_col2',
+										'type'  => 'textarea',
+										'rows'  => 4,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_motto_text',
+										'label' => 'Zitat-Bande — Einleitung',
+										'name'  => 'wk_motto_text',
+										'type'  => 'textarea',
+										'rows'  => 3,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_motto_kicker',
+										'label' => 'Zitat-Bande — Vorspann (magenta)',
+										'name'  => 'wk_motto_kicker',
+										'type'  => 'text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_motto_line',
+										'label' => 'Zitat-Bande — Motto (groß)',
+										'name'  => 'wk_motto_line',
+										'type'  => 'textarea',
+										'rows'  => 2,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'           => 'field_kc_wk_motto_spray',
+										'label'         => 'Zitat-Bande — Spray-Grafik',
+										'name'          => 'wk_motto_spray',
+										'type'          => 'select',
+										'choices'       => kc_spray_choices(),
+										'default_value' => 'Spray7',
+										'instructions'  => 'Hintergrundbild der Bande über die volle Breite. „— Keiner —“ = weiß.',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_outro',
+										'label' => 'Schlussabsatz',
+										'name'  => 'wk_outro',
+										'type'  => 'textarea',
+										'rows'  => 3,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
 										'key'          => 'field_kc_wk_text',
-										'label'        => 'Text',
+										'label'        => 'Text (klassisch)',
 										'name'         => 'text',
 										'type'         => 'wysiwyg',
 										'media_upload' => 0,
 										'tabs'         => 'visual',
 										'toolbar'      => 'basic',
 										'instructions' =>
-											'Zentrierter Intro-Absatz. „Herzlich Willkommen!“ fett für die Magenta-Hervorhebung.',
+											'Nur bei Darstellung „Klassisch“. Zentrierter Intro-Absatz.',
 									],
 								],
 							],
@@ -716,6 +903,37 @@ function kc_field( $name, $label, $type ) {
 		'name'  => $name,
 		'type'  => $type,
 	];
+}
+
+/**
+ * Die 8 Spray-Übergangsbänder des Themes — als Auswahl wiederverwendbar.
+ * Genutzt von kc_bg_spray_field() (Section-Hintergrund) UND von den Zitat-/Abschluss-Bändern,
+ * die eine Spray-Grafik über die volle Breite legen.
+ */
+function kc_spray_choices( $mit_leer = true ) {
+	$choices = [
+		'Spray1' => 'Spray 1 (Weiß → Hellgrau)',
+		'Spray2' => 'Spray 2 (Hellgrau → Weiß)',
+		'Spray3' => 'Spray 3 (Weiß → Salbei)',
+		'Spray4' => 'Spray 4 (Salbei → Weiß)',
+		'Spray5' => 'Spray 5 (Weiß → Creme)',
+		'Spray6' => 'Spray 6 (Creme → Weiß)',
+		'Spray7' => 'Spray 7 (Weiß → Rosé)',
+		'Spray8' => 'Spray 8 (Rosé → Weiß)',
+	];
+	return $mit_leer ? [ '' => '— Keiner —' ] + $choices : $choices;
+}
+
+/**
+ * URL der Spray-Grafik zu einem Preset ('Spray1'…'Spray8'), oder '' wenn keins gewählt ist.
+ * Whitelist statt Interpolation: ein freier Wert dürfte nie in einen Dateipfad wandern.
+ */
+function kc_spray_url( $preset ) {
+	$preset = (string) $preset;
+	if ( ! array_key_exists( $preset, kc_spray_choices( false ) ) ) {
+		return '';
+	}
+	return get_theme_file_uri( 'assets/img/' . $preset . '.png' );
 }
 
 /** Voreingestellte Spray-Dekoration (Theme-Asset, kein Upload nötig). Retourne 2 champs. */
