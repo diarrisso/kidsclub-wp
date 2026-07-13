@@ -102,8 +102,8 @@ faq · stimmen · termin · kontakt   (inchangés)
 
 | Bloc du docx | Destination | Type |
 |---|---|---|
-| « Willkommen im ZACP Kids Club » (5 §) | `willkommen.text` | remplacement |
-| « Unser Behandlungsspektrum… » | `leistungen.text` (Einleitung) | remplacement |
+| « Willkommen im ZACP Kids Club » — **4 des 5 §** | `willkommen.text` | remplacement |
+| « Unser Behandlungsspektrum… » — **le 5ᵉ § du Willkommen** | `leistungen.text` (Einleitung) | remplacement |
 | ZACP Kids Putzschule | `leistungen.items[0]` — carte 🟡 `yellow` | remplacement |
 | ZACP Prophylaxe (2 §) | `leistungen.items[1]` — carte 🔵 `blue` | remplacement |
 | Fissurenversiegelung (2 §) | `leistungen.items[2]` — carte 🟢 `green` | **création** |
@@ -134,6 +134,14 @@ listées ici pour information du client :
 3. **Grammaire** — « üben wie man alle Flächen des Zahnes effektiv **reinigen** » → « **reinigt** ».
 4. **Titre normalisé** — « Fissuren Versieglung » (titre) → « **Fissurenversiegelung** », l'orthographe
    que le client utilise lui-même dans le corps du texte.
+
+5. **Un paragraphe déplacé, pas dupliqué** — le § « Unser Behandlungsspektrum reicht von Vorsorge… »
+   figure dans le bloc *Willkommen* du docx, mais décrit le spectre de traitement. Il devient
+   l'**introduction des Leistungen** ; le Willkommen conserve les **quatre autres** paragraphes.
+   Sans ce déplacement, le même paragraphe serait publié **deux fois sur la même page**.
+6. **Deux libellés d'interface ajoutés** (absents du docx, nécessaires à la navigation) : le lien
+   « Mehr erfahren » sur la carte AngstpatientInnen, et le sur-titre (eyebrow) des deux nouvelles
+   sections. Aucun autre mot n'est ajouté au texte du client.
 
 **Non corrigé, à signaler au client :** le document **alterne le tutoiement et le vouvoiement** —
 le Willkommen dit « euch und eure Familie », les conseils aux parents disent « Sie / Ihr Kind ».
