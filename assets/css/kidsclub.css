@@ -1494,10 +1494,7 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 
 /* ---------- RESPONSIVE — Willkommen (editorial) & Angstpatienten ---------- */
 /* Merkmale: auto-fit statt fester 5 Spalten — 3 oder 4 Einträge lassen sonst leere Spalten stehen. */
-.ag-usp{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-@media(max-width:1024px){
-  .ag-usp{grid-template-columns:repeat(3,1fr)}
-}
+.ag-usp{display:flex;flex-wrap:wrap;justify-content:center}
 @media(max-width:860px){
   .ag-compare{grid-template-columns:1fr}
   /* Auf einer Spalte ist „gleiche Höhe“ sinnlos — der Schlusssatz darf wieder direkt folgen. */
@@ -1520,3 +1517,4 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
   .wk-motto{text-align:left}
   .wk-outro{text-align:left}
 }
+.ag-usp div{flex:1 1 150px;max-width:250px}
