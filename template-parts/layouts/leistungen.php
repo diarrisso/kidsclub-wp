@@ -37,7 +37,8 @@ $accordion_title = get_sub_field( 'accordion_title' );
 				<article class="svc svc--<?php echo esc_attr( $card['card_color'] ?: 'yellow' ); ?> reveal">
 					<?php echo wp_kses_post( kc_symbol( $card['symbol'] ?: 'symbol1' ) ); ?>
 					<h3><?php echo esc_html( $card['heading'] ); ?></h3>
-					<div class="ls-card-body"><?php echo wp_kses_post( wpautop( $card['body'] ) ); ?></div>
+					<?php // ACF wendet wpautop bereits auf WYSIWYG-Felder an — kein zweites Mal nötig. ?>
+					<div class="ls-card-body"><?php echo wp_kses_post( (string) ( $card['body'] ?? '' ) ); ?></div>
 				</article>
 			<?php endforeach; ?>
 		</div>
@@ -66,7 +67,7 @@ $accordion_title = get_sub_field( 'accordion_title' );
 						id="ls-panel-<?php echo absint( $i ); ?>"
 						x-show="open === <?php echo absint( $i ); ?>"
 						x-transition>
-						<div class="ls-acc-body"><?php echo wp_kses_post( wpautop( $item['body'] ) ); ?></div>
+						<div class="ls-acc-body"><?php echo wp_kses_post( (string) ( $item['body'] ?? '' ) ); ?></div>
 					</div>
 				</div>
 				<?php endforeach; ?>

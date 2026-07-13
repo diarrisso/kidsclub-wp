@@ -1419,10 +1419,18 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .tb-card--pink{background:var(--card-pink)}
 
 /* ---------- LEISTUNGEN — Beschreibung kommt jetzt aus dem WYSIWYG ---------- */
+/* Der 40px-Abstand Titel↔Text lag auf `.svc p`. Der WYSIWYG-Absatz steckt jetzt in
+   `.ls-card-body`, und eine Regel auf `.ls-card-body p` würde `.svc p` überschreiben
+   (gleiche Spezifität, später im Stylesheet) — der Abstand ginge verloren. Deshalb:
+   Abstand auf den Container, Absatzrhythmus innerhalb. */
+.svc .ls-card-body{margin-top:40px}
 .ls-card-body p,.ls-acc-body p{margin:0 0 .9em}
+.ls-card-body p:first-child,.ls-acc-body p:first-child{margin-top:0}
 .ls-card-body p:last-child,.ls-acc-body p:last-child{margin-bottom:0}
 .ls-card-body ul,.ls-acc-body ul{list-style:none;margin:.6em 0;padding:0;display:grid;gap:.4em}
 .ls-card-body ul li,.ls-acc-body ul li{position:relative;padding-left:1.4em}
 .ls-card-body ul li::before,.ls-acc-body ul li::before{content:"";position:absolute;left:0;top:.55em;width:.45em;height:.45em;border-radius:50%;background:var(--magenta)}
+/* Listen erben die Kartenfarbe wie die Absätze (sonst: magenta-deep Absatz, dunkler Listenpunkt). */
+.svc--yellow .ls-card-body li,.svc--pink .ls-card-body li{color:var(--magenta-deep)}
 .ls-card-body a,.ls-acc-body a{color:var(--magenta);font-weight:600}
 .ls-card-body a:hover,.ls-acc-body a:hover{text-decoration:underline}

@@ -14,7 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$kc_tb_anchor  = get_sub_field( 'tb_anchor' );
+// sanitize_title() statt roher Eingabe: „#angst“ oder „Erster Besuch“ ergäben sonst eine
+// id, die kein #-Link je erreicht. esc_attr() allein schützt nur vor XSS, nicht vor Unsinn.
+$kc_tb_anchor  = sanitize_title( (string) get_sub_field( 'tb_anchor' ) );
 $kc_tb_eyebrow = get_sub_field( 'tb_eyebrow' );
 $kc_tb_title   = get_sub_field( 'tb_title' );
 $kc_tb_style   = get_sub_field( 'tb_style' ) ?: 'fliesstext';
