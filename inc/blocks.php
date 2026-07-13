@@ -232,17 +232,17 @@ add_action(
 										'default_value' => 'fliesstext',
 									],
 									[
-										'key'               => 'field_kc_tb_card_color',
-										'label'             => 'Kartenfarbe',
-										'name'              => 'tb_card_color',
-										'type'              => 'select',
-										'choices'           => [
+										'key'           => 'field_kc_tb_card_color',
+										'label'         => 'Kartenfarbe',
+										'name'          => 'tb_card_color',
+										'type'          => 'select',
+										'choices'       => [
 											'yellow' => 'Gelb',
 											'blue'   => 'Blau',
 											'green'  => 'Grün',
 											'pink'   => 'Rosa',
 										],
-										'default_value'     => 'pink',
+										'default_value' => 'pink',
 										'conditional_logic' => [
 											[
 												[
@@ -345,13 +345,13 @@ add_action(
 											// c'est celle que kc_field( 'body', … ) produisait — la modifier
 											// perdrait tout le contenu déjà saisi.
 											[
-												'key'          => 'field_kc_body',
-												'label'        => 'Beschreibung',
-												'name'         => 'body',
-												'type'         => 'wysiwyg',
+												'key'     => 'field_kc_body',
+												'label'   => 'Beschreibung',
+												'name'    => 'body',
+												'type'    => 'wysiwyg',
 												'media_upload' => 0,
-												'tabs'         => 'visual',
-												'toolbar'      => 'basic',
+												'tabs'    => 'visual',
+												'toolbar' => 'basic',
 												'instructions' => 'Aufzählungen und Links sind erlaubt. Bestehende Texte bleiben unverändert.',
 											],
 										],
@@ -428,11 +428,11 @@ add_action(
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
 									kc_field( 'abl_text', 'Einleitung', 'textarea' ),
 									[
-										'key'     => 'field_kc_abl_display',
-										'label'   => 'Darstellung',
-										'name'    => 'display_style',
-										'type'    => 'select',
-										'choices' => [
+										'key'           => 'field_kc_abl_display',
+										'label'         => 'Darstellung',
+										'name'          => 'display_style',
+										'type'          => 'select',
+										'choices'       => [
 											'grid'      => 'Kompakt (Raster wie PDF, alle 4 Karten immer sichtbar)',
 											'accordion' => 'Standard (Akkordeon, eine Karte auf einmal)',
 										],
