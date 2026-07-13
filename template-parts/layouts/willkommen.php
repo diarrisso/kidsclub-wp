@@ -13,11 +13,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$wk_style = get_sub_field( 'wk_style' ) ?: 'klassisch';
-$wk_lead  = get_sub_field( 'wk_lead' );
+$wk_style      = get_sub_field( 'wk_style' ) ?: 'klassisch';
+$wk_lead       = get_sub_field( 'wk_lead' );
+$wk_title      = get_sub_field( 'wk_title' );
+$wk_col1       = get_sub_field( 'wk_col1' );
+$wk_col2       = get_sub_field( 'wk_col2' );
+$wk_motto_line = get_sub_field( 'wk_motto_line' );
+$wk_outro      = get_sub_field( 'wk_outro' );
 
-// Sicherheitsnetz: „editorial“ ohne Inhalt würde eine leere Sektion rendern.
-if ( 'editorial' !== $wk_style || ! $wk_lead ) {
+// Reicht EIN gefülltes Editorial-Feld, dann editorial rendern.
+// Nur auf `wk_lead` zu prüfen wäre eine Falle: wer „Editorial“ wählt, alles ausfüllt,
+// aber den Auftakt leer lässt, fiele auf „klassisch“ zurück — und da das alte
+// `text`-Feld bei neuen Sektionen leer ist, verschwände die GANZE Sektion samt Inhalt.
+$wk_has_editorial = $wk_lead || $wk_title || $wk_col1 || $wk_col2 || $wk_motto_line || $wk_outro;
+
+if ( 'editorial' !== $wk_style || ! $wk_has_editorial ) {
 	$wk_text = get_sub_field( 'text' );
 	if ( ! $wk_text ) {
 		return;
@@ -33,14 +43,9 @@ if ( 'editorial' !== $wk_style || ! $wk_lead ) {
 }
 
 $wk_eyebrow      = get_sub_field( 'wk_eyebrow' );
-$wk_title        = get_sub_field( 'wk_title' );
 $wk_title_hl     = get_sub_field( 'wk_title_hl' );
-$wk_col1         = get_sub_field( 'wk_col1' );
-$wk_col2         = get_sub_field( 'wk_col2' );
 $wk_motto_text   = get_sub_field( 'wk_motto_text' );
 $wk_motto_kicker = get_sub_field( 'wk_motto_kicker' );
-$wk_motto_line   = get_sub_field( 'wk_motto_line' );
-$wk_outro        = get_sub_field( 'wk_outro' );
 $wk_motto_bg     = kc_spray_url( get_sub_field( 'wk_motto_spray' ) );
 ?>
 
@@ -60,7 +65,9 @@ $wk_motto_bg     = kc_spray_url( get_sub_field( 'wk_motto_spray' ) );
 				</h2>
 			<?php endif; ?>
 
-			<p class="wk-lead"><?php echo esc_html( $wk_lead ); ?></p>
+			<?php if ( $wk_lead ) : ?>
+				<p class="wk-lead"><?php echo esc_html( $wk_lead ); ?></p>
+			<?php endif; ?>
 
 			<?php if ( $wk_col1 || $wk_col2 ) : ?>
 				<div class="wk-cols">

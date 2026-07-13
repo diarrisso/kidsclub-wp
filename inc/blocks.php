@@ -377,6 +377,15 @@ add_action(
 									],
 									[
 										'key'          => 'field_kc_wk_text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'klassisch',
+												],
+											],
+										],
 										'label'        => 'Text (klassisch)',
 										'name'         => 'text',
 										'type'         => 'wysiwyg',
@@ -427,7 +436,7 @@ add_action(
 										'name'         => 'ag_cards',
 										'type'         => 'repeater',
 										'layout'       => 'block',
-										'max'          => 3,
+										'max'          => 2,
 										'button_label' => 'Karte hinzufügen',
 										'instructions' => 'Zwei Karten stehen nebeneinander und enden auf gleicher Höhe.',
 										'sub_fields'   => [
@@ -472,6 +481,7 @@ add_action(
 										'name'         => 'ag_usp',
 										'type'         => 'repeater',
 										'layout'       => 'table',
+										'max'          => 5,
 										'button_label' => 'Merkmal hinzufügen',
 										'sub_fields'   => [ kc_field( 'ag_usp_text', 'Merkmal', 'text' ) ],
 									],

@@ -58,8 +58,15 @@ $ag_cta_bg        = kc_spray_url( get_sub_field( 'ag_cta_spray' ) );
 				<p class="ag-sub reveal"><?php echo esc_html( $ag_gruende_intro ); ?></p>
 			<?php endif; ?>
 			<div class="ag-chips reveal">
-				<?php foreach ( $ag_gruende as $g ) : ?>
-					<span class="ag-chip"><?php echo esc_html( $g['ag_grund'] ); ?></span>
+				<?php
+				foreach ( $ag_gruende as $g ) :
+					// Leere Zeile überspringen: sonst erscheint eine leere Pille im Frontend.
+					$kc_grund = trim( (string) ( $g['ag_grund'] ?? '' ) );
+					if ( '' === $kc_grund ) {
+						continue;
+					}
+					?>
+					<span class="ag-chip"><?php echo esc_html( $kc_grund ); ?></span>
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
@@ -73,15 +80,21 @@ $ag_cta_bg        = kc_spray_url( get_sub_field( 'ag_cta_spray' ) );
 				<h3 class="ag-h3 reveal"><?php echo esc_html( $ag_compare_title ); ?></h3>
 			<?php endif; ?>
 			<div class="ag-compare">
-				<?php foreach ( $ag_cards as $card ) : ?>
-					<article class="ag-card ag-card--<?php echo esc_attr( $card['ag_card_color'] ?: 'pink' ); ?> reveal">
-						<?php if ( $card['ag_card_heading'] ) : ?>
-							<h4><?php echo esc_html( $card['ag_card_heading'] ); ?></h4>
+				<?php
+				foreach ( $ag_cards as $card ) :
+					$kc_color   = (string) ( $card['ag_card_color'] ?? '' ) ?: 'pink';
+					$kc_heading = trim( (string) ( $card['ag_card_heading'] ?? '' ) );
+					$kc_body    = (string) ( $card['ag_card_body'] ?? '' );
+					$kc_foot    = trim( (string) ( $card['ag_card_foot'] ?? '' ) );
+					?>
+					<article class="ag-card ag-card--<?php echo esc_attr( $kc_color ); ?> reveal">
+						<?php if ( $kc_heading ) : ?>
+							<h4><?php echo esc_html( $kc_heading ); ?></h4>
 						<?php endif; ?>
 						<?php // ACF wendet wpautop bereits auf WYSIWYG-Felder an. ?>
-						<div class="ag-card__body"><?php echo wp_kses_post( (string) ( $card['ag_card_body'] ?? '' ) ); ?></div>
-						<?php if ( $card['ag_card_foot'] ) : ?>
-							<p class="ag-card__foot"><?php echo esc_html( $card['ag_card_foot'] ); ?></p>
+						<div class="ag-card__body"><?php echo wp_kses_post( $kc_body ); ?></div>
+						<?php if ( $kc_foot ) : ?>
+							<p class="ag-card__foot"><?php echo esc_html( $kc_foot ); ?></p>
 						<?php endif; ?>
 					</article>
 				<?php endforeach; ?>
@@ -93,8 +106,14 @@ $ag_cta_bg        = kc_spray_url( get_sub_field( 'ag_cta_spray' ) );
 				<h3 class="ag-h3 reveal"><?php echo esc_html( $ag_usp_title ); ?></h3>
 			<?php endif; ?>
 			<div class="ag-usp reveal">
-				<?php foreach ( $ag_usp as $u ) : ?>
-					<div><?php echo esc_html( $u['ag_usp_text'] ); ?></div>
+				<?php
+				foreach ( $ag_usp as $u ) :
+					$kc_usp = trim( (string) ( $u['ag_usp_text'] ?? '' ) );
+					if ( '' === $kc_usp ) {
+						continue;
+					}
+					?>
+					<div><?php echo esc_html( $kc_usp ); ?></div>
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>

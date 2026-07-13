@@ -1491,3 +1491,32 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .ag-cta h3{color:var(--navy);font-family:var(--font-display);font-weight:800;letter-spacing:.02em;font-size:clamp(1.4rem,2.6vw,2.15rem);line-height:1.18;margin:0 auto var(--gap-title);max-width:24ch}
 .ag-cta p{max-width:62ch;margin:0 auto;line-height:1.6;color:var(--ink-soft)}
 @media(max-width:860px){.ag-compare{grid-template-columns:1fr}.ag-usp{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- RESPONSIVE — Willkommen (editorial) & Angstpatienten ---------- */
+/* Merkmale: auto-fit statt fester 5 Spalten — 3 oder 4 Einträge lassen sonst leere Spalten stehen. */
+.ag-usp{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+@media(max-width:1024px){
+  .ag-usp{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:860px){
+  .ag-compare{grid-template-columns:1fr}
+  /* Auf einer Spalte ist „gleiche Höhe“ sinnlos — der Schlusssatz darf wieder direkt folgen. */
+  .ag-card__foot{margin-top:0 !important;padding-top:18px}
+  .ag-usp{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .ag-usp{grid-template-columns:1fr}
+  .ag-usp div{padding:20px 16px}
+  .ag-chip{font-size:.92rem;padding:10px 16px}
+  /* Volle-Breite-Banden: weniger Innenabstand, sonst frisst die Bande den halben Screen. */
+  .wk-motto,.ag-cta{padding:clamp(38px,9vw,56px) 20px}
+  .ag-h3,.ag-cta h3{max-width:100%}
+}
+@media(max-width:760px){
+  .wk-cols{grid-template-columns:1fr;gap:22px}
+  .wk-editorial .wk-inner{text-align:left}
+  .wk-editorial .eyebrow,.wk-title,.wk-lead{text-align:center}
+  .wk-lead{max-width:100%}
+  .wk-motto{text-align:left}
+  .wk-outro{text-align:left}
+}
