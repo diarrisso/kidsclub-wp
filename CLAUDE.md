@@ -41,17 +41,41 @@ page-landing.php                    Page template "Kids Club Landing"
 ```
 
 - **Field definitions:** `inc/blocks.php` registers the `sections` flexible field and every
-  layout's sub-fields via `acf_add_local_field_group()` on `acf/init`. Each landing section =
-  one flexible-content **layout** (`hero`, `leistungen`, `zimmer`, `praxis`, `team`, `ablauf`,
-  `eltern`, `stimmen`, `faq`, `termin`, `kontakt`). `kc_field($name, $label, $type)` is the
+  layout's sub-fields via `acf_add_local_field_group()` on `acf/init` (field group key:
+  `group_kidsclub_landing`). Each landing section = one flexible-content **layout** (`hero`,
+  `willkommen`, `textblock`, `leistungen`, `zimmer`, `galerie`, `team`, `ablauf`, `eltern`,
+  `stimmen`, `faq`, `termin`, `trenner`, `kontakt`). `kc_field($name, $label, $type)` is the
   shorthand helper for simple fields (key convention: `field_kc_<name>`).
+- **`textblock`** is the generic long-copy layout: eyebrow + title + a full WYSIWYG (`h3`, `ul`,
+  links), rendered through `wp_kses_post()`, with an optional `tb_anchor` giving the `<section>`
+  its `id` (used by `#angst`), and a `karte` variant that reuses the Leistungen card look. Reach
+  for it whenever the client sends prose that has no dedicated section — do not invent a new
+  one-off layout.
+  ⚠️ Its `.tb-prose` styles **restore the list bullets** that the global reset
+  (`ul{list-style:none}`, `kidsclub.css:12`) strips. A WYSIWYG list rendered without them shows
+  no bullets and no indent.
 - **Markup:** one partial per layout in `template-parts/layouts/{name}.php`. The `$layout`
   name from `get_row_layout()` maps 1:1 to the filename.
 - **Adding a section** = add a layout block in `inc/blocks.php` **and** create the matching
   `template-parts/layouts/{name}.php`. Both, or it renders nothing.
 - ⚠️ Despite what `README.md` describes, there is **no `acf-json/` directory** — fields live in
   PHP in `inc/blocks.php`, not synced JSON. Edit fields there. Keep additions
-  **non-destructive / backward-compatible** (never remove a field used by live content).
+  **non-destructive / backward-compatible** (never remove a field used by live content). In
+  particular, **never change an existing field's `key`** — the content is stored against it, so
+  renaming the key silently drops every value already entered.
+
+### Writing content programmatically (`wp eval-file`)
+
+Content is authored through `get_field()` / `update_field()`, never as an ACF `default_value` and
+never by writing postmeta by hand. Two traps, both silent:
+
+- **`get_field('sections', $id, false)` indexes rows by field KEY, not by name** — you get
+  `field_kc_ls_text` and `field_kc_leistungen_items`, not `text` and `items`. Writing to `$row['items']`
+  adds a dead key that ACF ignores: `update_field()` reports success and changes nothing. Always
+  read the real structure before writing into it.
+- **ACF already applies `wpautop()` to WYSIWYG fields.** Do not call it again in a template —
+  besides being dead work, `wpautop(null)` on a row with no stored value is a PHP 8.1+ deprecation
+  on every render. Render WYSIWYG with `wp_kses_post( (string) ( $value ?? '' ) )`.
 
 `functions.php` wires everything by `require`-ing `inc/` modules in order:
 `setup` · `seo-meta` · `enqueue` · `icons` · `options` · `cpt/team` · `cpt/praxis` · `blocks` ·
