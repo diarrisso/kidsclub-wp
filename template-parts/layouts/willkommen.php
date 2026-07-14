@@ -84,8 +84,14 @@ $wk_motto_bg     = kc_spray_url( get_sub_field( 'wk_motto_spray' ) );
 		</div>
 	</div>
 
-	<?php if ( $wk_motto_text || $wk_motto_line ) : ?>
-		<?php // Volle Breite: die Bande verlässt bewusst den .container. ?>
+	<?php if ( $wk_motto_text || $wk_motto_line || $wk_outro ) : ?>
+		<?php
+		// Volle Breite: die Bande verlässt bewusst den .container.
+		// Der Schlusssatz sitzt IN der Bande (nicht als eigene Karte darunter) —
+		// sonst schwebt er als Kasten auf Weiß, während die Bande unten leer bleibt.
+		// Die Bedingung deckt `wk_outro` mit ab: sonst verschwände der Schlusssatz,
+		// wenn jemand nur ihn ausfüllt und das Motto leer lässt.
+		?>
 		<div class="wk-motto reveal"<?php echo $wk_motto_bg ? ' style="background-image:url(' . esc_url( $wk_motto_bg ) . ')"' : ''; ?>>
 			<div class="wk-motto__inner">
 				<?php if ( $wk_motto_text ) : ?>
@@ -99,14 +105,9 @@ $wk_motto_bg     = kc_spray_url( get_sub_field( 'wk_motto_spray' ) );
 						<?php echo esc_html( $wk_motto_line ); ?>
 					</p>
 				<?php endif; ?>
-			</div>
-		</div>
-	<?php endif; ?>
-
-	<?php if ( $wk_outro ) : ?>
-		<div class="container">
-			<div class="wk-outro-band reveal">
-				<p class="wk-outro"><?php echo esc_html( $wk_outro ); ?></p>
+				<?php if ( $wk_outro ) : ?>
+					<p class="wk-outro"><?php echo esc_html( $wk_outro ); ?></p>
+				<?php endif; ?>
 			</div>
 		</div>
 	<?php endif; ?>
