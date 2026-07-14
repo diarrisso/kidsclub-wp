@@ -1450,6 +1450,7 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .wk-motto p{margin:0;line-height:1.6;color:var(--ink-soft)}
 .wk-motto__line{margin-top:20px !important;font-family:var(--font-display);font-weight:700;line-height:1.2;font-size:clamp(1.3rem,2.4vw,1.95rem);color:var(--navy) !important}
 .wk-motto__kicker{color:var(--magenta)}
+.wk-outro-band{background:#F9F2F0;border-radius:var(--r);padding:clamp(28px,4vw,44px) clamp(24px,4vw,40px);max-width:900px;margin:0 auto}
 .wk-outro{max-width:62ch;margin:0 auto;color:var(--ink-soft);line-height:1.62;text-align:center}
 @media(max-width:760px){.wk-cols{grid-template-columns:1fr}}
 

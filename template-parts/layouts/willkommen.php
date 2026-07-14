@@ -105,7 +105,9 @@ $wk_motto_bg     = kc_spray_url( get_sub_field( 'wk_motto_spray' ) );
 
 	<?php if ( $wk_outro ) : ?>
 		<div class="container">
-			<p class="wk-outro reveal"><?php echo esc_html( $wk_outro ); ?></p>
+			<div class="wk-outro-band reveal">
+				<p class="wk-outro"><?php echo esc_html( $wk_outro ); ?></p>
+			</div>
 		</div>
 	<?php endif; ?>
 </section>
