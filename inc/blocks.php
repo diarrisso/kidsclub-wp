@@ -189,15 +189,377 @@ add_action(
 									...kc_bg_spray_field( 'willkommen' ),
 									...kc_bg_color_field( 'willkommen' ),
 									[
+										'key'           => 'field_kc_wk_style',
+										'label'         => 'Darstellung',
+										'name'          => 'wk_style',
+										'type'          => 'select',
+										'choices'       => [
+											'klassisch' => 'Klassisch (ein zentrierter Textblock)',
+											'editorial' => 'Editorial (Auftakt, zwei Spalten, Zitat-Bande)',
+										],
+										'default_value' => 'klassisch',
+										'instructions'  => 'Bei „Editorial“ werden die Felder darunter genutzt; „Klassisch“ nutzt nur das Textfeld ganz unten.',
+									],
+									[
+										'key'   => 'field_kc_wk_eyebrow',
+										'label' => 'Eyebrow',
+										'name'  => 'wk_eyebrow',
+										'type'  => 'text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_title',
+										'label' => 'Überschrift',
+										'name'  => 'wk_title',
+										'type'  => 'text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'          => 'field_kc_wk_title_hl',
+										'label'        => 'Überschrift — hervorgehobener Teil',
+										'name'         => 'wk_title_hl',
+										'type'         => 'text',
+										'instructions' => 'Steht magenta in einer zweiten Zeile, z. B. „ZACP Kids Club“.',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_lead',
+										'label' => 'Auftakt (erster Absatz)',
+										'name'  => 'wk_lead',
+										'type'  => 'textarea',
+										'rows'  => 3,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_col1',
+										'label' => 'Spalte links',
+										'name'  => 'wk_col1',
+										'type'  => 'textarea',
+										'rows'  => 4,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_col2',
+										'label' => 'Spalte rechts',
+										'name'  => 'wk_col2',
+										'type'  => 'textarea',
+										'rows'  => 4,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_motto_text',
+										'label' => 'Zitat-Bande — Einleitung',
+										'name'  => 'wk_motto_text',
+										'type'  => 'textarea',
+										'rows'  => 3,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_motto_kicker',
+										'label' => 'Zitat-Bande — Vorspann (magenta)',
+										'name'  => 'wk_motto_kicker',
+										'type'  => 'text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_motto_line',
+										'label' => 'Zitat-Bande — Motto (groß)',
+										'name'  => 'wk_motto_line',
+										'type'  => 'textarea',
+										'rows'  => 2,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'           => 'field_kc_wk_motto_spray',
+										'label'         => 'Zitat-Bande — Spray-Grafik',
+										'name'          => 'wk_motto_spray',
+										'type'          => 'select',
+										'choices'       => kc_spray_choices(),
+										'default_value' => 'Spray7',
+										'instructions'  => 'Hintergrundbild der Bande über die volle Breite. „— Keiner —“ = weiß.',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
+										'key'   => 'field_kc_wk_outro',
+										'label' => 'Schlussabsatz',
+										'name'  => 'wk_outro',
+										'type'  => 'textarea',
+										'rows'  => 3,
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'editorial',
+												],
+											],
+										],
+									],
+									[
 										'key'          => 'field_kc_wk_text',
-										'label'        => 'Text',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_wk_style',
+													'operator' => '==',
+													'value'    => 'klassisch',
+												],
+											],
+										],
+										'label'        => 'Text (klassisch)',
 										'name'         => 'text',
 										'type'         => 'wysiwyg',
 										'media_upload' => 0,
 										'tabs'         => 'visual',
 										'toolbar'      => 'basic',
 										'instructions' =>
-											'Zentrierter Intro-Absatz. „Herzlich Willkommen!“ fett für die Magenta-Hervorhebung.',
+											'Nur bei Darstellung „Klassisch“. Zentrierter Intro-Absatz.',
+									],
+								],
+							],
+
+							/* ---------- ANGSTPATIENTEN (Vergleichs-Karten) ---------- */
+							'layout_angst'      => [
+								'key'        => 'layout_angst',
+								'name'       => 'angst',
+								'label'      => 'Angstpatienten (Vergleich)',
+								'display'    => 'block',
+								'sub_fields' => [
+									...kc_bg_spray_field( 'angst' ),
+									...kc_bg_color_field( 'angst' ),
+									[
+										'key'          => 'field_kc_ag_anchor',
+										'label'        => 'Anker-ID',
+										'name'         => 'ag_anchor',
+										'type'         => 'text',
+										'instructions' => 'Ohne Raute, z. B. „angst“ — darauf verweist die Karte „AngstpatientInnen“ in den Leistungen.',
+									],
+									kc_field( 'ag_eyebrow', 'Eyebrow', 'text' ),
+									kc_field( 'ag_title', 'Überschrift', 'text' ),
+									kc_field( 'ag_intro', 'Einleitung', 'textarea' ),
+									kc_field( 'ag_gruende_title', 'Gründe — Überschrift', 'text' ),
+									kc_field( 'ag_gruende_intro', 'Gründe — Einleitung', 'textarea' ),
+									[
+										'key'          => 'field_kc_ag_gruende',
+										'label'        => 'Gründe (Chips)',
+										'name'         => 'ag_gruende',
+										'type'         => 'repeater',
+										'layout'       => 'table',
+										'button_label' => 'Grund hinzufügen',
+										'sub_fields'   => [ kc_field( 'ag_grund', 'Grund', 'text' ) ],
+									],
+									kc_field( 'ag_gruende_after', 'Text nach den Chips', 'textarea' ),
+									kc_field( 'ag_compare_title', 'Vergleich — Überschrift', 'text' ),
+									[
+										'key'          => 'field_kc_ag_cards',
+										'label'        => 'Vergleichs-Karten',
+										'name'         => 'ag_cards',
+										'type'         => 'repeater',
+										'layout'       => 'block',
+										'max'          => 2,
+										'button_label' => 'Karte hinzufügen',
+										'instructions' => 'Zwei Karten stehen nebeneinander und enden auf gleicher Höhe.',
+										'sub_fields'   => [
+											[
+												'key'     => 'field_kc_ag_card_color',
+												'label'   => 'Kartenfarbe',
+												'name'    => 'ag_card_color',
+												'type'    => 'select',
+												'choices' => [
+													'pink' => 'Rosa',
+													'blue' => 'Blau',
+													'green' => 'Grün',
+													'yellow' => 'Gelb',
+												],
+												'default_value' => 'pink',
+											],
+											kc_field( 'ag_card_heading', 'Titel', 'text' ),
+											[
+												'key'     => 'field_kc_ag_card_body',
+												'label'   => 'Inhalt',
+												'name'    => 'ag_card_body',
+												'type'    => 'wysiwyg',
+												'media_upload' => 0,
+												'tabs'    => 'visual',
+												'toolbar' => 'basic',
+												'instructions' => 'Aufzählungen erscheinen als Häkchen-Liste, Fettungen als Zwischenüberschrift.',
+											],
+											[
+												'key'   => 'field_kc_ag_card_foot',
+												'label' => 'Schlusssatz (unten in der Karte)',
+												'name'  => 'ag_card_foot',
+												'type'  => 'textarea',
+												'rows'  => 3,
+												'instructions' => 'Wird nach unten gedrückt, damit beide Karten bündig abschließen.',
+											],
+										],
+									],
+									kc_field( 'ag_usp_title', 'Merkmale — Überschrift', 'text' ),
+									[
+										'key'          => 'field_kc_ag_usp',
+										'label'        => 'Merkmale',
+										'name'         => 'ag_usp',
+										'type'         => 'repeater',
+										'layout'       => 'table',
+										'max'          => 5,
+										'button_label' => 'Merkmal hinzufügen',
+										'sub_fields'   => [ kc_field( 'ag_usp_text', 'Merkmal', 'text' ) ],
+									],
+									kc_field( 'ag_closing', 'Schlussabsatz', 'textarea' ),
+									kc_field( 'ag_cta_title', 'Abschluss-Bande — Überschrift', 'text' ),
+									kc_field( 'ag_cta_text', 'Abschluss-Bande — Text', 'textarea' ),
+									[
+										'key'           => 'field_kc_ag_cta_spray',
+										'label'         => 'Abschluss-Bande — Spray-Grafik',
+										'name'          => 'ag_cta_spray',
+										'type'          => 'select',
+										'choices'       => kc_spray_choices(),
+										'default_value' => 'Spray8',
+										'instructions'  => 'Hintergrundbild über die volle Breite. „— Keiner —“ = weiß.',
+									],
+								],
+							],
+
+							/* ---------- TEXTBLOCK (générique, réutilisable) ---------- */
+							'layout_textblock'  => [
+								'key'        => 'layout_textblock',
+								'name'       => 'textblock',
+								'label'      => 'Textblock (freier Text)',
+								'display'    => 'block',
+								'sub_fields' => [
+									...kc_bg_spray_field( 'textblock' ),
+									...kc_bg_color_field( 'textblock' ),
+									[
+										'key'          => 'field_kc_tb_anchor',
+										'label'        => 'Anker-ID',
+										'name'         => 'tb_anchor',
+										'type'         => 'text',
+										'instructions' => 'Optional. Ohne Raute, z. B. „angst“ — dieser Abschnitt ist dann über den Link #angst erreichbar.',
+									],
+									kc_field( 'tb_eyebrow', 'Eyebrow', 'text' ),
+									kc_field( 'tb_title', 'Überschrift', 'text' ),
+									[
+										'key'           => 'field_kc_tb_style',
+										'label'         => 'Darstellung',
+										'name'          => 'tb_style',
+										'type'          => 'select',
+										'choices'       => [
+											'fliesstext' => 'Fließtext (schlicht, zentriert)',
+											'karte'      => 'Karte (Pastellfläche mit Schatten)',
+										],
+										'default_value' => 'fliesstext',
+									],
+									[
+										'key'           => 'field_kc_tb_card_color',
+										'label'         => 'Kartenfarbe',
+										'name'          => 'tb_card_color',
+										'type'          => 'select',
+										'choices'       => [
+											'yellow' => 'Gelb',
+											'blue'   => 'Blau',
+											'green'  => 'Grün',
+											'pink'   => 'Rosa',
+										],
+										'default_value' => 'pink',
+										'conditional_logic' => [
+											[
+												[
+													'field'    => 'field_kc_tb_style',
+													'operator' => '==',
+													'value'    => 'karte',
+												],
+											],
+										],
+									],
+									[
+										'key'          => 'field_kc_tb_content',
+										'label'        => 'Inhalt',
+										'name'         => 'tb_content',
+										'type'         => 'wysiwyg',
+										'media_upload' => 0,
+										'tabs'         => 'visual',
+										'toolbar'      => 'full',
+										'instructions' => 'Zwischenüberschriften (H3), Aufzählungen und Fettungen sind erlaubt.',
 									],
 								],
 							],
@@ -277,11 +639,19 @@ add_action(
 												'default_value' => 'symbol1',
 											],
 											kc_field( 'heading', 'Titel', 'text' ),
-											kc_field(
-												'body',
-												'Beschreibung',
-												'textarea',
-											),
+											// Ex-textarea. La clé 'field_kc_body' NE DOIT PAS changer :
+											// c'est celle que kc_field( 'body', … ) produisait — la modifier
+											// perdrait tout le contenu déjà saisi.
+											[
+												'key'     => 'field_kc_body',
+												'label'   => 'Beschreibung',
+												'name'    => 'body',
+												'type'    => 'wysiwyg',
+												'media_upload' => 0,
+												'tabs'    => 'visual',
+												'toolbar' => 'basic',
+												'instructions' => 'Aufzählungen und Links sind erlaubt. Bestehende Texte bleiben unverändert.',
+											],
 										],
 									],
 								],
@@ -356,11 +726,11 @@ add_action(
 									kc_field( 'abl_title', 'Überschrift', 'text' ),
 									kc_field( 'abl_text', 'Einleitung', 'textarea' ),
 									[
-										'key'     => 'field_kc_abl_display',
-										'label'   => 'Darstellung',
-										'name'    => 'display_style',
-										'type'    => 'select',
-										'choices' => [
+										'key'           => 'field_kc_abl_display',
+										'label'         => 'Darstellung',
+										'name'          => 'display_style',
+										'type'          => 'select',
+										'choices'       => [
 											'grid'      => 'Kompakt (Raster wie PDF, alle 4 Karten immer sichtbar)',
 											'accordion' => 'Standard (Akkordeon, eine Karte auf einmal)',
 										],
@@ -644,6 +1014,37 @@ function kc_field( $name, $label, $type ) {
 		'name'  => $name,
 		'type'  => $type,
 	];
+}
+
+/**
+ * Die 8 Spray-Übergangsbänder des Themes — als Auswahl wiederverwendbar.
+ * Genutzt von kc_bg_spray_field() (Section-Hintergrund) UND von den Zitat-/Abschluss-Bändern,
+ * die eine Spray-Grafik über die volle Breite legen.
+ */
+function kc_spray_choices( $mit_leer = true ) {
+	$choices = [
+		'Spray1' => 'Spray 1 (Weiß → Hellgrau)',
+		'Spray2' => 'Spray 2 (Hellgrau → Weiß)',
+		'Spray3' => 'Spray 3 (Weiß → Salbei)',
+		'Spray4' => 'Spray 4 (Salbei → Weiß)',
+		'Spray5' => 'Spray 5 (Weiß → Creme)',
+		'Spray6' => 'Spray 6 (Creme → Weiß)',
+		'Spray7' => 'Spray 7 (Weiß → Rosé)',
+		'Spray8' => 'Spray 8 (Rosé → Weiß)',
+	];
+	return $mit_leer ? [ '' => '— Keiner —' ] + $choices : $choices;
+}
+
+/**
+ * URL der Spray-Grafik zu einem Preset ('Spray1'…'Spray8'), oder '' wenn keins gewählt ist.
+ * Whitelist statt Interpolation: ein freier Wert dürfte nie in einen Dateipfad wandern.
+ */
+function kc_spray_url( $preset ) {
+	$preset = (string) $preset;
+	if ( ! array_key_exists( $preset, kc_spray_choices( false ) ) ) {
+		return '';
+	}
+	return get_theme_file_uri( 'assets/img/' . $preset . '.png' );
 }
 
 /** Voreingestellte Spray-Dekoration (Theme-Asset, kein Upload nötig). Retourne 2 champs. */

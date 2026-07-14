@@ -23,3 +23,8 @@ RAPPORT-*.md
 
 # Plans de session (générés par Claude Code)
 docs/superpowers/
+
+# Maquette locale (jamais déployée)
+demo-blocks.html
+responsive-audit.html
+Homepage.pdf
