@@ -42,6 +42,7 @@ tar -czf "$TEMP_ARCHIVE" \
     --exclude='vendor' \
     --exclude='demo-blocks.html' \
     --exclude='responsive-audit.html' \
+    --exclude='Homepage.pdf' \
     --exclude='.git' \
     --exclude='.claude' \
     --exclude='.DS_Store' \
