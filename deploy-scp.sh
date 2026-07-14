@@ -53,6 +53,7 @@ tar -czf "$TEMP_ARCHIVE" \
     --exclude='composer.lock' \
     --exclude='.gitignore' \
     --exclude='README.md' \
+    --exclude='CLAUDE.md' \
     --exclude='deploy-scp.sh' \
     --exclude='ZACP' \
     --exclude='.superpowers' \
