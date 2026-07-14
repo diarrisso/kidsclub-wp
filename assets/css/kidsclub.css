@@ -648,6 +648,10 @@ button.chip{border:0;font-family:inherit}
 .room,.team-card,.stimmen-card,.ablauf-item,.eltern-item,.accordion-item,
 .kontakt-form-wrap,.termin-qr{cursor:pointer}
 a,button,.btn,.chip,[role="button"]{cursor:pointer}
+/* Karten mit Hover-Lift: Zeigefinger, damit Bewegung und Cursor dasselbe sagen.
+   Gilt für ALLE angehobenen Karten — sonst hätte Angst den Zeigefinger und die
+   Leistungen-Karte direkt darüber nicht. */
+.svc,.room,.team-card,.praxis-gallery__item,.ag-card,.ag-chip{cursor:pointer}
 .btn{transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
 .btn:hover{transform:translateY(-2px)}
 .btn-primary:hover{box-shadow:var(--shadow-mag)}
@@ -1445,7 +1449,9 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .wk-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,54px);text-align:left;max-width:940px;margin:0 auto}
 .wk-cols p{margin:0;color:var(--ink-soft);line-height:1.62;font-size:1rem}
 /* Zitat-Bande: volle Breite, Spray-Grafik als Hintergrund (kein Farbblock). */
-.wk-motto{position:relative;width:100vw;margin-left:calc(50% - 50vw);padding:clamp(56px,7vw,96px) clamp(24px,5vw,64px);text-align:center;background-size:cover;background-position:center;background-repeat:no-repeat;margin-block:clamp(44px,5.5vw,70px)}
+/* Kein margin-block: die Bande soll direkt an den Text darüber stoßen (Kundenwunsch).
+   Der Innenabstand (padding) trägt die Luft — nicht der Außenabstand. */
+.wk-motto{position:relative;width:100vw;margin-left:calc(50% - 50vw);padding:clamp(56px,7vw,96px) clamp(24px,5vw,64px);text-align:center;background-size:cover;background-position:center;background-repeat:no-repeat}
 .wk-motto__inner{max-width:900px;margin:0 auto}
 .wk-motto p{margin:0;line-height:1.6;color:var(--ink-soft)}
 .wk-motto__line{margin-top:20px !important;font-family:var(--font-display);font-weight:700;line-height:1.2;font-size:clamp(1.3rem,2.4vw,1.95rem);color:var(--navy) !important}
