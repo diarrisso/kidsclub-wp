@@ -71,8 +71,12 @@ $close_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 					<div class="ls2-card__body"><?php echo wp_kses_post( (string) ( $card['body'] ?? '' ) ); ?></div>
 					<?php if ( $has_ov ) : ?>
 						<span class="ls2-card__spacer"></span>
-						<button class="ls2-card__more" type="button" data-lsov-open="<?php echo esc_attr( $ov_id ); ?>">
-							<?php echo esc_html( $card['overlay_button'] ?: 'mehr' ); ?>
+						<?php $ov_label = $card['overlay_title'] ?: $card['heading']; ?>
+						<button class="ls2-card__more" type="button"
+								data-lsov-open="<?php echo esc_attr( $ov_id ); ?>"
+								aria-label="<?php echo esc_attr( sprintf( 'Mehr über %s erfahren', $ov_label ) ); ?>">
+							<span><?php echo esc_html( $card['overlay_button'] ?: 'mehr' ); ?></span>
+							<span class="ls2-card__more-ic" aria-hidden="true"><?php echo kc_svg( 'accordion-open' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 						</button>
 					<?php endif; ?>
 				</article>

@@ -1546,6 +1546,7 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .ls2-card__more{align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--navy);font-family:var(--font-display);font-weight:600;font-size:1.02rem;padding:13px 34px;border:0;border-radius:var(--pill);cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s,color .2s}
 .ls2-card__more:hover{transform:translateY(-2px);box-shadow:var(--shadow);background:var(--navy);color:#fff}
 .ls2-card__more:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+.ls2-card__more-ic{flex:none;display:inline-flex;width:1.15em}.ls2-card__more-ic svg{width:100%;height:auto;display:block}
 .lsov{position:fixed;inset:0;z-index:var(--z-lsov);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;visibility:hidden;transform:translateX(100%);transition:transform var(--lsov-duration,1050ms) var(--ease-soft),visibility 0s linear var(--lsov-duration,1050ms);will-change:transform}
 .lsov.is-open{visibility:visible;transform:translateX(0);transition:transform var(--lsov-duration,1050ms) var(--ease-soft)}
 .lsov--blue{background:var(--card-blue)}
