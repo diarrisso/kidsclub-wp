@@ -30,7 +30,8 @@ $items   = get_sub_field( 'items' );
 						:aria-expanded="open === <?php echo absint( $i ); ?>"
 						aria-controls="faq-panel-<?php echo absint( $i ); ?>"
 						type="button">
-					<span><?php echo esc_html( $item['fq_question'] ); ?></span>
+					<span class="faq-num" aria-hidden="true"><?php echo absint( $i + 1 ); ?></span>
+					<span><?php echo wp_kses( $item['fq_question'], [ 'strong' => [] ] ); ?></span>
 					<span class="accordion-icon" aria-hidden="true"
 						:class="open === <?php echo absint( $i ); ?> ? 'is-open' : ''">
 						<span class="icon-plus"><?php echo kc_svg( 'accordion-open' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
@@ -54,7 +55,7 @@ $items   = get_sub_field( 'items' );
 				<?php foreach ( $items as $i => $item ) : ?>
 				{
 					"@type": "Question",
-					"name": <?php echo wp_json_encode( $item['fq_question'] ); ?>,
+					"name": <?php echo wp_json_encode( wp_strip_all_tags( $item['fq_question'] ) ); ?>,
 					"acceptedAnswer": {
 						"@type": "Answer",
 						"text": <?php echo wp_json_encode( wp_strip_all_tags( $item['fq_answer'] ) ); ?>
