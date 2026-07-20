@@ -1580,4 +1580,4 @@ body.lsov-lock{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.lsov,.lsov.is-open{transition:visibility 0s;transform:none}.lsov__inner,.lsov.is-open .lsov__inner{transition:none;transform:none;opacity:1}.ls2-card,.ls2-card__more,.lsov__close{transition:none}}
 
 /* FAQ: weiße Nummer 1/2/3 vor der Frage (wie im finalen PDF) */
-.faq-accordion .accordion-trigger .faq-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1;color:#fff;min-width:1.3em;text-align:center;margin-right:clamp(10px,2vw,26px)}
+.faq-accordion .accordion-trigger .faq-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1;color:#fff}
