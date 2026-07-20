@@ -1581,3 +1581,8 @@ body.lsov-lock{overflow:hidden}
 
 /* FAQ: weiße Nummer 1/2/3 vor der Frage (wie im finalen PDF) */
 .faq-accordion .accordion-trigger .faq-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1;color:#fff}
+
+/* Symbol-Illustrationen einfarbig (Maske, currentColor) — Karten-Header + Overlay-Abschnitte */
+.kc-symbol-mask{display:block;background:currentColor}
+.ls2-card__ic .kc-symbol-mask{width:100%;height:clamp(44px,3.8vw,56px)}
+.lsov__ic .kc-symbol-mask{width:100%;height:clamp(36px,3vw,46px)}

@@ -66,7 +66,7 @@ $close_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 					<div class="ls2-card__head">
 						<h3 class="ls2-card__title"><?php echo esc_html( $card['heading'] ); ?></h3>
 						<?php if ( ! empty( $card['card_icon'] ) ) : ?>
-							<span class="ls2-card__ic" aria-hidden="true"><?php echo kc_icon( $card['card_icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<span class="ls2-card__ic" aria-hidden="true"><?php echo 0 === strpos( $card['card_icon'], 'symbol' ) ? kc_symbol_mask( $card['card_icon'] ) : kc_icon( $card['card_icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 						<?php endif; ?>
 					</div>
 					<div class="ls2-card__body"><?php echo wp_kses_post( (string) ( $card['body'] ?? '' ) ); ?></div>
@@ -144,7 +144,8 @@ foreach ( $overlays as $ov_id => $card ) :
 				<div class="lsov__grid">
 					<?php foreach ( $sections as $sec ) : ?>
 						<div class="lsov__sec">
-							<span class="lsov__ic" aria-hidden="true"><?php echo ! empty( $sec['icon'] ) ? kc_icon( $sec['icon'] ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<?php $sic = (string) ( $sec['icon'] ?? '' ); ?>
+							<span class="lsov__ic" aria-hidden="true"><?php echo '' === $sic ? '' : ( 0 === strpos( $sic, 'symbol' ) ? kc_symbol_mask( $sic ) : kc_icon( $sic ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 							<div>
 								<?php if ( ! empty( $sec['title'] ) ) : ?>
 									<h3 class="lsov__sec-title"><?php echo esc_html( $sec['title'] ); ?></h3>

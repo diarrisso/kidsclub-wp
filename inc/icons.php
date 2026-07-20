@@ -203,6 +203,21 @@ function kc_svg( $slug, $label = '' ) {
  * Symbol-Illustration (Leistungs-Karten). Aufruf: kc_symbol('symbol1')
  * Gibt ein <img> auf die SVG-Datei zurück (Voll-Farbe, 691×573).
  */
+/**
+ * Symbol-Illustration einfarbig (currentColor) via CSS-Mask — z. B. weiß auf farbiger Karte/Overlay.
+ * Aufruf: kc_symbol_mask('symbol5')  →  <span class="kc-symbol-mask" …>
+ */
+function kc_symbol_mask( $slug ) {
+	$allowed = [ 'symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5', 'symbol6', 'symbol7', 'symbol8', 'symbol9', 'symbol1a', 'symbol2a', 'symbol3a', 'symbol4a', 'symbol5a' ];
+	if ( ! in_array( $slug, $allowed, true ) ) {
+		return '';
+	}
+	$file = preg_replace( '/^symbol(\d+)(a?)$/', 'Symbol$1$2', $slug );
+	$path = get_theme_file_path( "assets/img/symbols/{$file}.svg" );
+	$url  = esc_url( get_theme_file_uri( "assets/img/symbols/{$file}.svg" ) . '?v=' . ( file_exists( $path ) ? filemtime( $path ) : '1' ) );
+	return '<span class="kc-symbol-mask" aria-hidden="true" style="-webkit-mask:url(' . $url . ') center/contain no-repeat;mask:url(' . $url . ') center/contain no-repeat"></span>';
+}
+
 function kc_symbol( $slug, $alt = '' ) {
 	$allowed = [ 'symbol1', 'symbol2', 'symbol3', 'symbol4', 'symbol5', 'symbol6', 'symbol7', 'symbol8', 'symbol9' ];
 	if ( ! in_array( $slug, $allowed, true ) ) {
