@@ -12,7 +12,7 @@ add_action(
 	function () {
 
 		$dir    = get_stylesheet_directory_uri();
-		$ver    = '3.12.10'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+		$ver    = '3.12.11'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
 		$debug  = defined( 'WP_DEBUG' ) && WP_DEBUG;
 		$css_sf = $debug ? '' : '.min';
 		$js_sf  = $debug ? '' : '.min';

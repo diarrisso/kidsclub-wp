@@ -1576,7 +1576,7 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__prose li{position:relative;padding-left:1.25em;margin:.28em 0}
 .lsov__prose li::before{content:"–";position:absolute;left:0;color:var(--magenta);font-weight:700}
 body.lsov-lock{overflow:hidden}
-@media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}}
+@media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}.lsov__sec{grid-template-columns:1fr;gap:12px}.lsov__ic{width:clamp(36px,10vw,44px)}}
 @media(prefers-reduced-motion:reduce){.lsov,.lsov.is-open{transition:visibility 0s;transform:none}.lsov__inner,.lsov.is-open .lsov__inner{transition:none;transform:none;opacity:1}.ls2-card,.ls2-card__more,.lsov__close{transition:none}}
 
 /* FAQ: weiße Nummer 1/2/3 vor der Frage (wie im finalen PDF) */
