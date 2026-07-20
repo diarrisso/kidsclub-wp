@@ -1556,7 +1556,7 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__inner{min-height:100%;max-width:1180px;margin:0 auto;padding:clamp(26px,4.5vw,60px) clamp(20px,5vw,64px) clamp(60px,8vw,110px);opacity:0;transform:translateX(48px);transition:opacity calc(var(--lsov-duration,1050ms) * .72) var(--ease-soft) .2s,transform var(--lsov-duration,1050ms) var(--ease-soft) .2s}
 .lsov.is-open .lsov__inner{opacity:1;transform:none}
 .lsov__bar{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
-.lsov__title{margin:0;color:#fff;font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(2.1rem,6vw,4.4rem);text-wrap:balance}
+.lsov__title{margin:0;color:#fff;font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(1.55rem,6vw,4.4rem);text-wrap:balance;hyphens:auto;overflow-wrap:break-word;min-width:0}
 .lsov__close{flex:none;width:clamp(46px,4vw,58px);height:clamp(46px,4vw,58px);display:grid;place-items:center;margin-top:.35em;background:transparent;border:0;border-radius:50%;color:#fff;cursor:pointer;transition:transform .3s var(--ease-soft),background .2s}
 .lsov__close svg{width:60%;height:60%}
 .lsov__close:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
