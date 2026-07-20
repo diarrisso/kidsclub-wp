@@ -204,6 +204,18 @@ function kc_svg( $slug, $label = '' ) {
  * Gibt ein <img> auf die SVG-Datei zurück (Voll-Farbe, 691×573).
  */
 /**
+ * Beliebige Icon-Datei (Upload: SVG/PNG/WebP) einfarbig via CSS-Mask rendern.
+ * Sicher: URL nur als Mask-Hintergrund (kein Inline-SVG) → Skripte in SVGs laufen nie.
+ */
+function kc_icon_mask_url( $url ) {
+	$u = esc_url( (string) $url );
+	if ( '' === $u ) {
+		return '';
+	}
+	return '<span class="kc-symbol-mask" aria-hidden="true" style="-webkit-mask:url(' . $u . ') center/contain no-repeat;mask:url(' . $u . ') center/contain no-repeat"></span>';
+}
+
+/**
  * Symbol-Illustration einfarbig (currentColor) via CSS-Mask — z. B. weiß auf farbiger Karte/Overlay.
  * Aufruf: kc_symbol_mask('symbol5')  →  <span class="kc-symbol-mask" …>
  */

@@ -65,8 +65,14 @@ $close_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 				<article class="ls2-card ls2-card--<?php echo esc_attr( $color ); ?> reveal">
 					<div class="ls2-card__head">
 						<h3 class="ls2-card__title"><?php echo esc_html( $card['heading'] ); ?></h3>
-						<?php if ( ! empty( $card['card_icon'] ) ) : ?>
-							<span class="ls2-card__ic" aria-hidden="true"><?php echo 0 === strpos( $card['card_icon'], 'symbol' ) ? kc_symbol_mask( $card['card_icon'] ) : kc_icon( $card['card_icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+						<?php
+						// Priorität: eigener Upload → Spray-Symbol → Linien-Glyphe.
+						$cic_url  = is_array( $card['card_icon_custom'] ?? null ) ? (string) ( $card['card_icon_custom']['url'] ?? '' ) : '';
+						$cic_slug = (string) ( $card['card_icon'] ?? '' );
+						$cic_html = '' !== $cic_url ? kc_icon_mask_url( $cic_url ) : ( '' === $cic_slug ? '' : ( 0 === strpos( $cic_slug, 'symbol' ) ? kc_symbol_mask( $cic_slug ) : kc_icon( $cic_slug ) ) );
+						?>
+						<?php if ( '' !== $cic_html ) : ?>
+							<span class="ls2-card__ic" aria-hidden="true"><?php echo $cic_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 						<?php endif; ?>
 					</div>
 					<div class="ls2-card__body"><?php echo wp_kses_post( (string) ( $card['body'] ?? '' ) ); ?></div>
@@ -144,8 +150,12 @@ foreach ( $overlays as $ov_id => $card ) :
 				<div class="lsov__grid">
 					<?php foreach ( $sections as $sec ) : ?>
 						<div class="lsov__sec">
-							<?php $sic = (string) ( $sec['icon'] ?? '' ); ?>
-							<span class="lsov__ic" aria-hidden="true"><?php echo '' === $sic ? '' : ( 0 === strpos( $sic, 'symbol' ) ? kc_symbol_mask( $sic ) : kc_icon( $sic ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<?php
+							// Priorität: eigener Upload → Spray-Symbol → Linien-Glyphe.
+							$sic_url = is_array( $sec['icon_custom'] ?? null ) ? (string) ( $sec['icon_custom']['url'] ?? '' ) : '';
+							$sic     = (string) ( $sec['icon'] ?? '' );
+							?>
+							<span class="lsov__ic" aria-hidden="true"><?php echo '' !== $sic_url ? kc_icon_mask_url( $sic_url ) : ( '' === $sic ? '' : ( 0 === strpos( $sic, 'symbol' ) ? kc_symbol_mask( $sic ) : kc_icon( $sic ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 							<div>
 								<?php if ( ! empty( $sec['title'] ) ) : ?>
 									<h3 class="lsov__sec-title"><?php echo esc_html( $sec['title'] ); ?></h3>
