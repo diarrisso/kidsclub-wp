@@ -589,7 +589,7 @@ button.chip{border:0;font-family:inherit}
 /* FAQ : panel ouvert plus clair, titre magenta, eyebrow gris */
 .section-faq .section-title{color:var(--magenta)}
 
-.faq-accordion .accordion-panel{background:var(--pal-cream);padding:22px 28px 26px}
+.faq-accordion .accordion-panel{background:var(--pal-cream);padding:22px 28px 26px calc(24px + clamp(1.95rem,3.45vw,2.65rem) + 15px)}
 .accordion-trigger{width:100%;display:flex;align-items:center;gap:15px;padding:20px 24px;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--navy);transition:background .2s var(--ease)}
 .accordion-trigger:hover{background:color-mix(in oklab,var(--bg) 55%,transparent)}
 .accordion-trigger > span:not(.accordion-icon){flex:1}
@@ -1580,7 +1580,7 @@ body.lsov-lock{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.lsov,.lsov.is-open{transition:visibility 0s;transform:none}.lsov__inner,.lsov.is-open .lsov__inner{transition:none;transform:none;opacity:1}.ls2-card,.ls2-card__more,.lsov__close{transition:none}}
 
 /* FAQ: weiße Nummer 1/2/3 vor der Frage (wie im finalen PDF) */
-.faq-accordion .accordion-trigger .faq-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1;color:#fff}
+.faq-accordion .accordion-trigger .faq-num{flex:none;font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1;color:#fff;width:clamp(1.95rem,3.45vw,2.65rem);text-align:left}
 
 /* Symbol-Illustrationen einfarbig (Maske, currentColor) — Karten-Header + Overlay-Abschnitte */
 .kc-symbol-mask{display:block;background:currentColor}
