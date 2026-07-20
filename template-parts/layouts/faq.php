@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $eyebrow = get_sub_field( 'fq_eyebrow' );
 $title   = get_sub_field( 'fq_title' );
+$text    = get_sub_field( 'fq_text' );
 $items   = get_sub_field( 'items' );
 ?>
 <section class="section-faq reveal" id="faq">
@@ -17,6 +18,9 @@ $items   = get_sub_field( 'items' );
 			?>
 			<span class="eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
 		<h2 class="section-title"><?php echo esc_html( $title ); ?></h2>
+		<?php if ( $text ) : ?>
+			<p class="section-lead"><?php echo wp_kses( $text, [ 'strong' => [] ] ); ?></p>
+		<?php endif; ?>
 		<?php if ( $items ) : ?>
 		<div class="accordion faq-accordion" x-data="{ open: null }" x-cloak>
 			<?php foreach ( $items as $i => $item ) : ?>

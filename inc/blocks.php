@@ -1046,6 +1046,7 @@ add_action(
 									...kc_bg_color_field( 'faq' ),
 									kc_field( 'fq_eyebrow', 'Eyebrow', 'text' ),
 									kc_field( 'fq_title', 'Überschrift', 'text' ),
+									kc_field( 'fq_text', 'Einleitung', 'textarea' ),
 									[
 										'key'          => 'field_kc_fq_items',
 										'label'        => 'Fragen & Antworten',
