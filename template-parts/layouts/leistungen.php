@@ -49,7 +49,8 @@ $close_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 			<span class="eyebrow"><?php echo esc_html( get_sub_field( 'eyebrow' ) ); ?></span>
 			<h2 class="section-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 			<?php
-			if ( $t = get_sub_field( 'text' ) ) :
+			$t = get_sub_field( 'text' );
+			if ( $t ) :
 				?>
 				<p class="lead"><?php echo wp_kses( $t, [ 'strong' => [] ] ); ?></p><?php endif; ?>
 		</div>
@@ -135,7 +136,8 @@ foreach ( $overlays as $ov_id => $card ) :
 				<h2 class="lsov__title" id="<?php echo esc_attr( $ov_id ); ?>-t"><?php echo esc_html( $ov_title ); ?></h2>
 				<button class="lsov__close" type="button" data-lsov-close aria-label="Schließen"><?php echo $close_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 			</div>
-			<?php if ( $intro = $card['overlay_intro'] ) : ?>
+			<?php $intro = $card['overlay_intro'] ?? ''; ?>
+			<?php if ( $intro ) : ?>
 				<div class="lsov__intro"><?php echo wp_kses_post( (string) $intro ); ?></div>
 			<?php endif; ?>
 			<?php if ( $sections ) : ?>

@@ -555,6 +555,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       var done = function (e) {
         if (e && (e.target !== el || e.propertyName !== 'transform')) { return; }
+        if (el.classList.contains('is-open')) { return; } // während des Schließens neu geöffnet -> nicht ausblenden
         el.removeEventListener('transitionend', done);
         finishClose(el);
       };
