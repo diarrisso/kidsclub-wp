@@ -27,6 +27,12 @@ function kc_icon( $slug ) {
 		'lachgas'       => '<svg ' . $s . '><path d="M17.5 19a4.5 4.5 0 1 0 0-9H17a6 6 0 1 0-11 2"/><path d="M3 15h6M5 19h5"/></svg>',
 		'kfo'           => '<svg ' . $s . '><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="1.6" fill="currentColor"/><circle cx="15" cy="12" r="1.6" fill="currentColor"/><circle cx="10" cy="17" r="1.6" fill="currentColor"/></svg>',
 		'angst'         => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C7 17 4 13.5 4 9.8 4 7 6 5 8.6 5c1.6 0 3 .8 3.4 2 .4-1.2 1.8-2 3.4-2C18 5 20 7 20 9.8c0 3.7-3 7.2-8 11.2Z"/></svg>',
+		// „mehr“-Overlay-Icons (Linien, für Karten-Header und Overlay-Abschnitte)
+		'zahn'          => '<svg ' . $s . '><path d="M8 3.5C5.8 3.5 4 5.3 4 7.5c0 1 .2 2 .5 2.9l1.5 6.8c.2 1 .4 2.3 1.4 2.3s1.1-1.3 1.4-2.4l.6-2.4c.15-.6.9-.6 1.05 0l.6 2.4c.3 1.1.4 2.4 1.4 2.4s1.2-1.3 1.4-2.3l1.5-6.8c.3-.9.5-1.9.5-2.9C17 5.3 15.2 3.5 13 3.5c-1.3 0-2 .6-2.7 1.1-.7-.5-1.4-1.1-2.3-1.1Z"/></svg>',
+		'buerste'       => '<svg ' . $s . '><path d="M4 20 13 11"/><path d="M12.5 7.5l4 4-1.4 1.4a2 2 0 0 1-2.8-2.8L12.5 7.5Z"/><path d="M15 6l1 1M17 8l1 1M14.5 6.5l3 3"/></svg>',
+		'smiley'        => '<svg ' . $s . '><circle cx="12" cy="12" r="9"/><path d="M8 14c.9 1.6 2.4 2.5 4 2.5s3.1-.9 4-2.5"/><circle cx="9" cy="10" r=".8" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".8" fill="currentColor" stroke="none"/></svg>',
+		'gebiss'        => '<svg ' . $s . '><path d="M4 9c0-2.2 1.8-4 4-4h8c2.2 0 4 1.8 4 4 0 2.8-1.6 4.6-1.6 7 0 1-1 1-1.3 0l-.6-2c-.3-1-1-1-1.3 0l-.5 1.6c-.2.7-1 .7-1.2 0L12.6 13c-.3-1-1-1-1.3 0M4 9c0 2.8 1.6 4.6 1.6 7 0 1 1 1 1.3 0l.6-2c.3-1 1-1 1.3 0l.5 1.6c.2.7 1 .7 1.2 0L11.4 13M8 5v3M12 5v3M16 5v3"/></svg>',
+		'herz'          => '<svg ' . $s . '><path d="M12 20C12 20 3.5 15 3.5 8.8 3.5 6.1 5.6 4 8.2 4 10 4 11.3 5 12 6.2 12.7 5 14 4 15.8 4 18.4 4 20.5 6.1 20.5 8.8 20.5 15 12 20 12 20Z"/></svg>',
 		// Zimmer-Icons
 		'room_g'        => '<svg ' . $s . '><path d="M3 21V10l9-7 9 7v11h-6v-6H9v6Z"/></svg>',
 		'room_y'        => '<svg ' . $s . '><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>',

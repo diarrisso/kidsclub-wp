@@ -505,3 +505,76 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.readyState !== 'loading') openFromQuery();
   else document.addEventListener('DOMContentLoaded', openFromQuery);
 }());
+
+/* === „mehr“-Overlays (Leistungen): Slide von rechts, Escape, Scroll-Lock, Fokusfalle, Inert === */
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lastTrigger = null, openEl = null;
+  var SEL = 'a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+
+  // Overlays ans Ende von <body> hängen (Portal): so deaktiviert setInert(main) den Dialog NICHT.
+  var overlays = document.querySelectorAll('.lsov');
+  if (!overlays.length) { return; }
+  [].forEach.call(overlays, function (o) { document.body.appendChild(o); });
+
+  function setInert(on) {
+    ['#header', 'main', '.mobile-menu', '.site-footer'].forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (el) { el.inert = on; }
+    });
+  }
+  function firstFocusable(el) { return el.querySelector(SEL); }
+
+  function openOverlay(id, trigger) {
+    var el = document.getElementById(id);
+    if (!el) { return; }
+    lastTrigger = trigger || null; openEl = el;
+    el.hidden = false;
+    document.body.classList.add('lsov-lock');
+    setInert(true);
+    // Reflow erzwingen -> die Transition (translateX 100% -> 0) startet zuverlässig, auch wenn
+    // rAF im Hintergrund-Tab pausiert. Fokus ERST nach is-open (visibility:hidden ist nicht fokussierbar).
+    void el.offsetWidth;
+    el.classList.add('is-open');
+    var f = firstFocusable(el); if (f) { f.focus(); }
+    el.scrollTop = 0;
+  }
+
+  function finishClose(el) {
+    el.hidden = true;
+    document.body.classList.remove('lsov-lock');
+  }
+  function closeOverlay() {
+    if (!openEl) { return; }
+    var el = openEl; openEl = null;
+    el.classList.remove('is-open');
+    setInert(false);                          // Hintergrund SOFORT reaktivieren ...
+    if (lastTrigger) { lastTrigger.focus(); } // ... damit der Fokus zurück auf „mehr“ kann (inert = nicht fokussierbar)
+    if (reduce) {
+      finishClose(el); // reduced-motion: keine transform-Transition -> sofort freigeben
+    } else {
+      var done = function (e) {
+        if (e && (e.target !== el || e.propertyName !== 'transform')) { return; }
+        if (el.classList.contains('is-open')) { return; } // während des Schließens neu geöffnet -> nicht ausblenden
+        el.removeEventListener('transitionend', done);
+        finishClose(el);
+      };
+      el.addEventListener('transitionend', done);
+      var d = parseInt(getComputedStyle(el).getPropertyValue('--lsov-duration'), 10) || 1050;
+      setTimeout(function () {
+        if (!el.classList.contains('is-open')) { el.removeEventListener('transitionend', done); finishClose(el); }
+      }, d + 250);
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var o = e.target.closest('[data-lsov-open]');
+    if (o) { e.preventDefault(); openOverlay(o.getAttribute('data-lsov-open'), o); return; }
+    if (e.target.closest('[data-lsov-close]')) { closeOverlay(); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!openEl) { return; }
+    if (e.key === 'Escape') { closeOverlay(); return; }
+    if (typeof window.kcTrapTab === 'function') { window.kcTrapTab(e, openEl, SEL); }
+  });
+}());
