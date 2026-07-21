@@ -132,7 +132,8 @@ p{margin:0 0 1em}
 /* Farbe der Sektions-Beschreibungen : Projekt-Blau #012F7D (blau) auf allen Blöcken. */
 .section-head .lead,.section-lead{color:var(--fig-blau)}
 .section-lead{margin:var(--gap-title) 0 clamp(28px,4vw,44px)}
-.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:#9aa3b2;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow);text-align:center}.hero .eyebrow{color:var(--magenta)}
+/* a11y: #9aa3b2 auf Weiß = 2,54:1 (WCAG AA verlangt 4,5:1). --ink-soft = 7:1. */
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow);text-align:center}.hero .eyebrow{color:var(--magenta)}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
 .hl{color:var(--magenta)}
@@ -192,7 +193,10 @@ section{position:relative;z-index:2}
 
 /* ---------- BUTTONS ---------- */
 .btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:600;font-size:1.02rem;
-  padding:15px 28px;border-radius:var(--pill);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s;white-space:nowrap}
+  padding:15px 28px;border-radius:var(--pill);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s;white-space:nowrap;
+  /* a11y (WCAG 2.5.8): Mindest-Tap-Target 44px. Betrifft nur .btn-sm (war 38px) —
+     das horizontale Padding bleibt unangetastet, die Optik ändert sich nicht. */
+  min-height:44px;justify-content:center}
 .btn svg{width:20px;height:20px}
 /* Einheitlicher Button-Stil im ganzen Projekt: Outline-Pille (magenta Rand + Text). */
 .btn-primary{background:#fff;color:var(--magenta-deep);border:2px solid var(--magenta-deep);box-shadow:none}
@@ -248,8 +252,14 @@ section{position:relative;z-index:2}
   .nav-cta__label{display:none}
   .nav-cta .btn-primary{padding:8px;gap:0}
 }
-.nav-phone{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy)}
-.nav-phone svg{width:18px;height:18px;color:var(--magenta)}
+/* Sekundärer CTA (PRODUCT.md) : le parent qui n'est pas prêt à réserver appelle.
+   Doit être atteignable SANS défiler jusqu'au footer. */
+.nav-phone{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 8px;font-weight:700;color:var(--navy)}
+.nav-phone:hover{color:var(--magenta)}
+.nav-phone svg{width:20px;height:20px;color:var(--magenta);flex:none}
+/* Nur das Symbol — Kundenentscheidung. Die Nummer bleibt im aria-label des Links
+   (einziger zugänglicher Name, da kein sichtbarer Text) und im Footer sichtbar. */
+.nav-phone__label{display:none}
 .burger{display:none;width:44px;height:44px;border-radius:0;background:none;box-shadow:none;place-items:center;color:var(--navy)}
 .burger svg{width:36px;height:36px}
 
@@ -831,16 +841,20 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .socials svg{width:19px;height:19px;color:#fff}
 
 /* ---------- REVEAL ---------- */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+/* Le masquage initial est conditionné à .kc-js (posée en inline par inc/enqueue.php).
+   Sans JS — ou si le script échoue avant d'ajouter la classe — le contenu reste VISIBLE
+   par défaut : une révélation enrichit un état déjà lisible, elle ne le conditionne pas. */
+.kc-js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 /* Sections : le FOND (couleur + bande spray) reste toujours visible — sinon
    flash blanc au scroll à côté des trenners colorés. Seul le contenu s'anime. */
 section.reveal{opacity:1;transform:none}
-section.reveal>*{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.kc-js section.reveal>*{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 section.reveal.in>*{opacity:1;transform:none}
 .deco-heart{animation:bob 5s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
-@media (prefers-reduced-motion:reduce){.reveal,section.reveal>*{opacity:1;transform:none;transition:none}.deco-heart{animation:none}}
+/* Spezifität muss .kc-js .reveal (0,2,0) schlagen — sonst greift die Reduce-Regel nicht. */
+@media (prefers-reduced-motion:reduce){.kc-js .reveal,.kc-js section.reveal>*{opacity:1;transform:none;transition:none}.deco-heart{animation:none}}
 @media (prefers-reduced-motion:reduce){.ablauf-panel{transition:none !important}}
 
 /* ---------- BOOKING MODAL ---------- */
@@ -1556,8 +1570,13 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__inner{min-height:100%;max-width:1180px;margin:0 auto;padding:clamp(26px,4.5vw,60px) clamp(20px,5vw,64px) clamp(60px,8vw,110px);opacity:0;transform:translateX(48px);transition:opacity calc(var(--lsov-duration,1050ms) * .72) var(--ease-soft) .2s,transform var(--lsov-duration,1050ms) var(--ease-soft) .2s}
 .lsov.is-open .lsov__inner{opacity:1;transform:none}
 .lsov__bar{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
-.lsov__title{margin:0;color:#fff;font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(1.55rem,6vw,4.4rem);text-wrap:balance;hyphens:auto;overflow-wrap:break-word;min-width:0}
-.lsov__close{flex:none;width:clamp(46px,4vw,58px);height:clamp(46px,4vw,58px);display:grid;place-items:center;margin-top:.35em;background:transparent;border:0;border-radius:50%;color:#fff;cursor:pointer;transition:transform .3s var(--ease-soft),background .2s}
+/* a11y: Weiß auf den Pastellflächen = 1,18:1 bis 1,67:1 (WCAG AA verlangt 3:1 für
+   Großtext). --navy liegt auf denselben Flächen bei 7,4:1 bis 10,5:1 und ist bereits
+   die Farbe der Overlay-Zwischentitel. Dekorative Symbole bleiben weiß. */
+.lsov__title{margin:0;color:var(--navy);font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(1.55rem,6vw,4.4rem);text-wrap:balance;hyphens:auto;overflow-wrap:break-word;min-width:0}
+/* a11y (WCAG 1.4.11, 3:1 für Bedienelemente): der Schließen-Button ist funktional,
+   nicht dekorativ — weiß auf Pastell wäre nicht erkennbar. */
+.lsov__close{flex:none;width:clamp(46px,4vw,58px);height:clamp(46px,4vw,58px);display:grid;place-items:center;margin-top:.35em;background:transparent;border:0;border-radius:50%;color:var(--navy);cursor:pointer;transition:transform .3s var(--ease-soft),background .2s}
 .lsov__close svg{width:60%;height:60%}
 .lsov__close:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
 .lsov__close:focus-visible{outline:3px solid #fff;outline-offset:3px}

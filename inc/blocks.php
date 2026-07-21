@@ -1115,7 +1115,15 @@ add_action(
 									kc_field( 'tr_title', 'Überschrift', 'text' ),
 									kc_field( 'tr_text', 'Text', 'textarea' ),
 									[
-										'key'   => 'field_kc_tr_qr',
+										'key'           => 'field_kc_tr_btn',
+											'label'         => 'Button-Beschriftung',
+											'name'          => 'tr_button_label',
+											'type'          => 'text',
+											'default_value' => 'Termin buchen',
+											'instructions'  => 'Text des Buttons, der die Online-Terminbuchung öffnet. Leer lassen = „Termin buchen“.',
+										],
+										[
+											'key'   => 'field_kc_tr_qr',
 										'label' => 'QR-Code Bild',
 										'name'  => 'qr_image',
 										'type'  => 'image',
