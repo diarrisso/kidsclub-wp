@@ -887,7 +887,10 @@ section.reveal.in>*{opacity:1;transform:none}
 /* Burger/Desktop-Nav umschalten bei 1024px : zwischen 769–~960px passten die
    6 Nav-Links + Logo + CTA nicht mehr in eine Zeile (Überlauf). */
 @media(max-width:1024px){
-  .nav-links,.nav-phone{display:none}
+  /* .nav-phone wird hier NICHT mehr ausgeblendet: die Regel stammt aus der Zeit, als
+     die Klasse totes CSS war. Auf dem Handy ist der Anruf der wichtigste Rückfallweg —
+     das Symbol ist 44px breit und passt neben Burger und Termin-Button. */
+  .nav-links{display:none}
   .burger{display:grid}
 }
 @media (max-width:768px){
