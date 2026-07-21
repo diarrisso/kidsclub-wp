@@ -77,7 +77,13 @@ add_action(
 			header( 'Content-Type: application/javascript; charset=utf-8' );
 			header( 'Cache-Control: no-cache, no-store, must-revalidate' );
 			header( 'Service-Worker-Allowed: /' );
-			readfile( $sw_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+			// Die Version wird beim Ausliefern eingesetzt, statt sie in sw.js von Hand
+			// zu pflegen: ein zweiter, per Hand gepflegter Wert wandert früher oder
+			// später auseinander — und ein Service Worker mit unverändertem Cache-Namen
+			// liefert alten Code aus, ohne dass irgendetwas fehlschlägt.
+			$sw = file_get_contents( $sw_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			echo str_replace( '__KC_VERSION__', kc_asset_version(), $sw ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JS-Datei, kein HTML-Kontext
 			exit;
 		}
 

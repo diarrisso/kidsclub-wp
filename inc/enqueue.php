@@ -11,8 +11,9 @@ add_action(
 	'wp_enqueue_scripts',
 	function () {
 
-		$dir    = get_stylesheet_directory_uri();
-		$ver    = '3.13.0'; // bei jedem CSS/JS-Update erhöhen (Cache-Busting)
+		$dir = get_stylesheet_directory_uri();
+		// Cache-Busting: NICHT hier erhöhen — die Version steht in style.css.
+		$ver    = kc_asset_version();
 		$debug  = defined( 'WP_DEBUG' ) && WP_DEBUG;
 		$css_sf = $debug ? '' : '.min';
 		$js_sf  = $debug ? '' : '.min';
