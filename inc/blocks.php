@@ -86,7 +86,7 @@ add_action(
 										'return_format' => 'array',
 										'mime_types'    => 'mp4',
 										'instructions'  =>
-											'Querformat-Video für Desktop (≤ 15 Sek., max. 20 MB). Leer = spray-quer.mp4.',
+											'Querformat-Video für Desktop (≤ 20 Sek., max. 3 MB). Leer = hero-01.mp4 aus dem Theme. Bitte 1280 px breit und ohne Tonspur exportieren — das Video lädt bei jedem Seitenaufruf automatisch.',
 										'conditional_logic' => [
 											[
 												[
