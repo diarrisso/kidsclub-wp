@@ -136,7 +136,9 @@ p{margin:0 0 1em}
 .eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow);text-align:center}.hero .eyebrow{color:var(--magenta)}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
-.hl{color:var(--magenta)}
+/* a11y: --magenta auf Weiß = 3,68:1. Für Fließtext verlangt WCAG AA 4,5:1 —
+   --magenta-deep liefert 4,71:1 bei praktisch gleicher Wirkung. */
+.hl{color:var(--magenta-deep)}
 
 /* ---------- LAYOUT ---------- */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
@@ -441,7 +443,7 @@ section{position:relative;z-index:2}
 .einblicke-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
 .einblicke-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
 /* Pfeile = nur Icon, kein Hintergrund/Box (höhere Spezifität schlägt .swiper-nav-btn). */
-.einblicke-swiper-wrap .swiper-nav-btn{width:clamp(40px,4vw,56px);height:auto;border-radius:0;background:transparent;color:var(--navy);box-shadow:none}
+.einblicke-swiper-wrap .swiper-nav-btn{width:clamp(44px,4vw,56px);min-height:44px;height:auto;border-radius:0;background:transparent;color:var(--navy);box-shadow:none}
 .einblicke-swiper-wrap .swiper-nav-btn:hover{background:transparent;color:var(--magenta);transform:translateY(-50%) scale(1.15)}
 .einblicke-swiper-wrap .swiper-nav-btn svg{height:38px}
 .einblicke-swiper__prev{left:14px}
@@ -633,7 +635,7 @@ button.chip{border:0;font-family:inherit}
 .accordion--plain .accordion-trigger[aria-expanded="false"]:hover{background:color-mix(in oklab,#9aa3b2 12%,transparent);padding-left:16px}
 /* Sonst würde der offene Eintrag den generischen Hover aus .accordion-trigger:hover erben. */
 .accordion--plain .accordion-trigger[aria-expanded="true"]:hover{background:none;padding-left:0}
-.accordion--plain .accordion-icon{color:#9aa3b2;width:44px;height:44px}
+.accordion--plain .accordion-icon{color:var(--ink-soft);width:44px;height:44px}
 /* Titel + Panel bündig mit dem border-bottom (kein horizontales Padding).
    Beim Hover leichtes padding-left als sanfter Slide-Effekt (transition). */
 .accordion--plain .accordion-trigger,.accordion--plain .accordion-panel{padding-left:0;padding-right:0}
@@ -756,7 +758,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card .wpcf7 textarea{background:#fff;border:0;border-radius:12px;padding:18px 22px;font-size:1rem;color:var(--navy)}
 .kontakt-card .wpcf7 textarea{min-height:190px}
 .kontakt-card .wpcf7 input::placeholder,
-.kontakt-card .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
+.kontakt-card .wpcf7 textarea::placeholder{color:var(--ink-soft);opacity:1}
 /* Footer: Einwilligung links, Submit rechts */
 /* CF7 umschließt den Footer-Inhalt in einem <p> (autop). Einwilligung (links) und
    Submit (rechts) auf EINER Zeile, vertikal zentriert. Der CF7-Spinner sitzt nach dem
@@ -803,7 +805,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card--plain .wpcf7 textarea:focus{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--magenta) 40%,transparent)}
 .kontakt-card--plain .wpcf7 textarea{min-height:200px}
 .kontakt-card--plain .wpcf7 input::placeholder,
-.kontakt-card--plain .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
+.kontakt-card--plain .wpcf7 textarea::placeholder{color:var(--ink-soft);opacity:1}
 /* Einwilligung + Submit in Navy/Magenta statt Weiß */
 .kontakt-card--plain .kontakt-form__consent,
 .kontakt-card--plain .wpcf7-acceptance label{color:var(--navy)}
@@ -1000,7 +1002,9 @@ section.reveal.in>*{opacity:1;transform:none}
 
 /* ---------- ZIMMER Karussell ---------- */
 .section-zimmer{padding:0 0 var(--section-pad)}
-.section-zimmer .section-title,.ls-accordion-title{text-align:center;color:#9aa3b2}
+/* a11y: #9aa3b2 = 2,54:1 — reicht nicht einmal für Großtext (3:1). Es geht hier
+   um ÜBERSCHRIFTEN, nicht um Beiwerk. --ink-soft bleibt zurückhaltend (7:1). */
+.section-zimmer .section-title,.ls-accordion-title{text-align:center;color:var(--ink-soft)}
 .swiper-nav.swiper-button-disabled{opacity:.4;cursor:default}
 
 /* =========================================================

@@ -100,6 +100,7 @@ $close_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 				<div class="accordion-item">
 					<button class="accordion-trigger"
 							@click="open === <?php echo absint( $i ); ?> ? open = null : open = <?php echo absint( $i ); ?>"
+							aria-expanded="false"
 							:aria-expanded="open === <?php echo absint( $i ); ?>"
 							aria-controls="ls-panel-<?php echo absint( $i ); ?>"
 							type="button">

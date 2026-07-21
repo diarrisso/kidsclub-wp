@@ -47,6 +47,7 @@ $display = get_sub_field( 'display_style' ) ?: 'grid';
 			<div class="ablauf-item">
 				<button class="ablauf-trigger"
 						@click="open === <?php echo absint( $i ); ?> ? open = null : open = <?php echo absint( $i ); ?>"
+						aria-expanded="false"
 						:aria-expanded="open === <?php echo absint( $i ); ?>"
 						aria-controls="ablauf-panel-<?php echo absint( $i ); ?>"
 						type="button">
