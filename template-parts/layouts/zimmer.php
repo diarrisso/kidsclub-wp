@@ -2,9 +2,12 @@
 /**
  * Layout: 5 Behandlungszimmer — farbige Kreise (statisch).
  *
- * Jeder Raum = ein farbiger Kreis (RAUM N + Name). Beim Mouseover / Fokus /
- * Tap erscheint der erklärende Text (Feld `beschreibung`). Kein Karussell:
- * Desktop = 5 Kreise nebeneinander, Mobile = Umbruch (flex-wrap).
+ * Der Kreis trägt NUR die Nummer (RAUM N). Name und erklärender Text stehen
+ * dauerhaft DARUNTER — kein Mouseover, kein Tap, kein Aufklappen: der Text war
+ * so auf Touch-Geräten nur per Tap erreichbar und blieb sonst unsichtbar.
+ * Da nichts mehr aufklappt, sind die Kreise auch keine Bedienelemente mehr
+ * (kein tabindex/role/aria-expanded — ein Button, der nichts tut, führt in die Irre).
+ * Kein Karussell: Desktop = 5 Kreise nebeneinander, Mobile = Umbruch (flex-wrap).
  * Felder: eyebrow, title, text, rooms[] (name, theme, color, beschreibung).
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,21 +50,17 @@ $lead       = get_sub_field( 'text' );
 				$label = sprintf( __( 'Raum %d', 'kidsclub' ), $rn );
 				?>
 				<li class="rooms-circles__item">
-					<div
-						class="room <?php echo esc_attr( $c ); ?><?php echo $desc ? ' has-desc' : ''; ?>"
+					<div class="room <?php echo esc_attr( $c ); ?>" aria-hidden="true">
+						<span class="room-nr"><?php echo esc_html( $label ); ?></span>
+					</div>
+					<?php // Der Kreis ist rein dekorativ (aria-hidden) — die Nummer steht hier für Screenreader mit im Text. ?>
+					<div class="room__caption">
+						<b class="room__name">
+							<span class="screen-reader-text"><?php echo esc_html( $label . ' — ' ); ?></span>
+							<?php echo esc_html( $name ); ?>
+						</b>
 						<?php if ( $desc ) : ?>
-						tabindex="0"
-						role="button"
-						aria-expanded="false"
-						aria-label="<?php echo esc_attr( $label . ' ' . $name ); ?>"
-						<?php endif; ?>
-					>
-						<span class="room__label">
-							<span class="room-nr"><?php echo esc_html( $label ); ?></span>
-							<b class="room__name"><?php echo esc_html( $name ); ?></b>
-						</span>
-						<?php if ( $desc ) : ?>
-							<span class="room__desc"><?php echo wp_kses( $desc, [ 'strong' => [] ] ); ?></span>
+							<p class="room__desc"><?php echo wp_kses( $desc, [ 'strong' => [] ] ); ?></p>
 						<?php endif; ?>
 					</div>
 				</li>

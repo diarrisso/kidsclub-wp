@@ -276,26 +276,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Räume: farbige Kreise. Mouseover/Fokus zeigt den Text (CSS). Zusätzlich
-// Tap/Klick-Toggle für Touch-Geräte (kein Hover) + Tastatur (Enter/Space).
-document.addEventListener('DOMContentLoaded', function () {
-    var circles = document.querySelectorAll('.section-zimmer .room.has-desc');
-    if (!circles.length) {
-        return;
-    }
-    circles.forEach(function (el) {
-        el.addEventListener('click', function () {
-            var open = el.classList.toggle('is-open');
-            el.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        el.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                el.click();
-            }
-        });
-    });
-});
+// Räume: die Kreise sind rein dekorativ. Der frühere Tap/Klick-Toggle ist
+// entfallen — Name und Text stehen dauerhaft unter dem Kreis, es gibt nichts
+// mehr auf- oder zuzuklappen.
 
 // Booking Modal
 (function () {
