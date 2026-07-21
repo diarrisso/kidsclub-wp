@@ -235,9 +235,13 @@ d'identité, pas un ajustement.
 posé sur un fond coloré ou une image doit donc redéclarer sa couleur — sans quoi il rend
 magenta sur magenta, invisible.
 
-**La Règle de l'Eyebrow Rare.** L'eyebrow majuscule tracé existe dans le système, mais il ne
-se met pas au-dessus de chaque section. Répété partout, il devient de l'échafaudage
-générique — précisément l'anti-référence « landing SaaS » de PRODUCT.md.
+**La Règle de l'Eyebrow Assumé.** L'eyebrow majuscule tracé coiffe **chaque** section, et
+c'est une décision explicite du client (2026-07-21), pas un oubli : ne pas le retirer. Le
+constat d'audit reste vrai — répété sur dix sections, dont sept où il ne fait que redire le
+titre, il tient de la grammaire plus que de la voix, et c'est le seul point par lequel la page
+frôle l'anti-référence « landing SaaS » de PRODUCT.md. Ce qui a été corrigé, c'est sa
+lisibilité (2,54:1 → 7:1). ⚠️ L'eyebrow de la section `zimmer` est **structurel** : le titre de
+cette section est vide, l'eyebrow porte seul son intitulé. Le vider décapiterait la section.
 
 ## 4. Elevation
 

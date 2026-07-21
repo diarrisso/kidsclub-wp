@@ -94,6 +94,10 @@ Trois arbitrages du 2026-07-21, à ne pas rouvrir sans le client :
   les champs et le CSS existent et sont fonctionnels : leur absence de la page n'est pas un bug.
 - **Le téléphone de l'en-tête s'affiche en icône seule**, sans le numéro. Le numéro reste le
   nom accessible du lien (`aria-label`) et reste visible dans le pied de page.
+- **Les eyebrows des dix sections sont conservés.** L'audit les signalait comme un motif
+  répétitif ; le client a tranché en faveur du maintien. Seule leur lisibilité a été corrigée.
+  Voir « La Règle de l'Eyebrow Assumé » dans DESIGN.md — et n'y toucher sous aucun prétexte
+  sur `zimmer`, dont le titre est vide.
 
 ## Accessibility & Inclusion
 
