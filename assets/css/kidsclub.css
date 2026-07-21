@@ -256,7 +256,12 @@ section{position:relative;z-index:2}
    Doit être atteignable SANS défiler jusqu'au footer. */
 .nav-phone{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 8px;font-weight:700;color:var(--navy)}
 .nav-phone:hover{color:var(--magenta)}
-.nav-phone svg{width:20px;height:20px;color:var(--magenta);flex:none}
+/* Theme-SVG UND hochgeladenes Symbol in EINER Regel: kc_svg() liefert je nach
+   Theme-Option ein <svg> oder ein <span class="kc-icon-custom">. Getrennte Regeln
+   driften auseinander — genau so wurde ein Upload zuletzt navy statt magenta und
+   18px statt 20px gerendert, obwohl beide Regeln „richtig“ aussahen. */
+.nav-phone svg,
+.nav-phone .kc-icon-custom{width:20px;height:20px;color:var(--magenta);flex:none}
 /* Nur das Symbol — Kundenentscheidung. Die Nummer bleibt im aria-label des Links
    (einziger zugänglicher Name, da kein sichtbarer Text) und im Footer sichtbar. */
 .nav-phone__label{display:none}
@@ -1387,7 +1392,6 @@ section.reveal.in>*{opacity:1;transform:none}
 .btn .kc-icon-custom{width:20px;height:20px}
 .btn-sm .kc-icon-custom{width:14px;height:14px}
 .burger .kc-icon-custom{width:36px;height:36px}
-.nav-phone .kc-icon-custom{width:18px;height:18px}
 .mobile-menu .close .kc-icon-custom{width:40px;height:40px}
 .booking-modal__close .kc-icon-custom{width:18px;height:18px}
 .fc-key .kc-icon-custom{width:16px;height:16px}
