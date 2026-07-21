@@ -12,8 +12,8 @@ $text       = get_sub_field( 'tr_text' );
 $embed_code = get_sub_field( 'embed_code' );
 // UX-Copy: „Buchen“ stand hart im Template. „Termin buchen“ benennt das Ergebnis statt der
 // Handlung und deckt sich mit dem Header-Button — und ist jetzt redaktionell änderbar.
-$btn_label  = trim( (string) ( get_sub_field( 'tr_button_label' ) ?: '' ) );
-$btn_label  = '' !== $btn_label ? $btn_label : 'Termin buchen';
+$btn_label = trim( (string) ( get_sub_field( 'tr_button_label' ) ?: '' ) );
+$btn_label = '' !== $btn_label ? $btn_label : 'Termin buchen';
 ?>
 <section class="section-termin reveal" id="termin">
 	<div class="container">
