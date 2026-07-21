@@ -855,7 +855,10 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .reveal.in{opacity:1;transform:none}
 /* Sections : le FOND (couleur + bande spray) reste toujours visible — sinon
    flash blanc au scroll à côté des trenners colorés. Seul le contenu s'anime. */
-section.reveal{opacity:1;transform:none}
+/* MUSS .kc-js tragen: die Versteck-Regel oben ist (0,2,0). Ohne Präfix wäre diese
+   hier (0,1,1) und damit schwächer — die ganze Sektion samt Hintergrund würde
+   verschwinden, statt nur ihr Inhalt. Genau das ist beim Umbau passiert. */
+.kc-js section.reveal{opacity:1;transform:none}
 .kc-js section.reveal>*{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 section.reveal.in>*{opacity:1;transform:none}
 .deco-heart{animation:bob 5s ease-in-out infinite}
