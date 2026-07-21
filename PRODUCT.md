@@ -41,6 +41,10 @@ aussi les enfants.
   2. Ils ne soignent que des enfants — c'est leur spécialité, pas une option.
   3. Mon enfant n'y aura pas peur (les lieux, l'ambiance, les réponses à l'angoisse).
   4. Réserver est simple et immédiat.
+- La belief ladder décrit l'ordre des **convictions**, pas l'ordre des sections. Décision
+  client du 2026-07-21 : l'ordre actuel de la page — hero, willkommen, leistungen, galerie,
+  zimmer, team, ablauf, faq, stimmen, termin, kontakt — est **conservé tel quel**. Ne pas
+  le réordonner au nom de cette échelle.
 - Preuves disponibles : témoignages de parents (section `stimmen`), photos réelles du
   cabinet et des cinq Zimmer (CPT `praxis_foto`, galerie filtrable par `bereich`), équipe
   présentée nommément avec visages et fonctions (CPT `team`, taxonomie `funktion`).
@@ -78,6 +82,18 @@ plaire à son parent. Toute la langue visible est l'allemand.
   s'arrête de lire, le chemin vers la réservation — ou vers le téléphone — est visible.
 - **Lisible par une grand-mère, attirant pour un enfant de six ans.** Les deux à la fois,
   sans compromis dégradant l'un des deux.
+
+## Decisions on record
+
+Trois arbitrages du 2026-07-21, à ne pas rouvrir sans le client :
+
+- **Les symboles décoratifs des overlays restent blancs**, conformément au PDF final, même
+  s'ils contrastent peu sur les pastels. Ils sont `aria-hidden` et hors périmètre WCAG. Seuls
+  les éléments *fonctionnels* — titre, bouton de fermeture — sont passés en `--navy`.
+- **La section `angst` (Lachgas / Vollnarkose) n'est volontairement pas publiée.** Le layout,
+  les champs et le CSS existent et sont fonctionnels : leur absence de la page n'est pas un bug.
+- **Le téléphone de l'en-tête s'affiche en icône seule**, sans le numéro. Le numéro reste le
+  nom accessible du lien (`aria-label`) et reste visible dans le pied de page.
 
 ## Accessibility & Inclusion
 
