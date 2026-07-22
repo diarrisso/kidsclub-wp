@@ -109,7 +109,12 @@ function kc_icon_fields_from_map( array $map ) {
 			'preview_size'  => 'thumbnail',
 			'library'       => 'all',
 			'mime_types'    => 'svg,png,webp',
-			'instructions'  => 'Eigenes Icon (SVG/PNG/WebP). Leer = Standard-Icon des Themes.',
+			'instructions'  => 'Eigenes Icon (SVG/PNG/WebP). Leer = Standard-Icon des Themes.<br>'
+				. '<strong>Wichtig:</strong> die Datei wird als Schablone verwendet — nur die durchsichtigen '
+				. 'Bereiche zählen, die Farbe im Bild wird ignoriert und vom Theme gesetzt. '
+				. 'Am besten ein einfarbiges SVG mit transparentem Hintergrund hochladen. '
+				. 'Ein Bild ohne Transparenz (z. B. ein Foto oder ein Logo auf weißem Grund) '
+				. 'erscheint als voll ausgefülltes Rechteck.',
 		];
 	}
 	return $fields;

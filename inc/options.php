@@ -109,6 +109,15 @@ add_action(
 						'type'          => 'text',
 						'default_value' => '#termin',
 					],
+					[
+						'key'           => 'f_header_show_phone',
+						'label'         => 'Telefonnummer im Header anzeigen',
+						'name'          => 'header_show_phone',
+						'type'          => 'true_false',
+						'ui'            => 1,
+						'default_value' => 1,
+						'instructions'  => 'Zeigt die Praxis-Telefonnummer neben dem Termin-Button. Für Eltern, die lieber anrufen als online zu buchen. Die Nummer wird im Tab „Footer“ unter „Telefon“ gepflegt — sie erscheint dann im Header, im Footer und auf der Offline-Seite. Ist dort nichts eingetragen, bleibt der Header-Eintrag automatisch aus.',
+					],
 
 					/* ===== FOOTER ===== */
 					[
@@ -242,7 +251,7 @@ add_action(
 						'name'         => 'footer_phone',
 						'type'         => 'text',
 						'placeholder'  => '+49 (0) 541 471 40',
-						'instructions' => 'Wird als tel:-Link verwendet.',
+						'instructions' => 'Wird als tel:-Link verwendet — im Footer, im Header (siehe Tab „Header“) und auf der Offline-Seite. Leer lassen = Telefonnummer wird überall ausgeblendet.',
 					],
 					[
 						'key'          => 'f_kontakt_hours',

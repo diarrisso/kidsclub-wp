@@ -260,8 +260,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     new Swiper('.einblicke-swiper', {
-        slidesPerView: 1,
+        // Bruchteil + centeredSlides: an beiden Rändern schaut eine Folie herein,
+        // wie in der Vorlage. loop sorgt dafür, dass links nie eine Lücke entsteht.
+        // Der Bruchteil ist die Rechnung: bei centeredSlides teilt sich der Rest
+        // gleichmäßig auf beide Seiten. 3,4 = 0,2 + 3 volle + 0,2 — also links und
+        // rechts genau ein Fünftel einer Folie. 2,6 ergäbe zwei halbe Folien.
+        slidesPerView: 1.4,
         spaceBetween: 16,
+        centeredSlides: true,
         loop: true,
         autoplay: reduceMotion
             ? false
@@ -269,33 +275,16 @@ document.addEventListener('DOMContentLoaded', function () {
         navigation: { prevEl: '.einblicke-swiper__prev', nextEl: '.einblicke-swiper__next' },
         pagination: { el: '.einblicke-swiper__pagination', clickable: true },
         breakpoints: {
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 24 },
+            640: { slidesPerView: 2.4, spaceBetween: 20 },
+            1024: { slidesPerView: 3.4, spaceBetween: 26 },
         },
         a11y: { enabled: true },
     });
 });
 
-// Räume: farbige Kreise. Mouseover/Fokus zeigt den Text (CSS). Zusätzlich
-// Tap/Klick-Toggle für Touch-Geräte (kein Hover) + Tastatur (Enter/Space).
-document.addEventListener('DOMContentLoaded', function () {
-    var circles = document.querySelectorAll('.section-zimmer .room.has-desc');
-    if (!circles.length) {
-        return;
-    }
-    circles.forEach(function (el) {
-        el.addEventListener('click', function () {
-            var open = el.classList.toggle('is-open');
-            el.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        el.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                el.click();
-            }
-        });
-    });
-});
+// Räume: die Kreise sind rein dekorativ. Der frühere Tap/Klick-Toggle ist
+// entfallen — Name und Text stehen dauerhaft unter dem Kreis, es gibt nichts
+// mehr auf- oder zuzuklappen.
 
 // Booking Modal
 (function () {
@@ -525,6 +514,55 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function firstFocusable(el) { return el.querySelector(SEL); }
 
+  /**
+   * Bilder-Slider im Overlay — ERST beim Öffnen initialisieren.
+   * Solange das Overlay `hidden` ist, misst Swiper eine Breite von 0: alle Folien
+   * lägen übereinander und die Navigation bliebe tot. Deshalb lazy, einmal pro
+   * Overlay; bei jedem weiteren Öffnen genügt ein update() (das Layout kann sich
+   * durch eine Fenstergröße geändert haben, während das Overlay zu war).
+   */
+  /**
+   * Die Overlay-Bilder tragen loading="lazy", damit sie beim Seitenaufruf nichts
+   * kosten — der Inhalt liegt hinter einem Klick. Chromes Lazy-Scheduler startet
+   * nach dem Sichtbarwerden aber merklich verzögert: gemessen stand die erste
+   * Folie noch nach zwei Sekunden leer. Beim Öffnen daher selbst anstoßen.
+   */
+  function eagerLoadImages(el) {
+    var imgs = el.querySelectorAll('img[loading="lazy"]');
+    [].forEach.call(imgs, function (img) { img.loading = 'eager'; });
+  }
+
+  function initOverlaySwiper(el) {
+    var node = el.querySelector('[data-lsov-swiper]');
+    if (!node || typeof window.Swiper === 'undefined') { return; }
+    if (node.swiper) { node.swiper.update(); return; }
+    new window.Swiper(node, {
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      speed: reduce ? 0 : 500,
+      // Reichen die Folien nicht für eine volle Reihe, rückt Swiper sie sonst nach
+      // links; zentriert wirken zwei Bilder in einer Dreierspur nicht wie ein Rest.
+      centerInsufficientSlides: true,
+      // Navigation und Punkte verschwinden, wenn ohnehin alles sichtbar ist.
+      watchOverflow: true,
+      // Der Bruchteil ist Absicht: die nächste Folie schaut zu ~20 % herein und
+      // zeigt damit ohne Pfeil oder Hinweis, dass es weitergeht.
+      breakpoints: {
+        640: { slidesPerView: 2.2, spaceBetween: 20 },
+        1000: { slidesPerView: 3.2, spaceBetween: 26 }
+      },
+      navigation: {
+        prevEl: el.querySelector('.swiper-nav--prev'),
+        nextEl: el.querySelector('.swiper-nav--next')
+      },
+      pagination: {
+        el: el.querySelector('.swiper-pagination'),
+        clickable: true
+      },
+      a11y: { enabled: true }
+    });
+  }
+
   function openOverlay(id, trigger) {
     var el = document.getElementById(id);
     if (!el) { return; }
@@ -536,6 +574,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // rAF im Hintergrund-Tab pausiert. Fokus ERST nach is-open (visibility:hidden ist nicht fokussierbar).
     void el.offsetWidth;
     el.classList.add('is-open');
+    // Nach dem Reflow: das Overlay ist jetzt sichtbar und hat eine echte Breite.
+    eagerLoadImages(el);
+    initOverlaySwiper(el);
     var f = firstFocusable(el); if (f) { f.focus(); }
     el.scrollTop = 0;
   }

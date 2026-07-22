@@ -1,0 +1,7 @@
+{
+  "files": ["footer.php"],
+  "exclude": ["template-parts/offline.php", "vendor/**", "ZACP/**", "new-maquette/**"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

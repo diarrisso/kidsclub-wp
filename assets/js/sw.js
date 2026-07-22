@@ -1,21 +1,33 @@
 /**
  * Kids Club by zacp — Service Worker
- * Cache-first pour les assets, network-first pour les pages HTML.
+ * Stale-while-revalidate für Assets, network-first für HTML-Seiten.
+ *
+ * VERSION wird beim Ausliefern von inc/pwa.php eingesetzt; einzige Quelle der
+ * Wahrheit ist die Version in style.css (siehe kc_asset_version()). Diese Datei
+ * wird ausschließlich über /sw.js ausgeliefert, nie direkt aus dem Theme-Ordner.
  */
 
-const CACHE = 'kidsclub-v3.12.11';
+const RAW_VERSION = '__KC_VERSION__';
+// Wurde der Platzhalter nicht ersetzt, wäre der Cache-Name konstant — und damit
+// wieder unbeweglich. Sichtbar machen statt still danebengehen.
+const VERSION = ( RAW_VERSION.charAt( 0 ) === '_' ) ? 'unversioned' : RAW_VERSION;
+
+const CACHE = 'kidsclub-v' + VERSION;
 const THEME = '/wp-content/themes/kidsclub';
 const OFFLINE_URL = '/offline';
 
+/**
+ * Nur das, was eine Offline-Navigation wirklich braucht.
+ *
+ * CSS und JS stehen bewusst NICHT mehr hier: WordPress hängt an jedes Asset ein
+ * ?ver=…, der Precache kannte diese Query nicht, und der Fetch-Handler glich das
+ * früher mit ignoreSearch:true aus. Damit traf die unversionierte Kopie IMMER —
+ * eine neue Version konnte den Cache nie mehr durchbrechen. Jetzt werden CSS/JS
+ * beim ersten echten Request unter ihrer exakten, versionierten URL abgelegt.
+ */
 const PRECACHE = [
     '/',
     OFFLINE_URL,
-    THEME + '/assets/css/kidsclub.min.css',
-    THEME + '/assets/css/fonts.css',
-    THEME + '/assets/js/kidsclub.min.js',
-    THEME + '/assets/vendor/swiper-bundle.min.css',
-    THEME + '/assets/vendor/swiper-bundle.min.js',
-    THEME + '/assets/vendor/alpine.min.js',
     THEME + '/assets/img/logo-quer-white.svg',
     THEME + '/assets/img/pwa-icon-192.png',
 ];
@@ -24,7 +36,12 @@ const PRECACHE = [
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE)
-            .then((cache) => cache.addAll(PRECACHE))
+            // cache:'reload' contourne le cache HTTP du navigateur. Sans cela, un SW
+            // tout neuf peut mettre en cache un fichier PÉRIMÉ : le cache porte alors
+            // le nouveau nom et l'ancien contenu — panne invisible, indébogable.
+            .then((cache) => cache.addAll(
+                PRECACHE.map((u) => new Request(u, { cache: 'reload' }))
+            ))
             .then(() => self.skipWaiting())
     );
 });
@@ -50,19 +67,24 @@ self.addEventListener('fetch', (event) => {
     if (/\/(wp-admin|wp-json|wp-cron|masinga)/.test(url.pathname)) return;
     if (url.origin !== self.location.origin) return;
 
-    // Assets statiques (css, js, fonts, images) → cache-first
-    // ignoreSearch:true : WordPress ajoute ?ver=X.X aux assets, le PRECACHE ne les inclut pas.
-    if (/\.(css|js|woff2?|ttf|otf|svg|png|jpe?g|webp|ico|gif)(\?.*)?$/.test(url.pathname)) {
+    // Assets statiques → stale-while-revalidate, correspondance EXACTE (query comprise).
+    // url.pathname ne contient jamais la query : inutile de la tester ici.
+    if (/\.(css|js|woff2?|ttf|otf|svg|png|jpe?g|webp|ico|gif)$/.test(url.pathname)) {
         event.respondWith(
-            caches.match(request, { ignoreSearch: true }).then((cached) => {
-                if (cached) return cached;
-                return fetch(request).then((resp) => {
-                    if (resp.ok) {
-                        const respClone = resp.clone();
-                        caches.open(CACHE).then((c) => c.put(request, respClone));
-                    }
-                    return resp;
-                });
+            caches.match(request).then((cached) => {
+                const fromNetwork = fetch(request)
+                    .then((resp) => {
+                        if (resp && resp.ok) {
+                            const clone = resp.clone();
+                            caches.open(CACHE).then((c) => c.put(request, clone));
+                        }
+                        return resp;
+                    })
+                    .catch(() => cached);
+
+                // Réponse immédiate si on l'a, rafraîchissement en arrière-plan :
+                // même une entrée périmée se répare d'elle-même au chargement suivant.
+                return cached || fromNetwork;
             })
         );
         return;

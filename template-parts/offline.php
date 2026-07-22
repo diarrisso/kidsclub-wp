@@ -42,11 +42,20 @@
 
 	<h1>Keine Internetverbindung</h1>
 	<p>Diese Seite ist gerade nicht erreichbar. Bitte prüfen Sie Ihre Verbindung.</p>
-	<p>Für dringende Anfragen erreichen Sie uns telefonisch.</p>
 
+	<?php
+	// Die Nummer stand hart im Template — eine Praxis, die umzieht, hätte hier eine tote
+	// Nummer stehen lassen. Quelle der Wahrheit ist jetzt dasselbe Optionsfeld wie im
+	// Header und im Footer; ist es leer, verschwindet der Block, statt ins Leere zu führen.
+	$kc_off_phone  = (string) ( function_exists( 'get_field' ) ? ( get_field( 'footer_phone', 'option' ) ?: '' ) : '' );
+	$kc_off_digits = preg_replace( '/[^+\d]/', '', $kc_off_phone );
+	?>
+	<?php if ( '' !== $kc_off_phone ) : ?>
+	<p>Für dringende Anfragen erreichen Sie uns telefonisch.</p>
 	<p class="phone">
-	<a href="tel:+4954145678998">0541 456 78998</a>
+	<a href="tel:<?php echo esc_attr( $kc_off_digits ); ?>"><?php echo esc_html( $kc_off_phone ); ?></a>
 	</p>
+	<?php endif; ?>
 
 	<button class="retry" onclick="window.location.reload()">
 	Erneut versuchen

@@ -132,10 +132,13 @@ p{margin:0 0 1em}
 /* Farbe der Sektions-Beschreibungen : Projekt-Blau #012F7D (blau) auf allen Blöcken. */
 .section-head .lead,.section-lead{color:var(--fig-blau)}
 .section-lead{margin:var(--gap-title) 0 clamp(28px,4vw,44px)}
-.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:#9aa3b2;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow);text-align:center}.hero .eyebrow{color:var(--magenta)}
+/* a11y: #9aa3b2 auf Weiß = 2,54:1 (WCAG AA verlangt 4,5:1). --ink-soft = 7:1. */
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:1rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:var(--gap-eyebrow);text-align:center}.hero .eyebrow{color:var(--magenta)}
 .eyebrow svg{width:24px;height:24px}
 .muted{color:var(--ink-soft)}
-.hl{color:var(--magenta)}
+/* a11y: --magenta auf Weiß = 3,68:1. Für Fließtext verlangt WCAG AA 4,5:1 —
+   --magenta-deep liefert 4,71:1 bei praktisch gleicher Wirkung. */
+.hl{color:var(--magenta-deep)}
 
 /* ---------- LAYOUT ---------- */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
@@ -192,7 +195,10 @@ section{position:relative;z-index:2}
 
 /* ---------- BUTTONS ---------- */
 .btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:600;font-size:1.02rem;
-  padding:15px 28px;border-radius:var(--pill);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s;white-space:nowrap}
+  padding:15px 28px;border-radius:var(--pill);transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s;white-space:nowrap;
+  /* a11y (WCAG 2.5.8): Mindest-Tap-Target 44px. Betrifft nur .btn-sm (war 38px) —
+     das horizontale Padding bleibt unangetastet, die Optik ändert sich nicht. */
+  min-height:44px;justify-content:center}
 .btn svg{width:20px;height:20px}
 /* Einheitlicher Button-Stil im ganzen Projekt: Outline-Pille (magenta Rand + Text). */
 .btn-primary{background:#fff;color:var(--magenta-deep);border:2px solid var(--magenta-deep);box-shadow:none}
@@ -248,8 +254,19 @@ section{position:relative;z-index:2}
   .nav-cta__label{display:none}
   .nav-cta .btn-primary{padding:8px;gap:0}
 }
-.nav-phone{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy)}
-.nav-phone svg{width:18px;height:18px;color:var(--magenta)}
+/* Sekundärer CTA (PRODUCT.md) : le parent qui n'est pas prêt à réserver appelle.
+   Doit être atteignable SANS défiler jusqu'au footer. */
+.nav-phone{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 8px;font-weight:700;color:var(--navy)}
+.nav-phone:hover{color:var(--magenta)}
+/* Theme-SVG UND hochgeladenes Symbol in EINER Regel: kc_svg() liefert je nach
+   Theme-Option ein <svg> oder ein <span class="kc-icon-custom">. Getrennte Regeln
+   driften auseinander — genau so wurde ein Upload zuletzt navy statt magenta und
+   18px statt 20px gerendert, obwohl beide Regeln „richtig“ aussahen. */
+.nav-phone svg,
+.nav-phone .kc-icon-custom{width:20px;height:20px;color:var(--magenta);flex:none}
+/* Nur das Symbol — Kundenentscheidung. Die Nummer bleibt im aria-label des Links
+   (einziger zugänglicher Name, da kein sichtbarer Text) und im Footer sichtbar. */
+.nav-phone__label{display:none}
 .burger{display:none;width:44px;height:44px;border-radius:0;background:none;box-shadow:none;place-items:center;color:var(--navy)}
 .burger svg{width:36px;height:36px}
 
@@ -417,22 +434,20 @@ section{position:relative;z-index:2}
 .einblicke-swiper{overflow:hidden;padding:0 0 44px}
 @media(min-width:640px){
 	.einblicke-swiper-wrap{width:100vw;margin-left:calc(50% - 50vw)}
-	.einblicke-swiper{padding:0 clamp(54px,5vw,86px) 44px}
 }
 .einblicke-swiper .swiper-slide{height:auto}
-.einblicke-slide{margin:0;height:clamp(300px,40vw,480px);overflow:hidden;border-radius:22px;box-shadow:var(--shadow-sm)}
+.einblicke-slide{margin:0;aspect-ratio:9/10;overflow:hidden;border-radius:22px;box-shadow:var(--shadow-sm)}
 .einblicke-slide img{width:100%;height:100%;object-fit:cover;display:block;border-radius:22px}
 .einblicke-swiper__pagination{text-align:center;margin-top:6px}
 .einblicke-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
 .einblicke-swiper__pagination .swiper-pagination-bullet-active{opacity:1;background:var(--magenta)}
 /* Pfeile = nur Icon, kein Hintergrund/Box (höhere Spezifität schlägt .swiper-nav-btn). */
-.einblicke-swiper-wrap .swiper-nav-btn{width:clamp(40px,4vw,56px);height:auto;border-radius:0;background:transparent;color:var(--navy);box-shadow:none}
+.einblicke-swiper-wrap .swiper-nav-btn{width:clamp(44px,4vw,56px);min-height:44px;height:auto;border-radius:0;background:transparent;color:var(--navy);box-shadow:none}
 .einblicke-swiper-wrap .swiper-nav-btn:hover{background:transparent;color:var(--magenta);transform:translateY(-50%) scale(1.15)}
 .einblicke-swiper-wrap .swiper-nav-btn svg{height:38px}
 .einblicke-swiper__prev{left:14px}
 .einblicke-swiper__next{right:14px}
 @media(max-width:639px){
-	.einblicke-slide{height:280px}
 	.einblicke-swiper-wrap .swiper-nav-btn svg{height:30px}
 }
 
@@ -441,25 +456,22 @@ section{position:relative;z-index:2}
 .swiper-nav-btn:hover{background:transparent;color:var(--magenta);transform:translateY(-50%) scale(1.08)}
 .swiper-nav-btn svg{height:48px;width:auto}
 
-/* ---------- RÄUME : farbige Kreise mit Mouseover-Text ---------- */
-.rooms-circles{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(16px,3vw,40px)}
-.rooms-circles__item{display:flex}
-.room{position:relative;width:clamp(150px,16vw,188px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
-.room.has-desc{cursor:pointer}
-.room:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(16,46,121,.18)}
-.room:focus-visible{transform:translateY(-6px);box-shadow:0 14px 32px rgba(16,46,121,.18);outline:3px solid var(--magenta);outline-offset:3px}
-/* Label und Beschreibung übereinander legen → Cross-Fade */
-.room__label,.room__desc{grid-area:1/1;transition:opacity .3s var(--ease),transform .3s var(--ease)}
-.room__label{display:flex;flex-direction:column;gap:4px;align-items:center}
-.room .room-nr{position:static;font-family:var(--font-display);font-size:1rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);opacity:.85}
-.room .room__name{padding:0;font-family:var(--font-display);font-weight:700;font-size:.90rem;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
-.room__desc{opacity:0;transform:scale(.95);font-size:.82rem;line-height:1.38;font-weight:500;color:var(--navy);padding:4px}
-/* Reveal : hover (aperçu souris) + .is-open (clic/Enter/Espace = source de vérité, sync avec aria-expanded) */
-.room.has-desc:hover .room__label,
-.room.has-desc.is-open .room__label{opacity:0;transform:scale(.95)}
-.room.has-desc:hover .room__desc,
-.room.has-desc.is-open .room__desc{opacity:1;transform:scale(1)}
+/* ---------- RÄUME : farbige Kreise, Text dauerhaft darunter ----------
+   Der Text stand früher IM Kreis und erschien nur bei Mouseover — auf dem
+   Handy also nur nach einem Tap, sonst unsichtbar. Jetzt: Kreis = nur die
+   Nummer, Name und Text darunter, immer lesbar, ohne Interaktion. */
+.rooms-circles{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:clamp(20px,3vw,40px)}
+.rooms-circles__item{display:flex;flex-direction:column;align-items:center;width:clamp(150px,16vw,188px)}
+.room{width:100%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px}
+/* Der Name steht IM Kreis: größer und fetter als die frühere Nummer, damit er
+   auf der farbigen Fläche trägt. Lange Namen brechen um statt überzulaufen. */
+.room .room__name{font-family:var(--font-display);font-size:clamp(.95rem,1.1vw,1.15rem);font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);line-height:1.15;hyphens:auto;overflow-wrap:break-word;max-width:100%}
+.room__caption{margin-top:14px;text-align:center;max-width:26ch}
+.room__desc{margin:6px 0 0;font-size:.88rem;line-height:1.45;font-weight:500;color:var(--ink-soft);text-wrap:pretty}
 .room.g{background:var(--room-green)}.room.y{background:var(--room-yellow)}.room.o{background:var(--room-orange)}.room.b{background:var(--room-blue)}.room.l{background:var(--room-lila)}
+
+/* a11y-Hilfsklasse: für Screenreader lesbar, visuell entfernt. Fehlte im Theme. */
+.screen-reader-text{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 
 /* ---------- STEPS ---------- */
 .steps-wrap{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:clamp(34px,4vw,56px);position:relative;overflow:hidden}
@@ -618,7 +630,7 @@ button.chip{border:0;font-family:inherit}
 .accordion--plain .accordion-trigger[aria-expanded="false"]:hover{background:color-mix(in oklab,#9aa3b2 12%,transparent);padding-left:16px}
 /* Sonst würde der offene Eintrag den generischen Hover aus .accordion-trigger:hover erben. */
 .accordion--plain .accordion-trigger[aria-expanded="true"]:hover{background:none;padding-left:0}
-.accordion--plain .accordion-icon{color:#9aa3b2;width:44px;height:44px}
+.accordion--plain .accordion-icon{color:var(--ink-soft);width:44px;height:44px}
 /* Titel + Panel bündig mit dem border-bottom (kein horizontales Padding).
    Beim Hover leichtes padding-left als sanfter Slide-Effekt (transition). */
 .accordion--plain .accordion-trigger,.accordion--plain .accordion-panel{padding-left:0;padding-right:0}
@@ -741,7 +753,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card .wpcf7 textarea{background:#fff;border:0;border-radius:12px;padding:18px 22px;font-size:1rem;color:var(--navy)}
 .kontakt-card .wpcf7 textarea{min-height:190px}
 .kontakt-card .wpcf7 input::placeholder,
-.kontakt-card .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
+.kontakt-card .wpcf7 textarea::placeholder{color:var(--ink-soft);opacity:1}
 /* Footer: Einwilligung links, Submit rechts */
 /* CF7 umschließt den Footer-Inhalt in einem <p> (autop). Einwilligung (links) und
    Submit (rechts) auf EINER Zeile, vertikal zentriert. Der CF7-Spinner sitzt nach dem
@@ -788,7 +800,7 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .kontakt-card--plain .wpcf7 textarea:focus{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--magenta) 40%,transparent)}
 .kontakt-card--plain .wpcf7 textarea{min-height:200px}
 .kontakt-card--plain .wpcf7 input::placeholder,
-.kontakt-card--plain .wpcf7 textarea::placeholder{color:#9aa3b2;opacity:1}
+.kontakt-card--plain .wpcf7 textarea::placeholder{color:var(--ink-soft);opacity:1}
 /* Einwilligung + Submit in Navy/Magenta statt Weiß */
 .kontakt-card--plain .kontakt-form__consent,
 .kontakt-card--plain .wpcf7-acceptance label{color:var(--navy)}
@@ -831,16 +843,23 @@ a,button,.btn,.chip,[role="button"]{cursor:pointer}
 .socials svg{width:19px;height:19px;color:#fff}
 
 /* ---------- REVEAL ---------- */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+/* Le masquage initial est conditionné à .kc-js (posée en inline par inc/enqueue.php).
+   Sans JS — ou si le script échoue avant d'ajouter la classe — le contenu reste VISIBLE
+   par défaut : une révélation enrichit un état déjà lisible, elle ne le conditionne pas. */
+.kc-js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 /* Sections : le FOND (couleur + bande spray) reste toujours visible — sinon
    flash blanc au scroll à côté des trenners colorés. Seul le contenu s'anime. */
-section.reveal{opacity:1;transform:none}
-section.reveal>*{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+/* MUSS .kc-js tragen: die Versteck-Regel oben ist (0,2,0). Ohne Präfix wäre diese
+   hier (0,1,1) und damit schwächer — die ganze Sektion samt Hintergrund würde
+   verschwinden, statt nur ihr Inhalt. Genau das ist beim Umbau passiert. */
+.kc-js section.reveal{opacity:1;transform:none}
+.kc-js section.reveal>*{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 section.reveal.in>*{opacity:1;transform:none}
 .deco-heart{animation:bob 5s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(6deg)}}
-@media (prefers-reduced-motion:reduce){.reveal,section.reveal>*{opacity:1;transform:none;transition:none}.deco-heart{animation:none}}
+/* Spezifität muss .kc-js .reveal (0,2,0) schlagen — sonst greift die Reduce-Regel nicht. */
+@media (prefers-reduced-motion:reduce){.kc-js .reveal,.kc-js section.reveal>*{opacity:1;transform:none;transition:none}.deco-heart{animation:none}}
 @media (prefers-reduced-motion:reduce){.ablauf-panel{transition:none !important}}
 
 /* ---------- BOOKING MODAL ---------- */
@@ -873,7 +892,10 @@ section.reveal.in>*{opacity:1;transform:none}
 /* Burger/Desktop-Nav umschalten bei 1024px : zwischen 769–~960px passten die
    6 Nav-Links + Logo + CTA nicht mehr in eine Zeile (Überlauf). */
 @media(max-width:1024px){
-  .nav-links,.nav-phone{display:none}
+  /* .nav-phone wird hier NICHT mehr ausgeblendet: die Regel stammt aus der Zeit, als
+     die Klasse totes CSS war. Auf dem Handy ist der Anruf der wichtigste Rückfallweg —
+     das Symbol ist 44px breit und passt neben Burger und Termin-Button. */
+  .nav-links{display:none}
   .burger{display:grid}
 }
 @media (max-width:768px){
@@ -978,7 +1000,9 @@ section.reveal.in>*{opacity:1;transform:none}
 
 /* ---------- ZIMMER Karussell ---------- */
 .section-zimmer{padding:0 0 var(--section-pad)}
-.section-zimmer .section-title,.ls-accordion-title{text-align:center;color:#9aa3b2}
+/* a11y: #9aa3b2 = 2,54:1 — reicht nicht einmal für Großtext (3:1). Es geht hier
+   um ÜBERSCHRIFTEN, nicht um Beiwerk. --ink-soft bleibt zurückhaltend (7:1). */
+.section-zimmer .section-title,.ls-accordion-title{text-align:center;color:var(--ink-soft)}
 .swiper-nav.swiper-button-disabled{opacity:.4;cursor:default}
 
 /* =========================================================
@@ -1370,7 +1394,6 @@ section.reveal.in>*{opacity:1;transform:none}
 .btn .kc-icon-custom{width:20px;height:20px}
 .btn-sm .kc-icon-custom{width:14px;height:14px}
 .burger .kc-icon-custom{width:36px;height:36px}
-.nav-phone .kc-icon-custom{width:18px;height:18px}
 .mobile-menu .close .kc-icon-custom{width:40px;height:40px}
 .booking-modal__close .kc-icon-custom{width:18px;height:18px}
 .fc-key .kc-icon-custom{width:16px;height:16px}
@@ -1556,18 +1579,22 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__inner{min-height:100%;max-width:1180px;margin:0 auto;padding:clamp(26px,4.5vw,60px) clamp(20px,5vw,64px) clamp(60px,8vw,110px);opacity:0;transform:translateX(48px);transition:opacity calc(var(--lsov-duration,1050ms) * .72) var(--ease-soft) .2s,transform var(--lsov-duration,1050ms) var(--ease-soft) .2s}
 .lsov.is-open .lsov__inner{opacity:1;transform:none}
 .lsov__bar{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
-.lsov__title{margin:0;color:#fff;font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(1.55rem,6vw,4.4rem);text-wrap:balance;hyphens:auto;overflow-wrap:break-word;min-width:0}
-.lsov__close{flex:none;width:clamp(46px,4vw,58px);height:clamp(46px,4vw,58px);display:grid;place-items:center;margin-top:.35em;background:transparent;border:0;border-radius:50%;color:#fff;cursor:pointer;transition:transform .3s var(--ease-soft),background .2s}
+/* a11y: Weiß auf den Pastellflächen = 1,18:1 bis 1,67:1 (WCAG AA verlangt 3:1 für
+   Großtext). --navy liegt auf denselben Flächen bei 7,4:1 bis 10,5:1 und ist bereits
+   die Farbe der Overlay-Zwischentitel. Dekorative Symbole bleiben weiß. */
+.lsov__title{margin:0;color:var(--navy);font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(1.55rem,6vw,4.4rem);text-wrap:balance;hyphens:auto;overflow-wrap:break-word;min-width:0}
+/* a11y (WCAG 1.4.11, 3:1 für Bedienelemente): der Schließen-Button ist funktional,
+   nicht dekorativ — weiß auf Pastell wäre nicht erkennbar. */
+.lsov__close{flex:none;width:clamp(46px,4vw,58px);height:clamp(46px,4vw,58px);display:grid;place-items:center;margin-top:.35em;background:transparent;border:0;border-radius:50%;color:var(--navy);cursor:pointer;transition:transform .3s var(--ease-soft),background .2s}
 .lsov__close svg{width:60%;height:60%}
 .lsov__close:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
 .lsov__close:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .lsov__intro{margin:clamp(14px,1.6vw,22px) 0 0;max-width:62ch;color:var(--navy);font-weight:500;line-height:1.6;font-size:clamp(1.08rem,1.5vw,1.32rem)}
 .lsov__intro p{margin:0}
 .lsov__grid{margin-top:clamp(38px,5.5vw,72px);display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(36px,5vw,72px);row-gap:0}
-.lsov__sec{display:grid;grid-template-columns:clamp(40px,3.4vw,48px) 1fr;gap:clamp(16px,1.6vw,24px);align-items:start;padding:clamp(26px,3.4vw,44px) 0}
+/* Ohne Icon-Spalte: der Text nutzt jetzt die volle Spaltenbreite. */
+.lsov__sec{padding:clamp(26px,3.4vw,44px) 0}
 .lsov__sec:nth-child(n+3){border-top:1px solid rgba(16,46,121,.16)}
-.lsov__ic{width:100%;height:auto;color:#fff;margin-top:2px}
-.lsov__ic svg{width:100%;height:auto;display:block}
 .lsov__sec-title{margin:0 0 clamp(10px,1vw,14px);color:var(--navy);font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.11em;font-size:.9rem;line-height:1.3}
 .lsov__prose{color:var(--navy);font-weight:500;line-height:1.7;font-size:1.02rem;max-width:60ch}
 .lsov__prose p{margin:0 0 .8em}
@@ -1576,7 +1603,28 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__prose li{position:relative;padding-left:1.25em;margin:.28em 0}
 .lsov__prose li::before{content:"–";position:absolute;left:0;color:var(--magenta);font-weight:700}
 body.lsov-lock{overflow:hidden}
-@media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}.lsov__sec{grid-template-columns:1fr;gap:12px}.lsov__ic{width:clamp(36px,10vw,44px)}}
+/* ---- Bilder-Slider im Overlay ---- */
+.lsov__media{position:relative;margin:clamp(30px,4vw,48px) auto 0;width:100%;display:flex;flex-wrap:wrap;align-items:stretch;gap:clamp(10px,1.4vw,18px)}
+/* Kein border-radius/overflow auf dem Track: die Ecken gehören den Folien, und ein
+   abgeschnittener Track würde die Hover-Anhebung der Bilder kappen. */
+.lsov-swiper{overflow:hidden;padding-bottom:6px;flex:1 1 0;min-width:0;order:1}
+.lsov-slide{margin:0;display:flex;flex-direction:column;height:auto;text-align:center}
+.lsov-slide__img{width:100%;height:auto;display:block;border-radius:var(--r-lg);object-fit:cover;aspect-ratio:4/5;background:#fff;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.lsov-slide:hover .lsov-slide__img{transform:translateY(-4px);box-shadow:var(--shadow)}
+.lsov-slide__cap{margin:14px 4px 0;font-size:.92rem;line-height:1.45;font-weight:500;color:var(--navy);text-wrap:pretty}
+.lsov__media .swiper-pagination{position:static;order:3;flex:0 0 100%;margin-top:16px;text-align:center}
+.lsov__media .swiper-nav{position:static;transform:none;flex:0 0 auto;align-self:stretch;width:clamp(38px,3.6vw,54px);height:auto;border-radius:var(--r);background:color-mix(in oklab,var(--navy) 20%,transparent);color:#fff;box-shadow:none;transition:background .2s,color .2s}
+.lsov__media .swiper-nav svg{width:52%;height:auto}
+.lsov__media .swiper-nav--prev{order:0}
+.lsov__media .swiper-nav--next{order:2}
+.lsov__media .swiper-nav:hover{background:var(--navy);color:#fff}
+
+.lsov__media .swiper-nav:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+.lsov__media .swiper-nav.swiper-button-disabled{opacity:.35;cursor:default}
+.lsov__media--single .lsov-swiper{overflow:visible}
+@media(prefers-reduced-motion:reduce){.lsov-swiper .swiper-wrapper{transition-duration:0ms !important}.lsov__media .swiper-nav{transition:none}.lsov-slide__img,.lsov-slide:hover .lsov-slide__img{transition:none;transform:none}}
+@media(max-width:760px){.lsov__media{gap:8px}.lsov__media .swiper-nav{width:32px}}
+@media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}}
 @media(prefers-reduced-motion:reduce){.lsov,.lsov.is-open{transition:visibility 0s;transform:none}.lsov__inner,.lsov.is-open .lsov__inner{transition:none;transform:none;opacity:1}.ls2-card,.ls2-card__more,.lsov__close{transition:none}}
 
 /* FAQ: weiße Nummer 1/2/3 vor der Frage (wie im finalen PDF) */
@@ -1585,4 +1633,3 @@ body.lsov-lock{overflow:hidden}
 /* Symbol-Illustrationen einfarbig (Maske, currentColor) — Karten-Header + Overlay-Abschnitte */
 .kc-symbol-mask{display:block;background:currentColor}
 .ls2-card__ic .kc-symbol-mask{width:100%;height:clamp(44px,3.8vw,56px)}
-.lsov__ic .kc-symbol-mask{width:100%;height:clamp(36px,3vw,46px)}

@@ -2,10 +2,13 @@
 /**
  * Layout: 5 Behandlungszimmer — farbige Kreise (statisch).
  *
- * Jeder Raum = ein farbiger Kreis (RAUM N + Name). Beim Mouseover / Fokus /
- * Tap erscheint der erklärende Text (Feld `beschreibung`). Kein Karussell:
- * Desktop = 5 Kreise nebeneinander, Mobile = Umbruch (flex-wrap).
- * Felder: eyebrow, title, text, rooms[] (name, theme, color, beschreibung).
+ * Der Kreis trägt den NAMEN aus dem Feld (Sonne, Eismeer …), der erklärende Text
+ * steht dauerhaft darunter — kein Mouseover, kein Tap, kein Aufklappen: der Text
+ * war so auf Touch-Geräten nur per Tap erreichbar und blieb sonst unsichtbar.
+ * Da nichts mehr aufklappt, sind die Kreise auch keine Bedienelemente mehr
+ * (kein tabindex/role/aria-expanded — ein Button, der nichts tut, führt in die Irre).
+ * Kein Karussell: Desktop = 5 Kreise nebeneinander, Mobile = Umbruch (flex-wrap).
+ * Felder: eyebrow, title, text, rooms[] (name, color, beschreibung).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -36,34 +39,31 @@ $lead       = get_sub_field( 'text' );
 		<?php if ( $rooms_rows ) : ?>
 		<ul class="rooms-circles" role="list">
 			<?php
-			$rn = 0;
 			while ( have_rows( 'rooms' ) ) :
 				the_row();
-				++$rn;
 				$c    = (string) get_sub_field( 'color' ); // g | y | o | b | l
-				$name = (string) get_sub_field( 'name' );
+				$name = trim( (string) get_sub_field( 'name' ) );
 				$desc = (string) get_sub_field( 'beschreibung' );
-				/* translators: %d = Zimmer-Nummer */
-				$label = sprintf( __( 'Raum %d', 'kidsclub' ), $rn );
+				if ( '' === $name ) {
+					continue; // Ohne Namen hätte der Kreis keine Beschriftung — Zeile überspringen.
+				}
 				?>
 				<li class="rooms-circles__item">
-					<div
-						class="room <?php echo esc_attr( $c ); ?><?php echo $desc ? ' has-desc' : ''; ?>"
-						<?php if ( $desc ) : ?>
-						tabindex="0"
-						role="button"
-						aria-expanded="false"
-						aria-label="<?php echo esc_attr( $label . ' ' . $name ); ?>"
-						<?php endif; ?>
-					>
-						<span class="room__label">
-							<span class="room-nr"><?php echo esc_html( $label ); ?></span>
-							<b class="room__name"><?php echo esc_html( $name ); ?></b>
-						</span>
-						<?php if ( $desc ) : ?>
-							<span class="room__desc"><?php echo wp_kses( $desc, [ 'strong' => [] ] ); ?></span>
-						<?php endif; ?>
+					<?php
+					/*
+					 * Der Kreis trägt den Namen aus dem Feld. Früher stand hier ein im Template
+					 * fest verdrahtetes „Raum %d“ — die Redaktion konnte das Wort nicht ändern,
+					 * und die Nummer sagte nichts über den Raum aus.
+					 */
+					?>
+					<div class="room <?php echo esc_attr( $c ); ?>">
+						<span class="room__name"><?php echo esc_html( $name ); ?></span>
 					</div>
+					<?php if ( $desc ) : ?>
+						<div class="room__caption">
+							<p class="room__desc"><?php echo wp_kses( $desc, [ 'strong' => [] ] ); ?></p>
+						</div>
+					<?php endif; ?>
 				</li>
 			<?php endwhile; ?>
 		</ul>

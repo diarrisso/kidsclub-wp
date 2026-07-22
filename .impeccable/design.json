@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-21T06:41:46Z",
+  "title": "Design System: Kids Club by zacp",
+  "extensions": {
+    "colorMeta": {
+      "magenta": {
+        "role": "primary",
+        "displayName": "Kids-Club Magenta",
+        "canonical": "#EA4589",
+        "tonalRamp": ["#450821", "#770D39", "#AA1351", "#DC1969", "#E93F85", "#EF76A8", "#F6ADCB", "#FCE4EE"]
+      },
+      "magenta-deep": {
+        "role": "primary",
+        "displayName": "Magenta Deep",
+        "canonical": "#D52E72",
+        "tonalRamp": ["#400D22", "#6E163A", "#9D2053", "#CC296B", "#DB4D87", "#E580A9", "#F0B3CB", "#FAE6EE"]
+      },
+      "navy": {
+        "role": "secondary",
+        "displayName": "Vertrauensblau",
+        "canonical": "#102E79",
+        "tonalRamp": ["#091A44", "#0F2D75", "#163FA7", "#1D52D8", "#4271E6", "#7899ED", "#AEC2F4", "#E4EBFB"]
+      },
+      "blau-lead": {
+        "role": "secondary",
+        "displayName": "Blau Lead",
+        "canonical": "#012F7D",
+        "tonalRamp": ["#011D4C", "#013184", "#0146BB", "#025BF3", "#2A79FD", "#679FFE", "#A4C5FE", "#E1ECFF"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Encre douce",
+        "canonical": "#4A568C",
+        "tonalRamp": ["#1A1F32", "#2E3557", "#414C7B", "#5562A0", "#737FB5", "#9BA3CA", "#C3C8DF", "#EBEDF4"]
+      },
+      "bg": { "role": "neutral", "displayName": "Blanc", "canonical": "#FFFFFF" },
+      "band": { "role": "neutral", "displayName": "Bande claire", "canonical": "#EFF2F0" },
+      "band-pink": { "role": "neutral", "displayName": "Bande rose", "canonical": "#FBB9C4" },
+      "line": { "role": "neutral", "displayName": "Filet bleu transparent", "canonical": "rgba(38,37,127,.14)" },
+      "card-yellow": { "role": "tertiary", "displayName": "Prestation Jaune", "canonical": "#F3E3A6" },
+      "card-blue": { "role": "tertiary", "displayName": "Prestation Bleu", "canonical": "#BBCCDA" },
+      "card-green": { "role": "tertiary", "displayName": "Prestation Vert", "canonical": "#C0CBC3" },
+      "card-pink": { "role": "tertiary", "displayName": "Prestation Rose", "canonical": "#F9E9E2" },
+      "room-green": { "role": "tertiary", "displayName": "Zimmer Sauge", "canonical": "#BDCCC2" },
+      "room-yellow": { "role": "tertiary", "displayName": "Zimmer Jaune doux", "canonical": "#F7E29D" },
+      "room-orange": { "role": "tertiary", "displayName": "Zimmer Pêche", "canonical": "#FCE8E1" },
+      "room-blue": { "role": "tertiary", "displayName": "Zimmer Bleu ardoise", "canonical": "#98ACBA" },
+      "room-lila": { "role": "tertiary", "displayName": "Zimmer Lilas", "canonical": "#CCC8CE" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Titre du hero, unique H1 de la page. Majuscules." },
+      "headline": { "displayName": "Headline", "purpose": "Titres de section. Tracking positif .057em pour aérer les majuscules grasses." },
+      "title": { "displayName": "Title", "purpose": "Titres de cartes Leistungen et Zimmer, en Vertrauensblau." },
+      "lead": { "displayName": "Lead", "purpose": "Description sous chaque titre de section. Taille unique pour tout le site." },
+      "body": { "displayName": "Body", "purpose": "Texte courant, 18px. Prose d'overlay plafonnée à 60ch, corps de carte à 34ch." },
+      "label": { "displayName": "Eyebrow", "purpose": "Sur-titre majuscule tracé. Usage rare et délibéré, jamais sur chaque section." }
+    },
+    "shadows": [
+      { "name": "souffle", "value": "0 2px 12px rgba(38,37,127,.08)", "purpose": "Repos des chips, cartes équipe, formulaire, header au défilement." },
+      { "name": "reponse", "value": "0 18px 40px -18px rgba(38,37,127,.26)", "purpose": "Survol des cartes et boutons secondaires." },
+      { "name": "portee", "value": "0 42px 84px -34px rgba(38,37,127,.40)", "purpose": "Survol du bouton navy — le seul cas d'élévation spectaculaire." },
+      { "name": "halo-magenta", "value": "0 18px 40px -16px color-mix(in oklab, #EA4589 56%, transparent)", "purpose": "État actif d'une chip de filtre." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(.2,.7,.2,1)", "purpose": "Easing par défaut de toutes les transitions d'état." },
+      { "name": "ease-soft", "value": "cubic-bezier(.22,.68,.24,1)", "purpose": "Easing de l'overlay Leistungen — plus long, plus matiéré." },
+      { "name": "lsov-duration", "value": "1050ms", "purpose": "Durée du glissement de l'overlay plein écran." },
+      { "name": "nav-underline", "value": "right .25s var(--ease)", "purpose": "Déploiement du soulignement magenta sous les liens de navigation." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "760px" },
+      { "name": "desktop-wide", "value": "1280px" },
+      { "name": "container", "value": "1200px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Pilule outline magenta — le style unifié de toutes les actions du site. Plat au repos par décision.",
+      "html": "<button class=\"ds-btn-primary\">Termin buchen</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:.6rem;font-family:'Jost',system-ui,sans-serif;font-weight:600;font-size:1.02rem;padding:15px 28px;border-radius:999px;background:#fff;color:#D52E72;border:2px solid #D52E72;box-shadow:none;cursor:pointer;white-space:nowrap;transition:transform .25s cubic-bezier(.2,.7,.2,1),background .2s,color .2s}.ds-btn-primary:hover{background:#D52E72;color:#fff;transform:translateY(-2px)}.ds-btn-primary:focus-visible{outline:3px solid #EA4589;outline-offset:3px}"
+    },
+    {
+      "name": "Bouton navy",
+      "kind": "button",
+      "refersTo": "button-navy",
+      "description": "Second niveau d'action (envoi de formulaire). Seul bouton qui porte une ombre au repos.",
+      "html": "<button class=\"ds-btn-navy\">Absenden</button>",
+      "css": ".ds-btn-navy{display:inline-flex;align-items:center;gap:.6rem;font-family:'Jost',system-ui,sans-serif;font-weight:600;font-size:1.02rem;padding:15px 28px;border:0;border-radius:999px;background:#102E79;color:#fff;box-shadow:0 18px 40px -18px rgba(38,37,127,.26);cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s cubic-bezier(.2,.7,.2,1),background .2s}.ds-btn-navy:hover{background:#1A4FA8;transform:translateY(-2px);box-shadow:0 42px 84px -34px rgba(38,37,127,.40)}.ds-btn-navy:focus-visible{outline:3px solid #EA4589;outline-offset:3px}"
+    },
+    {
+      "name": "Chip de filtre",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Filtre de la galerie Praxis, alimenté par les termes de la taxonomie « bereich ». État actif figé en magenta.",
+      "html": "<button class=\"ds-chip\">Alle</button><button class=\"ds-chip ds-chip--active\">Behandlungszimmer</button>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;gap:9px;background:#fff;border:0;border-radius:999px;padding:11px 20px;font-family:'Jost',system-ui,sans-serif;font-weight:700;font-size:.98rem;color:#102E79;box-shadow:0 2px 12px rgba(38,37,127,.08);cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s cubic-bezier(.2,.7,.2,1),background .25s}.ds-chip:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(38,37,127,.26);background:#EA4589;color:#fff}.ds-chip--active{background:#EA4589;color:#fff;box-shadow:0 18px 40px -16px rgba(234,69,137,.56)}.ds-chip--active:hover{transform:none}.ds-chip:focus-visible{outline:3px solid #EA4589;outline-offset:3px}"
+    },
+    {
+      "name": "Carte prestation",
+      "kind": "card",
+      "refersTo": "card-service",
+      "description": "Carte Leistungen. Sa couleur de surface détermine obligatoirement la couleur de l'overlay qu'elle ouvre.",
+      "html": "<article class=\"ds-card-service\"><div class=\"ds-card-service__head\"><h3 class=\"ds-card-service__title\">Kinderzahnheilkunde</h3></div><div class=\"ds-card-service__body\"><p>Behandlung von Milchzähnen und bleibenden Zähnen — kindgerecht und ohne Druck.</p></div><div class=\"ds-card-service__spacer\"></div><button class=\"ds-card-service__more\">Mehr erfahren</button></article>",
+      "css": ".ds-card-service{border-radius:28px;padding:clamp(26px,2.4vw,36px) clamp(24px,2.2vw,34px);display:flex;flex-direction:column;min-height:clamp(360px,34vw,460px);background:#BBCCDA;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s cubic-bezier(.2,.7,.2,1)}.ds-card-service:hover{transform:translateY(-6px);box-shadow:0 18px 40px -18px rgba(38,37,127,.26)}.ds-card-service__title{margin:0 0 clamp(20px,2.4vw,30px);color:#102E79;font-family:'Jost',system-ui,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:1.02;font-size:clamp(1.35rem,1.8vw,1.7rem)}.ds-card-service__body{color:#102E79;font-family:'Jost',system-ui,sans-serif;font-weight:500;line-height:1.6;font-size:1.02rem;max-width:34ch}.ds-card-service__body p{margin:0}.ds-card-service__spacer{flex:1 1 auto;min-height:22px}.ds-card-service__more{align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:#102E79;font-family:'Jost',system-ui,sans-serif;font-weight:600;font-size:1.02rem;padding:13px 34px;border:0;border-radius:999px;cursor:pointer;box-shadow:0 2px 12px rgba(38,37,127,.08);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s cubic-bezier(.2,.7,.2,1),background .2s,color .2s}.ds-card-service__more:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(38,37,127,.26);background:#102E79;color:#fff}.ds-card-service__more:focus-visible{outline:3px solid #EA4589;outline-offset:3px}"
+    },
+    {
+      "name": "Carte équipe",
+      "kind": "card",
+      "refersTo": "card-team",
+      "description": "Membre de l'équipe (CPT « team »). Le liseré supérieur cycle sur les cinq couleurs de Zimmer.",
+      "html": "<article class=\"ds-card-team\"><div class=\"ds-card-team__img\"><img alt=\"Dr. med. dent. — Kinderzahnärztin\" src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='260'><rect width='320' height='260' fill='%23EFF2F0'/></svg>\"></div><div class=\"ds-card-team__body\"><h3>Dr. Anna Beispiel</h3><p class=\"ds-card-team__role\">Kinderzahnärztin</p><p>Behandelt seit zwölf Jahren ausschließlich Kinder.</p></div></article>",
+      "css": ".ds-card-team{background:#fff;border-radius:28px;box-shadow:0 2px 12px rgba(38,37,127,.08);overflow:hidden;border-top:6px solid #BDCCC2;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s cubic-bezier(.2,.7,.2,1)}.ds-card-team:hover{transform:translateY(-7px);box-shadow:0 18px 40px -18px rgba(38,37,127,.26)}.ds-card-team__img{width:100%;height:260px;overflow:hidden}.ds-card-team__img img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s cubic-bezier(.2,.7,.2,1)}.ds-card-team:hover .ds-card-team__img img{transform:scale(1.07)}.ds-card-team__body{padding:24px 22px 28px;font-family:'Jost',system-ui,sans-serif}.ds-card-team__body h3{margin:0 0 4px;color:#102E79;font-weight:800;font-size:1.15rem;text-transform:uppercase}.ds-card-team__role{color:#EA4589;font-weight:800;font-size:.9rem;margin:0 0 12px}.ds-card-team__body p{margin:0;color:#4A568C;font-size:.92rem;font-weight:500;line-height:1.55}"
+    },
+    {
+      "name": "Champ de formulaire",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Champ Contact Form 7. Se distingue par sa surface blanche, jamais par un trait.",
+      "html": "<input class=\"ds-input-text\" type=\"text\" placeholder=\"Ihr Name\">",
+      "css": ".ds-input-text{width:100%;background:#fff;border:0;border-radius:12px;padding:18px 22px;font-family:'Jost',system-ui,sans-serif;font-size:1rem;color:#102E79}.ds-input-text::placeholder{color:#9aa3b2;opacity:1}.ds-input-text:focus-visible{outline:3px solid #EA4589;outline-offset:3px}"
+    },
+    {
+      "name": "Lien de navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Lien du header collant. Le soulignement magenta se déploie de gauche à droite ; la page courante le garde déployé.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#leistungen\">Leistungen</a><a href=\"#team\" aria-current=\"page\">Team</a><a href=\"#termin\">Termin</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:25px;font-family:'Jost',system-ui,sans-serif}.ds-nav a{position:relative;padding:6px 0;font-weight:700;font-size:1.1rem;color:#102E79;text-decoration:none;transition:color .2s cubic-bezier(.2,.7,.2,1)}.ds-nav a::after{content:\"\";position:absolute;left:0;right:100%;bottom:-2px;height:3px;border-radius:3px;background:#EA4589;transition:right .25s cubic-bezier(.2,.7,.2,1)}.ds-nav a:hover{color:#EA4589}.ds-nav a:hover::after,.ds-nav a[aria-current=\"page\"]::after{right:0}.ds-nav a[aria-current=\"page\"]{color:#EA4589}.ds-nav a:focus-visible{outline:3px solid #EA4589;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La salle d'attente qu'on n'a pas envie de quitter",
+    "overview": "Le système traduit un lieu physique avant de traduire une marque. Les quatre couleurs de cartes et les cinq couleurs de Zimmer ne sont pas une palette décorative : ce sont les salles du cabinet, transposées à l'écran. Un parent qui parcourt la page doit reconnaître l'endroit quand il y entre pour de vrai. Rien ne pique, rien n'est carré, rien ne brille : les rayons sont larges et les surfaces sont des aplats mats.\n\nSur cette douceur, deux couleurs cardinales font le travail sérieux. Le Vertrauensblau porte tout le texte, toute la lecture, toute la crédibilité médicale. Le Kids-Club Magenta ne décrit rien : il signale. Titres, action, état actif, anneau de focus. La joie est dans les surfaces ; la compétence est dans le texte.\n\nLe système rejette explicitement trois voisinages : la clinique froide, l'infantile à l'excès, et la landing SaaS à la mode. La couleur ici est franche mais jamais criarde, dessinée mais jamais puérile.",
+    "keyCharacteristics": [
+      "Une seule famille typographique (Jost), le contraste vient des graisses 400 → 800 et des majuscules",
+      "Deux couleurs cardinales + une famille de surfaces douces empruntées aux vraies salles",
+      "Aucun angle vif : pilule (999px) pour l'interactif, 28px pour les conteneurs",
+      "Plat au repos ; l'ombre n'apparaît qu'en réponse à un geste",
+      "Un seul moment spectaculaire assumé : l'overlay Leistungen plein écran",
+      "Tout le texte visible est en allemand, sans exception"
+    ],
+    "rules": [
+      { "name": "La Règle des Deux Rôles", "body": "Le magenta signale, le bleu raconte. Un texte de lecture n'est jamais magenta ; un bouton d'action n'est jamais bleu clair. Si les deux couleurs commencent à faire le même travail dans une section, la section est à refaire.", "section": "colors" },
+      { "name": "La Règle de la Salle", "body": "Une couleur de surface désigne toujours la même chose d'un bout à l'autre du site. Une carte Leistungen bleue ouvre un overlay bleu. On ne pioche pas dans ces couleurs pour faire joli ailleurs.", "section": "colors" },
+      { "name": "La Règle du Blanc Majoritaire", "body": "Le blanc reste le fond dominant. Les bandes colorées pleine largeur sont des respirations rythmiques, jamais l'état par défaut de la page.", "section": "colors" },
+      { "name": "La Règle de la Graisse", "body": "Une hiérarchie se creuse par la graisse et la casse, jamais par un second caractère. Introduire une deuxième famille typographique dans ce système est un changement d'identité, pas un ajustement.", "section": "typography" },
+      { "name": "La Règle du Titre Bleu", "body": "Les H1/H2/H3 sont magenta par défaut. Tout titre posé sur un fond coloré ou une image doit redéclarer sa couleur — sans quoi il rend magenta sur magenta, invisible.", "section": "typography" },
+      { "name": "La Règle de l'Eyebrow Rare", "body": "L'eyebrow majuscule tracé existe dans le système, mais il ne se met pas au-dessus de chaque section. Répété partout, il devient de l'échafaudage générique.", "section": "typography" },
+      { "name": "La Règle du Geste", "body": "Une ombre est une réponse, pas une décoration. Si un élément gagne une ombre sans qu'un utilisateur l'ait survolé, focalisé ou ouvert, l'ombre est de trop.", "section": "elevation" },
+      { "name": "La Règle de l'Ombre Bleue", "body": "Aucune ombre noire. Toute nouvelle ombre se compose sur rgba(38,37,127,…).", "section": "elevation" }
+    ],
+    "dos": [
+      "Do utiliser les jetons de rythme existants — --section-pad, --gap-eyebrow, --gap-title, --gap-head. Un clamp() inventé sur place est la raison n°1 pour laquelle un nouveau bloc « sonne faux » à côté des autres.",
+      "Do redéclarer explicitement la color de tout titre posé sur un fond coloré ou une image : la règle globale les rend magenta, donc invisibles sur magenta.",
+      "Do garder la couleur de l'overlay identique à celle de la carte qui l'ouvre.",
+      "Do écrire chaque chaîne visible en allemand — étiquettes ACF, instructions, boutons, contenus. Le français reste autorisé dans les commentaires de code, nulle part ailleurs.",
+      "Do fournir une alternative sous @media (prefers-reduced-motion: reduce) pour toute animation ajoutée, carrousels Swiper compris.",
+      "Do monter le texte vers l'encre plutôt que de l'alléger : le corps est en 18px et doit rester lisible par un grand-parent."
+    ],
+    "donts": [
+      "Don't virer vers la clinique froide — blanc hôpital, gris acier, filets gris neutres. Les séparateurs sont bleus transparents, pas gris.",
+      "Don't virer vers l'infantile à l'excès — Comic Sans, arcs-en-ciel, cartoon en pagaille. Le parent doit continuer à lire une compétence médicale.",
+      "Don't virer vers la landing SaaS à la mode — dégradés, grilles de cartes interchangeables icône + titre + texte, gros chiffres statistiques, et surtout pas d'eyebrow majuscule tracé au-dessus de chaque section.",
+      "Don't utiliser background-clip: text sur un dégradé, ni de bordure latérale colorée de plus d'1px comme accent de carte ou d'encadré.",
+      "Don't ajouter d'ombre noire, ni d'ombre au repos sur un bouton principal.",
+      "Don't introduire une seconde famille typographique : le contraste se fait à la graisse.",
+      "Don't puiser dans les palettes de réserve --pal-* / --fig-* sans décision explicite du client — elles sont documentaires, pas disponibles.",
+      "Don't éditer kidsclub.min.css sans contrôle de parité mécanique avec kidsclub.css : le fichier minifié est celui servi en production, une divergence y devient un bug invisible en local."
+    ]
+  }
+}

@@ -7,6 +7,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Asset-Version — EINZIGE Quelle der Wahrheit.
+ *
+ * Vorher lagen drei Versionen nebeneinander: $ver in inc/enqueue.php (3.13.0),
+ * CACHE in assets/js/sw.js (3.13.0) und die Theme-Version in style.css (1.0.1),
+ * die inc/uploads-cache-bust.php benutzt. Nichts erzwang, dass sie zusammen
+ * wandern — und genau daraus entstand ein Service Worker, der veraltetes CSS
+ * auslieferte, obwohl zwei der drei Werte korrekt erhöht worden waren.
+ *
+ * Ab jetzt: NUR die Version in style.css erhöhen. Alles andere folgt.
+ *
+ * @return string
+ */
+function kc_asset_version() {
+	static $version = null;
+
+	if ( null === $version ) {
+		$version = (string) wp_get_theme()->get( 'Version' );
+		if ( '' === $version ) {
+			$version = '0';
+		}
+	}
+
+	return $version;
+}
+
 add_action(
 	'after_setup_theme',
 	function () {

@@ -27,6 +27,7 @@ $items   = get_sub_field( 'items' );
 			<div class="accordion-item">
 				<button class="accordion-trigger"
 						@click="open === <?php echo absint( $i ); ?> ? open = null : open = <?php echo absint( $i ); ?>"
+						aria-expanded="false"
 						:aria-expanded="open === <?php echo absint( $i ); ?>"
 						aria-controls="faq-panel-<?php echo absint( $i ); ?>"
 						type="button">
