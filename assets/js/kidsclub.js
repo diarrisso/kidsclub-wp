@@ -260,8 +260,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     var reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     new Swiper('.einblicke-swiper', {
-        slidesPerView: 1,
+        // Bruchteil + centeredSlides: an beiden Rändern schaut eine Folie herein,
+        // wie in der Vorlage. loop sorgt dafür, dass links nie eine Lücke entsteht.
+        // Der Bruchteil ist die Rechnung: bei centeredSlides teilt sich der Rest
+        // gleichmäßig auf beide Seiten. 3,4 = 0,2 + 3 volle + 0,2 — also links und
+        // rechts genau ein Fünftel einer Folie. 2,6 ergäbe zwei halbe Folien.
+        slidesPerView: 1.4,
         spaceBetween: 16,
+        centeredSlides: true,
         loop: true,
         autoplay: reduceMotion
             ? false
@@ -269,8 +275,8 @@ document.addEventListener('DOMContentLoaded', function () {
         navigation: { prevEl: '.einblicke-swiper__prev', nextEl: '.einblicke-swiper__next' },
         pagination: { el: '.einblicke-swiper__pagination', clickable: true },
         breakpoints: {
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 24 },
+            640: { slidesPerView: 2.4, spaceBetween: 20 },
+            1024: { slidesPerView: 3.4, spaceBetween: 26 },
         },
         a11y: { enabled: true },
     });
@@ -539,9 +545,11 @@ document.addEventListener('DOMContentLoaded', function () {
       centerInsufficientSlides: true,
       // Navigation und Punkte verschwinden, wenn ohnehin alles sichtbar ist.
       watchOverflow: true,
+      // Der Bruchteil ist Absicht: die nächste Folie schaut zu ~20 % herein und
+      // zeigt damit ohne Pfeil oder Hinweis, dass es weitergeht.
       breakpoints: {
-        640: { slidesPerView: 2, spaceBetween: 20 },
-        1000: { slidesPerView: 3, spaceBetween: 24 }
+        640: { slidesPerView: 2.2, spaceBetween: 20 },
+        1000: { slidesPerView: 3.2, spaceBetween: 26 }
       },
       navigation: {
         prevEl: el.querySelector('.swiper-nav--prev'),

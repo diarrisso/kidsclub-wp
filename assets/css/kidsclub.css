@@ -434,10 +434,9 @@ section{position:relative;z-index:2}
 .einblicke-swiper{overflow:hidden;padding:0 0 44px}
 @media(min-width:640px){
 	.einblicke-swiper-wrap{width:100vw;margin-left:calc(50% - 50vw)}
-	.einblicke-swiper{padding:0 clamp(54px,5vw,86px) 44px}
 }
 .einblicke-swiper .swiper-slide{height:auto}
-.einblicke-slide{margin:0;height:clamp(300px,40vw,480px);overflow:hidden;border-radius:22px;box-shadow:var(--shadow-sm)}
+.einblicke-slide{margin:0;aspect-ratio:9/10;overflow:hidden;border-radius:22px;box-shadow:var(--shadow-sm)}
 .einblicke-slide img{width:100%;height:100%;object-fit:cover;display:block;border-radius:22px}
 .einblicke-swiper__pagination{text-align:center;margin-top:6px}
 .einblicke-swiper__pagination .swiper-pagination-bullet{width:8px;height:8px;background:var(--navy);opacity:.25;margin:0 4px}
@@ -449,7 +448,6 @@ section{position:relative;z-index:2}
 .einblicke-swiper__prev{left:14px}
 .einblicke-swiper__next{right:14px}
 @media(max-width:639px){
-	.einblicke-slide{height:280px}
 	.einblicke-swiper-wrap .swiper-nav-btn svg{height:30px}
 }
 
