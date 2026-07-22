@@ -465,9 +465,10 @@ section{position:relative;z-index:2}
 .rooms-circles{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:clamp(20px,3vw,40px)}
 .rooms-circles__item{display:flex;flex-direction:column;align-items:center;width:clamp(150px,16vw,188px)}
 .room{width:100%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;padding:18px}
-.room .room-nr{font-family:var(--font-display);font-size:1.05rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+/* Der Name steht IM Kreis: größer und fetter als die frühere Nummer, damit er
+   auf der farbigen Fläche trägt. Lange Namen brechen um statt überzulaufen. */
+.room .room__name{font-family:var(--font-display);font-size:clamp(.95rem,1.1vw,1.15rem);font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);line-height:1.15;hyphens:auto;overflow-wrap:break-word;max-width:100%}
 .room__caption{margin-top:14px;text-align:center;max-width:26ch}
-.room__name{display:block;font-family:var(--font-display);font-weight:700;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
 .room__desc{margin:6px 0 0;font-size:.88rem;line-height:1.45;font-weight:500;color:var(--ink-soft);text-wrap:pretty}
 .room.g{background:var(--room-green)}.room.y{background:var(--room-yellow)}.room.o{background:var(--room-orange)}.room.b{background:var(--room-blue)}.room.l{background:var(--room-lila)}
 

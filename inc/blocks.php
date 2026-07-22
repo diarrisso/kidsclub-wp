@@ -898,8 +898,14 @@ add_action(
 										'max'        => 5,
 										'layout'     => 'table',
 										'sub_fields' => [
-											kc_field( 'name', 'Name', 'text' ),
-											kc_field( 'theme', 'Motto', 'text' ),
+											[
+												'key'          => 'field_kc_name',
+												'label'        => 'Name',
+												'name'         => 'name',
+												'type'         => 'text',
+												'required'     => 1,
+												'instructions' => 'Steht im farbigen Kreis, z. B. „Sonne“. Ohne Namen wird der Raum nicht angezeigt.',
+											],
 											[
 												'key'     => 'field_kc_room_color',
 												'label'   => 'Farbe',
@@ -913,7 +919,14 @@ add_action(
 													'l' => 'Grau (Steine)',
 												],
 											],
-											kc_field( 'beschreibung', 'Beschreibung (Mouseover)', 'textarea' ),
+											[
+												'key'          => 'field_kc_beschreibung',
+												'label'        => 'Beschreibung',
+												'name'         => 'beschreibung',
+												'type'         => 'textarea',
+												'rows'         => 3,
+												'instructions' => 'Steht dauerhaft unter dem Kreis — kein Mouseover mehr. Leer lassen = nur der Kreis.',
+											],
 										],
 									],
 								],

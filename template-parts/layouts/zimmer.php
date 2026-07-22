@@ -2,13 +2,13 @@
 /**
  * Layout: 5 Behandlungszimmer — farbige Kreise (statisch).
  *
- * Der Kreis trägt NUR die Nummer (RAUM N). Name und erklärender Text stehen
- * dauerhaft DARUNTER — kein Mouseover, kein Tap, kein Aufklappen: der Text war
- * so auf Touch-Geräten nur per Tap erreichbar und blieb sonst unsichtbar.
+ * Der Kreis trägt den NAMEN aus dem Feld (Sonne, Eismeer …), der erklärende Text
+ * steht dauerhaft darunter — kein Mouseover, kein Tap, kein Aufklappen: der Text
+ * war so auf Touch-Geräten nur per Tap erreichbar und blieb sonst unsichtbar.
  * Da nichts mehr aufklappt, sind die Kreise auch keine Bedienelemente mehr
  * (kein tabindex/role/aria-expanded — ein Button, der nichts tut, führt in die Irre).
  * Kein Karussell: Desktop = 5 Kreise nebeneinander, Mobile = Umbruch (flex-wrap).
- * Felder: eyebrow, title, text, rooms[] (name, theme, color, beschreibung).
+ * Felder: eyebrow, title, text, rooms[] (name, color, beschreibung).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -39,30 +39,31 @@ $lead       = get_sub_field( 'text' );
 		<?php if ( $rooms_rows ) : ?>
 		<ul class="rooms-circles" role="list">
 			<?php
-			$rn = 0;
 			while ( have_rows( 'rooms' ) ) :
 				the_row();
-				++$rn;
 				$c    = (string) get_sub_field( 'color' ); // g | y | o | b | l
-				$name = (string) get_sub_field( 'name' );
+				$name = trim( (string) get_sub_field( 'name' ) );
 				$desc = (string) get_sub_field( 'beschreibung' );
-				/* translators: %d = Zimmer-Nummer */
-				$label = sprintf( __( 'Raum %d', 'kidsclub' ), $rn );
+				if ( '' === $name ) {
+					continue; // Ohne Namen hätte der Kreis keine Beschriftung — Zeile überspringen.
+				}
 				?>
 				<li class="rooms-circles__item">
-					<div class="room <?php echo esc_attr( $c ); ?>" aria-hidden="true">
-						<span class="room-nr"><?php echo esc_html( $label ); ?></span>
+					<?php
+					/*
+					 * Der Kreis trägt den Namen aus dem Feld. Früher stand hier ein im Template
+					 * fest verdrahtetes „Raum %d“ — die Redaktion konnte das Wort nicht ändern,
+					 * und die Nummer sagte nichts über den Raum aus.
+					 */
+					?>
+					<div class="room <?php echo esc_attr( $c ); ?>">
+						<span class="room__name"><?php echo esc_html( $name ); ?></span>
 					</div>
-					<?php // Der Kreis ist rein dekorativ (aria-hidden) — die Nummer steht hier für Screenreader mit im Text. ?>
-					<div class="room__caption">
-						<b class="room__name">
-							<span class="screen-reader-text"><?php echo esc_html( $label . ' — ' ); ?></span>
-							<?php echo esc_html( $name ); ?>
-						</b>
-						<?php if ( $desc ) : ?>
+					<?php if ( $desc ) : ?>
+						<div class="room__caption">
 							<p class="room__desc"><?php echo wp_kses( $desc, [ 'strong' => [] ] ); ?></p>
-						<?php endif; ?>
-					</div>
+						</div>
+					<?php endif; ?>
 				</li>
 			<?php endwhile; ?>
 		</ul>
