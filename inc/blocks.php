@@ -802,11 +802,12 @@ add_action(
 												'name'          => 'overlay_slides_position',
 												'type'          => 'select',
 												'choices'       => [
+													'mitte' => 'Nach den ersten beiden Textblöcken (Vorgabe)',
 													'oben'  => 'Über dem Text — direkt nach der Einleitung',
 													'unten' => 'Unter dem Text — am Ende des Overlays',
 												],
-												'default_value' => 'oben',
-												'instructions'  => 'Wirkt nur, wenn oben Bilder hinterlegt sind. „Über dem Text“ zeigt zuerst den Ort und dann die Erklärung; „Unter dem Text“ lässt die Bilder den Abschnitt abschließen.',
+												'default_value' => 'mitte',
+												'instructions'  => 'Wirkt nur, wenn oben Bilder hinterlegt sind. Standard ist „nach den ersten beiden Textblöcken“ — der Slider unterbricht dann den Text, statt ihn anzukündigen oder abzuschließen.',
 												'conditional_logic' => [
 													[
 														[

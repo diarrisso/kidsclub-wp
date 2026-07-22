@@ -4,7 +4,7 @@
  * Felder: eyebrow, title, text, accordion_title, overlay_transition, items[]
  *   items: card_color, card_icon, symbol, heading, body,
  *          overlay_enabled, overlay_button, overlay_title, overlay_intro,
- *          overlay_slides[] (image, caption), overlay_slides_position (oben|unten),
+ *          overlay_slides[] (image, caption), overlay_slides_position (oben|mitte|unten),
  *          overlay_sections[] (title, body)
  *
  * "card_color" steuert die Pastell-Hintergrundfarbe der Karte (yellow|blue|green|pink).
@@ -171,8 +171,9 @@ foreach ( $overlays as $ov_id => $card ) :
 			);
 			// Position redaktionell wählbar. Der Slider wird EINMAL gebaut und dann an der
 			// gewünschten Stelle ausgegeben — zwei Markup-Kopien würden früher oder später
-			// auseinanderlaufen. Unbekannter/leerer Wert (Altbestand) => 'oben' wie bisher.
-			$slides_pos = 'unten' === ( $card['overlay_slides_position'] ?? 'oben' ) ? 'unten' : 'oben';
+			// auseinanderlaufen. Unbekannter/leerer Wert => 'mitte' (Vorgabe des Kunden).
+			$slides_pos = (string) ( $card['overlay_slides_position'] ?? '' );
+			$slides_pos = in_array( $slides_pos, [ 'oben', 'mitte', 'unten' ], true ) ? $slides_pos : 'mitte';
 			ob_start();
 			?>
 			<?php if ( $slides ) : ?>
@@ -222,26 +223,41 @@ foreach ( $overlays as $ov_id => $card ) :
 			<?php endif; ?>
 			<?php
 			$slider_html = (string) ob_get_clean();
+
+			/**
+			 * Ein Raster wird mehrfach gebraucht (bei „mitte“ zweimal), darum EINE
+			 * Funktion statt zweier Markup-Kopien. Jedes Raster zählt seine Kinder
+			 * selbst: die Trennlinie ab dem dritten Abschnitt (CSS nth-child) gilt
+			 * damit pro Raster, die erste Zeile bleibt jeweils ohne Linie.
+			 */
+			$render_grid = static function ( array $secs ) {
+				if ( ! $secs ) {
+					return;
+				}
+				echo '<div class="lsov__grid">';
+				foreach ( $secs as $sec ) {
+					// Kein Icon mehr: das Symbol steht bereits auf der Karte, die zum Overlay führt.
+					echo '<div class="lsov__sec">';
+					if ( ! empty( $sec['title'] ) ) {
+						echo '<h3 class="lsov__sec-title">' . esc_html( $sec['title'] ) . '</h3>';
+					}
+					echo '<div class="lsov__prose">' . wp_kses_post( (string) ( $sec['body'] ?? '' ) ) . '</div>';
+					echo '</div>';
+				}
+				echo '</div>';
+			};
+
 			if ( 'oben' === $slides_pos ) {
 				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- oben zusammengesetzt, jeder Wert dort einzeln escaped
-			}
-			?>
-			<?php if ( $sections ) : ?>
-				<div class="lsov__grid">
-					<?php foreach ( $sections as $sec ) : ?>
-						<?php // Kein Icon mehr: das Symbol steht bereits auf der Karte, die zum Overlay führt. ?>
-						<div class="lsov__sec">
-							<?php if ( ! empty( $sec['title'] ) ) : ?>
-								<h3 class="lsov__sec-title"><?php echo esc_html( $sec['title'] ); ?></h3>
-							<?php endif; ?>
-							<div class="lsov__prose"><?php echo wp_kses_post( (string) ( $sec['body'] ?? '' ) ); ?></div>
-						</div>
-					<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
-			<?php
-			if ( 'unten' === $slides_pos ) {
+				$render_grid( $sections );
+			} elseif ( 'unten' === $slides_pos ) {
+				$render_grid( $sections );
 				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
+			} else {
+				// „mitte“: nach den ersten beiden Textblöcken, also nach der ersten Rasterzeile.
+				$render_grid( array_slice( $sections, 0, 2 ) );
+				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
+				$render_grid( array_slice( $sections, 2 ) );
 			}
 			?>
 		</div>
