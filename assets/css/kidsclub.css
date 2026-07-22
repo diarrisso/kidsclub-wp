@@ -1606,25 +1606,26 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__prose li::before{content:"–";position:absolute;left:0;color:var(--magenta);font-weight:700}
 body.lsov-lock{overflow:hidden}
 /* ---- Bilder-Slider im Overlay ---- */
-.lsov__media{position:relative;margin:clamp(30px,4vw,48px) auto 0;width:100%}
+.lsov__media{position:relative;margin:clamp(30px,4vw,48px) auto 0;width:100%;display:flex;flex-wrap:wrap;align-items:stretch;gap:clamp(10px,1.4vw,18px)}
 /* Kein border-radius/overflow auf dem Track: die Ecken gehören den Folien, und ein
    abgeschnittener Track würde die Hover-Anhebung der Bilder kappen. */
-.lsov-swiper{overflow:hidden;padding-bottom:6px}
+.lsov-swiper{overflow:hidden;padding-bottom:6px;flex:1 1 0;min-width:0;order:1}
 .lsov-slide{margin:0;display:flex;flex-direction:column;height:auto;text-align:center}
-.lsov-slide__img{width:100%;height:auto;display:block;border-radius:var(--r-lg);object-fit:cover;aspect-ratio:4/3;background:#fff;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.lsov-slide__img{width:100%;height:auto;display:block;border-radius:var(--r-lg);object-fit:cover;aspect-ratio:4/5;background:#fff;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
 .lsov-slide:hover .lsov-slide__img{transform:translateY(-4px);box-shadow:var(--shadow)}
 .lsov-slide__cap{margin:14px 4px 0;font-size:.92rem;line-height:1.45;font-weight:500;color:var(--navy);text-wrap:pretty}
-.lsov__media .swiper-pagination{position:static;margin-top:16px;text-align:center}
-.lsov__media .swiper-nav{z-index:2;transition:background .2s,color .2s}
-.lsov__media .swiper-nav svg{width:22px;height:22px}
-.lsov__media .swiper-nav--prev{left:12px}
-.lsov__media .swiper-nav--next{right:12px}
+.lsov__media .swiper-pagination{position:static;order:3;flex:0 0 100%;margin-top:16px;text-align:center}
+.lsov__media .swiper-nav{position:static;transform:none;flex:0 0 auto;align-self:stretch;width:clamp(38px,3.6vw,54px);height:auto;border-radius:var(--r);background:color-mix(in oklab,var(--navy) 20%,transparent);color:#fff;box-shadow:none;transition:background .2s,color .2s}
+.lsov__media .swiper-nav svg{width:52%;height:auto}
+.lsov__media .swiper-nav--prev{order:0}
+.lsov__media .swiper-nav--next{order:2}
 .lsov__media .swiper-nav:hover{background:var(--navy);color:#fff}
+
 .lsov__media .swiper-nav:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
 .lsov__media .swiper-nav.swiper-button-disabled{opacity:.35;cursor:default}
 .lsov__media--single .lsov-swiper{overflow:visible}
 @media(prefers-reduced-motion:reduce){.lsov-swiper .swiper-wrapper{transition-duration:0ms !important}.lsov__media .swiper-nav{transition:none}.lsov-slide__img,.lsov-slide:hover .lsov-slide__img{transition:none;transform:none}}
-@media(max-width:760px){.lsov__media .swiper-nav{width:40px;height:40px}.lsov__media .swiper-nav--prev{left:6px}.lsov__media .swiper-nav--next{right:6px}}
+@media(max-width:760px){.lsov__media{gap:8px}.lsov__media .swiper-nav{width:32px}}
 @media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}}
 @media(prefers-reduced-motion:reduce){.lsov,.lsov.is-open{transition:visibility 0s;transform:none}.lsov__inner,.lsov.is-open .lsov__inner{transition:none;transform:none;opacity:1}.ls2-card,.ls2-card__more,.lsov__close{transition:none}}
 
