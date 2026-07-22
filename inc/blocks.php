@@ -797,6 +797,27 @@ add_action(
 												],
 											],
 											[
+												'key'           => 'field_kc_ls_ov_slides_pos',
+												'label'         => 'Position des Sliders',
+												'name'          => 'overlay_slides_position',
+												'type'          => 'select',
+												'choices'       => [
+													'oben'  => 'Über dem Text — direkt nach der Einleitung',
+													'unten' => 'Unter dem Text — am Ende des Overlays',
+												],
+												'default_value' => 'oben',
+												'instructions'  => 'Wirkt nur, wenn oben Bilder hinterlegt sind. „Über dem Text“ zeigt zuerst den Ort und dann die Erklärung; „Unter dem Text“ lässt die Bilder den Abschnitt abschließen.',
+												'conditional_logic' => [
+													[
+														[
+															'field'    => 'field_kc_ls_ov_enabled',
+															'operator' => '==',
+															'value'    => '1',
+														],
+													],
+												],
+											],
+											[
 												'key'    => 'field_kc_ls_ov_sections',
 												'label'  => 'Overlay-Abschnitte',
 												'name'   => 'overlay_sections',

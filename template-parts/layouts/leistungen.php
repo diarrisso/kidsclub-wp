@@ -4,7 +4,8 @@
  * Felder: eyebrow, title, text, accordion_title, overlay_transition, items[]
  *   items: card_color, card_icon, symbol, heading, body,
  *          overlay_enabled, overlay_button, overlay_title, overlay_intro,
- *          overlay_slides[] (image, caption), overlay_sections[] (title, body)
+ *          overlay_slides[] (image, caption), overlay_slides_position (oben|unten),
+ *          overlay_sections[] (title, body)
  *
  * "card_color" steuert die Pastell-Hintergrundfarbe der Karte (yellow|blue|green|pink).
  * "card_icon"  = weißes Linien-Icon oben rechts (kc_icon: zahn|buerste|smiley|gebiss|herz).
@@ -168,6 +169,11 @@ foreach ( $overlays as $ov_id => $card ) :
 					}
 				)
 			);
+			// Position redaktionell wählbar. Der Slider wird EINMAL gebaut und dann an der
+			// gewünschten Stelle ausgegeben — zwei Markup-Kopien würden früher oder später
+			// auseinanderlaufen. Unbekannter/leerer Wert (Altbestand) => 'oben' wie bisher.
+			$slides_pos = 'unten' === ( $card['overlay_slides_position'] ?? 'oben' ) ? 'unten' : 'oben';
+			ob_start();
 			?>
 			<?php if ( $slides ) : ?>
 				<?php $multi = count( $slides ) > 1; ?>
@@ -214,6 +220,12 @@ foreach ( $overlays as $ov_id => $card ) :
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
+			<?php
+			$slider_html = (string) ob_get_clean();
+			if ( 'oben' === $slides_pos ) {
+				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- oben zusammengesetzt, jeder Wert dort einzeln escaped
+			}
+			?>
 			<?php if ( $sections ) : ?>
 				<div class="lsov__grid">
 					<?php foreach ( $sections as $sec ) : ?>
@@ -227,6 +239,11 @@ foreach ( $overlays as $ov_id => $card ) :
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
+			<?php
+			if ( 'unten' === $slides_pos ) {
+				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
+			}
+			?>
 		</div>
 	</div>
 <?php endforeach; ?>
