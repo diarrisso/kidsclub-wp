@@ -797,17 +797,17 @@ add_action(
 												],
 											],
 											[
-												'key'           => 'field_kc_ls_ov_slides_pos',
-												'label'         => 'Position des Sliders',
-												'name'          => 'overlay_slides_position',
-												'type'          => 'select',
-												'choices'       => [
+												'key'     => 'field_kc_ls_ov_slides_pos',
+												'label'   => 'Position des Sliders',
+												'name'    => 'overlay_slides_position',
+												'type'    => 'select',
+												'choices' => [
 													'mitte' => 'Nach den ersten beiden Textblöcken (Vorgabe)',
-													'oben'  => 'Über dem Text — direkt nach der Einleitung',
+													'oben' => 'Über dem Text — direkt nach der Einleitung',
 													'unten' => 'Unter dem Text — am Ende des Overlays',
 												],
 												'default_value' => 'mitte',
-												'instructions'  => 'Wirkt nur, wenn oben Bilder hinterlegt sind. Standard ist „nach den ersten beiden Textblöcken“ — der Slider unterbricht dann den Text, statt ihn anzukündigen oder abzuschließen.',
+												'instructions' => 'Wirkt nur, wenn oben Bilder hinterlegt sind. Standard ist „nach den ersten beiden Textblöcken“ — der Slider unterbricht dann den Text, statt ihn anzukündigen oder abzuschließen.',
 												'conditional_logic' => [
 													[
 														[
@@ -899,11 +899,11 @@ add_action(
 										'layout'     => 'table',
 										'sub_fields' => [
 											[
-												'key'          => 'field_kc_name',
-												'label'        => 'Name',
-												'name'         => 'name',
-												'type'         => 'text',
-												'required'     => 1,
+												'key'      => 'field_kc_name',
+												'label'    => 'Name',
+												'name'     => 'name',
+												'type'     => 'text',
+												'required' => 1,
 												'instructions' => 'Steht im farbigen Kreis, z. B. „Sonne“. Ohne Namen wird der Raum nicht angezeigt.',
 											],
 											[
@@ -920,11 +920,11 @@ add_action(
 												],
 											],
 											[
-												'key'          => 'field_kc_beschreibung',
-												'label'        => 'Beschreibung',
-												'name'         => 'beschreibung',
-												'type'         => 'textarea',
-												'rows'         => 3,
+												'key'   => 'field_kc_beschreibung',
+												'label' => 'Beschreibung',
+												'name'  => 'beschreibung',
+												'type'  => 'textarea',
+												'rows'  => 3,
 												'instructions' => 'Steht dauerhaft unter dem Kreis — kein Mouseover mehr. Leer lassen = nur der Kreis.',
 											],
 										],

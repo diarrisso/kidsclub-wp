@@ -247,19 +247,19 @@ foreach ( $overlays as $ov_id => $card ) :
 				echo '</div>';
 			};
 
-			if ( 'oben' === $slides_pos ) {
-				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- oben zusammengesetzt, jeder Wert dort einzeln escaped
-				$render_grid( $sections );
-			} elseif ( 'unten' === $slides_pos ) {
-				$render_grid( $sections );
-				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
-			} else {
-				// „mitte“: nach den ersten beiden Textblöcken, also nach der ersten Rasterzeile.
-				$render_grid( array_slice( $sections, 0, 2 ) );
-				echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
-				$render_grid( array_slice( $sections, 2 ) );
-			}
-			?>
+	if ( 'oben' === $slides_pos ) {
+		echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- oben zusammengesetzt, jeder Wert dort einzeln escaped
+		$render_grid( $sections );
+	} elseif ( 'unten' === $slides_pos ) {
+		$render_grid( $sections );
+		echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
+	} else {
+		// „mitte“: nach den ersten beiden Textblöcken, also nach der ersten Rasterzeile.
+		$render_grid( array_slice( $sections, 0, 2 ) );
+		echo $slider_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- siehe oben
+		$render_grid( array_slice( $sections, 2 ) );
+	}
+	?>
 		</div>
 	</div>
 <?php endforeach; ?>
