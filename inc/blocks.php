@@ -760,6 +760,43 @@ add_action(
 												],
 											],
 											[
+												'key'    => 'field_kc_ls_ov_slides',
+												'label'  => 'Overlay-Bilder (Slider)',
+												'name'   => 'overlay_slides',
+												'type'   => 'repeater',
+												'layout' => 'block',
+												'button_label' => 'Bild hinzufügen',
+												'instructions' => 'Bilder zu dieser Leistung — Räume, Geräte, Team bei der Arbeit. Erscheinen als Slider unter der Einleitung. Leer lassen = kein Slider. Ab zwei Bildern erscheinen Pfeile und Punkte; ein einzelnes Bild wird einfach angezeigt.',
+												'conditional_logic' => [
+													[
+														[
+															'field'    => 'field_kc_ls_ov_enabled',
+															'operator' => '==',
+															'value'    => '1',
+														],
+													],
+												],
+												'sub_fields' => [
+													[
+														'key'           => 'field_kc_ls_ov_slide_img',
+														'label'         => 'Bild',
+														'name'          => 'image',
+														'type'          => 'image',
+														'return_format' => 'array',
+														'preview_size'  => 'medium',
+														'mime_types'    => 'jpg,jpeg,png,webp',
+														'instructions'  => 'Querformat empfohlen (16:10). Bitte im Medienbereich einen Alt-Text pflegen — er wird für Screenreader übernommen.',
+													],
+													[
+														'key'          => 'field_kc_ls_ov_slide_cap',
+														'label'        => 'Bildunterschrift',
+														'name'         => 'caption',
+														'type'         => 'text',
+														'instructions' => 'Kurzer Text unter dem Bild. Leer lassen = Bild ohne Unterschrift.',
+													],
+												],
+											],
+											[
 												'key'    => 'field_kc_ls_ov_sections',
 												'label'  => 'Overlay-Abschnitte',
 												'name'   => 'overlay_sections',
@@ -777,40 +814,10 @@ add_action(
 													],
 												],
 												'sub_fields' => [
-													[
-														'key'           => 'field_kc_ls_ov_sec_icon',
-														'label'         => 'Icon',
-														'name'          => 'icon',
-														'type'          => 'select',
-														'choices'       => [
-															'symbol5' => 'Zahn mit Gesicht (Spray)',
-															'symbol7' => 'Zahn mit Gesicht 2 (Spray)',
-															'symbol1' => 'Zahn + Bürste (Spray)',
-															'symbol2' => 'Gebiss (Spray)',
-															'symbol8' => 'Gebiss 2 (Spray)',
-															'symbol3' => 'Zahnpasta (Spray)',
-															'symbol4' => 'Herz (Spray)',
-															'symbol9' => 'Herz 2 (Spray)',
-															'symbol6' => 'Smiley (Spray)',
-															'zahn'    => 'Zahn (Linie)',
-															'buerste' => 'Zahnbürste (Linie)',
-															'smiley'  => 'Smiley (Linie)',
-															'gebiss'  => 'Gebiss (Linie)',
-															'herz'    => 'Herz (Linie)',
-														],
-														[
-															'key'          => 'field_kc_ls_ov_sec_icon_custom',
-															'label'        => 'Eigenes Icon (Upload)',
-															'name'         => 'icon_custom',
-															'type'         => 'image',
-															'return_format' => 'array',
-															'mime_types'   => 'svg,png,webp',
-															'instructions' => 'Überschreibt die Auswahl. Wird einfarbig weiß dargestellt.',
-														],
-														'default_value' => 'symbol6',
-														'allow_null'    => 1,
-														'instructions'  => 'Linien-Icon links neben dem Abschnitt.',
-													],
+													/* Die beiden Icon-Felder sind entfallen: das Symbol steht bereits auf der Karte,
+														im Overlay war es reine Doppelung. „Eigenes Icon (Upload)“ war ohnehin nie
+														registriert — seine Definition steckte im choices-Array des Auswahlfelds,
+														ACF hat sie stillschweigend ignoriert. */
 													[
 														'key'   => 'field_kc_ls_ov_sec_title',
 														'label' => 'Abschnitts-Titel',

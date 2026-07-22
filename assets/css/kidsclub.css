@@ -1593,10 +1593,9 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__intro{margin:clamp(14px,1.6vw,22px) 0 0;max-width:62ch;color:var(--navy);font-weight:500;line-height:1.6;font-size:clamp(1.08rem,1.5vw,1.32rem)}
 .lsov__intro p{margin:0}
 .lsov__grid{margin-top:clamp(38px,5.5vw,72px);display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(36px,5vw,72px);row-gap:0}
-.lsov__sec{display:grid;grid-template-columns:clamp(40px,3.4vw,48px) 1fr;gap:clamp(16px,1.6vw,24px);align-items:start;padding:clamp(26px,3.4vw,44px) 0}
+/* Ohne Icon-Spalte: der Text nutzt jetzt die volle Spaltenbreite. */
+.lsov__sec{padding:clamp(26px,3.4vw,44px) 0}
 .lsov__sec:nth-child(n+3){border-top:1px solid rgba(16,46,121,.16)}
-.lsov__ic{width:100%;height:auto;color:#fff;margin-top:2px}
-.lsov__ic svg{width:100%;height:auto;display:block}
 .lsov__sec-title{margin:0 0 clamp(10px,1vw,14px);color:var(--navy);font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.11em;font-size:.9rem;line-height:1.3}
 .lsov__prose{color:var(--navy);font-weight:500;line-height:1.7;font-size:1.02rem;max-width:60ch}
 .lsov__prose p{margin:0 0 .8em}
@@ -1605,7 +1604,24 @@ button:hover .kc-icon-custom,a:hover .kc-icon-custom{transform:scale(1.6)}
 .lsov__prose li{position:relative;padding-left:1.25em;margin:.28em 0}
 .lsov__prose li::before{content:"–";position:absolute;left:0;color:var(--magenta);font-weight:700}
 body.lsov-lock{overflow:hidden}
-@media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}.lsov__sec{grid-template-columns:1fr;gap:12px}.lsov__ic{width:clamp(36px,10vw,44px)}}
+/* ---- Bilder-Slider im Overlay ---- */
+.lsov__media{position:relative;margin:clamp(26px,3.5vw,42px) 0 0;max-width:840px}
+.lsov-swiper{overflow:hidden;border-radius:var(--r-lg)}
+.lsov-slide{margin:0;display:flex;flex-direction:column}
+.lsov-slide__img{width:100%;height:auto;display:block;border-radius:var(--r-lg);object-fit:cover;aspect-ratio:16/10}
+.lsov-slide__cap{margin:12px 2px 0;font-size:.92rem;line-height:1.45;font-weight:500;color:var(--navy)}
+.lsov__media .swiper-pagination{position:static;margin-top:16px;text-align:center}
+.lsov__media .swiper-nav{z-index:2;transition:background .2s,color .2s}
+.lsov__media .swiper-nav svg{width:22px;height:22px}
+.lsov__media .swiper-nav--prev{left:12px}
+.lsov__media .swiper-nav--next{right:12px}
+.lsov__media .swiper-nav:hover{background:var(--navy);color:#fff}
+.lsov__media .swiper-nav:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+.lsov__media .swiper-nav.swiper-button-disabled{opacity:.35;cursor:default}
+.lsov__media--single .lsov-swiper{overflow:visible}
+@media(prefers-reduced-motion:reduce){.lsov-swiper .swiper-wrapper{transition-duration:0ms !important}.lsov__media .swiper-nav{transition:none}}
+@media(max-width:760px){.lsov__media .swiper-nav{width:40px;height:40px}.lsov__media .swiper-nav--prev{left:6px}.lsov__media .swiper-nav--next{right:6px}}
+@media(max-width:760px){.lsov__grid{grid-template-columns:1fr}.lsov__sec:nth-child(n+2){border-top:1px solid rgba(16,46,121,.16)}}
 @media(prefers-reduced-motion:reduce){.lsov,.lsov.is-open{transition:visibility 0s;transform:none}.lsov__inner,.lsov.is-open .lsov__inner{transition:none;transform:none;opacity:1}.ls2-card,.ls2-card__more,.lsov__close{transition:none}}
 
 /* FAQ: weiße Nummer 1/2/3 vor der Frage (wie im finalen PDF) */
@@ -1614,4 +1630,3 @@ body.lsov-lock{overflow:hidden}
 /* Symbol-Illustrationen einfarbig (Maske, currentColor) — Karten-Header + Overlay-Abschnitte */
 .kc-symbol-mask{display:block;background:currentColor}
 .ls2-card__ic .kc-symbol-mask{width:100%;height:clamp(44px,3.8vw,56px)}
-.lsov__ic .kc-symbol-mask{width:100%;height:clamp(36px,3vw,46px)}

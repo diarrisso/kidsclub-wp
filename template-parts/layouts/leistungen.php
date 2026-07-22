@@ -3,7 +3,8 @@
  * Layout: Leistungsspektrum.
  * Felder: eyebrow, title, text, accordion_title, overlay_transition, items[]
  *   items: card_color, card_icon, symbol, heading, body,
- *          overlay_enabled, overlay_button, overlay_title, overlay_intro, overlay_sections[] (icon, title, body)
+ *          overlay_enabled, overlay_button, overlay_title, overlay_intro,
+ *          overlay_slides[] (image, caption), overlay_sections[] (title, body)
  *
  * "card_color" steuert die Pastell-Hintergrundfarbe der Karte (yellow|blue|green|pink).
  * "card_icon"  = weißes Linien-Icon oben rechts (kc_icon: zahn|buerste|smiley|gebiss|herz).
@@ -131,6 +132,9 @@ foreach ( $overlays as $ov_id => $card ) :
 	$color    = $card['card_color'] ?: 'yellow';
 	$ov_title = $card['overlay_title'] ?: $card['heading'];
 	$sections = $card['overlay_sections'] ?: [];
+	// Eigener Präfix pro Overlay: mehrere Overlays liegen gleichzeitig im DOM, ein
+	// gemeinsamer Präfix würde die Pfeil-/Pagination-Klassen kollidieren lassen.
+	$sw_prefix = $ov_id . '-sw';
 	?>
 	<div class="lsov lsov--<?php echo esc_attr( $color ); ?>"
 		id="<?php echo esc_attr( $ov_id ); ?>"
@@ -147,22 +151,78 @@ foreach ( $overlays as $ov_id => $card ) :
 			<?php if ( $intro ) : ?>
 				<div class="lsov__intro"><?php echo wp_kses_post( (string) $intro ); ?></div>
 			<?php endif; ?>
+
+			<?php
+			/**
+			 * Bilder-Slider. Nur Zeilen mit echtem Bild zählen — eine leere Repeater-Zeile
+			 * würde sonst eine leere Folie erzeugen. Ab zwei Bildern Navigation + Pagination;
+			 * ein einzelnes Bild braucht keinen Slider und wird direkt gezeigt.
+			 * Swiper wird ERST beim Öffnen initialisiert (siehe kidsclub.js): in einem
+			 * `hidden` Overlay misst Swiper eine Breite von 0 und alle Folien überlagern sich.
+			 */
+			$slides = array_values(
+				array_filter(
+					(array) ( $card['overlay_slides'] ?? [] ),
+					static function ( $s ) {
+						return ! empty( $s['image']['url'] );
+					}
+				)
+			);
+			?>
+			<?php if ( $slides ) : ?>
+				<?php $multi = count( $slides ) > 1; ?>
+				<div class="lsov__media<?php echo $multi ? '' : ' lsov__media--single'; ?>">
+					<div class="lsov-swiper swiper"<?php echo $multi ? ' data-lsov-swiper' : ''; ?>>
+						<div class="swiper-wrapper"<?php echo $multi ? ' aria-live="polite"' : ''; ?>>
+							<?php foreach ( $slides as $si => $slide ) : ?>
+								<figure class="swiper-slide lsov-slide">
+									<?php
+									echo wp_get_attachment_image(
+										(int) $slide['image']['ID'],
+										'large',
+										false,
+										[
+											'class'   => 'lsov-slide__img',
+											'loading' => 'lazy',
+											'alt'     => esc_attr( (string) ( $slide['image']['alt'] ?? '' ) ),
+										]
+									);
+									?>
+									<?php if ( ! empty( $slide['caption'] ) ) : ?>
+										<figcaption class="lsov-slide__cap"><?php echo esc_html( $slide['caption'] ); ?></figcaption>
+									<?php endif; ?>
+									<?php if ( $multi ) : ?>
+										<span class="screen-reader-text"><?php printf( 'Folie %1$d von %2$d', (int) $si + 1, count( $slides ) ); ?></span>
+									<?php endif; ?>
+								</figure>
+							<?php endforeach; ?>
+						</div>
+					</div>
+					<?php if ( $multi ) : ?>
+						<?php
+						get_template_part(
+							'template-parts/components/swiper-nav',
+							null,
+							[ 'prefix' => $sw_prefix ]
+						);
+						get_template_part(
+							'template-parts/components/swiper-pagination',
+							null,
+							[ 'prefix' => $sw_prefix ]
+						);
+						?>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
 			<?php if ( $sections ) : ?>
 				<div class="lsov__grid">
 					<?php foreach ( $sections as $sec ) : ?>
+						<?php // Kein Icon mehr: das Symbol steht bereits auf der Karte, die zum Overlay führt. ?>
 						<div class="lsov__sec">
-							<?php
-							// Priorität: eigener Upload → Spray-Symbol → Linien-Glyphe.
-							$sic_url = is_array( $sec['icon_custom'] ?? null ) ? (string) ( $sec['icon_custom']['url'] ?? '' ) : '';
-							$sic     = (string) ( $sec['icon'] ?? '' );
-							?>
-							<span class="lsov__ic" aria-hidden="true"><?php echo '' !== $sic_url ? kc_icon_mask_url( $sic_url ) : ( '' === $sic ? '' : ( 0 === strpos( $sic, 'symbol' ) ? kc_symbol_mask( $sic ) : kc_icon( $sic ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-							<div>
-								<?php if ( ! empty( $sec['title'] ) ) : ?>
-									<h3 class="lsov__sec-title"><?php echo esc_html( $sec['title'] ); ?></h3>
-								<?php endif; ?>
-								<div class="lsov__prose"><?php echo wp_kses_post( (string) ( $sec['body'] ?? '' ) ); ?></div>
-							</div>
+							<?php if ( ! empty( $sec['title'] ) ) : ?>
+								<h3 class="lsov__sec-title"><?php echo esc_html( $sec['title'] ); ?></h3>
+							<?php endif; ?>
+							<div class="lsov__prose"><?php echo wp_kses_post( (string) ( $sec['body'] ?? '' ) ); ?></div>
 						</div>
 					<?php endforeach; ?>
 				</div>

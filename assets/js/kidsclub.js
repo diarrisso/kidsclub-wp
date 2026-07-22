@@ -508,6 +508,45 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function firstFocusable(el) { return el.querySelector(SEL); }
 
+  /**
+   * Bilder-Slider im Overlay — ERST beim Öffnen initialisieren.
+   * Solange das Overlay `hidden` ist, misst Swiper eine Breite von 0: alle Folien
+   * lägen übereinander und die Navigation bliebe tot. Deshalb lazy, einmal pro
+   * Overlay; bei jedem weiteren Öffnen genügt ein update() (das Layout kann sich
+   * durch eine Fenstergröße geändert haben, während das Overlay zu war).
+   */
+  /**
+   * Die Overlay-Bilder tragen loading="lazy", damit sie beim Seitenaufruf nichts
+   * kosten — der Inhalt liegt hinter einem Klick. Chromes Lazy-Scheduler startet
+   * nach dem Sichtbarwerden aber merklich verzögert: gemessen stand die erste
+   * Folie noch nach zwei Sekunden leer. Beim Öffnen daher selbst anstoßen.
+   */
+  function eagerLoadImages(el) {
+    var imgs = el.querySelectorAll('img[loading="lazy"]');
+    [].forEach.call(imgs, function (img) { img.loading = 'eager'; });
+  }
+
+  function initOverlaySwiper(el) {
+    var node = el.querySelector('[data-lsov-swiper]');
+    if (!node || typeof window.Swiper === 'undefined') { return; }
+    if (node.swiper) { node.swiper.update(); return; }
+    new window.Swiper(node, {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      speed: reduce ? 0 : 500,
+      autoHeight: true,
+      navigation: {
+        prevEl: el.querySelector('.swiper-nav--prev'),
+        nextEl: el.querySelector('.swiper-nav--next')
+      },
+      pagination: {
+        el: el.querySelector('.swiper-pagination'),
+        clickable: true
+      },
+      a11y: { enabled: true }
+    });
+  }
+
   function openOverlay(id, trigger) {
     var el = document.getElementById(id);
     if (!el) { return; }
@@ -519,6 +558,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // rAF im Hintergrund-Tab pausiert. Fokus ERST nach is-open (visibility:hidden ist nicht fokussierbar).
     void el.offsetWidth;
     el.classList.add('is-open');
+    // Nach dem Reflow: das Overlay ist jetzt sichtbar und hat eine echte Breite.
+    eagerLoadImages(el);
+    initOverlaySwiper(el);
     var f = firstFocusable(el); if (f) { f.focus(); }
     el.scrollTop = 0;
   }
