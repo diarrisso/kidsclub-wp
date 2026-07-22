@@ -531,10 +531,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!node || typeof window.Swiper === 'undefined') { return; }
     if (node.swiper) { node.swiper.update(); return; }
     new window.Swiper(node, {
-      slidesPerView: 1,
-      spaceBetween: 20,
+      slidesPerView: 1.15,
+      spaceBetween: 16,
       speed: reduce ? 0 : 500,
-      autoHeight: true,
+      // Reichen die Folien nicht für eine volle Reihe, rückt Swiper sie sonst nach
+      // links; zentriert wirken zwei Bilder in einer Dreierspur nicht wie ein Rest.
+      centerInsufficientSlides: true,
+      // Navigation und Punkte verschwinden, wenn ohnehin alles sichtbar ist.
+      watchOverflow: true,
+      breakpoints: {
+        640: { slidesPerView: 2, spaceBetween: 20 },
+        1000: { slidesPerView: 3, spaceBetween: 24 }
+      },
       navigation: {
         prevEl: el.querySelector('.swiper-nav--prev'),
         nextEl: el.querySelector('.swiper-nav--next')
